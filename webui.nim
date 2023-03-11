@@ -416,8 +416,3 @@ proc generateJsBridge*(win: Window): string =
 # Maybe wrap script interface? 
 
 export bindings.webui, bindings.WEBUI_VERSION
-
-when isMainModule:
-  let w = newWindow()
-  w.show("<html>hello!</html>")
-  wait()

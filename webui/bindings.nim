@@ -305,8 +305,3 @@ proc strCopy*(destination: cstring; source: cstring) {.cdecl,
 proc fileExistMg*(evData: pointer): bool {.cdecl,
     importc: "_webui_file_exist_mg", webui.}
 proc fileExist*(file: cstring): bool {.cdecl, importc: "_webui_file_exist", webui.}
-
-when isMainModule:
-  let win = newWindow()
-  discard win.show("<html>Hello</html>", 0)
-  wait()
