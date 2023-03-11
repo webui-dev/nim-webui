@@ -1,0 +1,91 @@
+WEBUI_VERSION	webui/bindings.html#WEBUI_VERSION	bindings: WEBUI_VERSION	
+WEBUI_HEADER_SIGNATURE	webui/bindings.html#WEBUI_HEADER_SIGNATURE	bindings: WEBUI_HEADER_SIGNATURE	
+WEBUI_HEADER_JS	webui/bindings.html#WEBUI_HEADER_JS	bindings: WEBUI_HEADER_JS	
+WEBUI_HEADER_CLICK	webui/bindings.html#WEBUI_HEADER_CLICK	bindings: WEBUI_HEADER_CLICK	
+WEBUI_HEADER_SWITCH	webui/bindings.html#WEBUI_HEADER_SWITCH	bindings: WEBUI_HEADER_SWITCH	
+WEBUI_HEADER_CLOSE	webui/bindings.html#WEBUI_HEADER_CLOSE	bindings: WEBUI_HEADER_CLOSE	
+WEBUI_HEADER_CALL_FUNC	webui/bindings.html#WEBUI_HEADER_CALL_FUNC	bindings: WEBUI_HEADER_CALL_FUNC	
+WEBUI_MAX_ARRAY	webui/bindings.html#WEBUI_MAX_ARRAY	bindings: WEBUI_MAX_ARRAY	
+WEBUI_MIN_PORT	webui/bindings.html#WEBUI_MIN_PORT	bindings: WEBUI_MIN_PORT	
+WEBUI_MAX_PORT	webui/bindings.html#WEBUI_MAX_PORT	bindings: WEBUI_MAX_PORT	
+WEBUI_MAX_BUF	webui/bindings.html#WEBUI_MAX_BUF	bindings: WEBUI_MAX_BUF	
+WEBUI_DEFAULT_PATH	webui/bindings.html#WEBUI_DEFAULT_PATH	bindings: WEBUI_DEFAULT_PATH	
+WEBUI_DEF_TIMEOUT	webui/bindings.html#WEBUI_DEF_TIMEOUT	bindings: WEBUI_DEF_TIMEOUT	
+WindowCore	webui/bindings.html#WindowCore	bindings: WindowCore	
+Window	webui/bindings.html#Window	bindings: Window	
+Event	webui/bindings.html#Event	bindings: Event	
+JavascriptResult	webui/bindings.html#JavascriptResult	bindings: JavascriptResult	
+Script	webui/bindings.html#Script	bindings: Script	
+Cb	webui/bindings.html#Cb	bindings: Cb	
+CmdAsync	webui/bindings.html#CmdAsync	bindings: CmdAsync	
+CustomBrowser	webui/bindings.html#CustomBrowser	bindings: CustomBrowser	
+Browser	webui/bindings.html#Browser	bindings: Browser	
+Runtime	webui/bindings.html#Runtime	bindings: Runtime	
+Webui	webui/bindings.html#Webui	bindings: Webui	
+webui	webui/bindings.html#webui_2	bindings: webui	
+wait	webui/bindings.html#wait	bindings: wait()	
+exit	webui/bindings.html#exit	bindings: exit()	
+isAnyWindowRunning	webui/bindings.html#isAnyWindowRunning	bindings: isAnyWindowRunning(): bool	
+isAppRunning	webui/bindings.html#isAppRunning	bindings: isAppRunning(): bool	
+setTimeout	webui/bindings.html#setTimeout,cuint	bindings: setTimeout(second: cuint)	
+newWindow	webui/bindings.html#newWindow	bindings: newWindow(): ptr Window	
+show	webui/bindings.html#show,ptr.Window,cstring,cuint	bindings: show(win: ptr Window; html: cstring; browser: cuint): bool	
+showCpy	webui/bindings.html#showCpy,ptr.Window,cstring,cuint	bindings: showCpy(win: ptr Window; html: cstring; browser: cuint): bool	
+refresh	webui/bindings.html#refresh,ptr.Window,cstring	bindings: refresh(win: ptr Window; html: cstring): bool	
+refreshCpy	webui/bindings.html#refreshCpy,ptr.Window,cstring	bindings: refreshCpy(win: ptr Window; html: cstring): bool	
+setIcon	webui/bindings.html#setIcon,ptr.Window,cstring,cstring	bindings: setIcon(win: ptr Window; iconS: cstring; typeS: cstring)	
+multiAccess	webui/bindings.html#multiAccess,ptr.Window,bool	bindings: multiAccess(win: ptr Window; status: bool)	
+newServer	webui/bindings.html#newServer,ptr.Window,cstring	bindings: newServer(win: ptr Window; path: cstring): cstring	
+close	webui/bindings.html#close,ptr.Window	bindings: close(win: ptr Window)	
+isShown	webui/bindings.html#isShown,ptr.Window	bindings: isShown(win: ptr Window): bool	
+script	webui/bindings.html#script,ptr.Window,ptr.Script	bindings: script(win: ptr Window; script: ptr Script)	
+`bind`	webui/bindings.html#bind,ptr.Window,cstring,proc(ptr.Event)	bindings: `bind`(win: ptr Window; element: cstring; func: proc (e: ptr Event) {.cdecl.}): cuint	
+bindAll	webui/bindings.html#bindAll,ptr.Window,proc(ptr.Event)	bindings: bindAll(win: ptr Window; func: proc (e: ptr Event) {.cdecl.})	
+open	webui/bindings.html#open,ptr.Window,cstring,cuint	bindings: open(win: ptr Window; url: cstring; browser: cuint): bool	
+scriptCleanup	webui/bindings.html#scriptCleanup,ptr.Script	bindings: scriptCleanup(script: ptr Script)	
+scriptRuntime	webui/bindings.html#scriptRuntime,ptr.Window,cuint	bindings: scriptRuntime(win: ptr Window; runtime: cuint)	
+getInt	webui/bindings.html#getInt,ptr.Event	bindings: getInt(e: ptr Event): cint	
+getString	webui/bindings.html#getString,ptr.Event	bindings: getString(e: ptr Event): cstring	
+getBool	webui/bindings.html#getBool,ptr.Event	bindings: getBool(e: ptr Event): bool	
+returnInt	webui/bindings.html#returnInt,ptr.Event,cint	bindings: returnInt(e: ptr Event; n: cint)	
+returnString	webui/bindings.html#returnString,ptr.Event,cstring	bindings: returnString(e: ptr Event; s: cstring)	
+returnBool	webui/bindings.html#returnBool,ptr.Event,bool	bindings: returnBool(e: ptr Event; b: bool)	
+ScriptInterface	webui/bindings.html#ScriptInterface	bindings: ScriptInterface	
+bindInterface	webui/bindings.html#bindInterface,ptr.Window,cstring,proc(cuint,cuint,cstring,ptr.Window,cstring,cstringArray)	bindings: bindInterface(win: ptr Window; element: cstring; func: proc (elementId: cuint;\n    windowId: cuint; elementName: cstring; window: ptr Window; data: cstring;\n    response: cstringArray) {.cdecl.}): cuint	
+scriptInterface	webui/bindings.html#scriptInterface,ptr.Window,cstring,cuint,ptr.bool,ptr.cuint,cstring	bindings: scriptInterface(win: ptr Window; script: cstring; timeout: cuint;\n                error: ptr bool; length: ptr cuint; data: cstring)	
+scriptInterfaceStruct	webui/bindings.html#scriptInterfaceStruct,ptr.Window,ptr.ScriptInterface	bindings: scriptInterfaceStruct(win: ptr Window; jsInt: ptr ScriptInterface)	
+init	webui/bindings.html#init	bindings: init()	
+getCbIndex	webui/bindings.html#getCbIndex,cstring	bindings: getCbIndex(internalId: cstring): cuint	
+setCbIndex	webui/bindings.html#setCbIndex,cstring	bindings: setCbIndex(internalId: cstring): cuint	
+getFreePort	webui/bindings.html#getFreePort	bindings: getFreePort(): cuint	
+getNewWindowNumber	webui/bindings.html#getNewWindowNumber	bindings: getNewWindowNumber(): cuint	
+waitForStartup	webui/bindings.html#waitForStartup	bindings: waitForStartup()	
+freePort	webui/bindings.html#freePort,cuint	bindings: freePort(port: cuint)	
+setCustomBrowser	webui/bindings.html#setCustomBrowser,ptr.CustomBrowser	bindings: setCustomBrowser(p: ptr CustomBrowser)	
+getCurrentPath	webui/bindings.html#getCurrentPath	bindings: getCurrentPath(): cstring	
+windowReceive	webui/bindings.html#windowReceive,ptr.Window,cstring,csize_t	bindings: windowReceive(win: ptr Window; packet: cstring; len: csize_t)	
+windowSend	webui/bindings.html#windowSend,ptr.Window,cstring,csize_t	bindings: windowSend(win: ptr Window; packet: cstring; packetsSize: csize_t)	
+windowEvent	webui/bindings.html#windowEvent,ptr.Window,cstring,cstring,pointer,cuint	bindings: windowEvent(win: ptr Window; elementId: cstring; element: cstring;\n            data: pointer; dataLen: cuint)	
+windowGetNumber	webui/bindings.html#windowGetNumber,ptr.Window	bindings: windowGetNumber(win: ptr Window): cuint	
+windowOpen	webui/bindings.html#windowOpen,ptr.Window,cstring,cuint	bindings: windowOpen(win: ptr Window; link: cstring; browser: cuint)	
+cmdSync	webui/bindings.html#cmdSync,cstring,bool	bindings: cmdSync(cmd: cstring; show: bool): cint	
+cmdAsync	webui/bindings.html#cmdAsync,cstring,bool	bindings: cmdAsync(cmd: cstring; show: bool): cint	
+runBrowser	webui/bindings.html#runBrowser,ptr.Window,cstring	bindings: runBrowser(win: ptr Window; cmd: cstring): cint	
+clean	webui/bindings.html#clean	bindings: clean()	
+browserExist	webui/bindings.html#browserExist,ptr.Window,cuint	bindings: browserExist(win: ptr Window; browser: cuint): bool	
+browserGetTempPath	webui/bindings.html#browserGetTempPath,cuint	bindings: browserGetTempPath(browser: cuint): cstring	
+folderExist	webui/bindings.html#folderExist,cstring	bindings: folderExist(folder: cstring): bool	
+browserCreateProfileFolder	webui/bindings.html#browserCreateProfileFolder,ptr.Window,cuint	bindings: browserCreateProfileFolder(win: ptr Window; browser: cuint): bool	
+browserStartEdge	webui/bindings.html#browserStartEdge,ptr.Window,cstring	bindings: browserStartEdge(win: ptr Window; address: cstring): bool	
+browserStartFirefox	webui/bindings.html#browserStartFirefox,ptr.Window,cstring	bindings: browserStartFirefox(win: ptr Window; address: cstring): bool	
+browserStartCustom	webui/bindings.html#browserStartCustom,ptr.Window,cstring	bindings: browserStartCustom(win: ptr Window; address: cstring): bool	
+browserStartChrome	webui/bindings.html#browserStartChrome,ptr.Window,cstring	bindings: browserStartChrome(win: ptr Window; address: cstring): bool	
+browserStart	webui/bindings.html#browserStart,ptr.Window,cstring,cuint	bindings: browserStart(win: ptr Window; address: cstring; browser: cuint): bool	
+setRootFolder	webui/bindings.html#setRootFolder,ptr.Window,cstring	bindings: setRootFolder(win: ptr Window; path: cstring): bool	
+waitProcess	webui/bindings.html#waitProcess,ptr.Window,bool	bindings: waitProcess(win: ptr Window; status: bool)	
+generateJsBridge	webui/bindings.html#generateJsBridge,ptr.Window	bindings: generateJsBridge(win: ptr Window): cstring	
+printHex	webui/bindings.html#printHex,cstring,csize_t	bindings: printHex(data: cstring; len: csize_t)	
+freeMem	webui/bindings.html#freeMem,ptr.pointer	bindings: freeMem(p: ptr pointer)	
+strCopy	webui/bindings.html#strCopy,cstring,cstring	bindings: strCopy(destination: cstring; source: cstring)	
+fileExistMg	webui/bindings.html#fileExistMg,pointer	bindings: fileExistMg(evData: pointer): bool	
+fileExist	webui/bindings.html#fileExist,cstring	bindings: fileExist(file: cstring): bool	
