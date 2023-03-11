@@ -420,9 +420,10 @@ proc waitProcess*(win: Window; status: bool) =
 proc generateJsBridge*(win: Window): string =
   $ bindings.generateJsBridge(win.impl)
 
-export webui
+export bindings.webui, bindings.WEBUI_VERSION
 
 when isMainModule:
   let w = newWindow()
-  w.show("<html>Hello</html>")
+  let link = w.newServer("docs")
+  w.show(link)
   wait()
