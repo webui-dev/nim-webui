@@ -158,6 +158,8 @@ func `impl=`*(win: Window, bwin: ptr bindings.Window) =
 # -------- Script --------
 
 proc newScript*(script: string; timeout: int): Script =
+  new result
+  
   result.internalImpl.script = cstring script
   result.internalImpl.timeout = cuint timeout
 
@@ -166,6 +168,12 @@ proc script*(s: Script): string =
 
 proc timeout*(s: Script): int =
   int s.internalImpl.timeout
+
+proc `script=`*(s: Script, script: string) =
+  s.internalImpl.script = cstring script
+
+proc `timeout=`*(s: Script; timeout: int) =
+  s.internalImpl.timeout = cuint timeout
 
 proc result*(s: Script): JavascriptResult =
   new result
