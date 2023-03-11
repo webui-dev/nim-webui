@@ -419,6 +419,5 @@ export bindings.webui, bindings.WEBUI_VERSION
 
 when isMainModule:
   let w = newWindow()
-  let link = w.newServer("docs")
-  w.show(link)
+  w.show("<html>hello!</html>")
   wait()
