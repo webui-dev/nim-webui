@@ -183,6 +183,8 @@ type
 
 var webui*: Webui
 
+{.push discardable.}
+
 proc wait*() {.cdecl, importc: "webui_wait", webui.}
 proc exit*() {.cdecl, importc: "webui_exit", webui.}
 proc isAnyWindowRunning*(): bool {.cdecl, importc: "webui_is_any_window_running", webui.}
@@ -305,3 +307,5 @@ proc strCopy*(destination: cstring; source: cstring) {.cdecl,
 proc fileExistMg*(evData: pointer): bool {.cdecl,
     importc: "_webui_file_exist_mg", webui.}
 proc fileExist*(file: cstring): bool {.cdecl, importc: "_webui_file_exist", webui.}
+
+{.pop.}
