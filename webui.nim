@@ -28,12 +28,6 @@ type
   Script* = ref object
     internalImpl: bindings.Script
 
-  Cb* = ref object
-    internalImpl: pointer
-
-  CmdAsync* = ref object
-    internalImpl: pointer
-
   CustomBrowser* = ref object
     internalImpl: bindings.CustomBrowser
 
@@ -50,9 +44,6 @@ type
     RuntimeNone
     RuntimeDeno
     RuntimeNodeJs
-
-  Webui* = ref object
-    internalImpl: pointer
 
 proc wait*() =
   ## Run application run until the user closes all 
@@ -133,6 +124,8 @@ proc fileExist*(file: string): bool =
 # SKIPPED: freeMem()
 # SKIPPED: strCopy()
 # SKIPPED: fileExistMg()
+
+# above skipped functions seem unneccessary and too low-level
 
 # ------- Impl funcs --------
 
@@ -419,6 +412,8 @@ proc waitProcess*(win: Window; status: bool) =
 
 proc generateJsBridge*(win: Window): string =
   $ bindings.generateJsBridge(win.impl)
+
+# Maybe wrap script interface? 
 
 export bindings.webui, bindings.WEBUI_VERSION
 
