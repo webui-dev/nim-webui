@@ -30,11 +30,11 @@ const html = """
     <br>
     <input type="text" id="MyInput" value="2">
     <script>
-        function MyJS() {
-            const number = document.getElementById('MyInput').value;
-            var result = webui_fn('Four', number);
-            document.getElementById('MyInput').value = result;
-        }
+      function MyJS() {
+        const number = document.getElementById('MyInput').value;
+        var result = webui_fn('Four', number);
+        document.getElementById('MyInput').value = result;
+      }
     </script>
   </body>
 </html>
@@ -59,12 +59,9 @@ proc main =
     echo "function_three: ", status
 
   window.bind("Four") do (e: Event) -> int:
-    var number = e.getInt()
-    number *= 2
+    result = e.getInt() * 2
     
-    echo "function_four: ", number
-
-    return number
+    echo "function_four: ", result
 
   if not window.show(html, BrowserChrome):  # Run the window on Chrome
     window.show(html, BrowserAny)           # If not, run on any other installed web browser
