@@ -1,3 +1,8 @@
+import std/os
+
+const
+  currentSourceDir = currentSourcePath().parentDir()
+
 when defined(useWebuiStaticLib) or defined(useWebuiStaticLibrary):
   when defined(vcc):
     {.link: "user32.lib".}
@@ -27,7 +32,7 @@ else:
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
 
-    {.passC: "/I webui/include".}
+    {.passC: "/I " & currentSourceDir / "webui" / "include".}
 
   elif defined(windows):
     {.passL: "-lws2_32".}
@@ -35,7 +40,7 @@ else:
 
     {.passL: "-static".}
 
-    {.passC: "-Iwebui/include".}
+    {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   when defined(linux):
     {.passL: "-lpthread".}
@@ -43,7 +48,7 @@ else:
 
     {.passL: "-static".}
 
-    {.passC: "-I./webui/include".}
+    {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   {.pragma: webui.}
 
