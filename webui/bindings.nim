@@ -3,6 +3,9 @@ import std/os
 const
   currentSourceDir = currentSourcePath().parentDir()
 
+when defined(webuiLog):
+  {.passC: "-DWEBUI_LOG".}  
+
 when defined(useWebuiStaticLib) or defined(useWebuiStaticLibrary):
   when defined(vcc):
     {.link: "user32.lib".}

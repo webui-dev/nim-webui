@@ -362,10 +362,10 @@ proc interfaceHandler(a1: cuint;
   event.elementName = a3
   event.window = a4
 
-  cbs[event.windowId][event.elementId](Event(internalImpl: addr(event)))
+  cbs[event.windowId][event.elementId](Event(internalImpl: addr event))
 
-#proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
-#  cbs[e.windowId][e.elementId](Event(internalImpl: e))
+proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
+  cbs[e.windowId][e.elementId](Event(internalImpl: e))
 
 proc getNumber*(win: Window): int =
   int bindings.windowGetNumber(win.impl)
@@ -373,19 +373,64 @@ proc getNumber*(win: Window): int =
 proc `bind`*(win: Window; element: string; `func`: proc (e: Event)): int {.discardable.} =
   ## Receive click events when the user clicks on any HTML element with a specific ID
 
-  let idx = int bindings.bindInterface(win.impl, cstring element, interfaceHandler)
+  let idx = bindings.bind(win.impl, cstring element, bindHandler)
   let wid = win.getNumber()
 
   cbs[wid][idx] = `func`
+
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): string): int {.discardable.} =
+  win.bind(
+    element, 
+    proc (e: Event) =
+      let res = `func`(e)
+      e.returnString(res)
+  )  
+
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int): int {.discardable.} =
+  win.bind(
+    element, 
+    proc (e: Event) =
+      let res = `func`(e)
+      e.returnInt(res)
+  )  
+
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =
+  win.bind(
+    element, 
+    proc (e: Event) =
+      let res = `func`(e)
+      e.returnBool(res)
+  )  
 
 proc bindAll*(win: Window; `func`: proc (e: Event)) =
   ## Bind all elements
   
-  let idx = int bindings.bindInterface(win.impl, "", interfaceHandler)
+  let idx = bindings.bindInterface(win.impl, "", interfaceHandler)
   let wid = win.getNumber()
 
   cbs[wid][idx] = `func`
-  
+
+proc bindAll*(win: Window; element: string; `func`: proc (e: Event): string): int {.discardable.} =
+  win.bindAll( 
+    proc (e: Event) =
+      let res = `func`(e)
+      e.returnString(res)
+  )  
+
+proc bindAll*(win: Window; element: string; `func`: proc (e: Event): int): int {.discardable.} =
+  win.bindAll( 
+    proc (e: Event) =
+      let res = `func`(e)
+      e.returnInt(res)
+  )  
+
+proc bindAll*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =
+  win.bindAll( 
+    proc (e: Event) =
+      let res = `func`(e)
+      e.returnBool(res)
+  )  
+
 
 proc open*(win: Window; url: string; browser: Browser = BrowserAny): bool {.discardable.} =
   bindings.open(win.impl, cstring url, cuint ord(browser))
