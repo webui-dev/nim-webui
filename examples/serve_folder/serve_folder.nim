@@ -1,3 +1,5 @@
+import std/os
+
 import ../../webui
 
 proc main = 
@@ -22,5 +24,9 @@ proc main =
 
   # Wait until all windows get closed
   wait()
+
+# set current dir to current source path so you
+# don't have to look for the example/folder
+setCurrentDir(currentSourcePath().parentDir())
 
 main()
