@@ -2,17 +2,20 @@ import ../webui
 
 # HTML
 const html = """
-  <!DOCTYPE html>
-  <html>
+<!DOCTYPE html>
+<html>
   <head>
-  <title>WebUI 2 - Nim Example</title>
+    <title>WebUI 2 - Nim Example</title>
 
-  <style>
-    body{color: white; background: #0F2027;
-    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
-    background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
-    text-align:center; font-size: 18px; font-family: sans-serif;}
-  </style>
+    <style>
+      body {
+        color: white; 
+        background: #0F2027;
+        background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
+        background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+        text-align: center; font-size: 18px; font-family: sans-serif;
+      }
+    </style>
   </head>
 
   <body>
@@ -21,8 +24,8 @@ const html = """
     <br><br>
     <button id="MyButton1">Check Password</button> - <button id="MyButton2">Exit</button>
   </body>
-  </html>
-  """
+</html>
+"""
 
 proc main =
   let window = newWindow()
