@@ -1,3 +1,4 @@
+# Binaries generated/used for testing
 *.lib
 *.exp
 *.dll
