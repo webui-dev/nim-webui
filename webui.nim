@@ -45,7 +45,12 @@ type
     RuntimeDeno
     RuntimeNodeJs
 
-var cbs: array[bindings.WEBUI_MAX_ARRAY, array[bindings.WEBUI_MAX_ARRAY, proc (e: Event)]]
+# forward declarations, needed for `bind` and `bindAll`
+proc getNumber*(win: Window): int
+
+# vars
+var cbs: array[bindings.WEBUI_MAX_ARRAY, array[bindings.WEBUI_MAX_ARRAY, proc (e: Event)]] ## \
+  ## array of binded callbacks
 
 proc wait*() =
   ## Run application run until the user closes all 
@@ -353,22 +358,8 @@ proc shown*(win: Window): bool =
 proc script*(win: Window; script: var Script) =
   bindings.script(win.impl, addr script.internalImpl)
 
-proc interfaceHandler(a1: cuint;
-    a2: cuint; a3: cstring; a4: ptr bindings.Window; a5: cstring; a6: cstringArray) {.cdecl.} =
-  var event: bindings.Event
-
-  event.elementId = a1
-  event.windowId = a2
-  event.elementName = a3
-  event.window = a4
-
-  cbs[event.windowId][event.elementId](Event(internalImpl: addr event))
-
 proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
   cbs[e.windowId][e.elementId](Event(internalImpl: e))
-
-proc getNumber*(win: Window): int =
-  int bindings.windowGetNumber(win.impl)
 
 proc `bind`*(win: Window; element: string; `func`: proc (e: Event)): int {.discardable.} =
   ## Receive click events when the user clicks on any HTML element with a specific ID
@@ -405,10 +396,19 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool): int {
 proc bindAll*(win: Window; `func`: proc (e: Event)) =
   ## Bind all elements
   
-  let idx = bindings.bindInterface(win.impl, "", interfaceHandler)
+  bindings.bindAll(win.impl, bindHandler)
   let wid = win.getNumber()
 
-  cbs[wid][idx] = `func`
+  # bindInterface was going to return zero anyway
+  # C source of `webui_bind_interface`:
+  #   ...
+  #   if(_webui_is_empty(element)) {
+  #     webui_bind_all(win, webui_bind_interface_all_handler);
+  #     webui.cb_interface_all[0] = func;
+  #     return 0;
+  #   }
+  #   ...
+  cbs[wid][0] = `func`
 
 proc bindAll*(win: Window; element: string; `func`: proc (e: Event): string): int {.discardable.} =
   win.bindAll( 
@@ -450,6 +450,9 @@ proc send*(win: Window; packet: string; packetsSize: int) =
 
 proc event*(win: Window; elementId, element: string; data: pointer; dataLen: int) = 
   bindings.windowEvent(win.impl, cstring elementId, cstring element, data, cuint dataLen)
+
+proc getNumber*(win: Window): int =
+  int bindings.windowGetNumber(win.impl)
 
 proc windowOpen*(win: Window; link: string; browser: Browser = BrowserAny) =
   ## Open window `win` using URL `link`.
