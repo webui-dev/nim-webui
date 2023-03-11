@@ -12,13 +12,13 @@ when defined(useWebuiStaticLib) or defined(useWebuiStaticLibrary):
 
     {.link: webuiStaticLib & ".lib".}
   else:
-    # * Order matters.
+    # * Order matters!!
 
-    {.passL: "-L.".}
+    {.passL: "-L.".} # so gcc/clang can find the library
 
-    {.passL: "-l" & webuiStaticLib.}
+    {.passL: "-l" & webuiStaticLib.} # link the static library itself
 
-    {.passL: "-luser32".}
+    {.passL: "-luser32".} # link dependencies
     {.passL: "-lws2_32".}
 
   {.pragma: webui.}
