@@ -1,0 +1,3 @@
+[submodule "webui/webui"]
+	path = webui/webui
+	url = https://github.com/alifcommunity/webui.git
