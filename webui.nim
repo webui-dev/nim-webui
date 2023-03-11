@@ -45,6 +45,8 @@ type
     RuntimeDeno
     RuntimeNodeJs
 
+var cbs: array[bindings.WEBUI_MAX_ARRAY, array[bindings.WEBUI_MAX_ARRAY, proc (e: Event)]]
+
 proc wait*() =
   ## Run application run until the user closes all 
   ## visible windows or when calling `exit() <#exit>`_
@@ -254,8 +256,10 @@ proc iconType*(winCore: WindowCore): string =
   $ winCore.impl.iconType
 
 {.push warning[HoleEnumConv]: off.}
+
 proc currentBrowser*(winCore: WindowCore): Browser =
   Browser(int winCore.impl.currentBrowser)
+
 {.pop.}
 
 proc browserPath*(winCore: WindowCore): string =
@@ -290,22 +294,26 @@ proc core*(win: Window): WindowCore =
 
   result.impl = win.impl.core
 
-proc show*(win: Window; html: string; browser: Browser = BrowserAny) = 
+{.push discardable.}
+
+proc show*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
   ## Show Window `win`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
 
-  discard bindings.show(win.impl, cstring html, cuint ord(browser))
+  bindings.show(win.impl, cstring html, cuint ord(browser))
 
-proc showCopy*(win: Window; html: string; browser: Browser = BrowserAny) = 
-  discard bindings.showCpy(win.impl, cstring html, cuint ord(browser))
+proc showCopy*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
+  bindings.showCpy(win.impl, cstring html, cuint ord(browser))
 
-proc refresh*(win: Window; html: string) = 
+proc refresh*(win: Window; html: string): bool = 
   ## Refresh the window UI with any new HTML content.
 
-  discard bindings.refresh(win.impl, cstring html)
+  bindings.refresh(win.impl, cstring html)
 
-proc refreshCopy*(win: Window; html: string) = 
-  discard bindings.refreshCpy(win.impl, cstring html)
+proc refreshCopy*(win: Window; html: string): bool = 
+  bindings.refreshCpy(win.impl, cstring html)
+
+{.pop.}
 
 proc `icon=`*(win: Window; iconS, typeS: string) = 
   bindings.setIcon(win.impl, cstring iconS, cstring typeS)
@@ -337,27 +345,42 @@ proc shown*(win: Window): bool =
 proc script*(win: Window; script: var Script) =
   bindings.script(win.impl, addr script.internalImpl)
 
-proc wrapBind(e: ptr bindings.Event) {.cdecl.} =
-  let fun = cast[proc (e: Event) {.nimcall.}](bindings.webui.cb[^1])
+proc interfaceHandler(a1: cuint;
+    a2: cuint; a3: cstring; a4: ptr bindings.Window; a5: cstring; a6: cstringArray) {.cdecl.} =
+  var event: bindings.Event
 
-  var event: Event
-  new event
+  event.elementId = a1
+  event.windowId = a2
+  event.elementName = a3
+  event.window = a4
 
-  event.impl = e
+  cbs[event.windowId][event.elementId](Event(internalImpl: addr(event)))
 
-  fun(event)
+#proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
+#  cbs[e.windowId][e.elementId](Event(internalImpl: e))
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event) {.nimcall.}): int {.discardable.} =
+proc getNumber*(win: Window): int =
+  int bindings.windowGetNumber(win.impl)
+
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event)): int {.discardable.} =
   ## Receive click events when the user clicks on any HTML element with a specific ID
-  
-  int bindings.`bind`(win.impl, cstring element, wrapBind)
 
-proc bindAll*(win: Window; `func`: proc (e: Event) {.nimcall.}): int {.discardable.} =
+  let idx = int bindings.bindInterface(win.impl, cstring element, interfaceHandler)
+  let wid = win.getNumber()
+
+  cbs[wid][idx] = `func`
+
+proc bindAll*(win: Window; `func`: proc (e: Event)) =
   ## Bind all elements
-  bindings.bindAll(win.impl, wrapBind)
+  
+  let idx = int bindings.bindInterface(win.impl, "", interfaceHandler)
+  let wid = win.getNumber()
 
-proc open*(win: Window; url: string; browser: Browser = BrowserAny) =
-  discard bindings.open(win.impl, cstring url, cuint ord(browser))
+  cbs[wid][idx] = `func`
+  
+
+proc open*(win: Window; url: string; browser: Browser = BrowserAny): bool {.discardable.} =
+  bindings.open(win.impl, cstring url, cuint ord(browser))
 
 proc scriptRuntime*(win: Window; runtime: Runtime) = 
   ## Make WebUI act like  runtime`runtime` (either NodeJS or Deno).
@@ -375,37 +398,38 @@ proc send*(win: Window; packet: string; packetsSize: int) =
 proc event*(win: Window; elementId, element: string; data: pointer; dataLen: int) = 
   bindings.windowEvent(win.impl, cstring elementId, cstring element, data, cuint dataLen)
 
-proc getNumber*(win: Window): int =
-  int bindings.windowGetNumber(win.impl)
-
-proc open*(win: Window; link: string; browser: Browser = BrowserAny) =
+proc windowOpen*(win: Window; link: string; browser: Browser = BrowserAny) =
   ## Open window `win` using URL `link`.
 
   bindings.windowOpen(win.impl, cstring link, cuint ord(browser))
 
 proc runBrowser*(win: Window; cmd: string): int =
-  discard bindings.runBrowser(win.impl, cstring cmd)
+  int bindings.runBrowser(win.impl, cstring cmd)
 
 proc browserExist*(win: Window; browser: Browser): bool =
   bindings.browserExist(win.impl, cuint ord(browser))
 
-proc browserCreateProfileFolder*(win: Window; browser: Browser) =
-  discard bindings.browserCreateProfileFolder(win.impl, cuint ord(browser))
+proc browserCreateProfileFolder*(win: Window; browser: Browser): bool {.discardable.} =
+  bindings.browserCreateProfileFolder(win.impl, cuint ord(browser))
 
-proc browserStartEdge*(win: Window; address: string) =
-  discard bindings.browserStartEdge(win.impl, cstring address)
+{.push discardable.}
 
-proc browserStartFirefox*(win: Window; address: string) =
-  discard bindings.browserStartFirefox(win.impl, cstring address)
+proc browserStartEdge*(win: Window; address: string): bool =
+  bindings.browserStartEdge(win.impl, cstring address)
 
-proc browserStartCustom*(win: Window; address: string) =
-  discard bindings.browserStartCustom(win.impl, cstring address)
+proc browserStartFirefox*(win: Window; address: string): bool =
+  bindings.browserStartFirefox(win.impl, cstring address)
 
-proc browserStartChrome*(win: Window; address: string) =
-  discard bindings.browserStartChrome(win.impl, cstring address)
+proc browserStartCustom*(win: Window; address: string): bool =
+  bindings.browserStartCustom(win.impl, cstring address)
 
-proc `rootFolder=`*(win: Window; path: string) =
-  discard bindings.setRootFolder(win.impl, cstring path)
+proc browserStartChrome*(win: Window; address: string): bool =
+  bindings.browserStartChrome(win.impl, cstring address)
+
+{.pop.}
+
+proc `rootFolder=`*(win: Window; path: string): bool {.discardable.} =
+  bindings.setRootFolder(win.impl, cstring path)
 
 proc waitProcess*(win: Window; status: bool) =
   bindings.waitProcess(win.impl, status)
