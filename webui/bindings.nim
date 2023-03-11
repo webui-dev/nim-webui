@@ -3,26 +3,27 @@ import std/os
 const
   currentSourceDir = currentSourcePath().parentDir()
 
-when defined(webuiLog):
-  {.passC: "-DWEBUI_LOG".}  
-
 when defined(useWebuiStaticLib) or defined(useWebuiStaticLibrary):
+  const webuiStaticLib* {.strdefine.} = "webui-2-static-x64"
+
   when defined(vcc):
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
 
-    {.link: "webui-2-static-x64.lib".}
+    {.link: webuiStaticLib & ".lib".}
   else:
+    # * Order matters.
+
     {.passL: "-L.".}
 
-    {.passL: "-lwebui-2-static-x64".}
+    {.passL: "-l" & webuiStaticLib.}
 
     {.passL: "-luser32".}
     {.passL: "-lws2_32".}
 
   {.pragma: webui.}
 elif defined(useWebuiDll):
-  const webuiDll* = when defined(windows):
+  const webuiDll* {.strdefine.} = when defined(windows):
     "webui-2-x64.dll"
   elif defined(macos):
     "webui-2-x64.dynlib"
@@ -31,6 +32,9 @@ elif defined(useWebuiDll):
 
   {.pragma: webui, dynlib: webuiDll.}
 else:
+  when defined(webuiLog):
+    {.passC: "-DWEBUI_LOG".}  
+
   when defined(vcc):
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
