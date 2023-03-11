@@ -21,7 +21,7 @@ const html = """
 
     <p>Call Nim function with arguments (See log in the Windows console)</p><br>
     <button OnClick="webui_fn('One', 'Hello');">Call Nim function one</button><br><br>
-    <button OnClick="webui_fn('Two', 2022);">Call Nim function two</button><br><br>
+    <button OnClick="webui_fn('Two', 2023);">Call Nim function two</button><br><br>
     <button OnClick="webui_fn('Three', true);">Call Nim function three</button><br><br>
     <p>Call Nim function four, and wait for the result</p>
     <br>
@@ -41,31 +41,40 @@ const html = """
 """
 
 proc main =
+  # Create a window
   let window = newWindow()
 
   window.bind("One") do (e: Event):
-    let str = e.getString()
+    # JavaScript: webui_fn('One', 'Hello');
 
-    echo "function_one: ", str
+    let str = e.getString()
+    echo "function_one: ", str # Hello
 
   window.bind("Two") do (e: Event):
+    # JavaScript: webui_fn('Two', 2023);
+
     let number = e.getInt()
-    
-    echo "function_two: ", number
+    echo "function_two: ", number # 2023
 
   window.bind("Three") do (e: Event):
+    # JavaScript: webui_fn('Three', true);
+
     let status = e.getBool()
-    
-    echo "function_three: ", status
+    echo "function_three: ", status # true/false
 
   window.bind("Four") do (e: Event) -> int:
-    result = e.getInt() * 2
-    
-    echo "function_four: ", result
+    # JavaScript: const result = webui_fn('Four', 2);
 
+    result = e.getInt() * 2
+    echo "function_four: ", result # 4
+
+    # result is sent back to Javascript for you
+
+  # Show the window
   if not window.show(html, BrowserChrome):  # Run the window on Chrome
     window.show(html, BrowserAny)           # If not, run on any other installed web browser
 
+  # Wait until all windows get closed
   wait()
 
 main()

@@ -28,11 +28,12 @@ const html = """
 """
 
 proc main =
+  # Create a window
   let window = newWindow()
+  
+  window.bind("MyButton1") do (e: Event): # Check the password function
 
-  window.bind("MyButton1") do (e: Event):
-
-    # This function get called every time the user click on "MyButton1"
+    # This function gets called every time the user clicks on "MyButton1"
 
     var js = newScript(
       "return document.getElementById(\"MyInput\").value;",
@@ -54,10 +55,12 @@ proc main =
     # Check the password
     if password == "123456":
       # Correct password
+
       js.script = "alert('Good. Password is correct.')"
       e.window.script(js)
     else:
       # Wrong password
+
       js.script = "alert('Sorry. Wrong password.')"
       e.window.script(js)
 
@@ -68,6 +71,7 @@ proc main =
     # Close all opened windows
     webui.exit()
 
+  # Show the window
   if not window.show(html, BrowserChrome):  # Run the window on Chrome
     window.show(html, BrowserAny)           # If not, run on any other installed web browser
 

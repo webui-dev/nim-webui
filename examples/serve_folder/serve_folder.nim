@@ -8,6 +8,9 @@ proc main =
 
   # Bind an HTML element ID with a C function
   window.bind("SwitchToSecondPage") do (e: Event):
+    # This function gets called every time 
+    # the user clicks on "SwitchToSecondPage" button
+
     e.window.open("second.html")
 
   window.bind("Exit") do (_: Event):
@@ -17,10 +20,12 @@ proc main =
   # automatically select the current working folder
   let rootPath = ""
 
+  # Create a new web server using WebUI
   let link = newServer(window, rootPath)
 
+  # Show the window using the generated URL
   if not window.open(link, BrowserChrome):  # Run the window on Chrome
-    window.open(link, BrowserAny) # If not, run on any other installed web browser
+    window.open(link, BrowserAny)           # If not, run on any other installed web browser
 
   # Wait until all windows get closed
   wait()
