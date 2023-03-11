@@ -32,6 +32,7 @@ elif defined(useWebuiDll):
 
   {.pragma: webui, dynlib: webuiDll.}
 else:
+  # -d:webuiLog
   when defined(webuiLog):
     {.passC: "-DWEBUI_LOG".}  
 
@@ -181,8 +182,8 @@ type
     runtime*: Runtime
     initialized*: bool
     cb*: array[WEBUI_MAX_ARRAY, proc (e: ptr Event) {.cdecl.}]
-    cb_interface*: array[WEBUI_MAX_ARRAY, proc (a1, a2: cuint; a3: cstring; a4: ptr Window; a5: cstring; a6: cstringArray) {.cdecl.}]
-    cb_interface_all*: array[1, proc(a1, a2: cuint; a3: cstring; a4: ptr Window; a5: cstring; a6: cstringArray) {.cdecl.}]
+    cb_interface*: array[WEBUI_MAX_ARRAY, proc (elementId: cuint; windowId: cuint; elementName: cstring; window: ptr Window; data: cstring; response: cstringArray) {.cdecl.}]
+    cb_interface_all*: array[1, proc(elementId: cuint; windowId: cuint; elementName: cstring; window: ptr Window; data: cstring; response: cstringArray) {.cdecl.}]
     executablePath*: cstring
     ptrList*: array[WEBUI_MAX_ARRAY, pointer]
     ptrPosition*: cuint
@@ -238,8 +239,8 @@ type
     length*: cuint
     data*: cstring
 
-proc bindInterface*(win: ptr Window; element: cstring; `func`: proc (a1: cuint;
-    a2: cuint; a3: cstring; a4: ptr Window; a5: cstring; a6: cstringArray) {.cdecl.}): cuint {.
+proc bindInterface*(win: ptr Window; element: cstring; `func`: proc (elementId: cuint;
+    windowId: cuint; elementName: cstring; window: ptr Window; data: cstring; response: cstringArray) {.cdecl.}): cuint {.
     cdecl, importc: "webui_bind_interface", webui.}
 proc scriptInterface*(win: ptr Window; script: cstring; timeout: cuint;
                      error: ptr bool; length: ptr cuint; data: cstring) {.cdecl,
