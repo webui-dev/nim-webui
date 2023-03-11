@@ -1,4 +1,4 @@
-import ../webui
+import webui
 
 # HTML
 const html = """

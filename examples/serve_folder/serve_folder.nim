@@ -1,6 +1,6 @@
 import std/os
 
-import ../../webui
+import webui
 
 proc main = 
   # Create a new window
