@@ -221,7 +221,7 @@ proc getString*(e: Event): string =
 
 proc getBool*(e: Event): bool =
   # doesnt work?
-  #bindings.getBool(e.impl)
+  # bindings.getBool(e.impl)
 
   e.getString() == "true"
 
@@ -362,6 +362,7 @@ proc shown*(win: Window): bool =
 proc script*(win: Window; script: var Script) =
   bindings.script(win.impl, addr script.internalImpl)
 
+# * for use With `bindInterface`. We use `bind` instead, so no need for it now.
 #proc interfaceHandler(elementId, windowId: cuint; elementName: cstring; window: ptr bindings.Window; data: cstring; response: cstringArray) {.cdecl.} =
 #  var event: bindings.Event
 #
@@ -373,24 +374,11 @@ proc script*(win: Window; script: var Script) =
 #
 #  cbs[windowId][elementId](Event(internalImpl: addr(event)))
 
-proc interfaceHandler(elementId, windowId: cuint; elementName: cstring; window: ptr bindings.Window; data: cstring; response: cstringArray) {.cdecl.} =
-  var event: bindings.Event
-
-  event.elementId = elementId
-  event.windowId = windowId
-  event.elementName = elementName
-  event.window = window
-  event.data = data
-
-  cbs[windowId][elementId](Event(internalImpl: addr(event)))
-
-
 proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
   var event = Event()
   event.impl = e
 
   cbs[e.windowId][e.elementId](event)
-  new event
 
 proc `bind`*(win: Window; element: string; `func`: proc (e: Event)): int {.discardable.} =
   ## Receive click events when the user clicks on any HTML element with a specific ID
