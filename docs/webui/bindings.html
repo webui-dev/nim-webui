@@ -602,7 +602,14 @@ window.addEventListener('DOMContentLoaded', main);
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc"></p>
+  <p class="module-desc">Nim bindings for <a class="reference external" href="https://github.com/alifcommunity/webui">WebUI</a>
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">webui</span><span class="Operator">/</span><span class="Identifier">bindings</span>
+
+<span class="Keyword">let</span> <span class="Identifier">window</span> <span class="Operator">=</span> <span class="Identifier">newWindow</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># Create a new Window</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="StringLit">&quot;&lt;html&gt;Hello&lt;/html&gt;&quot;</span><span class="Punctuation">,</span> <span class="DecNumber">0</span><span class="Punctuation">)</span> <span class="Comment"># Show the window with html content in any browser</span>
+
+<span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># Wait until the window gets closed</span></pre></p>
   <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
@@ -1570,7 +1577,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 18:57:58 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 19:11:06 UTC</small>
       </div>
     </div>
   </div>

@@ -382,6 +382,8 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple nested-toc-section">impl
       <li><a class="reference" href="#impl%2CEvent"
     title="impl(e: Event): ptr bindings.Event">impl(e: Event): ptr bindings.Event</a></li>
+  <li><a class="reference" href="#impl%2CScript"
+    title="impl(script: Script): bindings.Script">impl(script: Script): bindings.Script</a></li>
   <li><a class="reference" href="#impl%2CWindow"
     title="impl(win: Window): ptr bindings.Window">impl(win: Window): ptr bindings.Window</a></li>
   <li><a class="reference" href="#impl%2CWindowCore"
@@ -391,6 +393,8 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple nested-toc-section">impl=
       <li><a class="reference" href="#impl%3D%2CEvent%2Cptr."
     title="impl=(e: Event; be: ptr bindings.Event)">impl=(e: Event; be: ptr bindings.Event)</a></li>
+  <li><a class="reference" href="#impl%3D%2CScript%2C"
+    title="impl=(script: Script; bwin: bindings.Script)">impl=(script: Script; bwin: bindings.Script)</a></li>
   <li><a class="reference" href="#impl%3D%2CWindow%2Cptr."
     title="impl=(win: Window; bwin: ptr bindings.Window)">impl=(win: Window; bwin: ptr bindings.Window)</a></li>
   <li><a class="reference" href="#impl%3D%2CWindowCore%2C"
@@ -769,7 +773,7 @@ Receive click events when the user clicks on any HTML element with a specific ID
     <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Bind <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to element <tt class="docutils literal"><span class="pre"><span class="Identifier">element</span></span></tt> and automatically pass return value of <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to Javascript Bind <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to element <tt class="docutils literal"><span class="pre"><span class="Identifier">element</span></span></tt> and automatically pass return value of <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to Javascript
 
 </dd>
 </div>
@@ -853,7 +857,7 @@ Bind all elements
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Bind all elements to <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> automatically pass return value of <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to Javascript
 
 </dd>
 </div>
@@ -1191,6 +1195,14 @@ Try and close all related opened windows and make <a class="reference external" 
 
 </dd>
 </div>
+<div id="impl,Script">
+<dt><pre><span class="Keyword">func</span> <a href="#impl%2CScript"><span class="Identifier">impl</span></a><span class="Other">(</span><span class="Identifier">script</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Script</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
 <div id="impl,Window">
 <dt><pre><span class="Keyword">func</span> <a href="#impl%2CWindow"><span class="Identifier">impl</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Window</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1209,6 +1221,14 @@ Try and close all related opened windows and make <a class="reference external" 
 </div>
 <div id="impl=,Event,ptr.">
 <dt><pre><span class="Keyword">func</span> <a href="#impl%3D%2CEvent%2Cptr."><span class="Identifier">impl=</span></a><span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">;</span> <span class="Identifier">be</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Event</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="impl=,Script,">
+<dt><pre><span class="Keyword">func</span> <a href="#impl%3D%2CScript%2C"><span class="Identifier">impl=</span></a><span class="Other">(</span><span class="Identifier">script</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">;</span> <span class="Identifier">bwin</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Script</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -1448,7 +1468,7 @@ Get Script <tt class="docutils literal"><span class="pre"><span class="Identifie
 <dt><pre><span class="Keyword">proc</span> <a href="#script%2CWindow%2CScript"><span class="Identifier">script</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">script</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Run Script <tt class="docutils literal"><span class="pre"><span class="Identifier">script</span></span></tt>
 
 </dd>
 </div>
@@ -1661,7 +1681,7 @@ Run application run until the user closes all visible windows or when calling <a
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 18:57:58 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 19:11:06 UTC</small>
       </div>
     </div>
   </div>

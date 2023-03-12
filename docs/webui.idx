@@ -39,6 +39,8 @@ impl	webui.html#impl,WindowCore	webui: impl(winCore: WindowCore): bindings.Windo
 impl=	webui.html#impl=,WindowCore,	webui: impl=(winCore: WindowCore; bwinCore: bindings.WindowCore)	
 impl	webui.html#impl,Window	webui: impl(win: Window): ptr bindings.Window	
 impl=	webui.html#impl=,Window,ptr.	webui: impl=(win: Window; bwin: ptr bindings.Window)	
+impl	webui.html#impl,Script	webui: impl(script: Script): bindings.Script	
+impl=	webui.html#impl=,Script,	webui: impl=(script: Script; bwin: bindings.Script)	
 app	webui.html#app,CustomBrowser	webui: app(c: CustomBrowser): string	
 arg	webui.html#arg,CustomBrowser	webui: arg(c: CustomBrowser): string	
 autoLink	webui.html#autoLink,CustomBrowser	webui: autoLink(c: CustomBrowser): bool	

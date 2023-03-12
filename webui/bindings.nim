@@ -1,3 +1,13 @@
+## Nim bindings for [WebUI](https://github.com/alifcommunity/webui)
+
+runnableExamples:
+
+  let window = newWindow() # Create a new Window
+  window.show("<html>Hello</html>", 0) # Show the window with html content in any browser
+
+  wait() # Wait until the window gets closed
+
+
 import std/os
 
 const
