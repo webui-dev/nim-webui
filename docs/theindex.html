@@ -83,15 +83,39 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="bindings: `bind`(win: ptr Window; element: cstring; func: proc (e: ptr Event) {.cdecl.}): cuint" href="webui/bindings.html#bind%2Cptr.Window%2Ccstring%2Cproc%28ptr.Event%29">bindings: `bind`(win: ptr Window; element: cstring; func: proc (e: ptr Event) {.cdecl.}): cuint</a></li>
           </ul></dd>
+<dt><a name="app" href="#app"><span>app:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: app(c: CustomBrowser): string" href="webui.html#app%2CCustomBrowser">webui: app(c: CustomBrowser): string</a></li>
+          </ul></dd>
+<dt><a name="app%3D" href="#app%3D"><span>app=:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: app=(c: CustomBrowser; app: string)" href="webui.html#app%3D%2CCustomBrowser%2Cstring">webui: app=(c: CustomBrowser; app: string)</a></li>
+          </ul></dd>
+<dt><a name="arg" href="#arg"><span>arg:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: arg(c: CustomBrowser): string" href="webui.html#arg%2CCustomBrowser">webui: arg(c: CustomBrowser): string</a></li>
+          </ul></dd>
+<dt><a name="arg%3D" href="#arg%3D"><span>arg=:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: arg=(c: CustomBrowser; arg: string)" href="webui.html#arg%3D%2CCustomBrowser%2Cstring">webui: arg=(c: CustomBrowser; arg: string)</a></li>
+          </ul></dd>
+<dt><a name="autoLink" href="#autoLink"><span>autoLink:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: autoLink(c: CustomBrowser): bool" href="webui.html#autoLink%2CCustomBrowser">webui: autoLink(c: CustomBrowser): bool</a></li>
+          </ul></dd>
+<dt><a name="autoLink%3D" href="#autoLink%3D"><span>autoLink=:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: autoLink=(c: CustomBrowser; autoLink: bool)" href="webui.html#autoLink%3D%2CCustomBrowser%2Cbool">webui: autoLink=(c: CustomBrowser; autoLink: bool)</a></li>
+          </ul></dd>
 <dt><a name="bindAll" href="#bindAll"><span>bindAll:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="webui: bindAll(win: Window; func: proc (e: Event))" href="webui.html#bindAll%2CWindow%2Cproc%28Event%29">webui: bindAll(win: Window; func: proc (e: Event))</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="webui: bindAll(win: Window; element: string; func: proc (e: Event): string): int" href="webui.html#bindAll%2CWindow%2Cstring%2Cproc%28Event%29">webui: bindAll(win: Window; element: string; func: proc (e: Event): string): int</a></li>
+          data-doc-search-tag="webui: bindAll(win: Window; func: proc (e: Event): string)" href="webui.html#bindAll%2CWindow%2Cproc%28Event%29_2">webui: bindAll(win: Window; func: proc (e: Event): string)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="webui: bindAll(win: Window; element: string; func: proc (e: Event): int): int" href="webui.html#bindAll%2CWindow%2Cstring%2Cproc%28Event%29_2">webui: bindAll(win: Window; element: string; func: proc (e: Event): int): int</a></li>
+          data-doc-search-tag="webui: bindAll(win: Window; func: proc (e: Event): int)" href="webui.html#bindAll%2CWindow%2Cproc%28Event%29_3">webui: bindAll(win: Window; func: proc (e: Event): int)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="webui: bindAll(win: Window; element: string; func: proc (e: Event): bool): int" href="webui.html#bindAll%2CWindow%2Cstring%2Cproc%28Event%29_3">webui: bindAll(win: Window; element: string; func: proc (e: Event): bool): int</a></li>
+          data-doc-search-tag="webui: bindAll(win: Window; func: proc (e: Event): bool)" href="webui.html#bindAll%2CWindow%2Cproc%28Event%29_4">webui: bindAll(win: Window; func: proc (e: Event): bool)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="webui: bindAll(winCore: WindowCore): bool" href="webui.html#bindAll%2CWindowCore">webui: bindAll(winCore: WindowCore): bool</a></li>
           <li><a class="reference external"
@@ -167,25 +191,25 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="browserStartChrome" href="#browserStartChrome"><span>browserStartChrome:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: browserStartChrome(win: Window; address: string): bool" href="webui.html#browserStartChrome%2CWindow%2Cstring">webui: browserStartChrome(win: Window; address: string): bool</a></li>
+          data-doc-search-tag="webui: browserStartChrome(win: Window; address: string | Uri): bool" href="webui.html#browserStartChrome%2CWindow%2C">webui: browserStartChrome(win: Window; address: string | Uri): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bindings: browserStartChrome(win: ptr Window; address: cstring): bool" href="webui/bindings.html#browserStartChrome%2Cptr.Window%2Ccstring">bindings: browserStartChrome(win: ptr Window; address: cstring): bool</a></li>
           </ul></dd>
 <dt><a name="browserStartCustom" href="#browserStartCustom"><span>browserStartCustom:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: browserStartCustom(win: Window; address: string): bool" href="webui.html#browserStartCustom%2CWindow%2Cstring">webui: browserStartCustom(win: Window; address: string): bool</a></li>
+          data-doc-search-tag="webui: browserStartCustom(win: Window; address: string | Uri): bool" href="webui.html#browserStartCustom%2CWindow%2C">webui: browserStartCustom(win: Window; address: string | Uri): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bindings: browserStartCustom(win: ptr Window; address: cstring): bool" href="webui/bindings.html#browserStartCustom%2Cptr.Window%2Ccstring">bindings: browserStartCustom(win: ptr Window; address: cstring): bool</a></li>
           </ul></dd>
 <dt><a name="browserStartEdge" href="#browserStartEdge"><span>browserStartEdge:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: browserStartEdge(win: Window; address: string): bool" href="webui.html#browserStartEdge%2CWindow%2Cstring">webui: browserStartEdge(win: Window; address: string): bool</a></li>
+          data-doc-search-tag="webui: browserStartEdge(win: Window; address: string | Uri): bool" href="webui.html#browserStartEdge%2CWindow%2C">webui: browserStartEdge(win: Window; address: string | Uri): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bindings: browserStartEdge(win: ptr Window; address: cstring): bool" href="webui/bindings.html#browserStartEdge%2Cptr.Window%2Ccstring">bindings: browserStartEdge(win: ptr Window; address: cstring): bool</a></li>
           </ul></dd>
 <dt><a name="browserStartFirefox" href="#browserStartFirefox"><span>browserStartFirefox:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: browserStartFirefox(win: Window; address: string): bool" href="webui.html#browserStartFirefox%2CWindow%2Cstring">webui: browserStartFirefox(win: Window; address: string): bool</a></li>
+          data-doc-search-tag="webui: browserStartFirefox(win: Window; address: string | Uri): bool" href="webui.html#browserStartFirefox%2CWindow%2C">webui: browserStartFirefox(win: Window; address: string | Uri): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bindings: browserStartFirefox(win: ptr Window; address: cstring): bool" href="webui/bindings.html#browserStartFirefox%2Cptr.Window%2Ccstring">bindings: browserStartFirefox(win: ptr Window; address: cstring): bool</a></li>
           </ul></dd>
@@ -285,8 +309,6 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="fileExist" href="#fileExist"><span>fileExist:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: fileExist(file: string): bool" href="webui.html#fileExist%2Cstring">webui: fileExist(file: string): bool</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="bindings: fileExist(file: cstring): bool" href="webui/bindings.html#fileExist%2Ccstring">bindings: fileExist(file: cstring): bool</a></li>
           </ul></dd>
 <dt><a name="fileExistMg" href="#fileExistMg"><span>fileExistMg:</span></a></dt><dd><ul class="simple">
@@ -295,8 +317,6 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="folderExist" href="#folderExist"><span>folderExist:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: folderExist(folder: string): bool" href="webui.html#folderExist%2Cstring">webui: folderExist(folder: string): bool</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="bindings: folderExist(folder: cstring): bool" href="webui/bindings.html#folderExist%2Ccstring">bindings: folderExist(folder: cstring): bool</a></li>
           </ul></dd>
 <dt><a name="freeMem" href="#freeMem"><span>freeMem:</span></a></dt><dd><ul class="simple">
@@ -329,8 +349,6 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="getCurrentPath" href="#getCurrentPath"><span>getCurrentPath:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: getCurrentPath(): string" href="webui.html#getCurrentPath">webui: getCurrentPath(): string</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="bindings: getCurrentPath(): cstring" href="webui/bindings.html#getCurrentPath">bindings: getCurrentPath(): cstring</a></li>
           </ul></dd>
 <dt><a name="getFreePort" href="#getFreePort"><span>getFreePort:</span></a></dt><dd><ul class="simple">
@@ -433,6 +451,10 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="bindings: multiAccess(win: ptr Window; status: bool)" href="webui/bindings.html#multiAccess%2Cptr.Window%2Cbool">bindings: multiAccess(win: ptr Window; status: bool)</a></li>
           </ul></dd>
+<dt><a name="multiAccess%3D" href="#multiAccess%3D"><span>multiAccess=:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: multiAccess=(win: Window; status: bool)" href="webui.html#multiAccess%3D%2CWindow%2Cbool">webui: multiAccess=(win: Window; status: bool)</a></li>
+          </ul></dd>
 <dt><a name="newScript" href="#newScript"><span>newScript:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="webui: newScript(script: string; timeout: int): Script" href="webui.html#newScript%2Cstring%2Cint">webui: newScript(script: string; timeout: int): Script</a></li>
@@ -451,19 +473,17 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="open" href="#open"><span>open:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: open(win: Window; url: string; browser: Browser = BrowserAny): bool" href="webui.html#open%2CWindow%2Cstring%2CBrowser">webui: open(win: Window; url: string; browser: Browser = BrowserAny): bool</a></li>
+          data-doc-search-tag="webui: open(win: Window; url: string | Uri; browser: Browser = BrowserAny)" href="webui.html#open%2CWindow%2C%2CBrowser">webui: open(win: Window; url: string | Uri; browser: Browser = BrowserAny)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bindings: open(win: ptr Window; url: cstring; browser: cuint): bool" href="webui/bindings.html#open%2Cptr.Window%2Ccstring%2Ccuint">bindings: open(win: ptr Window; url: cstring; browser: cuint): bool</a></li>
+          </ul></dd>
+<dt><a name="openLink" href="#openLink"><span>openLink:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: openLink(win: Window; link: string | Uri; browser: Browser = BrowserAny)" href="webui.html#openLink%2CWindow%2C%2CBrowser">webui: openLink(win: Window; link: string | Uri; browser: Browser = BrowserAny)</a></li>
           </ul></dd>
 <dt><a name="path" href="#path"><span>path:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="webui: path(win: Window): string" href="webui.html#path%2CWindow">webui: path(win: Window): string</a></li>
-          </ul></dd>
-<dt><a name="printHex" href="#printHex"><span>printHex:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="webui: printHex(data: string; len: int)" href="webui.html#printHex%2Cstring%2Cint">webui: printHex(data: string; len: int)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="bindings: printHex(data: cstring; len: csize_t)" href="webui/bindings.html#printHex%2Ccstring%2Ccsize_t">bindings: printHex(data: cstring; len: csize_t)</a></li>
           </ul></dd>
 <dt><a name="profilePath" href="#profilePath"><span>profilePath:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -529,7 +549,7 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="runtime" href="#runtime"><span>runtime:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: runtime(winCore: WindowCore): int" href="webui.html#runtime%2CWindowCore">webui: runtime(winCore: WindowCore): int</a></li>
+          data-doc-search-tag="webui: runtime(winCore: WindowCore): Runtime" href="webui.html#runtime%2CWindowCore">webui: runtime(winCore: WindowCore): Runtime</a></li>
           </ul></dd>
 <dt><a name="Runtime" href="#Runtime"><span>Runtime:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -593,6 +613,10 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="bindings: scriptRuntime(win: ptr Window; runtime: cuint)" href="webui/bindings.html#scriptRuntime%2Cptr.Window%2Ccuint">bindings: scriptRuntime(win: ptr Window; runtime: cuint)</a></li>
           </ul></dd>
+<dt><a name="scriptRuntime%3D" href="#scriptRuntime%3D"><span>scriptRuntime=:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: scriptRuntime=(win: Window; runtime: Runtime)" href="webui.html#scriptRuntime%3D%2CWindow%2CRuntime">webui: scriptRuntime=(win: Window; runtime: Runtime)</a></li>
+          </ul></dd>
 <dt><a name="send" href="#send"><span>send:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="webui: send(win: Window; packet: string; packetsSize: int)" href="webui.html#send%2CWindow%2Cstring%2Cint">webui: send(win: Window; packet: string; packetsSize: int)</a></li>
@@ -637,13 +661,13 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="show" href="#show"><span>show:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: show(win: Window; html: string; browser: Browser = BrowserAny): bool" href="webui.html#show%2CWindow%2Cstring%2CBrowser">webui: show(win: Window; html: string; browser: Browser = BrowserAny): bool</a></li>
+          data-doc-search-tag="webui: show(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool" href="webui.html#show%2CWindow%2C%2CBrowser">webui: show(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool</a></li>
           <li><a class="reference external"
           data-doc-search-tag="bindings: show(win: ptr Window; html: cstring; browser: cuint): bool" href="webui/bindings.html#show%2Cptr.Window%2Ccstring%2Ccuint">bindings: show(win: ptr Window; html: cstring; browser: cuint): bool</a></li>
           </ul></dd>
 <dt><a name="showCopy" href="#showCopy"><span>showCopy:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: showCopy(win: Window; html: string; browser: Browser = BrowserAny): bool" href="webui.html#showCopy%2CWindow%2Cstring%2CBrowser">webui: showCopy(win: Window; html: string; browser: Browser = BrowserAny): bool</a></li>
+          data-doc-search-tag="webui: showCopy(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool" href="webui.html#showCopy%2CWindow%2C%2CBrowser">webui: showCopy(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool</a></li>
           </ul></dd>
 <dt><a name="showCpy" href="#showCpy"><span>showCpy:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -665,9 +689,21 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="webui: timeout=(s: Script; timeout: int)" href="webui.html#timeout%3D%2CScript%2Cint">webui: timeout=(s: Script; timeout: int)</a></li>
           </ul></dd>
+<dt><a name="uri" href="#uri"><span>uri:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="webui: uri(winCore: WindowCore): Uri" href="webui.html#uri%2CWindowCore">webui: uri(winCore: WindowCore): Uri</a></li>
+          </ul></dd>
 <dt><a name="url" href="#url"><span>url:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="webui: url(winCore: WindowCore): string" href="webui.html#url%2CWindowCore">webui: url(winCore: WindowCore): string</a></li>
+          </ul></dd>
+<dt><a name="useWebuiDll" href="#useWebuiDll"><span>useWebuiDll:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="bindings: useWebuiDll" href="webui/bindings.html#useWebuiDll">bindings: useWebuiDll</a></li>
+          </ul></dd>
+<dt><a name="useWebuiStaticLib" href="#useWebuiStaticLib"><span>useWebuiStaticLib:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="bindings: useWebuiStaticLib" href="webui/bindings.html#useWebuiStaticLib">bindings: useWebuiStaticLib</a></li>
           </ul></dd>
 <dt><a name="wait" href="#wait"><span>wait:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -785,8 +821,6 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="windowOpen" href="#windowOpen"><span>windowOpen:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="webui: windowOpen(win: Window; link: string; browser: Browser = BrowserAny)" href="webui.html#windowOpen%2CWindow%2Cstring%2CBrowser">webui: windowOpen(win: Window; link: string; browser: Browser = BrowserAny)</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="bindings: windowOpen(win: ptr Window; link: cstring; browser: cuint)" href="webui/bindings.html#windowOpen%2Cptr.Window%2Ccstring%2Ccuint">bindings: windowOpen(win: ptr Window; link: cstring; browser: cuint)</a></li>
           </ul></dd>
 <dt><a name="windowReceive" href="#windowReceive"><span>windowReceive:</span></a></dt><dd><ul class="simple">
@@ -802,7 +836,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-11 22:28:20 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 18:57:58 UTC</small>
       </div>
     </div>
   </div>

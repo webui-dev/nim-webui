@@ -140,7 +140,37 @@ window.addEventListener('DOMContentLoaded', main);
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">bind
+      <ul class="simple nested-toc-section">app
+      <li><a class="reference" href="#app%2CCustomBrowser"
+    title="app(c: CustomBrowser): string">app(c: CustomBrowser): string</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">app=
+      <li><a class="reference" href="#app%3D%2CCustomBrowser%2Cstring"
+    title="app=(c: CustomBrowser; app: string)">app=(c: CustomBrowser; app: string)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">arg
+      <li><a class="reference" href="#arg%2CCustomBrowser"
+    title="arg(c: CustomBrowser): string">arg(c: CustomBrowser): string</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">arg=
+      <li><a class="reference" href="#arg%3D%2CCustomBrowser%2Cstring"
+    title="arg=(c: CustomBrowser; arg: string)">arg=(c: CustomBrowser; arg: string)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">autoLink
+      <li><a class="reference" href="#autoLink%2CCustomBrowser"
+    title="autoLink(c: CustomBrowser): bool">autoLink(c: CustomBrowser): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">autoLink=
+      <li><a class="reference" href="#autoLink%3D%2CCustomBrowser%2Cbool"
+    title="autoLink=(c: CustomBrowser; autoLink: bool)">autoLink=(c: CustomBrowser; autoLink: bool)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">bind
       <li><a class="reference" href="#bind%2CWindow%2Cstring%2Cproc%28Event%29"
     title="`bind`(win: Window; element: string; func: proc (e: Event)): int">`bind`(win: Window; element: string; func: proc (e: Event)): int</a></li>
   <li><a class="reference" href="#bind%2CWindow%2Cstring%2Cproc%28Event%29_4"
@@ -152,14 +182,14 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">bindAll
-      <li><a class="reference" href="#bindAll%2CWindow%2Cstring%2Cproc%28Event%29_3"
-    title="bindAll(win: Window; element: string; func: proc (e: Event): bool): int">bindAll(win: Window; element: string; func: proc (e: Event): bool): int</a></li>
-  <li><a class="reference" href="#bindAll%2CWindow%2Cstring%2Cproc%28Event%29_2"
-    title="bindAll(win: Window; element: string; func: proc (e: Event): int): int">bindAll(win: Window; element: string; func: proc (e: Event): int): int</a></li>
-  <li><a class="reference" href="#bindAll%2CWindow%2Cstring%2Cproc%28Event%29"
-    title="bindAll(win: Window; element: string; func: proc (e: Event): string): int">bindAll(win: Window; element: string; func: proc (e: Event): string): int</a></li>
-  <li><a class="reference" href="#bindAll%2CWindow%2Cproc%28Event%29"
+      <li><a class="reference" href="#bindAll%2CWindow%2Cproc%28Event%29"
     title="bindAll(win: Window; func: proc (e: Event))">bindAll(win: Window; func: proc (e: Event))</a></li>
+  <li><a class="reference" href="#bindAll%2CWindow%2Cproc%28Event%29_4"
+    title="bindAll(win: Window; func: proc (e: Event): bool)">bindAll(win: Window; func: proc (e: Event): bool)</a></li>
+  <li><a class="reference" href="#bindAll%2CWindow%2Cproc%28Event%29_3"
+    title="bindAll(win: Window; func: proc (e: Event): int)">bindAll(win: Window; func: proc (e: Event): int)</a></li>
+  <li><a class="reference" href="#bindAll%2CWindow%2Cproc%28Event%29_2"
+    title="bindAll(win: Window; func: proc (e: Event): string)">bindAll(win: Window; func: proc (e: Event): string)</a></li>
   <li><a class="reference" href="#bindAll%2CWindowCore"
     title="bindAll(winCore: WindowCore): bool">bindAll(winCore: WindowCore): bool</a></li>
 
@@ -185,23 +215,23 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">browserStartChrome
-      <li><a class="reference" href="#browserStartChrome%2CWindow%2Cstring"
-    title="browserStartChrome(win: Window; address: string): bool">browserStartChrome(win: Window; address: string): bool</a></li>
+      <li><a class="reference" href="#browserStartChrome%2CWindow%2C"
+    title="browserStartChrome(win: Window; address: string | Uri): bool">browserStartChrome(win: Window; address: string | Uri): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">browserStartCustom
-      <li><a class="reference" href="#browserStartCustom%2CWindow%2Cstring"
-    title="browserStartCustom(win: Window; address: string): bool">browserStartCustom(win: Window; address: string): bool</a></li>
+      <li><a class="reference" href="#browserStartCustom%2CWindow%2C"
+    title="browserStartCustom(win: Window; address: string | Uri): bool">browserStartCustom(win: Window; address: string | Uri): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">browserStartEdge
-      <li><a class="reference" href="#browserStartEdge%2CWindow%2Cstring"
-    title="browserStartEdge(win: Window; address: string): bool">browserStartEdge(win: Window; address: string): bool</a></li>
+      <li><a class="reference" href="#browserStartEdge%2CWindow%2C"
+    title="browserStartEdge(win: Window; address: string | Uri): bool">browserStartEdge(win: Window; address: string | Uri): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">browserStartFirefox
-      <li><a class="reference" href="#browserStartFirefox%2CWindow%2Cstring"
-    title="browserStartFirefox(win: Window; address: string): bool">browserStartFirefox(win: Window; address: string): bool</a></li>
+      <li><a class="reference" href="#browserStartFirefox%2CWindow%2C"
+    title="browserStartFirefox(win: Window; address: string | Uri): bool">browserStartFirefox(win: Window; address: string | Uri): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">clean
@@ -279,16 +309,6 @@ window.addEventListener('DOMContentLoaded', main);
     title="exit()">exit()</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">fileExist
-      <li><a class="reference" href="#fileExist%2Cstring"
-    title="fileExist(file: string): bool">fileExist(file: string): bool</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">folderExist
-      <li><a class="reference" href="#folderExist%2Cstring"
-    title="folderExist(folder: string): bool">folderExist(folder: string): bool</a></li>
-
-  </ul>
   <ul class="simple nested-toc-section">freePort
       <li><a class="reference" href="#freePort%2Cint"
     title="freePort(port: int)">freePort(port: int)</a></li>
@@ -307,11 +327,6 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple nested-toc-section">getCbIndex
       <li><a class="reference" href="#getCbIndex%2Cstring"
     title="getCbIndex(internalId: string): int">getCbIndex(internalId: string): int</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">getCurrentPath
-      <li><a class="reference" href="#getCurrentPath"
-    title="getCurrentPath(): string">getCurrentPath(): string</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">getFreePort
@@ -404,6 +419,11 @@ window.addEventListener('DOMContentLoaded', main);
     title="multiAccess(winCore: WindowCore): bool">multiAccess(winCore: WindowCore): bool</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">multiAccess=
+      <li><a class="reference" href="#multiAccess%3D%2CWindow%2Cbool"
+    title="multiAccess=(win: Window; status: bool)">multiAccess=(win: Window; status: bool)</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">newScript
       <li><a class="reference" href="#newScript%2Cstring%2Cint"
     title="newScript(script: string; timeout: int): Script">newScript(script: string; timeout: int): Script</a></li>
@@ -420,18 +440,18 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">open
-      <li><a class="reference" href="#open%2CWindow%2Cstring%2CBrowser"
-    title="open(win: Window; url: string; browser: Browser = BrowserAny): bool">open(win: Window; url: string; browser: Browser = BrowserAny): bool</a></li>
+      <li><a class="reference" href="#open%2CWindow%2C%2CBrowser"
+    title="open(win: Window; url: string | Uri; browser: Browser = BrowserAny)">open(win: Window; url: string | Uri; browser: Browser = BrowserAny)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">openLink
+      <li><a class="reference" href="#openLink%2CWindow%2C%2CBrowser"
+    title="openLink(win: Window; link: string | Uri; browser: Browser = BrowserAny)">openLink(win: Window; link: string | Uri; browser: Browser = BrowserAny)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">path
       <li><a class="reference" href="#path%2CWindow"
     title="path(win: Window): string">path(win: Window): string</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">printHex
-      <li><a class="reference" href="#printHex%2Cstring%2Cint"
-    title="printHex(data: string; len: int)">printHex(data: string; len: int)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">profilePath
@@ -491,7 +511,7 @@ window.addEventListener('DOMContentLoaded', main);
   </ul>
   <ul class="simple nested-toc-section">runtime
       <li><a class="reference" href="#runtime%2CWindowCore"
-    title="runtime(winCore: WindowCore): int">runtime(winCore: WindowCore): int</a></li>
+    title="runtime(winCore: WindowCore): Runtime">runtime(winCore: WindowCore): Runtime</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">script
@@ -509,6 +529,11 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple nested-toc-section">scriptRuntime
       <li><a class="reference" href="#scriptRuntime%2CWindow%2CRuntime"
     title="scriptRuntime(win: Window; runtime: Runtime)">scriptRuntime(win: Window; runtime: Runtime)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">scriptRuntime=
+      <li><a class="reference" href="#scriptRuntime%3D%2CWindow%2CRuntime"
+    title="scriptRuntime=(win: Window; runtime: Runtime)">scriptRuntime=(win: Window; runtime: Runtime)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">send
@@ -547,13 +572,13 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">show
-      <li><a class="reference" href="#show%2CWindow%2Cstring%2CBrowser"
-    title="show(win: Window; html: string; browser: Browser = BrowserAny): bool">show(win: Window; html: string; browser: Browser = BrowserAny): bool</a></li>
+      <li><a class="reference" href="#show%2CWindow%2C%2CBrowser"
+    title="show(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool">show(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">showCopy
-      <li><a class="reference" href="#showCopy%2CWindow%2Cstring%2CBrowser"
-    title="showCopy(win: Window; html: string; browser: Browser = BrowserAny): bool">showCopy(win: Window; html: string; browser: Browser = BrowserAny): bool</a></li>
+      <li><a class="reference" href="#showCopy%2CWindow%2C%2CBrowser"
+    title="showCopy(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool">showCopy(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">shown
@@ -569,6 +594,11 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple nested-toc-section">timeout=
       <li><a class="reference" href="#timeout%3D%2CScript%2Cint"
     title="timeout=(s: Script; timeout: int)">timeout=(s: Script; timeout: int)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">uri
+      <li><a class="reference" href="#uri%2CWindowCore"
+    title="uri(winCore: WindowCore): Uri">uri(winCore: WindowCore): Uri</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">url
@@ -606,11 +636,6 @@ window.addEventListener('DOMContentLoaded', main);
     title="windowNum(winCore: WindowCore): int">windowNum(winCore: WindowCore): int</a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">windowOpen
-      <li><a class="reference" href="#windowOpen%2CWindow%2Cstring%2CBrowser"
-    title="windowOpen(win: Window; link: string; browser: Browser = BrowserAny)">windowOpen(win: Window; link: string; browser: Browser = BrowserAny)</a></li>
-
-  </ul>
 
   </ul>
 </li>
@@ -628,7 +653,14 @@ window.addEventListener('DOMContentLoaded', main);
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc"></p>
+  <p class="module-desc">Nim wrapper for <a class="reference external" href="https://github.com/alifcommunity/webui">WebUI</a>
+<p><strong class="examples_text">Example:</strong></p>
+<pre class="listing"><span class="Keyword">import</span> <span class="Identifier">webui</span>
+
+<span class="Keyword">let</span> <span class="Identifier">window</span> <span class="Operator">=</span> <span class="Identifier">newWindow</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># Create a new Window</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="StringLit">&quot;&lt;html&gt;Hello&lt;/html&gt;&quot;</span><span class="Punctuation">)</span> <span class="Comment"># Show the window with html content</span>
+
+<span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># Wait until the window gets closed</span></pre></p>
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
@@ -759,27 +791,48 @@ Receive click events when the user clicks on any HTML element with a specific ID
 
 </dd>
 </div>
-<div id="bindAll,Window,string,proc(Event)_3">
-<dt><pre><span class="Keyword">proc</span> <a href="#bindAll%2CWindow%2Cstring%2Cproc%28Event%29_3"><span class="Identifier">bindAll</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">element</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
-    <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="app,CustomBrowser">
+<dt><pre><span class="Keyword">proc</span> <a href="#app%2CCustomBrowser"><span class="Identifier">app</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 
 </dd>
 </div>
-<div id="bindAll,Window,string,proc(Event)_2">
-<dt><pre><span class="Keyword">proc</span> <a href="#bindAll%2CWindow%2Cstring%2Cproc%28Event%29_2"><span class="Identifier">bindAll</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">element</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
-    <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="app=,CustomBrowser,string">
+<dt><pre><span class="Keyword">proc</span> <a href="#app%3D%2CCustomBrowser%2Cstring"><span class="Identifier">app=</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">;</span> <span class="Identifier">app</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 
 </dd>
 </div>
-<div id="bindAll,Window,string,proc(Event)">
-<dt><pre><span class="Keyword">proc</span> <a href="#bindAll%2CWindow%2Cstring%2Cproc%28Event%29"><span class="Identifier">bindAll</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">element</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
-    <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="arg,CustomBrowser">
+<dt><pre><span class="Keyword">proc</span> <a href="#arg%2CCustomBrowser"><span class="Identifier">arg</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="arg=,CustomBrowser,string">
+<dt><pre><span class="Keyword">proc</span> <a href="#arg%3D%2CCustomBrowser%2Cstring"><span class="Identifier">arg=</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">;</span> <span class="Identifier">arg</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="autoLink,CustomBrowser">
+<dt><pre><span class="Keyword">proc</span> <a href="#autoLink%2CCustomBrowser"><span class="Identifier">autoLink</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="autoLink=,CustomBrowser,bool">
+<dt><pre><span class="Keyword">proc</span> <a href="#autoLink%3D%2CCustomBrowser%2Cbool"><span class="Identifier">autoLink=</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">;</span> <span class="Identifier">autoLink</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -792,6 +845,33 @@ Receive click events when the user clicks on any HTML element with a specific ID
 <dd>
 
 Bind all elements
+
+</dd>
+</div>
+<div id="bindAll,Window,proc(Event)_4">
+<dt><pre><span class="Keyword">proc</span> <a href="#bindAll%2CWindow%2Cproc%28Event%29_4"><span class="Identifier">bindAll</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="bindAll,Window,proc(Event)_3">
+<dt><pre><span class="Keyword">proc</span> <a href="#bindAll%2CWindow%2Cproc%28Event%29_3"><span class="Identifier">bindAll</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="bindAll,Window,proc(Event)_2">
+<dt><pre><span class="Keyword">proc</span> <a href="#bindAll%2CWindow%2Cproc%28Event%29_2"><span class="Identifier">bindAll</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
 
 </dd>
 </div>
@@ -836,36 +916,32 @@ Bind all elements
 
 </dd>
 </div>
-<div id="browserStartChrome,Window,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#browserStartChrome%2CWindow%2Cstring"><span class="Identifier">browserStartChrome</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span><span class="Other">,</span>
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="browserStartChrome,Window,">
+<dt><pre><span class="Keyword">proc</span> <a href="#browserStartChrome%2CWindow%2C"><span class="Identifier">browserStartChrome</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span>.}</pre></dt>
 <dd>
 
 
 
 </dd>
 </div>
-<div id="browserStartCustom,Window,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#browserStartCustom%2CWindow%2Cstring"><span class="Identifier">browserStartCustom</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span><span class="Other">,</span>
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="browserStartCustom,Window,">
+<dt><pre><span class="Keyword">proc</span> <a href="#browserStartCustom%2CWindow%2C"><span class="Identifier">browserStartCustom</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span>.}</pre></dt>
 <dd>
 
 
 
 </dd>
 </div>
-<div id="browserStartEdge,Window,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#browserStartEdge%2CWindow%2Cstring"><span class="Identifier">browserStartEdge</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span><span class="Other">,</span>
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="browserStartEdge,Window,">
+<dt><pre><span class="Keyword">proc</span> <a href="#browserStartEdge%2CWindow%2C"><span class="Identifier">browserStartEdge</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span>.}</pre></dt>
 <dd>
 
 
 
 </dd>
 </div>
-<div id="browserStartFirefox,Window,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#browserStartFirefox%2CWindow%2Cstring"><span class="Identifier">browserStartFirefox</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span><span class="Other">,</span>
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="browserStartFirefox,Window,">
+<dt><pre><span class="Keyword">proc</span> <a href="#browserStartFirefox%2CWindow%2C"><span class="Identifier">browserStartFirefox</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">address</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">discardable</span>.}</pre></dt>
 <dd>
 
 
@@ -884,6 +960,8 @@ Bind all elements
 <dt><pre><span class="Keyword">proc</span> <a href="#cleanup%2CScript"><span class="Identifier">cleanup</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
+Free Script <tt class="docutils literal"><span class="pre"><span class="Identifier">s</span></span></tt>.<div class="admonition admonition-info"><span class="admonition-info-text"><b>Note:</b></span>
+You may not need to call this if you're using a GC</div>
 
 
 </dd>
@@ -993,22 +1071,6 @@ Try and close all related opened windows and make <a class="reference external" 
 
 </dd>
 </div>
-<div id="fileExist,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#fileExist%2Cstring"><span class="Identifier">fileExist</span></a><span class="Other">(</span><span class="Identifier">file</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="folderExist,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#folderExist%2Cstring"><span class="Identifier">folderExist</span></a><span class="Other">(</span><span class="Identifier">folder</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
 <div id="freePort,int">
 <dt><pre><span class="Keyword">proc</span> <a href="#freePort%2Cint"><span class="Identifier">freePort</span></a><span class="Other">(</span><span class="Identifier">port</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1035,14 +1097,6 @@ Try and close all related opened windows and make <a class="reference external" 
 </div>
 <div id="getCbIndex,string">
 <dt><pre><span class="Keyword">proc</span> <a href="#getCbIndex%2Cstring"><span class="Identifier">getCbIndex</span></a><span class="Other">(</span><span class="Identifier">internalId</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="getCurrentPath">
-<dt><pre><span class="Keyword">proc</span> <a href="#getCurrentPath"><span class="Identifier">getCurrentPath</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -1203,11 +1257,13 @@ Return if the whole application still running or not
 </dd>
 </div>
 <div id="multiAccess,Window,bool">
-<dt><pre><span class="Keyword">proc</span> <a href="#multiAccess%2CWindow%2Cbool"><span class="Identifier">multiAccess</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#multiAccess%2CWindow%2Cbool"><span class="Identifier">multiAccess</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use `multiAccess=` instead&quot;</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
+  <div class="deprecation-message">
+    <b>Deprecated:</b> Use `multiAccess=` instead
+  </div>
 
-<p>After the window is loaded, for safety, the used URL is not valid anymore, if someone else tries to access the URL WebUI will show an error.</p>
-<p><tt class="docutils literal"><span class="pre"><span class="Identifier">multiAccess</span></span></tt> allows multi-user access to the same URL.</p>
 
 
 </dd>
@@ -1220,11 +1276,22 @@ Return if the whole application still running or not
 
 </dd>
 </div>
+<div id="multiAccess=,Window,bool">
+<dt><pre><span class="Keyword">proc</span> <a href="#multiAccess%3D%2CWindow%2Cbool"><span class="Identifier">multiAccess=</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+<p>After the window is loaded, for safety, the used URL is not valid anymore, if someone else tries to access the URL WebUI will show an error.</p>
+<p>multiAccess allows multi-user access to the same URL.</p>
+<p>If <tt class="docutils literal"><span class="pre"><span class="Identifier">status</span></span></tt> is <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt>, then multiAccess will be enabled, otherwise, multiAccess will be disabled</p>
+
+
+</dd>
+</div>
 <div id="newScript,string,int">
 <dt><pre><span class="Keyword">proc</span> <a href="#newScript%2Cstring%2Cint"><span class="Identifier">newScript</span></a><span class="Other">(</span><span class="Identifier">script</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">timeout</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Create a new Script object
 
 </dd>
 </div>
@@ -1246,25 +1313,24 @@ Create new Window object
 
 </dd>
 </div>
-<div id="open,Window,string,Browser">
-<dt><pre><span class="Keyword">proc</span> <a href="#open%2CWindow%2Cstring%2CBrowser"><span class="Identifier">open</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">url</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
-    <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="open,Window,,Browser">
+<dt><pre><span class="Keyword">proc</span> <a href="#open%2CWindow%2C%2CBrowser"><span class="Identifier">open</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">url</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
+
+</dd>
+</div>
+<div id="openLink,Window,,Browser">
+<dt><pre><span class="Keyword">proc</span> <a href="#openLink%2CWindow%2C%2CBrowser"><span class="Identifier">openLink</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">link</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span></pre></dt>
+<dd>
+
+Open window <tt class="docutils literal"><span class="pre"><span class="Identifier">win</span></span></tt> using URL <tt class="docutils literal"><span class="pre"><span class="Identifier">link</span></span></tt>.
 
 </dd>
 </div>
 <div id="path,Window">
 <dt><pre><span class="Keyword">proc</span> <a href="#path%2CWindow"><span class="Identifier">path</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="printHex,string,int">
-<dt><pre><span class="Keyword">proc</span> <a href="#printHex%2Cstring%2Cint"><span class="Identifier">printHex</span></a><span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">len</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -1317,7 +1383,7 @@ Refresh the window UI with any new HTML content.
 <dt><pre><span class="Keyword">proc</span> <a href="#result%2CScript"><span class="Identifier">result</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">)</span><span class="Other">:</span> <a href="webui.html#JavascriptResult"><span class="Identifier">JavascriptResult</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Get result of Script <tt class="docutils literal"><span class="pre"><span class="Identifier">s</span></span></tt> after running it via <a class="reference external" href="#script,Window,Script">script()</a>
 
 </dd>
 </div>
@@ -1363,7 +1429,7 @@ Refresh the window UI with any new HTML content.
 </dd>
 </div>
 <div id="runtime,WindowCore">
-<dt><pre><span class="Keyword">proc</span> <a href="#runtime%2CWindowCore"><span class="Identifier">runtime</span></a><span class="Other">(</span><span class="Identifier">winCore</span><span class="Other">:</span> <a href="webui.html#WindowCore"><span class="Identifier">WindowCore</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#runtime%2CWindowCore"><span class="Identifier">runtime</span></a><span class="Other">(</span><span class="Identifier">winCore</span><span class="Other">:</span> <a href="webui.html#WindowCore"><span class="Identifier">WindowCore</span></a><span class="Other">)</span><span class="Other">:</span> <a href="webui.html#Runtime"><span class="Identifier">Runtime</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -1374,7 +1440,7 @@ Refresh the window UI with any new HTML content.
 <dt><pre><span class="Keyword">proc</span> <a href="#script%2CScript"><span class="Identifier">script</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Get Script <tt class="docutils literal"><span class="pre"><span class="Identifier">s</span></span></tt>'s internal Javascript code
 
 </dd>
 </div>
@@ -1390,15 +1456,27 @@ Refresh the window UI with any new HTML content.
 <dt><pre><span class="Keyword">proc</span> <a href="#script%3D%2CScript%2Cstring"><span class="Identifier">script=</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">;</span> <span class="Identifier">script</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Set Script <tt class="docutils literal"><span class="pre"><span class="Identifier">s</span></span></tt>'s internal Javascript code
 
 </dd>
 </div>
 <div id="scriptRuntime,Window,Runtime">
-<dt><pre><span class="Keyword">proc</span> <a href="#scriptRuntime%2CWindow%2CRuntime"><span class="Identifier">scriptRuntime</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">runtime</span><span class="Other">:</span> <a href="webui.html#Runtime"><span class="Identifier">Runtime</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#scriptRuntime%2CWindow%2CRuntime"><span class="Identifier">scriptRuntime</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">runtime</span><span class="Other">:</span> <a href="webui.html#Runtime"><span class="Identifier">Runtime</span></a><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">deprecated</span><span class="Other">:</span> <span class="StringLit">&quot;Use `scriptRuntime=` instead&quot;</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+  <div class="deprecation-message">
+    <b>Deprecated:</b> Use `scriptRuntime=` instead
+  </div>
+
+
+
+</dd>
+</div>
+<div id="scriptRuntime=,Window,Runtime">
+<dt><pre><span class="Keyword">proc</span> <a href="#scriptRuntime%3D%2CWindow%2CRuntime"><span class="Identifier">scriptRuntime=</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">runtime</span><span class="Other">:</span> <a href="webui.html#Runtime"><span class="Identifier">Runtime</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-<p>Make WebUI act like  runtime<tt class="docutils literal"><span class="pre"><span class="Identifier">runtime</span></span></tt> (either NodeJS or Deno).</p>
+<p>Make WebUI act like  runtime <tt class="docutils literal"><span class="pre"><span class="Identifier">runtime</span></span></tt> (either NodeJS or Deno).</p>
 <p>Useful when serving folders.</p>
 
 
@@ -1462,18 +1540,18 @@ Refresh the window UI with any new HTML content.
 
 </dd>
 </div>
-<div id="show,Window,string,Browser">
-<dt><pre><span class="Keyword">proc</span> <a href="#show%2CWindow%2Cstring%2CBrowser"><span class="Identifier">show</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">html</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
-    <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="show,Window,,Browser">
+<dt><pre><span class="Keyword">proc</span> <a href="#show%2CWindow%2C%2CBrowser"><span class="Identifier">show</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">html</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
+    <span class="Identifier">discardable</span>.}</pre></dt>
 <dd>
 
 Show Window <tt class="docutils literal"><span class="pre"><span class="Identifier">win</span></span></tt>. If the window is already shown, the UI will get refreshed in the same window.
 
 </dd>
 </div>
-<div id="showCopy,Window,string,Browser">
-<dt><pre><span class="Keyword">proc</span> <a href="#showCopy%2CWindow%2Cstring%2CBrowser"><span class="Identifier">showCopy</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">html</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
-    <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="showCopy,Window,,Browser">
+<dt><pre><span class="Keyword">proc</span> <a href="#showCopy%2CWindow%2C%2CBrowser"><span class="Identifier">showCopy</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">html</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Operator">|</span> <span class="Identifier">Uri</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.
+    <span class="Identifier">discardable</span>.}</pre></dt>
 <dd>
 
 
@@ -1492,12 +1570,20 @@ Return if window is still running
 <dt><pre><span class="Keyword">proc</span> <a href="#timeout%2CScript"><span class="Identifier">timeout</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Get Script <tt class="docutils literal"><span class="pre"><span class="Identifier">s</span></span></tt>'s timeoue value
 
 </dd>
 </div>
 <div id="timeout=,Script,int">
 <dt><pre><span class="Keyword">proc</span> <a href="#timeout%3D%2CScript%2Cint"><span class="Identifier">timeout=</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">;</span> <span class="Identifier">timeout</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Set Script <tt class="docutils literal"><span class="pre"><span class="Identifier">s</span></span></tt>'s timeoue value
+
+</dd>
+</div>
+<div id="uri,WindowCore">
+<dt><pre><span class="Keyword">proc</span> <a href="#uri%2CWindowCore"><span class="Identifier">uri</span></a><span class="Other">(</span><span class="Identifier">winCore</span><span class="Other">:</span> <a href="webui.html#WindowCore"><span class="Identifier">WindowCore</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Uri</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -1560,15 +1646,6 @@ Run application run until the user closes all visible windows or when calling <a
 
 </dd>
 </div>
-<div id="windowOpen,Window,string,Browser">
-<dt><pre><span class="Keyword">proc</span> <a href="#windowOpen%2CWindow%2Cstring%2CBrowser"><span class="Identifier">windowOpen</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">link</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">browser</span><span class="Other">:</span> <a href="webui.html#Browser"><span class="Identifier">Browser</span></a> <span class="Other">=</span> <span class="Identifier">BrowserAny</span><span class="Other">)</span> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-Open window <tt class="docutils literal"><span class="pre"><span class="Identifier">win</span></span></tt> using URL <tt class="docutils literal"><span class="pre"><span class="Identifier">link</span></span></tt>.
-
-</dd>
-</div>
 
 </dl></div>
 <div class="section" id="19">
@@ -1584,7 +1661,7 @@ Open window <tt class="docutils literal"><span class="pre"><span class="Identifi
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-11 22:28:20 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 18:57:58 UTC</small>
       </div>
     </div>
   </div>

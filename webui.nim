@@ -1,3 +1,12 @@
+## Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
+
+runnableExamples:
+
+  let window = newWindow() # Create a new Window
+  window.show("<html>Hello</html>") # Show the window with html content
+
+  wait() # Wait until the window gets closed
+
 import std/uri
 
 from webui/bindings import nil
@@ -128,6 +137,7 @@ proc browserGetTempPath*(browser: Browser): string =
 # SKIPPED: fileExist() unneccessary, use std/os
 
 # above skipped functions seem unneccessary and/or too low-level
+# if you need them, import webui/bindings
 
 # ------- Impl funcs --------
 
@@ -180,24 +190,36 @@ proc `autoLink=`*(c: CustomBrowser, autoLink: bool) =
 # -------- Script --------
 
 proc newScript*(script: string; timeout: int): Script =
+  ## Create a new Script object
+
   new result
   
   result.internalImpl.script = cstring script
   result.internalImpl.timeout = cuint timeout
 
 proc script*(s: Script): string =
+  ## Get Script `s`'s internal Javascript code
+  
   $ s.internalImpl.script
 
 proc timeout*(s: Script): int =
+  ## Get Script `s`'s timeoue value
+  
   int s.internalImpl.timeout
 
 proc `script=`*(s: Script, script: string) =
+  ## Set Script `s`'s internal Javascript code
+
   s.internalImpl.script = cstring script
 
 proc `timeout=`*(s: Script; timeout: int) =
+  ## Set Script `s`'s timeoue value
+
   s.internalImpl.timeout = cuint timeout
 
 proc result*(s: Script): JavascriptResult =
+  ## Get result of Script `s` after running it via [script()](#script,Window,Script)
+
   new result
 
   result.error = s.internalImpl.result.error
@@ -205,6 +227,11 @@ proc result*(s: Script): JavascriptResult =
   result.data = $ s.internalImpl.result.data
 
 proc cleanup*(s: var Script) = 
+  ## Free Script `s`.
+  ## 
+  ## .. note:: You may not need to call this if
+  ##        you're using a GC
+  
   bindings.scriptCleanup(addr s.internalImpl)
 
 # -------- Event --------
@@ -361,7 +388,10 @@ proc `multiAccess=`*(win: Window; status: bool) =
   ## After the window is loaded, for safety, the used URL is not valid anymore, 
   ## if someone else tries to access the URL WebUI will show an error.
   ## 
-  ## `multiAccess` allows multi-user access to the same URL.
+  ## multiAccess allows multi-user access to the same URL.
+  ## 
+  ## If `status` is `true`, then multiAccess will be enabled, otherwise, 
+  ## multiAccess will be disabled
 
   bindings.multiAccess(win.impl, status)
 
@@ -383,6 +413,8 @@ proc shown*(win: Window): bool =
   bindings.isShown(win.impl)
 
 proc script*(win: Window; script: var Script) =
+  ## Run Script `script`
+
   bindings.script(win.impl, addr script.internalImpl)
 
 # * for use With `bindInterface`. We use `bind` instead, so no need for it now.
@@ -454,21 +486,21 @@ proc bindAll*(win: Window; `func`: proc (e: Event)) =
 
   cbs[wid][0] = `func`
 
-proc bindAll*(win: Window; element: string; `func`: proc (e: Event): string) =
+proc bindAll*(win: Window; `func`: proc (e: Event): string) =
   win.bindAll( 
     proc (e: Event) =
       let res = `func`(e)
       e.returnString(res)
   )  
 
-proc bindAll*(win: Window; element: string; `func`: proc (e: Event): int) =
+proc bindAll*(win: Window; `func`: proc (e: Event): int) =
   win.bindAll( 
     proc (e: Event) =
       let res = `func`(e)
       e.returnInt(res)
   )  
 
-proc bindAll*(win: Window; element: string; `func`: proc (e: Event): bool) =
+proc bindAll*(win: Window; `func`: proc (e: Event): bool) =
   win.bindAll( 
     proc (e: Event) =
       let res = `func`(e)

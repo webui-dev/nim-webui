@@ -1,3 +1,5 @@
+useWebuiStaticLib	webui/bindings.html#useWebuiStaticLib	bindings: useWebuiStaticLib	
+useWebuiDll	webui/bindings.html#useWebuiDll	bindings: useWebuiDll	
 WEBUI_VERSION	webui/bindings.html#WEBUI_VERSION	bindings: WEBUI_VERSION	
 WEBUI_HEADER_SIGNATURE	webui/bindings.html#WEBUI_HEADER_SIGNATURE	bindings: WEBUI_HEADER_SIGNATURE	
 WEBUI_HEADER_JS	webui/bindings.html#WEBUI_HEADER_JS	bindings: WEBUI_HEADER_JS	
@@ -84,7 +86,6 @@ browserStart	webui/bindings.html#browserStart,ptr.Window,cstring,cuint	bindings:
 setRootFolder	webui/bindings.html#setRootFolder,ptr.Window,cstring	bindings: setRootFolder(win: ptr Window; path: cstring): bool	
 waitProcess	webui/bindings.html#waitProcess,ptr.Window,bool	bindings: waitProcess(win: ptr Window; status: bool)	
 generateJsBridge	webui/bindings.html#generateJsBridge,ptr.Window	bindings: generateJsBridge(win: ptr Window): cstring	
-printHex	webui/bindings.html#printHex,cstring,csize_t	bindings: printHex(data: cstring; len: csize_t)	
 freeMem	webui/bindings.html#freeMem,ptr.pointer	bindings: freeMem(p: ptr pointer)	
 strCopy	webui/bindings.html#strCopy,cstring,cstring	bindings: strCopy(destination: cstring; source: cstring)	
 fileExistMg	webui/bindings.html#fileExistMg,pointer	bindings: fileExistMg(evData: pointer): bool	
