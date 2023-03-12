@@ -473,7 +473,7 @@ proc event*(win: Window; elementId, element: string; data: pointer; dataLen: int
 proc getNumber*(win: Window): int =
   int bindings.windowGetNumber(win.impl)
 
-proc windowOpen*(win: Window; link: string; browser: Browser = BrowserAny) =
+proc openLink*(win: Window; link: string; browser: Browser = BrowserAny) =
   ## Open window `win` using URL `link`.
 
   bindings.windowOpen(win.impl, cstring link, cuint ord(browser))
