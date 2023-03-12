@@ -349,7 +349,7 @@ proc waitProcess*(win: ptr Window; status: bool) {.cdecl,
 proc generateJsBridge*(win: ptr Window): cstring {.cdecl,
     importc: "_webui_generate_js_bridge", webui.}
 
-# in C source code, func is only defined when WEBUI_LOG is defined
+# in C source code, _webui_print_hex is only defined when WEBUI_LOG is defined
 when defined(webuiLog) and not (useWebuiStaticLib or useWebuiDll):
   proc printHex*(data: cstring; len: csize_t) {.cdecl,
       importc: "_webui_print_hex", webui.}
