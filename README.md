@@ -68,7 +68,7 @@ To compile with a static library, pass `-d:useWebviewStaticLib` or
 `-d:useWebviewStaticLibrary` to the Nim compiler. To depend on a DLL, pass
 `-d:useWebviewDll` instead. If neither of these flags are passed to the Nim
 compiler, static compilation will take place instead. Static libraries and DLLs can
-be found in WebUI's website[here](https://webui.me/#download).
+be found in WebUI's website [here](https://webui.me/#download).
 
 In addition, you can also enable WebUI's logging via `-d:webuiLog` but that flag
 only works for static compilation.
