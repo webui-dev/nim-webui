@@ -302,8 +302,8 @@ proc profilePath*(winCore: WindowCore): string =
 proc connections*(winCore: WindowCore): int =
   int winCore.impl.connections
 
-proc runtime*(winCore: WindowCore): int =
-  int winCore.impl.runtime
+proc runtime*(winCore: WindowCore): Runtime =
+  Runtime(winCore.impl.runtime)
 
 proc detectProcessClose*(winCore: WindowCore): bool =
   winCore.impl.detectProcessClose
