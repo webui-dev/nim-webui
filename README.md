@@ -3,8 +3,8 @@
 > *Use any web browser as GUI, with Nim in the backend, and HTML/Nim/JS/TS/CSS in the*
 > *frontend.*
 
-Nim wrapper and bindings for WebUI, a fully independent cross-platform web UI
-library.
+Nim wrapper and bindings for [WebUI](https://github.com/alifcommunity/webui), a
+fully independent and cross-platform web UI library.
 
 Instead of using a third-party library, WebUI instead uses a pre-installed
 browser (Edge, Firefox, Chrome, Chromium, or Safari). So, there's no need for any
@@ -67,7 +67,8 @@ to depend on a DLL. Static compilation is the default behavior.
 To compile with a static library, pass `-d:useWebviewStaticLib` or
 `-d:useWebviewStaticLibrary` to the Nim compiler. To depend on a DLL, pass
 `-d:useWebviewDll` instead. If neither of these flags are passed to the Nim
-compiler, static compilation will take place instead.
+compiler, static compilation will take place instead. Static libraries and DLLs can
+be found in WebUI's website[here](https://webui.me/#download).
 
 In addition, you can also enable WebUI's logging via `-d:webuiLog` but that flag
 only works for static compilation.
