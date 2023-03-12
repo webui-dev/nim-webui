@@ -1,5 +1,6 @@
-## Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
-
+##[ 
+  Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
+]##
 runnableExamples:
 
   let window = newWindow() # Create a new Window
