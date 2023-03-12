@@ -12,10 +12,6 @@ import std/uri
 from webui/bindings import nil
 
 type
-  #Timer* {.bycopy.} = object
-  #  start*: Timespec
-  #  now*: Timespec
-
   WindowCore* = ref object
     internalImpl: bindings.WindowCore
 
@@ -467,7 +463,9 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int): int {.
       e.returnInt(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =  ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript
+  ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript
+
   win.bind(
     element, 
     proc (e: Event) =
@@ -509,6 +507,8 @@ proc bindAll*(win: Window; `func`: proc (e: Event): int) =
   )  
 
 proc bindAll*(win: Window; `func`: proc (e: Event): bool) =
+  ## Bind all elements to `func` automatically pass return value of `func` to Javascript
+
   win.bindAll( 
     proc (e: Event) =
       let res = `func`(e)
