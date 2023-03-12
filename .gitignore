@@ -1,6 +1,8 @@
 # Binaries generated/used for testing
 *.lib
 *.exp
+*.ilk
+*.pdb
 *.dll
 *.exe
 *.so
