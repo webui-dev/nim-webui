@@ -165,6 +165,14 @@ func impl*(win: Window): ptr bindings.Window =
 func `impl=`*(win: Window, bwin: ptr bindings.Window) = 
   win.internalImpl = pointer(bwin)
 
+# --- Script ---
+
+func impl*(script: Script): bindings.Script = 
+  script.internalImpl
+
+func `impl=`*(script: Script, bwin: bindings.Script) = 
+  script.internalImpl = bwin
+
 # -------- Custom Browser --------
 
 # construct via var
