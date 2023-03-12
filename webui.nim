@@ -349,7 +349,10 @@ proc refreshCopy*(win: Window; html: string): bool =
 proc `icon=`*(win: Window; iconS, typeS: string) = 
   bindings.setIcon(win.impl, cstring iconS, cstring typeS)
 
-proc multiAccess*(win: Window; status: bool) = 
+proc multiAccess*(win: Window; status: bool) {.deprecated: "Use `multiAccess=` instead".} = 
+  bindings.multiAccess(win.impl, status)
+
+proc `multiAccess=`*(win: Window; status: bool) = 
   ## After the window is loaded, for safety, the used URL is not valid anymore, 
   ## if someone else tries to access the URL WebUI will show an error.
   ## 
@@ -366,6 +369,7 @@ proc newServer*(win: Window; path: string): string =
 
 proc close*(win: Window) = 
   ## Close window `win`. If there is no running window left, `wait() <#wait>`_ will break.
+  
   bindings.close(win.impl)
 
 proc shown*(win: Window): bool = 
@@ -466,12 +470,14 @@ proc bindAll*(win: Window; element: string; `func`: proc (e: Event): bool): int 
       e.returnBool(res)
   )  
 
-
 proc open*(win: Window; url: string; browser: Browser = BrowserAny): bool {.discardable.} =
   bindings.open(win.impl, cstring url, cuint ord(browser))
 
-proc scriptRuntime*(win: Window; runtime: Runtime) = 
-  ## Make WebUI act like  runtime`runtime` (either NodeJS or Deno).
+proc scriptRuntime*(win: Window; runtime: Runtime) {.deprecated: "Use `scriptRuntime=` instead".} = 
+  bindings.scriptRuntime(win.impl, cuint ord(runtime))
+
+proc `scriptRuntime=`*(win: Window; runtime: Runtime) = 
+  ## Make WebUI act like  runtime `runtime` (either NodeJS or Deno).
   ## 
   ## Useful when serving folders.
   
