@@ -1,3 +1,5 @@
+import std/uri
+
 from webui/bindings import nil
 
 type
@@ -274,6 +276,9 @@ proc bindAll*(winCore: WindowCore): bool =
 proc url*(winCore: WindowCore): string =
   $ winCore.impl.url
 
+proc uri*(winCore: WindowCore): Uri =
+  parseUri winCore.url
+
 proc html*(winCore: WindowCore): string =
   $ winCore.impl.html
 
@@ -327,14 +332,14 @@ proc core*(win: Window): WindowCore =
 
 {.push discardable.}
 
-proc show*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
+proc show*(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool = 
   ## Show Window `win`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
 
-  bindings.show(win.impl, cstring html, cuint ord(browser))
+  bindings.show(win.impl, cstring $html, cuint ord(browser))
 
-proc showCopy*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
-  bindings.showCpy(win.impl, cstring html, cuint ord(browser))
+proc showCopy*(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool = 
+  bindings.showCpy(win.impl, cstring $html, cuint ord(browser))
 
 proc refresh*(win: Window; html: string): bool = 
   ## Refresh the window UI with any new HTML content.
@@ -470,8 +475,8 @@ proc bindAll*(win: Window; element: string; `func`: proc (e: Event): bool) =
       e.returnBool(res)
   )  
 
-proc open*(win: Window; url: string; browser: Browser = BrowserAny) =
-  bindings.open(win.impl, cstring url, cuint ord(browser))
+proc open*(win: Window; url: string | Uri; browser: Browser = BrowserAny) =
+  bindings.open(win.impl, cstring $url, cuint ord(browser))
 
 proc scriptRuntime*(win: Window; runtime: Runtime) {.deprecated: "Use `scriptRuntime=` instead".} = 
   bindings.scriptRuntime(win.impl, cuint ord(runtime))
@@ -495,10 +500,10 @@ proc event*(win: Window; elementId, element: string; data: pointer; dataLen: int
 proc getNumber*(win: Window): int =
   int bindings.windowGetNumber(win.impl)
 
-proc openLink*(win: Window; link: string; browser: Browser = BrowserAny) =
+proc openLink*(win: Window; link: string | Uri; browser: Browser = BrowserAny) =
   ## Open window `win` using URL `link`.
 
-  bindings.windowOpen(win.impl, cstring link, cuint ord(browser))
+  bindings.windowOpen(win.impl, cstring $link, cuint ord(browser))
 
 proc runBrowser*(win: Window; cmd: string): int =
   int bindings.runBrowser(win.impl, cstring cmd)
@@ -511,17 +516,17 @@ proc browserCreateProfileFolder*(win: Window; browser: Browser): bool {.discarda
 
 {.push discardable.}
 
-proc browserStartEdge*(win: Window; address: string): bool =
-  bindings.browserStartEdge(win.impl, cstring address)
+proc browserStartEdge*(win: Window; address: string | Uri): bool =
+  bindings.browserStartEdge(win.impl, cstring $address)
 
-proc browserStartFirefox*(win: Window; address: string): bool =
-  bindings.browserStartFirefox(win.impl, cstring address)
+proc browserStartFirefox*(win: Window; address: string | Uri): bool =
+  bindings.browserStartFirefox(win.impl, cstring $address)
 
-proc browserStartCustom*(win: Window; address: string): bool =
-  bindings.browserStartCustom(win.impl, cstring address)
+proc browserStartCustom*(win: Window; address: string | Uri): bool =
+  bindings.browserStartCustom(win.impl, cstring $address)
 
-proc browserStartChrome*(win: Window; address: string): bool =
-  bindings.browserStartChrome(win.impl, cstring address)
+proc browserStartChrome*(win: Window; address: string | Uri): bool =
+  bindings.browserStartChrome(win.impl, cstring $address)
 
 {.pop.}
 
