@@ -63,6 +63,8 @@ else:
   {.compile: "./webui/src/mongoose.c".}
   {.compile: "./webui/src/webui.c".}
 
+{.deadCodeElim: on.}
+
 const
   WEBUI_VERSION* = "2.0.6"
   WEBUI_HEADER_SIGNATURE* = 0xFF
