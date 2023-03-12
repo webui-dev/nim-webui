@@ -449,28 +449,28 @@ proc bindAll*(win: Window; `func`: proc (e: Event)) =
 
   cbs[wid][0] = `func`
 
-proc bindAll*(win: Window; element: string; `func`: proc (e: Event): string): int {.discardable.} =
+proc bindAll*(win: Window; element: string; `func`: proc (e: Event): string) =
   win.bindAll( 
     proc (e: Event) =
       let res = `func`(e)
       e.returnString(res)
   )  
 
-proc bindAll*(win: Window; element: string; `func`: proc (e: Event): int): int {.discardable.} =
+proc bindAll*(win: Window; element: string; `func`: proc (e: Event): int) =
   win.bindAll( 
     proc (e: Event) =
       let res = `func`(e)
       e.returnInt(res)
   )  
 
-proc bindAll*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =
+proc bindAll*(win: Window; element: string; `func`: proc (e: Event): bool) =
   win.bindAll( 
     proc (e: Event) =
       let res = `func`(e)
       e.returnBool(res)
   )  
 
-proc open*(win: Window; url: string; browser: Browser = BrowserAny): bool {.discardable.} =
+proc open*(win: Window; url: string; browser: Browser = BrowserAny) =
   bindings.open(win.impl, cstring url, cuint ord(browser))
 
 proc scriptRuntime*(win: Window; runtime: Runtime) {.deprecated: "Use `scriptRuntime=` instead".} = 
