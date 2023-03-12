@@ -3,7 +3,10 @@ import std/os
 const
   currentSourceDir {.used.} = currentSourcePath().parentDir()
 
-when defined(useWebuiStaticLib) or defined(useWebuiStaticLibrary):
+  useWebuiStaticLib* = defined(useWebuiStaticLib) or defined(useWebuiStaticLibrary)
+  useWebuiDll* = defined(useWebuiDll)
+
+when useWebuiStaticLib:
   const webuiStaticLib* {.strdefine.} = "webui-2-static-x64"
 
   when defined(vcc):
@@ -22,7 +25,7 @@ when defined(useWebuiStaticLib) or defined(useWebuiStaticLibrary):
     {.passL: "-lws2_32".}
 
   {.pragma: webui.}
-elif defined(useWebuiDll):
+elif useWebuiDll:
   const webuiDll* {.strdefine.} = when defined(windows):
     "webui-2-x64.dll"
   elif defined(macos):
