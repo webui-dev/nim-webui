@@ -69,6 +69,7 @@ proc main =
 
   window.bind("MyButton2") do (_: Event):
     # Close all opened windows
+    
     webui.exit()
 
   # Show the window
