@@ -105,9 +105,6 @@ proc freePort*(port: int) =
 proc setCustomBrowser*(p: var CustomBrowser) =
   bindings.setCustomBrowser(addr p.internalImpl)
 
-proc getCurrentPath*(): string =
-  $ bindings.getCurrentPath()
-
 proc cmdSync*(cmd: string; show: bool): int =
   int bindings.cmdSync(cstring cmd, show)
 
@@ -120,20 +117,15 @@ proc clean*() =
 proc browserGetTempPath*(browser: Browser): string =
   $ bindings.browserGetTempPath(cuint ord(browser))
 
-proc folderExist*(folder: string): bool =
-  bindings.folderExist(cstring folder)
+# SKIPPED: getCurrentPath() unneccessary, use std/os
+# SKIPPED: folderExist() unneccessary, use std/os
+# SKIPPED: printHex() unneccessary, use std/strutils
+# SKIPPED: freeMem() too low-level and unneccessary with GC
+# SKIPPED: strCopy() unneccessary in general + too low-level
+# SKIPPED: fileExistMg() unneccessary + too low-level
+# SKIPPED: fileExist() unneccessary, use std/os
 
-proc printHex*(data: string; len: int) =
-  bindings.printHex(cstring data, csize_t len)
-
-proc fileExist*(file: string): bool =
-  bindings.fileExist(cstring file)
-
-# SKIPPED: freeMem()
-# SKIPPED: strCopy()
-# SKIPPED: fileExistMg()
-
-# above skipped functions seem unneccessary and too low-level
+# above skipped functions seem unneccessary and/or too low-level
 
 # ------- Impl funcs --------
 
@@ -160,6 +152,28 @@ func impl*(win: Window): ptr bindings.Window =
 
 func `impl=`*(win: Window, bwin: ptr bindings.Window) = 
   win.internalImpl = pointer(bwin)
+
+# -------- Custom Browser --------
+
+# construct via var
+
+proc app*(c: CustomBrowser): string = 
+  $ c.internalImpl.app
+
+proc arg*(c: CustomBrowser): string = 
+  $ c.internalImpl.arg
+
+proc autoLink*(c: CustomBrowser): bool = 
+  c.internalImpl.autoLink
+
+proc `app=`*(c: CustomBrowser, app: string) = 
+  c.internalImpl.app = cstring app
+
+proc `arg=`*(c: CustomBrowser, arg: string) = 
+  c.internalImpl.arg = cstring arg
+
+proc `autoLink=`*(c: CustomBrowser, autoLink: bool) = 
+  c.internalImpl.autoLink = autoLink
 
 # -------- Script --------
 
@@ -419,6 +433,7 @@ proc bindAll*(win: Window; `func`: proc (e: Event)) =
   let wid = win.getNumber()
 
   # bindInterface was going to return zero anyway
+  #
   # C source of `webui_bind_interface`:
   #   ...
   #   if(_webui_is_empty(element)) {
@@ -427,6 +442,7 @@ proc bindAll*(win: Window; `func`: proc (e: Event)) =
   #     return 0;
   #   }
   #   ...
+
   cbs[wid][0] = `func`
 
 proc bindAll*(win: Window; element: string; `func`: proc (e: Event): string): int {.discardable.} =
