@@ -32,7 +32,7 @@ large SDK or library for development/production, all you need is a web browser!
 Install via Nimble:
 
 ```shell
-nimble install https://github.com/neroist/webui
+nimble install webui
 ```
 
 ## Documentation
