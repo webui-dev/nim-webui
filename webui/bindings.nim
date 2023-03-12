@@ -79,19 +79,19 @@ else:
 {.deadCodeElim: on.}
 
 const
-  WEBUI_VERSION*          = "2.0.6"
-  WEBUI_HEADER_SIGNATURE* = 0xFF
-  WEBUI_HEADER_JS*        = 0xFE
-  WEBUI_HEADER_CLICK*     = 0xFD
-  WEBUI_HEADER_SWITCH*    = 0xFC
-  WEBUI_HEADER_CLOSE*     = 0xFB
-  WEBUI_HEADER_CALL_FUNC* = 0xFA
-  WEBUI_MAX_ARRAY*        = (1024)
-  WEBUI_MIN_PORT*         = (10000)
-  WEBUI_MAX_PORT*         = (65500)
-  WEBUI_MAX_BUF*          = (1024000)
-  WEBUI_DEFAULT_PATH*     = "."
-  WEBUI_DEF_TIMEOUT*      = (8)
+  WEBUI_VERSION*          = "2.0.6"   ## Version
+  WEBUI_HEADER_SIGNATURE* = 0xFF      ## All packets should start with this 8bit
+  WEBUI_HEADER_JS*        = 0xFE      ## Javascript result in frontend
+  WEBUI_HEADER_CLICK*     = 0xFD      ## Click event
+  WEBUI_HEADER_SWITCH*    = 0xFC      ## Frontend refresh
+  WEBUI_HEADER_CLOSE*     = 0xFB      ## Close window
+  WEBUI_HEADER_CALL_FUNC* = 0xFA      ## Call a backend function
+  WEBUI_MAX_ARRAY*        = (1024)    ## Max num of threads, servers, windows, pointers...
+  WEBUI_MIN_PORT*         = (10000)   ## Minimum socket port
+  WEBUI_MAX_PORT*         = (65500)   ## Should be less than 65535
+  WEBUI_MAX_BUF*          = (1024000) ## 1024 Kb max dynamic memory allocation
+  WEBUI_DEFAULT_PATH*     = "."       ## Default root path
+  WEBUI_DEF_TIMEOUT*      = (8)       ## Default startup timeout in seconds
 
 # -- Types -------------------------
 
@@ -163,18 +163,18 @@ type
     autoLink*: bool
 
   Browser* {.bycopy.} = object
-    `any`*: cuint
-    chrome*: cuint
-    firefox*: cuint
-    edge*: cuint
-    safari*: cuint
-    chromium*: cuint
-    custom*: cuint
+    `any`*: cuint     ## 0
+    chrome*: cuint    ## 1
+    firefox*: cuint   ## 2
+    edge*: cuint      ## 3
+    safari*: cuint    ## 4
+    chromium*: cuint  ## 5
+    custom*: cuint    ## 99
 
   Runtime* {.bycopy.} = object
-    none*: cuint
-    deno*: cuint
-    nodejs*: cuint
+    none*: cuint    ## 0
+    deno*: cuint    ## 1
+    nodejs*: cuint  ## 2
 
   Webui* {.bycopy.} = object
     servers*: cuint

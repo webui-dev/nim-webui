@@ -103,13 +103,13 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#Browser"
     title="Browser {.bycopy.} = object
-  `any`*: cuint
-  chrome*: cuint
-  firefox*: cuint
-  edge*: cuint
-  safari*: cuint
-  chromium*: cuint
-  custom*: cuint">Browser</a></li>
+  `any`*: cuint              ## 0
+  chrome*: cuint             ## 1
+  firefox*: cuint            ## 2
+  edge*: cuint               ## 3
+  safari*: cuint             ## 4
+  chromium*: cuint           ## 5
+  custom*: cuint             ## 99">Browser</a></li>
   <li><a class="reference" href="#Cb"
     title="Cb {.bycopy.} = object
   win*: ptr Window
@@ -140,9 +140,9 @@ window.addEventListener('DOMContentLoaded', main);
   data*: cstring">JavascriptResult</a></li>
   <li><a class="reference" href="#Runtime"
     title="Runtime {.bycopy.} = object
-  none*: cuint
-  deno*: cuint
-  nodejs*: cuint">Runtime</a></li>
+  none*: cuint               ## 0
+  deno*: cuint               ## 1
+  nodejs*: cuint             ## 2">Runtime</a></li>
   <li><a class="reference" href="#Script"
     title="Script {.bycopy.} = object
   script*: cstring
@@ -615,14 +615,14 @@ window.addEventListener('DOMContentLoaded', main);
 <dl class="item">
 <div id="Browser">
 <dt><pre><a href="bindings.html#Browser"><span class="Identifier">Browser</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Other">`</span><span class="Identifier">any</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">chrome</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">firefox</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">edge</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">safari</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">chromium</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">custom</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-</pre></dt>
+  <span class="Other">`</span><span class="Identifier">any</span><span class="Other">`</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>              <span class="Comment">## 0</span>
+  <span class="Identifier">chrome</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>             <span class="Comment">## 1</span>
+  <span class="Identifier">firefox</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>            <span class="Comment">## 2</span>
+  <span class="Identifier">edge</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>               <span class="Comment">## 3</span>
+  <span class="Identifier">safari</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>             <span class="Comment">## 4</span>
+  <span class="Identifier">chromium</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>           <span class="Comment">## 5</span>
+  <span class="Identifier">custom</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>             <span class="Comment">## 99</span>
+  </pre></dt>
 <dd>
 
 
@@ -694,10 +694,10 @@ window.addEventListener('DOMContentLoaded', main);
 </div>
 <div id="Runtime">
 <dt><pre><a href="bindings.html#Runtime"><span class="Identifier">Runtime</span></a> {.<span class="Identifier">bycopy</span>.} <span class="Other">=</span> <span class="Keyword">object</span>
-  <span class="Identifier">none</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">deno</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-  <span class="Identifier">nodejs</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>
-</pre></dt>
+  <span class="Identifier">none</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>               <span class="Comment">## 0</span>
+  <span class="Identifier">deno</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>               <span class="Comment">## 1</span>
+  <span class="Identifier">nodejs</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">cuint</span>             <span class="Comment">## 2</span>
+  </pre></dt>
 <dd>
 
 
@@ -847,7 +847,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_DEF_TIMEOUT"><span class="Identifier">WEBUI_DEF_TIMEOUT</span></a> <span class="Other">=</span> <span class="DecNumber">8</span></pre></dt>
 <dd>
 
-
+Default startup timeout in seconds
 
 </dd>
 </div>
@@ -855,7 +855,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_DEFAULT_PATH"><span class="Identifier">WEBUI_DEFAULT_PATH</span></a> <span class="Other">=</span> <span class="StringLit">&quot;.&quot;</span></pre></dt>
 <dd>
 
-
+Default root path
 
 </dd>
 </div>
@@ -863,7 +863,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_HEADER_CALL_FUNC"><span class="Identifier">WEBUI_HEADER_CALL_FUNC</span></a> <span class="Other">=</span> <span class="DecNumber">0x000000FA</span></pre></dt>
 <dd>
 
-
+Call a backend function
 
 </dd>
 </div>
@@ -871,7 +871,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_HEADER_CLICK"><span class="Identifier">WEBUI_HEADER_CLICK</span></a> <span class="Other">=</span> <span class="DecNumber">0x000000FD</span></pre></dt>
 <dd>
 
-
+Click event
 
 </dd>
 </div>
@@ -879,7 +879,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_HEADER_CLOSE"><span class="Identifier">WEBUI_HEADER_CLOSE</span></a> <span class="Other">=</span> <span class="DecNumber">0x000000FB</span></pre></dt>
 <dd>
 
-
+Close window
 
 </dd>
 </div>
@@ -887,7 +887,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_HEADER_JS"><span class="Identifier">WEBUI_HEADER_JS</span></a> <span class="Other">=</span> <span class="DecNumber">0x000000FE</span></pre></dt>
 <dd>
 
-
+Javascript result in frontend
 
 </dd>
 </div>
@@ -895,7 +895,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_HEADER_SIGNATURE"><span class="Identifier">WEBUI_HEADER_SIGNATURE</span></a> <span class="Other">=</span> <span class="DecNumber">0x000000FF</span></pre></dt>
 <dd>
 
-
+All packets should start with this 8bit
 
 </dd>
 </div>
@@ -903,7 +903,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_HEADER_SWITCH"><span class="Identifier">WEBUI_HEADER_SWITCH</span></a> <span class="Other">=</span> <span class="DecNumber">0x000000FC</span></pre></dt>
 <dd>
 
-
+Frontend refresh
 
 </dd>
 </div>
@@ -911,7 +911,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_MAX_ARRAY"><span class="Identifier">WEBUI_MAX_ARRAY</span></a> <span class="Other">=</span> <span class="DecNumber">1024</span></pre></dt>
 <dd>
 
-
+Max num of threads, servers, windows, pointers...
 
 </dd>
 </div>
@@ -919,7 +919,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_MAX_BUF"><span class="Identifier">WEBUI_MAX_BUF</span></a> <span class="Other">=</span> <span class="DecNumber">1024000</span></pre></dt>
 <dd>
 
-
+1024 Kb max dynamic memory allocation
 
 </dd>
 </div>
@@ -927,7 +927,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_MAX_PORT"><span class="Identifier">WEBUI_MAX_PORT</span></a> <span class="Other">=</span> <span class="DecNumber">65500</span></pre></dt>
 <dd>
 
-
+Should be less than 65535
 
 </dd>
 </div>
@@ -935,7 +935,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_MIN_PORT"><span class="Identifier">WEBUI_MIN_PORT</span></a> <span class="Other">=</span> <span class="DecNumber">10000</span></pre></dt>
 <dd>
 
-
+Minimum socket port
 
 </dd>
 </div>
@@ -943,7 +943,7 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><pre><a href="bindings.html#WEBUI_VERSION"><span class="Identifier">WEBUI_VERSION</span></a> <span class="Other">=</span> <span class="StringLit">&quot;2.0.6&quot;</span></pre></dt>
 <dd>
 
-
+Version
 
 </dd>
 </div>
@@ -1577,7 +1577,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 19:11:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 19:35:57 UTC</small>
       </div>
     </div>
   </div>
