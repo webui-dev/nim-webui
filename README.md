@@ -40,7 +40,8 @@ nimble install https://github.com/neroist/webui
 Online documentation can be found here: <https://neroist.github.io/webui>
 
 There isn't much documentation as of right now, so I suggest to get started
-using the examples at [`examples/`](examples/).
+using the examples at [`examples/`](examples/) or WebUI's
+[examples](https://github.com/alifcommunity/webui/tree/main/examples).
 
 Heres a very [*minimal*](examples/minimal.nim) example of using the wrapper:
 
