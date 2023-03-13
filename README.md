@@ -3,6 +3,8 @@
 > *Use any web browser as GUI, with Nim in the backend, and*
 > *HTML/Nim/JS/TS/CSS in the frontend.*
 
+![Image](https://raw.githubusercontent.com/malisipi/vwebui/main/screenshot.png)
+
 Nim wrapper and bindings for [WebUI](https://github.com/alifcommunity/webui), a
 fully independent and cross-platform web UI library.
 
