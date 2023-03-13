@@ -825,7 +825,7 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int): int {.
       e.returnInt(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =  ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =  
   ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript
 
   win.bind(
