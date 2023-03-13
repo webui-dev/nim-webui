@@ -788,7 +788,7 @@ proc script*(win: Window; script: var Script) =
 
   bindings.script(win.impl, addr script.internalImpl)
 
-proc evalJS*(win: Window; script: string; timeout: int = 0): JavascriptResult =
+proc evalJs*(win: Window; script: string; timeout: int = 0): JavascriptResult =
   ## Evaluate Javascript code `script` and return the result
 
   var js = newScript(script, timeout)
