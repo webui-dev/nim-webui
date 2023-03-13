@@ -125,3 +125,25 @@ browserStartChrome	webui.html#browserStartChrome,Window,	webui: browserStartChro
 rootFolder=	webui.html#rootFolder=,Window,string	webui: rootFolder=(win: Window; path: string): bool	
 waitProcess	webui.html#waitProcess,Window,bool	webui: waitProcess(win: Window; status: bool)	
 generateJsBridge	webui.html#generateJsBridge,Window	webui: generateJsBridge(win: Window): string	
+Get Started	webui.html#get-started	 Get Started	
+Example	webui.html#example	 Example	
+Windows	webui.html#windows	 Windows	
+New Window	webui.html#windows-new-window	  New Window	
+Show Window	webui.html#windows-show-window	  Show Window	
+Window Status	webui.html#windows-window-status	  Window Status	
+Binding	webui.html#binding	 Binding	
+Bind	webui.html#binding-bind	  Bind	
+Bind All	webui.html#binding-bind-all	  Bind All	
+Application	webui.html#application	 Application	
+Wait	webui.html#application-wait	  Wait	
+Exit	webui.html#application-exit	  Exit	
+Close	webui.html#application-close	  Close	
+App Status	webui.html#application-app-status	  App Status	
+Startup Timeout	webui.html#application-startup-timeout	  Startup Timeout	
+Multi Access	webui.html#application-multi-access	  Multi Access	
+Event	webui.html#event	 Event	
+Event	webui.html#event-event	  Event	
+Run JavaScript	webui.html#run-javascript	 Run JavaScript	
+Script	webui.html#run-javascript-script	  Script	
+Server	webui.html#server	 Server	
+Server	webui.html#server-server	  Server	

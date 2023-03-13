@@ -98,7 +98,29 @@ window.addEventListener('DOMContentLoaded', main);
     </select>
   </div>
   <ul class="simple simple-toc" id="toc-list">
-<li>
+<li><a class="reference" id="get-started_toc" href="#get-started">Get Started</a></li>
+<li><a class="reference" id="example_toc" href="#example">Example</a></li>
+<li><a class="reference" id="windows_toc" href="#windows">Windows</a></li>
+<ul class="simple"><li><a class="reference" id="windows-new-window_toc" href="#windows-new-window">New Window</a></li>
+<li><a class="reference" id="windows-show-window_toc" href="#windows-show-window">Show Window</a></li>
+<li><a class="reference" id="windows-window-status_toc" href="#windows-window-status">Window Status</a></li>
+</ul><li><a class="reference" id="binding_toc" href="#binding">Binding</a></li>
+<ul class="simple"><li><a class="reference" id="binding-bind_toc" href="#binding-bind">Bind</a></li>
+<li><a class="reference" id="binding-bind-all_toc" href="#binding-bind-all">Bind All</a></li>
+</ul><li><a class="reference" id="application_toc" href="#application">Application</a></li>
+<ul class="simple"><li><a class="reference" id="application-wait_toc" href="#application-wait">Wait</a></li>
+<li><a class="reference" id="application-exit_toc" href="#application-exit">Exit</a></li>
+<li><a class="reference" id="application-close_toc" href="#application-close">Close</a></li>
+<li><a class="reference" id="application-app-status_toc" href="#application-app-status">App Status</a></li>
+<li><a class="reference" id="application-startup-timeout_toc" href="#application-startup-timeout">Startup Timeout</a></li>
+<li><a class="reference" id="application-multi-access_toc" href="#application-multi-access">Multi Access</a></li>
+</ul><li><a class="reference" id="event_toc" href="#event">Event</a></li>
+<ul class="simple"><li><a class="reference" id="event-event_toc" href="#event-event">Event</a></li>
+</ul><li><a class="reference" id="run-javascript_toc" href="#run-javascript">Run JavaScript</a></li>
+<ul class="simple"><li><a class="reference" id="run-javascript-script_toc" href="#run-javascript-script">Script</a></li>
+</ul><li><a class="reference" id="server_toc" href="#server">Server</a></li>
+<ul class="simple"><li><a class="reference" id="server-server_toc" href="#server-server">Server</a></li>
+</ul><li>
   <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
   <ul class="simple simple-toc-section">
     
@@ -113,10 +135,10 @@ window.addEventListener('DOMContentLoaded', main);
   BrowserSafari = 4, BrowserChromium = 5, BrowserCustom = 99">Browser</a></li>
   <li><a class="reference" href="#CustomBrowser"
     title="CustomBrowser = ref object
-  internalImpl: bindings.CustomBrowser">CustomBrowser</a></li>
+  internalImpl*: bindings.CustomBrowser">CustomBrowser</a></li>
   <li><a class="reference" href="#Event"
     title="Event = ref object
-  internalImpl: pointer">Event</a></li>
+  internalImpl*: pointer">Event</a></li>
   <li><a class="reference" href="#JavascriptResult"
     title="JavascriptResult = ref object
   error*: bool
@@ -127,13 +149,13 @@ window.addEventListener('DOMContentLoaded', main);
   RuntimeNone, RuntimeDeno, RuntimeNodeJs">Runtime</a></li>
   <li><a class="reference" href="#Script"
     title="Script = ref object
-  internalImpl: bindings.Script">Script</a></li>
+  internalImpl*: bindings.Script">Script</a></li>
   <li><a class="reference" href="#Window"
     title="Window = ref object
-  internalImpl: pointer">Window</a></li>
+  internalImpl*: pointer">Window</a></li>
   <li><a class="reference" href="#WindowCore"
     title="WindowCore = ref object
-  internalImpl: bindings.WindowCore">WindowCore</a></li>
+  internalImpl*: bindings.WindowCore">WindowCore</a></li>
 
   </ul>
 </li>
@@ -657,14 +679,209 @@ window.addEventListener('DOMContentLoaded', main);
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc">Nim wrapper for <a class="reference external" href="https://github.com/alifcommunity/webui">WebUI</a>
+  <p class="module-desc">Nim wrapper for <a class="reference external" href="https://github.com/alifcommunity/webui">WebUI</a><table class="docinfo" frame="void" rules="none"><col class="docinfo-name" /><col class="docinfo-content" /><tbody valign="top"><tr><th class="docinfo-name">Author:</th><td>Jasmine</td></tr>
+<tr><th class="docinfo-name">WebUI Version:</th><td>2.0.6</td></tr>
+</tbody></table>
+<h1><a class="toc-backref" id="get-started" href="#get-started">Get Started</a></h1><p>To begin you need to install the webui library for Nim. This installs WebUI's C sources for you.</p>
+<p><pre class="listing">
+nimble install webui
+</pre></p>
+<p>To see the wrapper's source code, please visit the GitHub repository here: <a class="reference external" href="https://github.com/neroist/webui">https://github.com/neroist/webui</a></p>
+<p>WebUI's source code is <a class="reference external" href="https://github.com/alifcommunity/webui">here</a>.</p>
+
+<h1><a class="toc-backref" id="example" href="#example">Example</a></h1><p>A very <em>minimal</em> Nim example: </p>
+
 <p><strong class="examples_text">Example:</strong></p>
 <pre class="listing"><span class="Keyword">import</span> <span class="Identifier">webui</span>
 
 <span class="Keyword">let</span> <span class="Identifier">window</span> <span class="Operator">=</span> <span class="Identifier">newWindow</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># Create a new Window</span>
 <span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="StringLit">&quot;&lt;html&gt;Hello&lt;/html&gt;&quot;</span><span class="Punctuation">)</span> <span class="Comment"># Show the window with html content</span>
 
-<span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># Wait until the window gets closed</span></pre></p>
+<span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># Wait until the window gets closed</span></pre>To view more complex examples please visit the <a class="reference external" href="https://github.com/neroist/webui/tree/main/examples">examples</a> directory in my GitHub repository.
+<h1><a class="toc-backref" id="windows" href="#windows">Windows</a></h1>
+<h2><a class="toc-backref" id="windows-new-window" href="#windows-new-window">New Window</a></h2><p>To create a new window object, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">newWindow</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which returns a new window object.</p>
+<p><pre class="listing"><span class="Keyword">let</span> <span class="Identifier">window</span> <span class="Operator">=</span> <span class="Identifier">newWindow</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+</pre></p>
+
+<h2><a class="toc-backref" id="windows-show-window" href="#windows-show-window">Show Window</a></h2><p>To show a window, you can use the <tt class="docutils literal"><span class="pre"><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> function. If the window is already shown, the UI will get refreshed in the same window.</p>
+<p><pre class="listing"><span class="Keyword">const</span> <span class="Identifier">html</span> <span class="Operator">=</span> <span class="StringLit">&quot;&lt;html&gt;Hello!&lt;/html&gt;&quot;</span>
+
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">)</span> <span class="Comment"># Shows html in any installed web browser</span>
+</pre></p>
+<p>To show a window in a specific web browser:</p>
+<p><pre class="listing"><span class="Keyword">const</span> <span class="Identifier">html</span> <span class="Operator">=</span> <span class="StringLit">&quot;&lt;html&gt;Hello!&lt;/html&gt;&quot;</span>
+
+<span class="Comment"># Chrome</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">,</span> <span class="Identifier">BrowserChrome</span><span class="Punctuation">)</span>
+
+<span class="Comment"># Firefox</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">,</span> <span class="Identifier">BrowserFirefox</span><span class="Punctuation">)</span>
+
+<span class="Comment"># Microsoft Edge</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">,</span> <span class="Identifier">BrowserEdge</span><span class="Punctuation">)</span>
+
+<span class="Comment"># Chromium</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">,</span> <span class="Identifier">BrowserChromium</span><span class="Punctuation">)</span>
+
+<span class="Comment"># Safari</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">,</span> <span class="Identifier">BrowserSafari</span><span class="Punctuation">)</span>
+
+<span class="Comment"># Any available web browser</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">,</span> <span class="Identifier">BrowserAny</span><span class="Punctuation">)</span>
+</pre></p>
+<p>If you need to update the whole UI content, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">refresh</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which allows you to refresh the window UI with any new HTML content.</p>
+<p><pre class="listing"><span class="Keyword">import</span> <span class="Identifier">std</span><span class="Operator">/</span><span class="Identifier">os</span>
+
+<span class="Keyword">let</span> <span class="Identifier">html</span> <span class="Operator">=</span> <span class="StringLit">&quot;&lt;html&gt;Hello&lt;/html&gt;&quot;</span>
+<span class="Keyword">let</span> <span class="Identifier">newHtml</span> <span class="Operator">=</span> <span class="StringLit">&quot;&lt;html&gt;New World!&lt;/html&gt;&quot;</span>
+
+<span class="Comment"># Open a window in Chrome</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">show</span><span class="Punctuation">(</span><span class="Identifier">html</span><span class="Punctuation">,</span> <span class="Identifier">BrowserChrome</span><span class="Punctuation">)</span>
+
+<span class="Comment"># Later...</span>
+<span class="Identifier">sleep</span><span class="Punctuation">(</span><span class="DecNumber">5000</span><span class="Punctuation">)</span>
+
+<span class="Comment"># Refresh the same window with the new content</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">refresh</span><span class="Punctuation">(</span><span class="Identifier">newHtml</span><span class="Punctuation">)</span>
+</pre></p>
+
+<h2><a class="toc-backref" id="windows-window-status" href="#windows-window-status">Window Status</a></h2><p>In some exceptional cases, you want to know if any opened window exists, for that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">isAnyWindowRunning</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which returns <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt>.</p>
+<p><pre class="listing"><span class="Keyword">if</span> <span class="Identifier">isAnyWindowRunning</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
+  <span class="Identifier">echo</span> <span class="StringLit">&quot;A window is running...&quot;</span>
+<span class="Keyword">else</span><span class="Punctuation">:</span>
+  <span class="Identifier">echo</span> <span class="StringLit">&quot;No window is running.&quot;</span>
+</pre></p>
+<p>To know if a specific window is running, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">shown</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+<p><pre class="listing"><span class="Keyword">if</span> <span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">shown</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
+  <span class="Identifier">echo</span> <span class="StringLit">&quot;A window is running...&quot;</span>
+<span class="Keyword">else</span><span class="Punctuation">:</span>
+  <span class="Identifier">echo</span> <span class="StringLit">&quot;No window is running.&quot;</span>
+</pre></p>
+
+<h1><a class="toc-backref" id="binding" href="#binding">Binding</a></h1>
+<h2><a class="toc-backref" id="binding-bind" href="#binding-bind">Bind</a></h2><p>Use <tt class="docutils literal"><span class="pre"><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> to receive click events when the user clicks on any HTML element with a specific ID, for example <tt class="docutils literal"><span class="pre"><span class="Operator">&lt;</span><span class="Identifier">button</span> <span class="Identifier">id</span><span class="Operator">=</span><span class="StringLit">&quot;MyID&quot;</span><span class="Operator">&gt;</span><span class="Identifier">Hello</span><span class="Operator">&lt;/</span><span class="Identifier">button</span><span class="Operator">&gt;</span></span></tt>.</p>
+<p><pre class="listing"><span class="Identifier">window</span><span class="Operator">.</span><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="StringLit">&quot;MyID&quot;</span><span class="Punctuation">)</span> <span class="Keyword">do</span> <span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
+  <span class="Operator">...</span>
+</pre></p>
+<p>You can also have a return value on your function, it must be either of <tt class="docutils literal"><span class="pre"><span class="Identifier">string</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">int</span></span></tt>, or <tt class="docutils literal"><span class="pre"><span class="Identifier">bool</span></span></tt>. The return value will be automatically passed back to the Javascript code for you.</p>
+<p><pre class="listing"><span class="Identifier">window</span><span class="Operator">.</span><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="StringLit">&quot;MyID&quot;</span><span class="Punctuation">)</span> <span class="Keyword">do</span> <span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span> <span class="Operator">-&gt;</span> <span class="Identifier">bool</span><span class="Punctuation">:</span>
+  <span class="Keyword">return</span> <span class="DecNumber">1</span> <span class="Operator">+</span> <span class="DecNumber">2</span> <span class="Operator">==</span> <span class="DecNumber">3</span>  <span class="Comment"># true</span>
+</pre></p>
+<p>This also applies to <tt class="docutils literal"><span class="pre"><span class="Identifier">bindAll</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+
+<h2><a class="toc-backref" id="binding-bind-all" href="#binding-bind-all">Bind All</a></h2><p>You can also automatically bind all HTML elements with one function call.</p>
+<p><pre class="listing"><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">bindAll</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Keyword">do</span> <span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
+  <span class="Operator">...</span>
+</pre></p>
+
+<h1><a class="toc-backref" id="application" href="#application">Application</a></h1>
+<h2><a class="toc-backref" id="application-wait" href="#application-wait">Wait</a></h2><p>It is essential to call <tt class="docutils literal"><span class="pre"><span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> at the end of your main function, after you create/show all your windows. This will make your application run until the user closes all visible windows or when calling <tt class="docutils literal"><span class="pre"><span class="Identifier">exit</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+<p><pre class="listing"><span class="Comment"># Create windows...</span>
+<span class="Comment"># Bind HTML elements...</span>
+<span class="Comment"># Show the windows...</span>
+
+<span class="Comment"># Wait until all windows get closed</span>
+<span class="Comment"># or when calling exit()</span>
+
+<span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+</pre></p>
+
+<h2><a class="toc-backref" id="application-exit" href="#application-exit">Exit</a></h2><p>At any moment, you can call <tt class="docutils literal"><span class="pre"><span class="Identifier">exit</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which tries to close all related opened windows and make <tt class="docutils literal"><span class="pre"><span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> break.</p>
+<p><pre class="listing"><span class="Identifier">exit</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+</pre></p>
+
+<h2><a class="toc-backref" id="application-close" href="#application-close">Close</a></h2><p>You can call <tt class="docutils literal"><span class="pre"><span class="Identifier">close</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> to close a specific window, if there is no running window left <tt class="docutils literal"><span class="pre"><span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> will break.</p>
+<p><pre class="listing"><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">close</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
+</pre></p>
+
+<h2><a class="toc-backref" id="application-app-status" href="#application-app-status">App Status</a></h2><p>In some exceptional cases, like in the WebUI-TypeScript wrapper, you want to know if the whole application still running or not, for that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">isAppRunning</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which returns <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt>.</p>
+<p><pre class="listing"><span class="Keyword">if</span> <span class="Identifier">isAppRunning</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
+  <span class="Identifier">echo</span> <span class="StringLit">&quot;The application is still running&quot;</span>
+<span class="Keyword">else</span><span class="Punctuation">:</span>
+  <span class="Identifier">echo</span> <span class="StringLit">&quot;The application is closed.&quot;</span>
+</pre></p>
+
+<h2><a class="toc-backref" id="application-startup-timeout" href="#application-startup-timeout">Startup Timeout</a></h2><p>WebUI waits a couple of seconds to let the web browser start and connect, you can control this behavior by using <tt class="docutils literal"><span class="pre"><span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+<p><pre class="listing"><span class="Comment"># Wait 10 seconds for the web browser to start</span>
+<span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="DecNumber">10</span><span class="Punctuation">)</span>
+<span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span>    <span class="Comment"># After 10 seconds, if the web browser</span>
+          <span class="Comment"># did not start yet, this function will return</span>
+</pre></p>
+<p><pre class="listing"><span class="Comment"># Wait forever.</span>
+<span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="DecNumber">0</span><span class="Punctuation">)</span>
+<span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment"># this function will never end</span>
+</pre></p>
+
+<h2><a class="toc-backref" id="application-multi-access" href="#application-multi-access">Multi Access</a></h2><p><a class="reference external" href="For some reason using markdown doesn't work for images..."></a></p>
+<img src="https://webui.me/docs/data/webui_access_denied.png" alt="WebUI access denied image"/><p>After the window is loaded, for safety, the used URL is not valid anymore, if someone else tries to access the URL WebUI will show an error. To allow multi-user access to the same URL, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">multiAccess</span><span class="Operator">=</span></span></tt>.</p>
+<p><pre class="listing"><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">multiAccess</span> <span class="Operator">=</span> <span class="Identifier">true</span>
+</pre></p>
+
+<h1><a class="toc-backref" id="event" href="#event">Event</a></h1>
+<h2><a class="toc-backref" id="event-event" href="#event-event">Event</a></h2><p>When you use <tt class="docutils literal"><span class="pre"><span class="Identifier">window</span><span class="Operator">.</span><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, your application will receive an event every time the user clicks on the specified HTML element. The event comes with the <tt class="docutils literal"><span class="pre"><span class="Identifier">elementName</span></span></tt>, which is The HTML ID of the clicked element, for example, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyButton</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyInput</span></span></tt>, etc., The event also comes with the WebUI unique element ID &amp; the unique window ID. Those two IDs are not generally needed.</p>
+<p><pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">myProc</span><span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span> <span class="Operator">=</span>
+  <span class="Identifier">echo</span> <span class="StringLit">&quot;Hi!, You clicked on &quot;</span><span class="Punctuation">,</span> <span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">elementName</span><span class="Punctuation">,</span> <span class="StringLit">&quot; element&quot;</span>
+</pre></p>
+<p>The <tt class="docutils literal"><span class="pre"><span class="Identifier">e</span></span></tt> corresponds to <tt class="docutils literal"><span class="pre"><span class="Identifier">Event</span></span></tt>, and it has these attributes:</p>
+<p><pre class="listing"><span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">windowId</span>     <span class="Comment"># WebUI unique window ID</span>
+<span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">elementId</span>    <span class="Comment"># WebUI unique element ID</span>
+<span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">elementName</span>  <span class="Comment"># The HTML ID of the clicked element</span>
+<span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">window</span>       <span class="Comment"># The current window object</span>
+</pre></p>
+<p>You can access other attributes like <tt class="docutils literal"><span class="pre"><span class="Identifier">data</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">response</span></span></tt>, but those are used by WebUI, and are only meant for internal use by the library.</p>
+
+<h1><a class="toc-backref" id="run-javascript" href="#run-javascript">Run JavaScript</a></h1>
+<h2><a class="toc-backref" id="run-javascript-script" href="#run-javascript-script">Script</a></h2><p>You can run JavaScript on any window to read values, update the view, or anything else. In addition, you can check for execution errors, as well as receive data.</p>
+<p><pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">myProc</span><span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span> <span class="Operator">=</span>
+  <span class="Comment"># window.script requires a `var` type</span>
+  <span class="Keyword">var</span> <span class="Identifier">js</span> <span class="Operator">=</span> <span class="Identifier">newScript</span><span class="Punctuation">(</span><span class="StringLit">&quot;alert('Hello');&quot;</span><span class="Punctuation">)</span>
+  
+  <span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">script</span><span class="Punctuation">(</span><span class="Identifier">js</span><span class="Punctuation">)</span>
+</pre></p>
+<p>An example of how to run a JavaScript and get back the output as string, and check for errors, if any.</p>
+<p><pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">myProc</span><span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span> <span class="Operator">=</span>
+  <span class="Keyword">var</span> <span class="Identifier">js</span> <span class="Operator">=</span> <span class="Identifier">newScript</span><span class="Punctuation">(</span><span class="StringLit">&quot;var foo = 4; var bar = 2; return foo*bar;&quot;</span><span class="Punctuation">)</span> <span class="Comment"># Return '8'</span>
+  
+  <span class="Keyword">let</span> <span class="Identifier">res</span> <span class="Operator">=</span> <span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">script</span><span class="Punctuation">(</span><span class="Identifier">js</span><span class="Punctuation">)</span>
+  
+  <span class="Comment"># Check for any error</span>
+  <span class="Keyword">if</span> <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">error</span> <span class="Operator">==</span> <span class="Identifier">true</span><span class="Punctuation">:</span>
+      <span class="Identifier">echo</span> <span class="StringLit">&quot;JavaScript Error: &quot;</span><span class="Punctuation">,</span> <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">data</span>
+  <span class="Keyword">else</span><span class="Punctuation">:</span>
+      <span class="Identifier">echo</span> <span class="StringLit">&quot;Output: &quot;</span><span class="Punctuation">,</span> <span class="Identifier">res</span><span class="Operator">.</span><span class="Identifier">data</span> <span class="Comment"># '8'</span>
+</pre></p>
+
+<h1><a class="toc-backref" id="server" href="#server">Server</a></h1>
+<h2><a class="toc-backref" id="server-server" href="#server-server">Server</a></h2><p>You can use WebUI to serve a folder, which makes WebUI act like a web server. To do that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">newServer</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which returns the complete URL of the server.</p>
+<p><pre class="listing"><span class="Comment"># Serve a folder</span>
+<span class="Keyword">let</span> <span class="Identifier">url</span> <span class="Operator">=</span> <span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">newServer</span><span class="Punctuation">(</span><span class="StringLit">&quot;/path/to/folder&quot;</span><span class="Punctuation">)</span>
+</pre></p>
+<p><pre class="listing"><span class="Comment"># Automatically serve the current directory</span>
+<span class="Keyword">let</span> <span class="Identifier">url</span> <span class="Operator">=</span> <span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">newServer</span><span class="Punctuation">(</span><span class="StringLit">&quot;&quot;</span><span class="Punctuation">)</span>
+</pre></p>
+<p>When you serve a folder, you probably want to run JavaScript &amp; TypeScript files and show the output in the UI. To do that, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">scriptRuntime</span><span class="Operator">=</span></span></tt>, which makes WebUI act like Nodejs.</p>
+<p><pre class="listing"><span class="Comment"># Choose your preferable runtime for .js &amp; .ts files</span>
+<span class="Comment"># Deno: RuntimeDeno</span>
+<span class="Comment"># Node.js: RuntimeNodeJs</span>
+
+<span class="Comment"># Deno</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">scriptRuntime</span> <span class="Operator">=</span> <span class="Identifier">RuntimeDeno</span>
+
+<span class="Comment"># Nodejs</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">scriptRuntime</span> <span class="Operator">=</span> <span class="Identifier">RuntimeNodeJs</span>
+
+<span class="Comment"># Disable</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">scriptRuntime</span> <span class="Operator">=</span> <span class="Identifier">RuntimeNone</span>
+</pre></p>
+<p>If you already have a URL, you can use WebUI to open a window using this URL. For that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">open</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+<p><pre class="listing"><span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="DecNumber">0</span><span class="Punctuation">)</span> <span class="Comment"># (Optional) Let the server run forever</span>
+<span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">open</span><span class="Punctuation">(</span><span class="Identifier">url</span><span class="Punctuation">,</span> <span class="Identifier">BrowserChrome</span><span class="Punctuation">)</span> <span class="Comment"># `url` can also be a Uri from std/uri</span>
+</pre></p>
+<p>In addition, it can make WebUI track clicks and send you events by embedding the WebUI JavaScript bridge file <tt class="docutils literal"><span class="pre"><span class="Identifier">webui</span><span class="Operator">.</span><span class="Identifier">js</span></span></tt>. Of course, this will work only if the server is WebUI.</p>
+<p><a class="reference external" href="Yes, I know, &quot;its HTML code not Nim!!!&quot;. Nimdoc doesn't support html"></a> <a class="reference external" href="code highlighting so we use Nim to to get around that."></a></p>
+<p><pre class="listing"><span class="Operator">&lt;</span><span class="Identifier">script</span> <span class="Identifier">src</span><span class="Operator">=</span><span class="StringLit">&quot;/webui.js&quot;</span><span class="Operator">&gt;&lt;/</span><span class="Identifier">script</span><span class="Operator">&gt;</span>
+</pre> </p>
+</p>
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
@@ -685,7 +902,7 @@ window.addEventListener('DOMContentLoaded', main);
 </div>
 <div id="CustomBrowser">
 <dt><pre><a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
-  <span class="Identifier">internalImpl</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">CustomBrowser</span>
+  <span class="Identifier">internalImpl</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">CustomBrowser</span>
 </pre></dt>
 <dd>
 
@@ -695,11 +912,11 @@ window.addEventListener('DOMContentLoaded', main);
 </div>
 <div id="Event">
 <dt><pre><a href="webui.html#Event"><span class="Identifier">Event</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
-  <span class="Identifier">internalImpl</span><span class="Other">:</span> <span class="Identifier">pointer</span>
+  <span class="Identifier">internalImpl</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">pointer</span>
 </pre></dt>
 <dd>
 
-When you use <tt class="docutils literal"><span class="pre"><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, your application will receive an event every time the user clicks on the specified HTML element. The event comes with the <tt class="docutils literal"><span class="pre"><span class="Identifier">element_name</span></span></tt>, which is The HTML ID of the clicked element, for example, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyButton</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyInput</span></span></tt>.., The event also comes with the WebUI unique element ID &amp; the unique window ID.
+When you use <tt class="docutils literal"><span class="pre"><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, your application will receive an event every time the user clicks on the specified HTML element. The event comes with the <tt class="docutils literal"><span class="pre"><span class="Identifier">element_name</span></span></tt>, which is The HTML ID of the clicked element, for example, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyButton</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyInput</span></span></tt>, etc. The event also comes with the WebUI unique element ID &amp; the unique window ID.
 
 </dd>
 </div>
@@ -726,7 +943,7 @@ When you use <tt class="docutils literal"><span class="pre"><span class="Keyword
 </div>
 <div id="Script">
 <dt><pre><a href="webui.html#Script"><span class="Identifier">Script</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
-  <span class="Identifier">internalImpl</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Script</span>
+  <span class="Identifier">internalImpl</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Script</span>
 </pre></dt>
 <dd>
 
@@ -736,7 +953,7 @@ When you use <tt class="docutils literal"><span class="pre"><span class="Keyword
 </div>
 <div id="Window">
 <dt><pre><a href="webui.html#Window"><span class="Identifier">Window</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
-  <span class="Identifier">internalImpl</span><span class="Other">:</span> <span class="Identifier">pointer</span>
+  <span class="Identifier">internalImpl</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">pointer</span>
 </pre></dt>
 <dd>
 
@@ -746,7 +963,7 @@ When you use <tt class="docutils literal"><span class="pre"><span class="Keyword
 </div>
 <div id="WindowCore">
 <dt><pre><a href="webui.html#WindowCore"><span class="Identifier">WindowCore</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
-  <span class="Identifier">internalImpl</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">WindowCore</span>
+  <span class="Identifier">internalImpl</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">WindowCore</span>
 </pre></dt>
 <dd>
 
@@ -1191,7 +1408,7 @@ Try and close all related opened windows and make <a class="reference external" 
 <dt><pre><span class="Keyword">func</span> <a href="#impl%2CEvent"><span class="Identifier">impl</span></a><span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Event</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Returns the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">e</span></span></tt>
 
 </dd>
 </div>
@@ -1199,7 +1416,7 @@ Try and close all related opened windows and make <a class="reference external" 
 <dt><pre><span class="Keyword">func</span> <a href="#impl%2CScript"><span class="Identifier">impl</span></a><span class="Other">(</span><span class="Identifier">script</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Script</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Returns the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">script</span></span></tt>
 
 </dd>
 </div>
@@ -1207,7 +1424,7 @@ Try and close all related opened windows and make <a class="reference external" 
 <dt><pre><span class="Keyword">func</span> <a href="#impl%2CWindow"><span class="Identifier">impl</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Window</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Returns the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">win</span></span></tt>
 
 </dd>
 </div>
@@ -1215,7 +1432,7 @@ Try and close all related opened windows and make <a class="reference external" 
 <dt><pre><span class="Keyword">func</span> <a href="#impl%2CWindowCore"><span class="Identifier">impl</span></a><span class="Other">(</span><span class="Identifier">winCore</span><span class="Other">:</span> <a href="webui.html#WindowCore"><span class="Identifier">WindowCore</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">WindowCore</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Returns the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">winCore</span></span></tt>
 
 </dd>
 </div>
@@ -1223,7 +1440,7 @@ Try and close all related opened windows and make <a class="reference external" 
 <dt><pre><span class="Keyword">func</span> <a href="#impl%3D%2CEvent%2Cptr."><span class="Identifier">impl=</span></a><span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">;</span> <span class="Identifier">be</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Event</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Sets the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">e</span></span></tt>
 
 </dd>
 </div>
@@ -1231,7 +1448,7 @@ Try and close all related opened windows and make <a class="reference external" 
 <dt><pre><span class="Keyword">func</span> <a href="#impl%3D%2CScript%2C"><span class="Identifier">impl=</span></a><span class="Other">(</span><span class="Identifier">script</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a><span class="Other">;</span> <span class="Identifier">bwin</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Script</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Sets the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">script</span></span></tt>
 
 </dd>
 </div>
@@ -1239,7 +1456,7 @@ Try and close all related opened windows and make <a class="reference external" 
 <dt><pre><span class="Keyword">func</span> <a href="#impl%3D%2CWindow%2Cptr."><span class="Identifier">impl=</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">bwin</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">Window</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Sets the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">win</span></span></tt>
 
 </dd>
 </div>
@@ -1248,7 +1465,7 @@ Try and close all related opened windows and make <a class="reference external" 
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-
+Sets the internal implementation of <tt class="docutils literal"><span class="pre"><span class="Identifier">winCore</span></span></tt>
 
 </dd>
 </div>
@@ -1681,7 +1898,7 @@ Run application run until the user closes all visible windows or when calling <a
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-12 19:11:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-13 01:57:32 UTC</small>
       </div>
     </div>
   </div>
