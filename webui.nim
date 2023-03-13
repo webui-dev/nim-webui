@@ -7,7 +7,7 @@
   # Get Started
 
   To begin you need to install the webui library for Nim. This installs
-  WebUI for you.
+  WebUI's C sources for you.
 
   ```
   nimble install webui
@@ -20,7 +20,7 @@
 
   # Example
 
-  A minimal Nim example
+  A very *minimal* Nim example:
 ]##
 
 runnableExamples:
@@ -115,7 +115,7 @@ runnableExamples:
   To know if a specific window is running, you can use `shown()`.
 
   ```nim
-  if window.shown:
+  if window.shown():
     echo "A window is running..."
   else:
     echo "No window is running."
@@ -243,8 +243,8 @@ runnableExamples:
   When you use `window.bind()`, your application will receive an event every 
   time the user clicks on the specified HTML element. The event comes with 
   the `elementName`, which is The HTML ID of the clicked element, for example, 
-  `MyButton`, `MyInput`..., The event also comes with the WebUI unique element ID & 
-  the unique window ID. Those two IDs are not generally needed.
+  `MyButton`, `MyInput`, etc., The event also comes with the WebUI unique 
+  element ID & the unique window ID. Those two IDs are not generally needed.
 
   ```nim
   proc myProc(e: Event) =
@@ -257,7 +257,7 @@ runnableExamples:
   e.windowId     # WebUI unique window ID
   e.elementId    # WebUI unique element ID
   e.elementName  # The HTML ID of the clicked element
-  e.window        # The current window object
+  e.window       # The current window object
   ```
 
   You can access other attributes like `data` and `response`, but those are
@@ -350,7 +350,6 @@ runnableExamples:
   ```nim
   <script src="/webui.js"></script>
   ```
-
 ]##
 
 
@@ -369,7 +368,7 @@ type
     ## When you use `bind()`, your application will receive an event every time 
     ## the user clicks on the specified HTML element. The event comes with the 
     ## `element_name`, which is The HTML ID of the clicked element, for example,
-    ## `MyButton`, `MyInput`.., The event also comes with the WebUI unique element 
+    ## `MyButton`, `MyInput`, etc. The event also comes with the WebUI unique element 
     ## ID & the unique window ID.
   
     internalImpl: pointer
