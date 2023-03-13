@@ -35,7 +35,7 @@ runnableExamples:
   [examples](https://github.com/neroist/webui/tree/main/examples) 
   directory in my GitHub repository.
 
-  # Window
+  # Windows
 
   ## New Window
   
@@ -359,10 +359,10 @@ from webui/bindings import nil
 
 type
   WindowCore* = ref object
-    internalImpl: bindings.WindowCore
+    internalImpl*: bindings.WindowCore
 
   Window* = ref object
-    internalImpl: pointer
+    internalImpl*: pointer
 
   Event* = ref object
     ## When you use `bind()`, your application will receive an event every time 
@@ -371,7 +371,7 @@ type
     ## `MyButton`, `MyInput`, etc. The event also comes with the WebUI unique element 
     ## ID & the unique window ID.
   
-    internalImpl: pointer
+    internalImpl*: pointer
 
   JavascriptResult* = ref object
     error*: bool
@@ -379,10 +379,10 @@ type
     data*: string
 
   Script* = ref object
-    internalImpl: bindings.Script
+    internalImpl*: bindings.Script
 
   CustomBrowser* = ref object
-    internalImpl: bindings.CustomBrowser
+    internalImpl*: bindings.CustomBrowser
 
   Browser* = enum
     BrowserAny = 0
