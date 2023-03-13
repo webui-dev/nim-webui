@@ -1,6 +1,9 @@
 ##[ 
   Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
 
+  :Author: Jasmine
+  :WebUI Version: 2.0.6
+
   # Get Started
 
   To begin you need to install the webui library for Nim. This installs
@@ -10,8 +13,10 @@
   nimble install webui
   ```
 
-  To see the source code, please visit the GitHub repository here: 
+  To see the wrapper's source code, please visit the GitHub repository here: 
   https://github.com/neroist/webui
+
+  WebUI's source code is [here](https://github.com/alifcommunity/webui).
 
   # Example
 
@@ -26,11 +31,11 @@ runnableExamples:
   wait() # Wait until the window gets closed
 
 ##[
-  To view more examples please visit the 
-  [examples/](https://github.com/neroist/webui/tree/main/examples) 
-  directory in my GitHub repository to view more complex examples.
+  To view more complex examples please visit the 
+  [examples](https://github.com/neroist/webui/tree/main/examples) 
+  directory in my GitHub repository.
 
-  # Windows
+  # Window
 
   ## New Window
   
@@ -116,7 +121,7 @@ runnableExamples:
     echo "No window is running."
   ```
 
-  # Bind
+  # Binding
 
   ## Bind
   
@@ -148,7 +153,7 @@ runnableExamples:
     ...
   ```
 
-  # Functions
+  # Application
 
   ## Wait
   
@@ -185,8 +190,6 @@ runnableExamples:
   window.close()
   ```
 
-  # App Status
-
   ## App Status
   
   In some exceptional cases, like in the WebUI-TypeScript wrapper, you 
@@ -200,7 +203,23 @@ runnableExamples:
     echo "The application is closed."
   ```
 
-  # Multi Access
+  ## Startup Timeout
+  
+  WebUI waits a couple of seconds to let the web browser start and connect, 
+  you can control this behavior by using `setTimeout()`.
+
+  ```nim
+  # Wait 10 seconds for the web browser to start
+  setTimeout(10)
+  wait()    # After 10 seconds, if the web browser
+            # did not start yet, this function will return
+  ```
+
+  ```nim
+  # Wait forever.
+  setTimeout(0)
+  wait() # this function will never end
+  ```
 
   ## Multi Access
   
@@ -242,9 +261,9 @@ runnableExamples:
   ```
 
   You can access other attributes like `data` and `response`, but those are
-  used by WebUI, and are not built for user use.
+  used by WebUI, and are only meant for internal use by the library.
 
-  # Script
+  # Run JavaScript
 
   ## Script
   
@@ -325,7 +344,10 @@ runnableExamples:
   embedding the WebUI JavaScript bridge file `webui.js`. Of course, this 
   will work only if the server is WebUI.
 
-  ```html
+  [](Yes, I know, "its HTML code not Nim!!!". Nimdoc doesn't support html)
+  [](code highlighting so we use Nim to to get around that.)
+
+  ```nim
   <script src="/webui.js"></script>
   ```
 
