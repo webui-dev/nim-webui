@@ -19,9 +19,15 @@ const html = """
   </head>
 
   <body>
-    <h1>WebUI 2 - Nim Example</h1><br>
+    <h1>WebUI 2 - Nim Example</h1>
+    
+    <br>
+
     <input type="password" id="MyInput">
-    <br><br>
+
+    <br>
+    <br>
+
     <button id="MyButton1">Check Password</button> - <button id="MyButton2">Exit</button>
   </body>
 </html>
