@@ -486,33 +486,49 @@ proc browserGetTempPath*(browser: Browser): string =
 # --- Event ---
 
 func impl*(e: Event): ptr bindings.Event = 
+  ## Returns the internal implementation of `e`
+
   cast[ptr bindings.Event](e.internalImpl)
 
 func `impl=`*(e: Event, be: ptr bindings.Event) = 
+  ## Sets the internal implementation of `e`
+
   e.internalImpl = pointer(be)
 
 # --- WindowCore ---
 
 func impl*(winCore: WindowCore): bindings.WindowCore = 
+  ## Returns the internal implementation of `winCore`
+
   winCore.internalImpl
 
 func `impl=`*(winCore: WindowCore, bwinCore: bindings.WindowCore) = 
+  ## Sets the internal implementation of `winCore`
+
   winCore.internalImpl = bwinCore
 
 # --- Window ---
 
 func impl*(win: Window): ptr bindings.Window = 
+  ## Returns the internal implementation of `win`
+
   cast[ptr bindings.Window](win.internalImpl)
 
 func `impl=`*(win: Window, bwin: ptr bindings.Window) = 
+  ## Sets the internal implementation of `win`
+
   win.internalImpl = pointer(bwin)
 
 # --- Script ---
 
 func impl*(script: Script): bindings.Script = 
+  ## Returns the internal implementation of `script`
+
   script.internalImpl
 
 func `impl=`*(script: Script, bwin: bindings.Script) = 
+  ## Sets the internal implementation of `script`
+
   script.internalImpl = bwin
 
 # -------- Custom Browser --------
