@@ -321,6 +321,11 @@ window.addEventListener('DOMContentLoaded', main);
     title="elementName(e: Event): string">elementName(e: Event): string</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">evalJs
+      <li><a class="reference" href="#evalJs%2CWindow%2Cstring%2Cint"
+    title="evalJs(win: Window; script: string; timeout: int = 0): JavascriptResult">evalJs(win: Window; script: string; timeout: int = 0): JavascriptResult</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">event
       <li><a class="reference" href="#event%2CWindow%2Cstring%2Cstring%2Cpointer%2Cint"
     title="event(win: Window; elementId, element: string; data: pointer; dataLen: int)">event(win: Window; elementId, element: string; data: pointer; dataLen: int)</a></li>
@@ -452,7 +457,7 @@ window.addEventListener('DOMContentLoaded', main);
   </ul>
   <ul class="simple nested-toc-section">newScript
       <li><a class="reference" href="#newScript%2Cstring%2Cint"
-    title="newScript(script: string; timeout: int): Script">newScript(script: string; timeout: int): Script</a></li>
+    title="newScript(script: string; timeout: int = 0): Script">newScript(script: string; timeout: int = 0): Script</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">newServer
@@ -605,6 +610,11 @@ window.addEventListener('DOMContentLoaded', main);
   <ul class="simple nested-toc-section">showCopy
       <li><a class="reference" href="#showCopy%2CWindow%2C%2CBrowser"
     title="showCopy(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool">showCopy(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">showed
+      <li><a class="reference" href="#showed%2CWindow"
+    title="showed(win: Window): bool">showed(win: Window): bool</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">shown
@@ -813,12 +823,12 @@ nimble install webui
 </pre></p>
 
 <h2><a class="toc-backref" id="application-multi-access" href="#application-multi-access">Multi Access</a></h2><p><a class="reference external" href="For some reason using markdown doesn't work for images..."></a></p>
-<img src="https://webui.me/docs/data/webui_access_denied.png" alt="WebUI access denied image"/><p>After the window is loaded, for safety, the used URL is not valid anymore, if someone else tries to access the URL WebUI will show an error. To allow multi-user access to the same URL, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">multiAccess</span><span class="Operator">=</span></span></tt>.</p>
+<img src="https://webui.me/docs/data/webui_access_denied.png" alt="WebUI access denied image"/><p>After the window is loaded, for safety, the used URL is not valid anymore, if someone else tries to access the URL, WebUI will show an error. To allow multi-user access to the same URL, you can use <tt class="docutils literal"><span class="pre"><span class="Identifier">multiAccess</span><span class="Operator">=</span></span></tt>.</p>
 <p><pre class="listing"><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">multiAccess</span> <span class="Operator">=</span> <span class="Identifier">true</span>
 </pre></p>
 
 <h1><a class="toc-backref" id="event" href="#event">Event</a></h1>
-<h2><a class="toc-backref" id="event-event" href="#event-event">Event</a></h2><p>When you use <tt class="docutils literal"><span class="pre"><span class="Identifier">window</span><span class="Operator">.</span><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, your application will receive an event every time the user clicks on the specified HTML element. The event comes with the <tt class="docutils literal"><span class="pre"><span class="Identifier">elementName</span></span></tt>, which is The HTML ID of the clicked element, for example, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyButton</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyInput</span></span></tt>, etc., The event also comes with the WebUI unique element ID &amp; the unique window ID. Those two IDs are not generally needed.</p>
+<h2><a class="toc-backref" id="event-event" href="#event-event">Event</a></h2><p>When you use <tt class="docutils literal"><span class="pre"><span class="Identifier">window</span><span class="Operator">.</span><span class="Keyword">bind</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, your application will receive an event every time the user clicks on the specified HTML element. The event comes with the <tt class="docutils literal"><span class="pre"><span class="Identifier">elementName</span></span></tt>, which is the HTML ID of the clicked element, for example, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyButton</span></span></tt>, <tt class="docutils literal"><span class="pre"><span class="Identifier">MyInput</span></span></tt>, etc. The event also comes with the WebUI unique element ID &amp; the unique window ID. Those two IDs are not generally needed.</p>
 <p><pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">myProc</span><span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span> <span class="Operator">=</span>
   <span class="Identifier">echo</span> <span class="StringLit">&quot;Hi!, You clicked on &quot;</span><span class="Punctuation">,</span> <span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">elementName</span><span class="Punctuation">,</span> <span class="StringLit">&quot; element&quot;</span>
 </pre></p>
@@ -836,7 +846,11 @@ nimble install webui
   <span class="Comment"># window.script requires a `var` type</span>
   <span class="Keyword">var</span> <span class="Identifier">js</span> <span class="Operator">=</span> <span class="Identifier">newScript</span><span class="Punctuation">(</span><span class="StringLit">&quot;alert('Hello');&quot;</span><span class="Punctuation">)</span>
   
-  <span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">script</span><span class="Punctuation">(</span><span class="Identifier">js</span><span class="Punctuation">)</span>
+  <span class="Keyword">let</span> <span class="Identifier">jsResult</span> <span class="Operator">=</span> <span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">script</span><span class="Punctuation">(</span><span class="Identifier">js</span><span class="Punctuation">)</span>
+</pre></p>
+<p>or</p>
+<p><pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">myProc</span><span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span> <span class="Operator">=</span>
+  <span class="Keyword">let</span> <span class="Identifier">jsResult</span> <span class="Operator">=</span> <span class="Identifier">e</span><span class="Operator">.</span><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">evalJs</span><span class="Punctuation">(</span><span class="StringLit">&quot;alert('Hello');&quot;</span><span class="Punctuation">)</span>
 </pre></p>
 <p>An example of how to run a JavaScript and get back the output as string, and check for errors, if any.</p>
 <p><pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">myProc</span><span class="Punctuation">(</span><span class="Identifier">e</span><span class="Punctuation">:</span> <span class="Identifier">Event</span><span class="Punctuation">)</span> <span class="Operator">=</span>
@@ -990,7 +1004,7 @@ Receive click events when the user clicks on any HTML element with a specific ID
     <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
-Bind <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to element <tt class="docutils literal"><span class="pre"><span class="Identifier">element</span></span></tt> and automatically pass return value of <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to Javascript Bind <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to element <tt class="docutils literal"><span class="pre"><span class="Identifier">element</span></span></tt> and automatically pass return value of <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to Javascript
+Bind <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to element <tt class="docutils literal"><span class="pre"><span class="Identifier">element</span></span></tt> and automatically pass return value of <tt class="docutils literal"><span class="pre"><span class="Keyword">func</span></span></tt> to Javascript
 
 </dd>
 </div>
@@ -1275,6 +1289,15 @@ Close window <tt class="docutils literal"><span class="pre"><span class="Identif
 
 </dd>
 </div>
+<div id="evalJs,Window,string,int">
+<dt><pre><span class="Keyword">proc</span> <a href="#evalJs%2CWindow%2Cstring%2Cint"><span class="Identifier">evalJs</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">script</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">timeout</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <a href="webui.html#JavascriptResult"><span class="Identifier">JavascriptResult</span></a> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Evaluate Javascript code <tt class="docutils literal"><span class="pre"><span class="Identifier">script</span></span></tt> and return the result
+
+</dd>
+</div>
 <div id="event,Window,string,string,pointer,int">
 <dt><pre><span class="Keyword">proc</span> <a href="#event%2CWindow%2Cstring%2Cstring%2Cpointer%2Cint"><span class="Identifier">event</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">elementId</span><span class="Other">,</span> <span class="Identifier">element</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">;</span> <span class="Identifier">dataLen</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
@@ -1525,7 +1548,7 @@ Return if the whole application still running or not
 </dd>
 </div>
 <div id="newScript,string,int">
-<dt><pre><span class="Keyword">proc</span> <a href="#newScript%2Cstring%2Cint"><span class="Identifier">newScript</span></a><span class="Other">(</span><span class="Identifier">script</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">timeout</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#newScript%2Cstring%2Cint"><span class="Identifier">newScript</span></a><span class="Other">(</span><span class="Identifier">script</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">timeout</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">:</span> <a href="webui.html#Script"><span class="Identifier">Script</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 Create a new Script object
@@ -1795,6 +1818,14 @@ Show Window <tt class="docutils literal"><span class="pre"><span class="Identifi
 
 </dd>
 </div>
+<div id="showed,Window">
+<dt><pre><span class="Keyword">proc</span> <a href="#showed%2CWindow"><span class="Identifier">showed</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+Synonym of <a class="reference external" href="#shown,Window">shown</a>
+
+</dd>
+</div>
 <div id="shown,Window">
 <dt><pre><span class="Keyword">proc</span> <a href="#shown%2CWindow"><span class="Identifier">shown</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
@@ -1898,7 +1929,7 @@ Run application run until the user closes all visible windows or when calling <a
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-13 01:57:32 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-13 11:28:45 UTC</small>
       </div>
     </div>
   </div>

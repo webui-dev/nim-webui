@@ -47,7 +47,7 @@ autoLink	webui.html#autoLink,CustomBrowser	webui: autoLink(c: CustomBrowser): bo
 app=	webui.html#app=,CustomBrowser,string	webui: app=(c: CustomBrowser; app: string)	
 arg=	webui.html#arg=,CustomBrowser,string	webui: arg=(c: CustomBrowser; arg: string)	
 autoLink=	webui.html#autoLink=,CustomBrowser,bool	webui: autoLink=(c: CustomBrowser; autoLink: bool)	
-newScript	webui.html#newScript,string,int	webui: newScript(script: string; timeout: int): Script	
+newScript	webui.html#newScript,string,int	webui: newScript(script: string; timeout: int = 0): Script	
 script	webui.html#script,Script	webui: script(s: Script): string	
 timeout	webui.html#timeout,Script	webui: timeout(s: Script): int	
 script=	webui.html#script=,Script,string	webui: script=(s: Script; script: string)	
@@ -98,7 +98,9 @@ multiAccess=	webui.html#multiAccess=,Window,bool	webui: multiAccess=(win: Window
 newServer	webui.html#newServer,Window,string	webui: newServer(win: Window; path: string): string	
 close	webui.html#close,Window	webui: close(win: Window)	
 shown	webui.html#shown,Window	webui: shown(win: Window): bool	
+showed	webui.html#showed,Window	webui: showed(win: Window): bool	
 script	webui.html#script,Window,Script	webui: script(win: Window; script: var Script)	
+evalJs	webui.html#evalJs,Window,string,int	webui: evalJs(win: Window; script: string; timeout: int = 0): JavascriptResult	
 `bind`	webui.html#bind,Window,string,proc(Event)	webui: `bind`(win: Window; element: string; func: proc (e: Event)): int	
 `bind`	webui.html#bind,Window,string,proc(Event)_2	webui: `bind`(win: Window; element: string; func: proc (e: Event): string): int	
 `bind`	webui.html#bind,Window,string,proc(Event)_3	webui: `bind`(win: Window; element: string; func: proc (e: Event): int): int	

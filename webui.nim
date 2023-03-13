@@ -159,7 +159,7 @@ runnableExamples:
   
   It is essential to call `wait()` at the end of your main function, after 
   you create/show all your windows. This will make your application run 
-  until the user closes all visible windows or when calling `exit()`.
+  until the user closes all visible windows or when `exit()` is called.
 
   ```nim
   # Create windows...
@@ -193,7 +193,7 @@ runnableExamples:
   ## App Status
   
   In some exceptional cases, like in the WebUI-TypeScript wrapper, you 
-  want to know if the whole application still running or not, for that,
+  want to know if the whole application still running or not. For that,
   please use `isAppRunning()`, which returns `true` or `false`.
 
   ```nim
@@ -205,8 +205,8 @@ runnableExamples:
 
   ## Startup Timeout
   
-  WebUI waits a couple of seconds to let the web browser start and connect, 
-  you can control this behavior by using `setTimeout()`.
+  WebUI waits a couple of seconds to let the web browser start and connect.
+  You can control this behavior by using `setTimeout()`.
 
   ```nim
   # Wait 10 seconds for the web browser to start
@@ -229,7 +229,7 @@ runnableExamples:
     :alt: WebUI access denied image
 
   After the window is loaded, for safety, the used URL is not valid anymore, 
-  if someone else tries to access the URL WebUI will show an error. To allow 
+  if someone else tries to access the URL, WebUI will show an error. To allow 
   multi-user access to the same URL, you can use `multiAccess=`.
 
   ```nim
@@ -242,8 +242,8 @@ runnableExamples:
   
   When you use `window.bind()`, your application will receive an event every 
   time the user clicks on the specified HTML element. The event comes with 
-  the `elementName`, which is The HTML ID of the clicked element, for example, 
-  `MyButton`, `MyInput`, etc., The event also comes with the WebUI unique 
+  the `elementName`, which is the HTML ID of the clicked element, for example, 
+  `MyButton`, `MyInput`, etc. The event also comes with the WebUI unique 
   element ID & the unique window ID. Those two IDs are not generally needed.
 
   ```nim
@@ -276,7 +276,14 @@ runnableExamples:
     # window.script requires a `var` type
     var js = newScript("alert('Hello');")
 
-    e.window.script(js)
+    let jsResult = e.window.script(js)
+  ```
+
+  or
+
+  ```nim
+  proc myProc(e: Event) = 
+    let jsResult = e.window.evalJs("alert('Hello');")
   ```
 
   An example of how to run a JavaScript and get back the output as string, 
@@ -332,7 +339,7 @@ runnableExamples:
   window.scriptRuntime = RuntimeNone
   ```
 
-  If you already have a URL, you can use WebUI to open a window using this 
+  If you already have a URL, you can use WebUI to open a window using the
   URL. For that, please use `open()`.
 
   ```nim
