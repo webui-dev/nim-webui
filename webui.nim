@@ -555,7 +555,7 @@ proc `autoLink=`*(c: CustomBrowser, autoLink: bool) =
 
 # -------- Script --------
 
-proc newScript*(script: string; timeout: int): Script =
+proc newScript*(script: string; timeout: int = 0): Script =
   ## Create a new Script object
 
   new result
