@@ -778,10 +778,22 @@ proc shown*(win: Window): bool =
 
   bindings.isShown(win.impl)
 
+proc showed*(win: Window): bool = 
+  ## Synonym of [shown](#shown,Window)
+
+  bindings.isShown(win.impl)
+
 proc script*(win: Window; script: var Script) =
   ## Run Script `script`
 
   bindings.script(win.impl, addr script.internalImpl)
+
+proc evalJS*(win: Window; script: string; timeout: int = 0): JavascriptResult =
+  ## Evaluate Javascript code `script` and return the result
+
+  var js = newScript(script, timeout)
+
+  win.script(js)
 
 # * for use With `bindInterface`. We use `bind` instead, so no need for it now.
 #proc interfaceHandler(elementId, windowId: cuint; elementName: cstring; window: ptr bindings.Window; data: cstring; response: cstringArray) {.cdecl.} =
