@@ -42,8 +42,9 @@ nimble install webui
 Online documentation can be found here: <https://neroist.github.io/webui>
 
 There isn't much documentation as of right now, so I suggest to get started
-using the examples at [`examples/`](examples/) or WebUI's
-[examples](https://github.com/alifcommunity/webui/tree/main/examples).
+using some [examples](#examples) or WebUI's own
+[examples](https://github.com/alifcommunity/webui/tree/main/examples) or 
+[documentation](https://webui.me/docs/).
 
 Heres a very [*minimal*](examples/minimal.nim) example of using the wrapper:
 
@@ -54,6 +55,17 @@ let window = newWindow() # Create a new Window
 window.show("<html>Hello</html>") # Show the window with html content
 
 wait() # Wait until the window gets closed
+```
+
+### Examples
+Examples can be found here at [`examples/`](examples/).
+
+If you're trying to run the examples remember to clone the repository 
+*recursively*, as it depends on the WebUI repo as a submodule. Here is
+the command to do so for the truly lazy:
+
+```shell
+git clone --recursive https://github.com/neroist/webui.git
 ```
 
 ## Bindings and Wrapper
