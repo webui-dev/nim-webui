@@ -465,7 +465,7 @@ proc freePort*(port: int) =
   bindings.freePort(cuint port)
 
 proc setCustomBrowser*(p: CustomBrowser) =
-  var b = bindings.CustomBrowser()
+  var b: bindings.CustomBrowser
 
   b.app = cstring p.app
   b.arg = cstring p.arg
