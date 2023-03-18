@@ -389,7 +389,9 @@ type
     internalImpl*: bindings.Script
 
   CustomBrowser* = ref object
-    internalImpl*: bindings.CustomBrowser
+    app*: string
+    arg*: string
+    autoLink*: bool
 
   Browser* = enum
     BrowserAny = 0
@@ -462,8 +464,14 @@ proc waitForStartup*() =
 proc freePort*(port: int) =
   bindings.freePort(cuint port)
 
-proc setCustomBrowser*(p: var CustomBrowser) =
-  bindings.setCustomBrowser(addr p.internalImpl)
+proc setCustomBrowser*(p: CustomBrowser) =
+  var b = bindings.CustomBrowser()
+
+  b.app = cstring p.app
+  b.arg = cstring p.arg
+  b.autoLink = p.autoLink
+
+  bindings.setCustomBrowser(addr b)
 
 proc cmdSync*(cmd: string; show: bool): int =
   int bindings.cmdSync(cstring cmd, show)
@@ -537,28 +545,6 @@ func `impl=`*(script: Script, bwin: bindings.Script) =
   ## Sets the internal implementation of `script`
 
   script.internalImpl = bwin
-
-# -------- Custom Browser --------
-
-# construct via var
-
-proc app*(c: CustomBrowser): string = 
-  $ c.internalImpl.app
-
-proc arg*(c: CustomBrowser): string = 
-  $ c.internalImpl.arg
-
-proc autoLink*(c: CustomBrowser): bool = 
-  c.internalImpl.autoLink
-
-proc `app=`*(c: CustomBrowser, app: string) = 
-  c.internalImpl.app = cstring app
-
-proc `arg=`*(c: CustomBrowser, arg: string) = 
-  c.internalImpl.arg = cstring arg
-
-proc `autoLink=`*(c: CustomBrowser, autoLink: bool) = 
-  c.internalImpl.autoLink = autoLink
 
 # -------- Script --------
 
