@@ -754,7 +754,7 @@ proc `multiAccess=`*(win: Window; status: bool) =
 
   bindings.multiAccess(win.impl, status)
 
-proc newServer*(win: Window; path: string): string =
+proc newServer*(win: Window; path: string = ""): string =
   ## Serve folder `path`.
   ## 
   ## Returns the complete URL of the server.
