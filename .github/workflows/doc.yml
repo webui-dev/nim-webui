@@ -29,9 +29,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate documentation
-        run: |
-          git submodule init
-          nimble doc webui.nim
+        run: nimble doc -d:useWebuiDll webui.nim
 
       - name: Deploy to GitHub Pages
         if: success()
