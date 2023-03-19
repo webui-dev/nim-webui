@@ -44,7 +44,7 @@ and here: <https://neroist.github.io/webui-nimib-experimental-docs>
 
 There isn't much documentation as of right now, so I suggest to get started
 using some [examples](#examples) or WebUI's own
-[examples](https://github.com/alifcommunity/webui/tree/main/examples) or 
+[examples](https://github.com/alifcommunity/webui/tree/main/examples) or
 [documentation](https://webui.me/docs/).
 
 Heres a very [*minimal*](examples/minimal.nim) example of using the wrapper:
@@ -59,10 +59,11 @@ wait() # Wait until the window gets closed
 ```
 
 ### Examples
+
 Examples can be found here at [`examples/`](examples/).
 
-If you're trying to run the examples remember to clone the repository 
-*recursively*, as it depends on the WebUI repo as a submodule. Here is
+If you're trying to run the examples remember to clone the repository
+*recursively*, as it depends on the WebUI repo as a submodule. Here's
 the command to do so for the truly lazy:
 
 ```shell
