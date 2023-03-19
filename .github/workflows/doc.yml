@@ -32,6 +32,9 @@ jobs:
         run: nimble doc -d:useWebuiDll webui.nim
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
         with:
-          folder: docs
+          build_dir: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
