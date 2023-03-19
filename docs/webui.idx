@@ -28,7 +28,7 @@ getFreePort	webui.html#getFreePort	webui: getFreePort(): int
 getNewWindowNumber	webui.html#getNewWindowNumber	webui: getNewWindowNumber(): int	
 waitForStartup	webui.html#waitForStartup	webui: waitForStartup()	
 freePort	webui.html#freePort,int	webui: freePort(port: int)	
-setCustomBrowser	webui.html#setCustomBrowser,CustomBrowser	webui: setCustomBrowser(p: var CustomBrowser)	
+setCustomBrowser	webui.html#setCustomBrowser,CustomBrowser	webui: setCustomBrowser(p: CustomBrowser)	
 cmdSync	webui.html#cmdSync,string,bool	webui: cmdSync(cmd: string; show: bool): int	
 cmdAsync	webui.html#cmdAsync,string,bool	webui: cmdAsync(cmd: string; show: bool): int	
 clean	webui.html#clean	webui: clean()	
@@ -41,12 +41,6 @@ impl	webui.html#impl,Window	webui: impl(win: Window): ptr bindings.Window
 impl=	webui.html#impl=,Window,ptr.	webui: impl=(win: Window; bwin: ptr bindings.Window)	
 impl	webui.html#impl,Script	webui: impl(script: Script): bindings.Script	
 impl=	webui.html#impl=,Script,	webui: impl=(script: Script; bwin: bindings.Script)	
-app	webui.html#app,CustomBrowser	webui: app(c: CustomBrowser): string	
-arg	webui.html#arg,CustomBrowser	webui: arg(c: CustomBrowser): string	
-autoLink	webui.html#autoLink,CustomBrowser	webui: autoLink(c: CustomBrowser): bool	
-app=	webui.html#app=,CustomBrowser,string	webui: app=(c: CustomBrowser; app: string)	
-arg=	webui.html#arg=,CustomBrowser,string	webui: arg=(c: CustomBrowser; arg: string)	
-autoLink=	webui.html#autoLink=,CustomBrowser,bool	webui: autoLink=(c: CustomBrowser; autoLink: bool)	
 newScript	webui.html#newScript,string,int	webui: newScript(script: string; timeout: int = 0): Script	
 script	webui.html#script,Script	webui: script(s: Script): string	
 timeout	webui.html#timeout,Script	webui: timeout(s: Script): int	

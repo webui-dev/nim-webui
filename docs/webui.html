@@ -135,7 +135,9 @@ window.addEventListener('DOMContentLoaded', main);
   BrowserSafari = 4, BrowserChromium = 5, BrowserCustom = 99">Browser</a></li>
   <li><a class="reference" href="#CustomBrowser"
     title="CustomBrowser = ref object
-  internalImpl*: bindings.CustomBrowser">CustomBrowser</a></li>
+  app*: string
+  arg*: string
+  autoLink*: bool">CustomBrowser</a></li>
   <li><a class="reference" href="#Event"
     title="Event = ref object
   internalImpl*: pointer">Event</a></li>
@@ -162,37 +164,7 @@ window.addEventListener('DOMContentLoaded', main);
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">app
-      <li><a class="reference" href="#app%2CCustomBrowser"
-    title="app(c: CustomBrowser): string">app(c: CustomBrowser): string</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">app=
-      <li><a class="reference" href="#app%3D%2CCustomBrowser%2Cstring"
-    title="app=(c: CustomBrowser; app: string)">app=(c: CustomBrowser; app: string)</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">arg
-      <li><a class="reference" href="#arg%2CCustomBrowser"
-    title="arg(c: CustomBrowser): string">arg(c: CustomBrowser): string</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">arg=
-      <li><a class="reference" href="#arg%3D%2CCustomBrowser%2Cstring"
-    title="arg=(c: CustomBrowser; arg: string)">arg=(c: CustomBrowser; arg: string)</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">autoLink
-      <li><a class="reference" href="#autoLink%2CCustomBrowser"
-    title="autoLink(c: CustomBrowser): bool">autoLink(c: CustomBrowser): bool</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">autoLink=
-      <li><a class="reference" href="#autoLink%3D%2CCustomBrowser%2Cbool"
-    title="autoLink=(c: CustomBrowser; autoLink: bool)">autoLink=(c: CustomBrowser; autoLink: bool)</a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">bind
+      <ul class="simple nested-toc-section">bind
       <li><a class="reference" href="#bind%2CWindow%2Cstring%2Cproc%28Event%29"
     title="`bind`(win: Window; element: string; func: proc (e: Event)): int">`bind`(win: Window; element: string; func: proc (e: Event)): int</a></li>
   <li><a class="reference" href="#bind%2CWindow%2Cstring%2Cproc%28Event%29_4"
@@ -594,7 +566,7 @@ window.addEventListener('DOMContentLoaded', main);
   </ul>
   <ul class="simple nested-toc-section">setCustomBrowser
       <li><a class="reference" href="#setCustomBrowser%2CCustomBrowser"
-    title="setCustomBrowser(p: var CustomBrowser)">setCustomBrowser(p: var CustomBrowser)</a></li>
+    title="setCustomBrowser(p: CustomBrowser)">setCustomBrowser(p: CustomBrowser)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">setTimeout
@@ -785,7 +757,7 @@ nimble install webui
 </pre></p>
 
 <h1><a class="toc-backref" id="application" href="#application">Application</a></h1>
-<h2><a class="toc-backref" id="application-wait" href="#application-wait">Wait</a></h2><p>It is essential to call <tt class="docutils literal"><span class="pre"><span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> at the end of your main function, after you create/show all your windows. This will make your application run until the user closes all visible windows or when calling <tt class="docutils literal"><span class="pre"><span class="Identifier">exit</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+<h2><a class="toc-backref" id="application-wait" href="#application-wait">Wait</a></h2><p>It is essential to call <tt class="docutils literal"><span class="pre"><span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> at the end of your main function, after you create/show all your windows. This will make your application run until the user closes all visible windows or when <tt class="docutils literal"><span class="pre"><span class="Identifier">exit</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> is called.</p>
 <p><pre class="listing"><span class="Comment"># Create windows...</span>
 <span class="Comment"># Bind HTML elements...</span>
 <span class="Comment"># Show the windows...</span>
@@ -804,14 +776,14 @@ nimble install webui
 <p><pre class="listing"><span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">close</span><span class="Punctuation">(</span><span class="Punctuation">)</span>
 </pre></p>
 
-<h2><a class="toc-backref" id="application-app-status" href="#application-app-status">App Status</a></h2><p>In some exceptional cases, like in the WebUI-TypeScript wrapper, you want to know if the whole application still running or not, for that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">isAppRunning</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which returns <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt>.</p>
+<h2><a class="toc-backref" id="application-app-status" href="#application-app-status">App Status</a></h2><p>In some exceptional cases, like in the WebUI-TypeScript wrapper, you want to know if the whole application still running or not. For that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">isAppRunning</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>, which returns <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt>.</p>
 <p><pre class="listing"><span class="Keyword">if</span> <span class="Identifier">isAppRunning</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
   <span class="Identifier">echo</span> <span class="StringLit">&quot;The application is still running&quot;</span>
 <span class="Keyword">else</span><span class="Punctuation">:</span>
   <span class="Identifier">echo</span> <span class="StringLit">&quot;The application is closed.&quot;</span>
 </pre></p>
 
-<h2><a class="toc-backref" id="application-startup-timeout" href="#application-startup-timeout">Startup Timeout</a></h2><p>WebUI waits a couple of seconds to let the web browser start and connect, you can control this behavior by using <tt class="docutils literal"><span class="pre"><span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+<h2><a class="toc-backref" id="application-startup-timeout" href="#application-startup-timeout">Startup Timeout</a></h2><p>WebUI waits a couple of seconds to let the web browser start and connect. You can control this behavior by using <tt class="docutils literal"><span class="pre"><span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
 <p><pre class="listing"><span class="Comment"># Wait 10 seconds for the web browser to start</span>
 <span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="DecNumber">10</span><span class="Punctuation">)</span>
 <span class="Identifier">wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span>    <span class="Comment"># After 10 seconds, if the web browser</span>
@@ -887,7 +859,7 @@ nimble install webui
 <span class="Comment"># Disable</span>
 <span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">scriptRuntime</span> <span class="Operator">=</span> <span class="Identifier">RuntimeNone</span>
 </pre></p>
-<p>If you already have a URL, you can use WebUI to open a window using this URL. For that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">open</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
+<p>If you already have a URL, you can use WebUI to open a window using the URL. For that, please use <tt class="docutils literal"><span class="pre"><span class="Identifier">open</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt>.</p>
 <p><pre class="listing"><span class="Identifier">setTimeout</span><span class="Punctuation">(</span><span class="DecNumber">0</span><span class="Punctuation">)</span> <span class="Comment"># (Optional) Let the server run forever</span>
 <span class="Identifier">window</span><span class="Operator">.</span><span class="Identifier">open</span><span class="Punctuation">(</span><span class="Identifier">url</span><span class="Punctuation">,</span> <span class="Identifier">BrowserChrome</span><span class="Punctuation">)</span> <span class="Comment"># `url` can also be a Uri from std/uri</span>
 </pre></p>
@@ -916,7 +888,9 @@ nimble install webui
 </div>
 <div id="CustomBrowser">
 <dt><pre><a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
-  <span class="Identifier">internalImpl</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bindings</span><span class="Other">.</span><span class="Identifier">CustomBrowser</span>
+  <span class="Identifier">app</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">string</span>
+  <span class="Identifier">arg</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">string</span>
+  <span class="Identifier">autoLink</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">bool</span>
 </pre></dt>
 <dd>
 
@@ -1020,54 +994,6 @@ Bind <tt class="docutils literal"><span class="pre"><span class="Keyword">func</
 <div id="bind,Window,string,proc(Event)_2">
 <dt><pre><span class="Keyword">proc</span> <a href="#bind%2CWindow%2Cstring%2Cproc%28Event%29_2"><span class="Identifier">`bind`</span></a><span class="Other">(</span><span class="Identifier">win</span><span class="Other">:</span> <a href="webui.html#Window"><span class="Identifier">Window</span></a><span class="Other">;</span> <span class="Identifier">element</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">e</span><span class="Other">:</span> <a href="webui.html#Event"><span class="Identifier">Event</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> {.
     <span class="Identifier">discardable</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="app,CustomBrowser">
-<dt><pre><span class="Keyword">proc</span> <a href="#app%2CCustomBrowser"><span class="Identifier">app</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="app=,CustomBrowser,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#app%3D%2CCustomBrowser%2Cstring"><span class="Identifier">app=</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">;</span> <span class="Identifier">app</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="arg,CustomBrowser">
-<dt><pre><span class="Keyword">proc</span> <a href="#arg%2CCustomBrowser"><span class="Identifier">arg</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="arg=,CustomBrowser,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#arg%3D%2CCustomBrowser%2Cstring"><span class="Identifier">arg=</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">;</span> <span class="Identifier">arg</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="autoLink,CustomBrowser">
-<dt><pre><span class="Keyword">proc</span> <a href="#autoLink%2CCustomBrowser"><span class="Identifier">autoLink</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
-<dd>
-
-
-
-</dd>
-</div>
-<div id="autoLink=,CustomBrowser,bool">
-<dt><pre><span class="Keyword">proc</span> <a href="#autoLink%3D%2CCustomBrowser%2Cbool"><span class="Identifier">autoLink=</span></a><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">;</span> <span class="Identifier">autoLink</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -1783,7 +1709,7 @@ Set Script <tt class="docutils literal"><span class="pre"><span class="Identifie
 </dd>
 </div>
 <div id="setCustomBrowser,CustomBrowser">
-<dt><pre><span class="Keyword">proc</span> <a href="#setCustomBrowser%2CCustomBrowser"><span class="Identifier">setCustomBrowser</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#setCustomBrowser%2CCustomBrowser"><span class="Identifier">setCustomBrowser</span></a><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <a href="webui.html#CustomBrowser"><span class="Identifier">CustomBrowser</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -1929,7 +1855,7 @@ Run application run until the user closes all visible windows or when calling <a
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-13 11:28:45 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2023-03-19 01:25:07 UTC</small>
       </div>
     </div>
   </div>
