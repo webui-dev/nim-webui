@@ -1,0 +1,41 @@
+name: generate-doc
+run-name: Generate documentation
+
+on: 
+  push:
+    branches:
+      - "main"
+    paths:
+      - "webui.nim"
+      - "nimdoc.cfg"
+      - "webui.nimble"
+
+      - "docs/**"
+      - "webui/**"
+      - ".github/workflows/**"
+
+jobs:
+  generate-doc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Nim
+        uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: devel # for better docs
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate documentation
+        run: nimble doc webui.nim
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          build_dir: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
