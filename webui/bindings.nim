@@ -212,7 +212,7 @@ type
 
 # -- Definitions ---------------------
 
-var webui*: Webui
+var webui* {.importc.}: Webui
 
 {.push discardable.}
 
