@@ -807,7 +807,7 @@ proc bindHandler(e: ptr bindings.Event) {.cdecl.} =
 
   cbs[e.windowId][e.elementId](event)
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event)): int {.discardable.} =
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event)) =
   ## Receive click events when the user clicks on any HTML element with a specific ID
 
   let idx = bindings.bind(win.impl, cstring element, bindHandler)
@@ -815,7 +815,7 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event)): int {.disca
 
   cbs[wid][idx] = `func`
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): string): int {.discardable.} =
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): string) =
   win.bind(
     element, 
     proc (e: Event) =
@@ -823,7 +823,7 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): string): int
       e.returnString(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int): int {.discardable.} =
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int) =
   win.bind(
     element, 
     proc (e: Event) =
@@ -831,7 +831,7 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int): int {.
       e.returnInt(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool): int {.discardable.} =  
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool) =  
   ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript
 
   win.bind(
