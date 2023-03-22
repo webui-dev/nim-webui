@@ -41,7 +41,7 @@ elif useWebuiDll:
   elif defined(macos):
     "webui-2-x64.dynlib"
   else:
-    "webui-2-x64.so"
+    "webui-2-x64.so" # no lib prefix
 
   {.pragma: webui, dynlib: webuiDll.}
 else:
@@ -212,7 +212,7 @@ type
 
 # -- Definitions ---------------------
 
-var webui*: Webui
+let webui* {.importc.}: Webui
 
 {.push discardable.}
 

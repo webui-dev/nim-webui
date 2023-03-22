@@ -4,6 +4,7 @@
 *.ilk
 *.pdb
 *.dll
+*.def
 *.exe
 *.so
 *.a
