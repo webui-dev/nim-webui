@@ -486,12 +486,13 @@ proc browserGetTempPath*(browser: Browser): string =
   $ bindings.browserGetTempPath(cuint ord(browser))
 
 # SKIPPED: getCurrentPath() unneccessary, use std/os
-# SKIPPED: folderExist() unneccessary, use std/os
+# SKIPPED: folderExist() ditto
+# SKIPPED: fileExist() ditto
 # SKIPPED: printHex() unneccessary, use std/strutils
 # SKIPPED: freeMem() too low-level and unneccessary with GC
-# SKIPPED: strCopy() unneccessary in general + too low-level
+# SKIPPED: cleanMem() ditto
+# SKIPPED: freeAllMem() ditto
 # SKIPPED: fileExistMg() unneccessary + too low-level
-# SKIPPED: fileExist() unneccessary, use std/os
 
 # above skipped functions seem unneccessary and/or too low-level
 # if you need them, import webui/bindings
@@ -781,7 +782,7 @@ proc script*(win: Window; script: var Script) =
 
   bindings.script(win.impl, addr script.internalImpl)
 
-proc evalJs*(win: Window; script: string; timeout: int = 0): JavascriptResult =
+proc evalJs*(win: Window; script: string; timeout: int = 3): JavascriptResult =
   ## Evaluate Javascript code `script` and return the result
 
   var js = newScript(script, timeout)

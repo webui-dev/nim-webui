@@ -79,7 +79,7 @@ else:
 {.deadCodeElim: on.}
 
 const
-  WEBUI_VERSION*          = "2.0.6"   ## Version
+  WEBUI_VERSION*          = "2.0.7"   ## Version
   WEBUI_HEADER_SIGNATURE* = 0xFF      ## All packets should start with this 8bit
   WEBUI_HEADER_JS*        = 0xFE      ## Javascript result in frontend
   WEBUI_HEADER_CLICK*     = 0xFD      ## Click event
@@ -110,6 +110,7 @@ type
     serverPort*: cuint
     isBindAll*: bool
     url*: cstring
+    cbAll*: array[1, proc (e: Event)]
     html*: cstring
     htmlCpy*: cstring
     icon*: cstring
@@ -259,7 +260,7 @@ proc returnInt*(e: ptr Event; n: cint) {.cdecl, importc: "webui_return_int", web
 proc returnString*(e: ptr Event; s: cstring) {.cdecl,
     importc: "webui_return_string", webui.}
 proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool", webui.}
-
+proc cleanMem*(p: pointer) {.cdecl, importc: "webui_clean_mem", webui.}
 
 # -- Interface -----------------------
 # Used by other languages to create WebUI wrappers
@@ -277,7 +278,7 @@ proc bindInterface*(win: ptr Window; element: cstring; `func`: proc (
         data: cstring; response: cstringArray) {.cdecl.}): cuint {.
     cdecl, importc: "webui_bind_interface", webui.}
 proc scriptInterface*(win: ptr Window; script: cstring; timeout: cuint;
-                     error: ptr bool; length: ptr cuint; data: cstring) {.cdecl,
+                     error: ptr bool; length: ptr cuint; data: cstringArray) {.cdecl,
     importc: "webui_script_interface", webui.}
 proc scriptInterfaceStruct*(win: ptr Window;
     jsInt: ptr ScriptInterface) {.cdecl,
@@ -365,12 +366,11 @@ when defined(webuiLog) and not (useWebuiStaticLib or useWebuiDll):
       importc: "_webui_print_hex", webui.}
 
 proc freeMem*(p: ptr pointer) {.cdecl, importc: "_webui_free_mem", webui.}
-proc strCopy*(destination: cstring; source: cstring) {.cdecl,
-    importc: "_webui_str_copy", webui.}
 proc fileExistMg*(evData: pointer): bool {.cdecl,
     importc: "_webui_file_exist_mg", webui.}
 
 # use std/os?
 proc fileExist*(file: cstring): bool {.cdecl, importc: "_webui_file_exist", webui.}
+proc freeAllMem*() {.cdecl, importc: "_webui_free_all_mem", webui.}
 
 {.pop.}
