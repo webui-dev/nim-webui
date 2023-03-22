@@ -2,7 +2,7 @@
   Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
 
   :Author: Jasmine
-  :WebUI Version: 2.0.6
+  :WebUI Version: 2.0.7
 
   # Get Started
 
