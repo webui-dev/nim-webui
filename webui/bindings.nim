@@ -34,7 +34,7 @@ when useWebuiStaticLib:
     {.passL: "-luser32".} # link dependencies
     {.passL: "-lws2_32".}
 
-  {.pragma: webui.}
+  {.pragma: webui, discardable.}
 elif useWebuiDll:
   const webuiDll* {.strdefine.} = when defined(windows):
     "webui-2-x64.dll"
@@ -43,7 +43,7 @@ elif useWebuiDll:
   else:
     "webui-2-x64.so" # no lib prefix
 
-  {.pragma: webui, dynlib: webuiDll.}
+  {.pragma: webui, dynlib: webuiDll, discardable.}
 else:
   # -d:webuiLog
   when defined(webuiLog):
@@ -71,7 +71,7 @@ else:
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  {.pragma: webui.}
+  {.pragma: webui, discardable.}
 
   {.compile: "./webui/src/mongoose.c".}
   {.compile: "./webui/src/webui.c".}
@@ -214,8 +214,6 @@ type
 # -- Definitions ---------------------
 
 let webui* {.importc.}: Webui
-
-{.push discardable.}
 
 proc wait*() {.cdecl, importc: "webui_wait", webui.}
 proc exit*() {.cdecl, importc: "webui_exit", webui.}
@@ -372,5 +370,3 @@ proc fileExistMg*(evData: pointer): bool {.cdecl,
 # use std/os?
 proc fileExist*(file: cstring): bool {.cdecl, importc: "_webui_file_exist", webui.}
 proc freeAllMem*() {.cdecl, importc: "_webui_free_all_mem", webui.}
-
-{.pop.}
