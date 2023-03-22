@@ -719,13 +719,13 @@ proc core*(win: Window): WindowCore =
 
 {.push discardable.}
 
-proc show*(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool = 
+proc show*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
   ## Show Window `win`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
 
   bindings.show(win.impl, cstring $html, cuint ord(browser))
 
-proc showCopy*(win: Window; html: string | Uri; browser: Browser = BrowserAny): bool = 
+proc showCopy*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
   bindings.showCpy(win.impl, cstring $html, cuint ord(browser))
 
 proc refresh*(win: Window; html: string): bool = 
