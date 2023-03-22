@@ -107,5 +107,5 @@ only works for static compilation.
 
 MIT License. See [LICENSE](LICENSE)
 
-Original WebUI library is licensed under GPL-3.0. See
+Original WebUI library is licensed under LGPL-2.1. See
 [LICENSE](https://github.com/alifcommunity/webui/blob/main/LICENSE).
