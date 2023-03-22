@@ -723,10 +723,10 @@ proc show*(win: Window; html: string; browser: Browser = BrowserAny): bool =
   ## Show Window `win`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
 
-  bindings.show(win.impl, cstring $html, cuint ord(browser))
+  bindings.show(win.impl, cstring html, cuint ord(browser))
 
 proc showCopy*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
-  bindings.showCpy(win.impl, cstring $html, cuint ord(browser))
+  bindings.showCpy(win.impl, cstring html, cuint ord(browser))
 
 proc refresh*(win: Window; html: string): bool = 
   ## Refresh the window UI with any new HTML content.
