@@ -110,6 +110,7 @@ type
     serverPort*: cuint
     isBindAll*: bool
     url*: cstring
+    cbAll*: array[1, proc (e: Event)]
     html*: cstring
     htmlCpy*: cstring
     icon*: cstring
