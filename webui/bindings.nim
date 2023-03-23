@@ -45,6 +45,9 @@ elif useWebuiDll:
 
   {.pragma: webui, dynlib: webuiDll, discardable.}
 else:
+  {.compile: "./webui/src/mongoose.c".}
+  {.compile: "./webui/src/webui.c".}
+
   # -d:webuiLog
   when defined(webuiLog):
     {.passC: "-DWEBUI_LOG".}
@@ -59,8 +62,6 @@ else:
     {.passL: "-lws2_32".}
     {.passL: "-luser32".}
 
-    {.passL: "-static".}
-
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   when defined(linux):
@@ -72,9 +73,6 @@ else:
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   {.pragma: webui, discardable.}
-
-  {.compile: "./webui/src/mongoose.c".}
-  {.compile: "./webui/src/webui.c".}
 
 {.deadCodeElim: on.}
 
