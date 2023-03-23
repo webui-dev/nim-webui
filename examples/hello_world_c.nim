@@ -13,7 +13,9 @@ const html = """
         background: #0F2027;
         background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
         background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
-        text-align: center; font-size: 18px; font-family: sans-serif;
+        text-align: center; 
+        font-size: 18px; 
+        font-family: sans-serif;
       }
     </style>
   </head>
