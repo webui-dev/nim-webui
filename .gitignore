@@ -8,3 +8,7 @@
 *.exe
 *.so
 *.a
+
+# Script for updating webui submodule
+update.bat
+update.sh
