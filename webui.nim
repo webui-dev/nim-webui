@@ -883,7 +883,7 @@ proc bindAll*(win: Window; `func`: proc (e: Event): bool) =
       e.returnBool(res)
   )  
 
-proc open*(win: Window; url: string | Uri; browser: Browser = BrowserAny) =
+proc open*(win: Window; url: string | Uri; browser: Browser = BrowserAny): bool {.discardable.} =
   bindings.open(win.impl, cstring $url, cuint ord(browser))
 
 proc scriptRuntime*(win: Window; runtime: Runtime) {.deprecated: "Use `scriptRuntime=` instead".} = 
