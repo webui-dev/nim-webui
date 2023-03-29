@@ -22,6 +22,7 @@ when useWebuiStaticLib:
   when defined(vcc):
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
+    {.link: "Advapi32.lib".}
 
     {.link: webuiStaticLib & ".lib".}
   else:
@@ -33,6 +34,7 @@ when useWebuiStaticLib:
 
     {.passL: "-luser32".} # link dependencies
     {.passL: "-lws2_32".}
+    {.passL: "-lAdvapi32".}
 
   {.pragma: webui, discardable.}
 elif useWebuiDll:
@@ -55,12 +57,14 @@ else:
   when defined(vcc):
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
+    {.link: "Advapi32.lib".}
 
     {.passC: "/I " & currentSourceDir / "webui" / "include".}
 
   elif defined(windows):
     {.passL: "-lws2_32".}
     {.passL: "-luser32".}
+    {.passL: "-lAdvapi32".}
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
