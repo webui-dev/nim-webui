@@ -1,0 +1,49 @@
+name: test
+run-name: Test
+
+on: 
+  push:
+    branches:
+      - "main"
+    paths:
+      - "webui.nim"
+      - "nimdoc.cfg"
+      - "webui.nimble"
+      - ".github/workflows/test.yml"
+
+      - "webui/**"
+      - "examples/**"
+  pull_request:
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macOS-latest
+        nim:
+          - 1.6.x
+          - stable
+
+    name: Nim ${{ matrix.nim }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Nim
+        uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: ${{ matrix.nim }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compile examples
+        run: |
+          nim c examples/minimal.nim
+          nim c examples/hello_world.nim
+          nim c examples/hello_world_c.nim
+          nim c examples/call_nim_from_js.nim
+          nim c examples/serve_folder/serve_folder.nim       
