@@ -110,8 +110,7 @@ proc main =
     webui.exit()
 
   # Show the window
-  if not window.show(loginHtml, BrowserChrome):  # Run the window on Chrome
-    window.show(loginHtml, BrowserAny)           # If not, run on any other installed web browser
+  window.show(loginHtml)
 
   # Wait until all windows get closed
   wait()

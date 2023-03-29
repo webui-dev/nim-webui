@@ -70,7 +70,7 @@ proc main =
     let status = e.getBool()
     echo "function_three: ", status # true/false
 
-  window.bind("Four") do (e: Event) -> int:
+  window.bind("Four") do (e: Event) -> int64:
     # JavaScript: const result = webui_fn('Four', 2);
 
     result = e.getInt() * 2
@@ -79,8 +79,7 @@ proc main =
     # result is sent back to Javascript for you
 
   # Show the window
-  if not window.show(html, BrowserChrome):  # Run the window on Chrome
-    window.show(html, BrowserAny)           # If not, run on any other installed web browser
+  window.show(html)
 
   # Wait until all windows get closed
   wait()

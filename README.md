@@ -91,22 +91,44 @@ be found in WebUI's website [here](https://webui.me/#download).
 In addition, you can also enable WebUI's logging via `-d:webuiLog` but that flag
 only works for static compilation.
 
-## Supported Browsers
+## Supported Web Browsers
 
-| OS      | Browser | Status        |
-| ------  | ------  | ------        |
-| Windows | Firefox | ✔️            |
-| Windows | Chrome  | ✔️            |
-| Windows | Edge    | ✔️            |
-| Linux   | Firefox | ✔️            |
-| Linux   | Chrome  | ✔️            |
-| macOS   | Firefox | *coming soon* |
-| macOS   | Chrome  | *coming soon* |
-| macOS   | Safari  | *coming soon* |
+| OS | Browser | Status |
+| ------ | ------ | ------ |
+| Windows | Mozilla Firefox | ✔️ |
+| Windows | Google Chrome | ✔️ |
+| Windows | Microsoft Edge | ✔️ |
+| Windows | Chromium | ✔️ |
+| Windows | Yandex | ✔️ |
+| Windows | Brave | ✔️ |
+| Windows | Vivaldi | ✔️ |
+| Windows | Epic | ✔️ |
+| Windows | Opera | *coming soon* |
+| - | - | - |
+| Linux | Mozilla Firefox | ✔️ |
+| Linux | Google Chrome | ✔️ |
+| Linux | Microsoft Edge | *coming soon* |
+| Linux | Chromium | ✔️ |
+| Linux | Yandex | *coming soon* |
+| Linux | Brave | *coming soon* |
+| Linux | Vivaldi | *coming soon* |
+| Linux | Epic | *coming soon* |
+| Linux | Opera | *coming soon* |
+| - | - | - |
+| macOS | Mozilla Firefox | *coming soon* |
+| macOS | Google Chrome | ✔️ |
+| macOS | Microsoft Edge | *coming soon* |
+| macOS | Chromium | *coming soon* |
+| macOS | Yandex | *coming soon* |
+| macOS | Brave | *coming soon* |
+| macOS | Vivaldi | *coming soon* |
+| macOS | Epic | *coming soon* |
+| macOS | Apple Safari | *coming soon* |
+| macOS | Opera | *coming soon* |
 
 ## License
 
 MIT License. See [LICENSE](LICENSE)
 
-Original WebUI library is licensed under LGPL-2.1. See
+Original WebUI library is licensed under GPLv2.0. See
 [LICENSE](https://github.com/alifcommunity/webui/blob/main/LICENSE).

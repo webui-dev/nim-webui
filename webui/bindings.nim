@@ -77,7 +77,7 @@ else:
 {.deadCodeElim: on.}
 
 const
-  WEBUI_VERSION*          = "2.0.7"   ## Version
+  WEBUI_VERSION*          = "2.1.0"   ## Version
   WEBUI_HEADER_SIGNATURE* = 0xFF      ## All packets should start with this 8bit
   WEBUI_HEADER_JS*        = 0xFE      ## Javascript result in frontend
   WEBUI_HEADER_CLICK*     = 0xFD      ## Click event
@@ -168,6 +168,12 @@ type
     edge*: cuint      ## 3
     safari*: cuint    ## 4
     chromium*: cuint  ## 5
+    opera*: cuint     ## 6
+    brave*: cuint     ## 7
+    vivaldi*: cuint   ## 8
+    epic*: cuint      ## 9
+    yandex*: cuint    ## 10
+    current*: cuint   ## x
     custom*: cuint    ## 99
 
   Runtime* {.bycopy.} = object
@@ -220,14 +226,8 @@ proc isAnyWindowRunning*(): bool {.cdecl,
 proc isAppRunning*(): bool {.cdecl, importc: "webui_is_app_running", webui.}
 proc setTimeout*(second: cuint) {.cdecl, importc: "webui_set_timeout", webui.}
 proc newWindow*(): ptr Window {.cdecl, importc: "webui_new_window", webui.}
-proc show*(win: ptr Window; html: cstring; browser: cuint): bool {.cdecl,
+proc show*(win: ptr Window; content: cstring): bool {.cdecl,
     importc: "webui_show", webui.}
-proc showCpy*(win: ptr Window; html: cstring; browser: cuint): bool {.cdecl,
-    importc: "webui_show_cpy", webui.}
-proc refresh*(win: ptr Window; html: cstring): bool {.cdecl,
-    importc: "webui_refresh", webui.}
-proc refreshCpy*(win: ptr Window; html: cstring): bool {.cdecl,
-    importc: "webui_refresh_cpy", webui.}
 proc setIcon*(win: ptr Window; iconS: cstring; typeS: cstring) {.cdecl,
     importc: "webui_set_icon", webui.}
 proc multiAccess*(win: ptr Window; status: bool) {.cdecl,
@@ -249,10 +249,10 @@ proc scriptCleanup*(script: ptr Script) {.cdecl,
     importc: "webui_script_cleanup", webui.}
 proc scriptRuntime*(win: ptr Window; runtime: cuint) {.cdecl,
     importc: "webui_script_runtime", webui.}
-proc getInt*(e: ptr Event): cint {.cdecl, importc: "webui_get_int", webui.}
+proc getInt*(e: ptr Event): int64 {.cdecl, importc: "webui_get_int", webui.}
 proc getString*(e: ptr Event): cstring {.cdecl, importc: "webui_get_string", webui.}
 proc getBool*(e: ptr Event): bool {.cdecl, importc: "webui_get_bool", webui.}
-proc returnInt*(e: ptr Event; n: cint) {.cdecl, importc: "webui_return_int", webui.}
+proc returnInt*(e: ptr Event; n: int64) {.cdecl, importc: "webui_return_int", webui.}
 proc returnString*(e: ptr Event; s: cstring) {.cdecl,
     importc: "webui_return_string", webui.}
 proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool", webui.}

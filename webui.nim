@@ -2,7 +2,7 @@
   Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
 
   :Author: Jasmine
-  :WebUI Version: 2.0.7
+  :WebUI Version: 2.1.0
 
   # Get Started
 
@@ -616,8 +616,8 @@ proc data*(e: Event): pointer =
 proc response*(e: Event): pointer =
   e.impl.response
 
-proc getInt*(e: Event): int =
-  int bindings.getInt(e.impl)
+proc getInt*(e: Event): int64 =
+  int64 bindings.getInt(e.impl)
 
 proc getString*(e: Event): string =
   $ bindings.getString(e.impl)
@@ -628,8 +628,8 @@ proc getBool*(e: Event): bool =
 
   e.getString() == "true"
 
-proc returnInt*(e: Event; n: int) = 
-  bindings.returnInt(e.impl, cint n)
+proc returnInt*(e: Event; n: int64) = 
+  bindings.returnInt(e.impl, int64 n)
 
 proc returnString*(e: Event; s: string) =
   bindings.returnString(e.impl, cstring s)
@@ -719,22 +719,12 @@ proc core*(win: Window): WindowCore =
 
 {.push discardable.}
 
-proc show*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
+proc show*(win: Window; content: string): bool = 
   ## Show Window `win`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
+  ## `content` can be a file name, or a static HTML script
 
-  bindings.show(win.impl, cstring html, cuint ord(browser))
-
-proc showCopy*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
-  bindings.showCpy(win.impl, cstring html, cuint ord(browser))
-
-proc refresh*(win: Window; html: string): bool = 
-  ## Refresh the window UI with any new HTML content.
-
-  bindings.refresh(win.impl, cstring html)
-
-proc refreshCopy*(win: Window; html: string): bool = 
-  bindings.refreshCpy(win.impl, cstring html)
+  bindings.show(win.impl, cstring content)
 
 {.pop.}
 
@@ -823,7 +813,7 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): string) =
       e.returnString(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int) =
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int64) =
   win.bind(
     element, 
     proc (e: Event) =
