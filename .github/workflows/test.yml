@@ -40,6 +40,9 @@ jobs:
           nim-version: ${{ matrix.nim }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Init submodules
+        run: git submodule update --init
+
       - name: Compile examples
         run: |
           nim c examples/minimal.nim
