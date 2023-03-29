@@ -39,7 +39,7 @@ elif useWebuiDll:
   const webuiDll* {.strdefine.} = when defined(windows):
     "webui-2-x64.dll"
   elif defined(macos):
-    "webui-2-x64.dynlib"
+    "webui-2-x64.dyn"
   else:
     "webui-2-x64.so" # no lib prefix
 
@@ -70,6 +70,9 @@ else:
 
     {.passL: "-static".}
 
+    {.passC: "-I" & currentSourceDir / "webui" / "include".}
+
+  when defined(macos):
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   {.pragma: webui, discardable.}
