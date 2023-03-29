@@ -400,6 +400,10 @@ type
     BrowserEdge = 3
     BrowserSafari = 4
     BrowserChromium = 5
+    BrowserOpera = 6
+    BrowserBrave = 7
+    BrowserVivaldi = 8
+    BrowserYandex = 9
     BrowserCustom = 99
 
   Runtime* = enum
