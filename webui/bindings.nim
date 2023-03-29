@@ -372,3 +372,6 @@ proc fileExistMg*(evData: pointer): bool {.cdecl,
 # use std/os?
 proc fileExist*(file: cstring): bool {.cdecl, importc: "_webui_file_exist", webui.}
 proc freeAllMem*() {.cdecl, importc: "_webui_free_all_mem", webui.}
+
+proc showWindow*(win: ptr Window; html: cstring; browser: cuint): bool {.cdecl, 
+    importc: "_webui_show_window", webui.}
