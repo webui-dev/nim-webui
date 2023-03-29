@@ -330,14 +330,24 @@ proc folderExist*(folder: cstring): bool {.cdecl,
 
 proc browserCreateProfileFolder*(win: ptr Window; browser: cuint): bool {.cdecl,
     importc: "_webui_browser_create_profile_folder", webui.}
-proc browserStartEdge*(win: ptr Window; address: cstring): bool {.cdecl,
-    importc: "_webui_browser_start_edge", webui.}
-proc browserStartFirefox*(win: ptr Window; address: cstring): bool {.cdecl,
-    importc: "_webui_browser_start_firefox", webui.}
-proc browserStartCustom*(win: ptr Window; address: cstring): bool {.cdecl,
-    importc: "_webui_browser_start_custom", webui.}
 proc browserStartChrome*(win: ptr Window; address: cstring): bool {.cdecl,
     importc: "_webui_browser_start_chrome", webui.}
+proc browserStartEdge*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_edge", webui.}
+proc browserStartEpic*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_epic", webui.}
+proc browserStartVivaldi*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_vivaldi", webui.}
+proc browserStartBrave*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_brave", webui.}
+proc browserStartFirefox*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_firefox", webui.}
+proc browserStartYandex*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_yandex", webui.}
+proc browserStartChromium*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_chromium", webui.}
+proc browserStartCustom*(win: ptr Window; address: cstring): bool {.cdecl,
+    importc: "_webui_browser_start_custom", webui.}
 proc browserStart*(win: ptr Window; address: cstring; browser: cuint): bool {.
     cdecl, importc: "_webui_browser_start", webui.}
 
