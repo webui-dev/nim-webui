@@ -45,9 +45,6 @@ elif useWebuiDll:
 
   {.pragma: webui, dynlib: webuiDll, discardable.}
 else:
-  {.compile: "./webui/src/mongoose.c".}
-  {.compile: "./webui/src/webui.c".}
-
   # -d:webuiLog
   when defined(webuiLog):
     {.passC: "-DWEBUI_LOG".}
@@ -72,10 +69,13 @@ else:
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  when defined(macos):
+  when defined(macosx):
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
+    {.passC: "-DWEBUI_MAX_PATH=255 -fPIC -m64 -shared".}
 
   {.pragma: webui, discardable.}
+  {.compile: "./webui/src/mongoose.c".}
+  {.compile: "./webui/src/webui.c".}
 
 {.deadCodeElim: on.}
 
