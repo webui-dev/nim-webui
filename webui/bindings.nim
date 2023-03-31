@@ -73,6 +73,7 @@ else:
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   {.pragma: webui, discardable.}
+  
   {.compile: "./webui/src/mongoose.c".}
   {.compile: "./webui/src/webui.c".}
 
