@@ -817,7 +817,7 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): string) =
       e.returnString(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int64) =
+proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int) =
   win.bind(
     element, 
     proc (e: Event) =
