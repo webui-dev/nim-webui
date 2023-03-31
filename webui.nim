@@ -918,17 +918,32 @@ proc browserCreateProfileFolder*(win: Window; browser: Browser): bool {.discarda
 
 {.push discardable.}
 
+proc browserStartChrome*(win: Window; address: string | Uri): bool =
+  bindings.browserStartChrome(win.impl, cstring $address)
+
 proc browserStartEdge*(win: Window; address: string | Uri): bool =
   bindings.browserStartEdge(win.impl, cstring $address)
+
+proc browserStartEpic*(win: Window; address: string | Uri): bool =
+  bindings.browserStartEpic(win.impl, cstring $address)
+
+proc browserStartVivaldi*(win: Window; address: string | Uri): bool =
+  bindings.browserStartVivaldi(win.impl, cstring $address)
+
+proc browserStartBrave*(win: Window; address: string | Uri): bool =
+  bindings.browserStartBrave(win.impl, cstring $address)
 
 proc browserStartFirefox*(win: Window; address: string | Uri): bool =
   bindings.browserStartFirefox(win.impl, cstring $address)
 
+proc browserStartYandex*(win: Window; address: string | Uri): bool =
+  bindings.browserStartYandex(win.impl, cstring $address)
+
+proc browserStartChromium*(win: Window; address: string | Uri): bool =
+  bindings.browserStartChromium(win.impl, cstring $address)
+
 proc browserStartCustom*(win: Window; address: string | Uri): bool =
   bindings.browserStartCustom(win.impl, cstring $address)
-
-proc browserStartChrome*(win: Window; address: string | Uri): bool =
-  bindings.browserStartChrome(win.impl, cstring $address)
 
 {.pop.}
 
