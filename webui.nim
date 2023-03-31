@@ -620,8 +620,8 @@ proc data*(e: Event): pointer =
 proc response*(e: Event): pointer =
   e.impl.response
 
-proc getInt*(e: Event): int64 =
-  int64 bindings.getInt(e.impl)
+proc getInt*(e: Event): clonglong =
+  int bindings.getInt(e.impl)
 
 proc getString*(e: Event): string =
   $ bindings.getString(e.impl)
@@ -632,8 +632,8 @@ proc getBool*(e: Event): bool =
 
   e.getString() == "true"
 
-proc returnInt*(e: Event; n: int64) = 
-  bindings.returnInt(e.impl, int64 n)
+proc returnInt*(e: Event; n: int) = 
+  bindings.returnInt(e.impl, clonglong n)
 
 proc returnString*(e: Event; s: string) =
   bindings.returnString(e.impl, cstring s)
