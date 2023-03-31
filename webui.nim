@@ -947,6 +947,14 @@ proc browserStartCustom*(win: Window; address: string | Uri): bool =
 
 {.pop.}
 
+proc showWindow*(win: Window, html: string, browser: Browser) = 
+  bindings.showWindow(win.impl, cstring html, cuint ord browser)
+
+proc showBrowser*(win: Window, html: string, browser: Browser) = 
+  ## Alias of `showWindow`
+
+  bindings.showWindow(win.impl, cstring html, cuint ord browser)
+
 proc `rootFolder=`*(win: Window; path: string): bool {.discardable.} =
   bindings.setRootFolder(win.impl, cstring path)
 
