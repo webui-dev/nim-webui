@@ -2,7 +2,7 @@
   Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
 
   :Author: Jasmine
-  :WebUI Version: 2.0.7
+  :WebUI Version: 2.1.0
 
   # Get Started
 
@@ -400,6 +400,10 @@ type
     BrowserEdge = 3
     BrowserSafari = 4
     BrowserChromium = 5
+    BrowserOpera = 6
+    BrowserBrave = 7
+    BrowserVivaldi = 8
+    BrowserYandex = 9
     BrowserCustom = 99
 
   Runtime* = enum
@@ -616,7 +620,7 @@ proc data*(e: Event): pointer =
 proc response*(e: Event): pointer =
   e.impl.response
 
-proc getInt*(e: Event): int =
+proc getInt*(e: Event): clonglong =
   int bindings.getInt(e.impl)
 
 proc getString*(e: Event): string =
@@ -629,7 +633,7 @@ proc getBool*(e: Event): bool =
   e.getString() == "true"
 
 proc returnInt*(e: Event; n: int) = 
-  bindings.returnInt(e.impl, cint n)
+  bindings.returnInt(e.impl, clonglong n)
 
 proc returnString*(e: Event; s: string) =
   bindings.returnString(e.impl, cstring s)
@@ -719,22 +723,12 @@ proc core*(win: Window): WindowCore =
 
 {.push discardable.}
 
-proc show*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
+proc show*(win: Window; content: string): bool = 
   ## Show Window `win`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
+  ## `content` can be a file name, or a static HTML script
 
-  bindings.show(win.impl, cstring html, cuint ord(browser))
-
-proc showCopy*(win: Window; html: string; browser: Browser = BrowserAny): bool = 
-  bindings.showCpy(win.impl, cstring html, cuint ord(browser))
-
-proc refresh*(win: Window; html: string): bool = 
-  ## Refresh the window UI with any new HTML content.
-
-  bindings.refresh(win.impl, cstring html)
-
-proc refreshCopy*(win: Window; html: string): bool = 
-  bindings.refreshCpy(win.impl, cstring html)
+  bindings.show(win.impl, cstring content)
 
 {.pop.}
 
@@ -924,19 +918,42 @@ proc browserCreateProfileFolder*(win: Window; browser: Browser): bool {.discarda
 
 {.push discardable.}
 
+proc browserStartChrome*(win: Window; address: string | Uri): bool =
+  bindings.browserStartChrome(win.impl, cstring $address)
+
 proc browserStartEdge*(win: Window; address: string | Uri): bool =
   bindings.browserStartEdge(win.impl, cstring $address)
+
+proc browserStartEpic*(win: Window; address: string | Uri): bool =
+  bindings.browserStartEpic(win.impl, cstring $address)
+
+proc browserStartVivaldi*(win: Window; address: string | Uri): bool =
+  bindings.browserStartVivaldi(win.impl, cstring $address)
+
+proc browserStartBrave*(win: Window; address: string | Uri): bool =
+  bindings.browserStartBrave(win.impl, cstring $address)
 
 proc browserStartFirefox*(win: Window; address: string | Uri): bool =
   bindings.browserStartFirefox(win.impl, cstring $address)
 
+proc browserStartYandex*(win: Window; address: string | Uri): bool =
+  bindings.browserStartYandex(win.impl, cstring $address)
+
+proc browserStartChromium*(win: Window; address: string | Uri): bool =
+  bindings.browserStartChromium(win.impl, cstring $address)
+
 proc browserStartCustom*(win: Window; address: string | Uri): bool =
   bindings.browserStartCustom(win.impl, cstring $address)
 
-proc browserStartChrome*(win: Window; address: string | Uri): bool =
-  bindings.browserStartChrome(win.impl, cstring $address)
-
 {.pop.}
+
+proc showWindow*(win: Window, html: string, browser: Browser) = 
+  bindings.showWindow(win.impl, cstring html, cuint ord browser)
+
+proc showBrowser*(win: Window, html: string, browser: Browser) = 
+  ## Alias of `showWindow`
+
+  bindings.showWindow(win.impl, cstring html, cuint ord browser)
 
 proc `rootFolder=`*(win: Window; path: string): bool {.discardable.} =
   bindings.setRootFolder(win.impl, cstring path)
