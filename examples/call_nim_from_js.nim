@@ -70,7 +70,7 @@ proc main =
     let status = e.getBool()
     echo "function_three: ", status # true/false
 
-  window.bind("Four") do (e: Event) -> int64:
+  window.bind("Four") do (e: Event) -> int:
     # JavaScript: const result = webui_fn('Four', 2);
 
     result = e.getInt() * 2
