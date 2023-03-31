@@ -268,7 +268,7 @@ proc data*(e: Event): pointer =
 proc response*(e: Event): pointer =
   e.impl.response
 
-proc getInt*(e: Event): clonglong =
+proc getInt*(e: Event): int =
   int bindings.getInt(e.impl)
 
 proc getString*(e: Event): string =
