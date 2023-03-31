@@ -253,10 +253,10 @@ proc scriptCleanup*(script: ptr Script) {.cdecl,
     importc: "webui_script_cleanup", webui.}
 proc scriptRuntime*(win: ptr Window; runtime: cuint) {.cdecl,
     importc: "webui_script_runtime", webui.}
-proc getInt*(e: ptr Event): int64 {.cdecl, importc: "webui_get_int", webui.}
+proc getInt*(e: ptr Event): clonglong {.cdecl, importc: "webui_get_int", webui.}
 proc getString*(e: ptr Event): cstring {.cdecl, importc: "webui_get_string", webui.}
 proc getBool*(e: ptr Event): bool {.cdecl, importc: "webui_get_bool", webui.}
-proc returnInt*(e: ptr Event; n: int64) {.cdecl, importc: "webui_return_int", webui.}
+proc returnInt*(e: ptr Event; n: clonglong) {.cdecl, importc: "webui_return_int", webui.}
 proc returnString*(e: ptr Event; s: cstring) {.cdecl,
     importc: "webui_return_string", webui.}
 proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool", webui.}
