@@ -71,7 +71,7 @@ else:
 
   when defined(macosx):
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
-    {.passC: "-DWEBUI_MAX_PATH=255 -fPIC -m64 -shared".}
+    {.passC: "-DWEBUI_MAX_PATH=255 -fPIC -m64 -shared -D__APPLE__".}
 
   {.pragma: webui, discardable.}
   {.compile: "./webui/src/mongoose.c".}
