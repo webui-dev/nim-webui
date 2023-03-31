@@ -12,7 +12,7 @@ on:
 
       - "docs/**"
       - "webui/**"
-      - ".github/workflows/**"
+      - ".github/workflows/doc.yml"
 
 jobs:
   generate-doc:
