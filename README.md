@@ -39,9 +39,9 @@ nimble install webui
 
 ## Documentation
 
-Online documentation can be found here: 
+Online documentation can be found here:
   - <https://neroist.github.io/webui>
-  - <https://neroist.github.io/webui-nimib-experimental-docs>
+  - <https://neroist.github.io/webui-docs/>
 
 There isn't much documentation as of right now, so I suggest to get started
 using some [examples](#examples) or WebUI's own
