@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.1"
+version       = "0.4.0"
 author        = "Jasmine"
 description   = "Wrapper for WebUI"
 license       = "GPL-2.0"
