@@ -2,7 +2,7 @@
   Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
 
   :Author: Jasmine
-  :WebUI Version: 2.1.0
+  :WebUI Version: 2.1.1
 
   See: https://neroist.github.io/webui-docs/
 ]###
@@ -59,13 +59,22 @@ type
     RuntimeDeno
     RuntimeNodeJs
 
-# forward declarations, needed for `bind` and `bindAll`
+  WebUIEvent* = enum
+    EventConnected = 1
+    EventMultiConnection
+    EventUnwantedConnection
+    EventDisconnected
+    EventMouseClick
+    EventNavigation
+    EventCallback
+
+# forward declarations, needed for `bind`
 proc getNumber*(win: Window): int
 
 # vars
 var cbs: array[bindings.WEBUI_MAX_ARRAY, array[bindings.WEBUI_MAX_ARRAY, proc (e: Event)]] ## \
   ## array of binded callbacks.
-  ## Needed for `bind` and `bindAll`
+  ## Needed for `bind`
 
 proc wait*() =
   ## Run application run until the user closes all 
@@ -309,9 +318,6 @@ proc serverRoot*(winCore: WindowCore): bool =
 proc serverPort*(winCore: WindowCore): int =
   int winCore.impl.serverPort
 
-proc bindAll*(winCore: WindowCore): bool =
-  bool winCore.impl.isBindAll
-
 proc url*(winCore: WindowCore): string =
   $ winCore.impl.url
 
@@ -351,6 +357,9 @@ proc runtime*(winCore: WindowCore): Runtime =
 
 proc detectProcessClose*(winCore: WindowCore): bool =
   winCore.impl.detectProcessClose
+
+proc hasEvents*(winCore: WindowCore): bool =
+  bool winCore.impl.hasEvents
 
 # -------- Window --------
 
@@ -483,48 +492,6 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool) =
       e.returnBool(res)
   )  
 
-proc bindAll*(win: Window; `func`: proc (e: Event)) =
-  ## Bind all elements
-  
-  bindings.bindAll(win.impl, bindHandler)
-  let wid = win.getNumber()
-
-  # bindInterface was going to return zero anyway
-  #
-  # C source of `webui_bind_interface`:
-  #   ...
-  #   if(_webui_is_empty(element)) {
-  #     webui_bind_all(win, webui_bind_interface_all_handler);
-  #     webui.cb_interface_all[0] = func;
-  #     return 0;
-  #   }
-  #   ...
-
-  cbs[wid][0] = `func`
-
-proc bindAll*(win: Window; `func`: proc (e: Event): string) =
-  win.bindAll( 
-    proc (e: Event) =
-      let res = `func`(e)
-      e.returnString(res)
-  )  
-
-proc bindAll*(win: Window; `func`: proc (e: Event): int) =
-  win.bindAll( 
-    proc (e: Event) =
-      let res = `func`(e)
-      e.returnInt(res)
-  )  
-
-proc bindAll*(win: Window; `func`: proc (e: Event): bool) =
-  ## Bind all elements to `func` automatically pass return value of `func` to Javascript
-
-  win.bindAll( 
-    proc (e: Event) =
-      let res = `func`(e)
-      e.returnBool(res)
-  )  
-
 proc open*(win: Window; url: string | Uri; browser: Browser = BrowserAny): bool {.discardable.} =
   bindings.open(win.impl, cstring $url, cuint ord(browser))
 
@@ -544,8 +511,8 @@ proc receive*(win: Window; packet: string; len: int) =
 proc send*(win: Window; packet: string; packetsSize: int) =
   bindings.windowSend(win.impl, cstring packet, csize_t packetsSize)
 
-proc event*(win: Window; elementId, element: string; data: pointer; dataLen: int) = 
-  bindings.windowEvent(win.impl, cstring elementId, cstring element, data, cuint dataLen)
+proc event*(win: Window; elementId, element: string; data: pointer; dataLen: int, eventType: int | WebUIEvent) = 
+  bindings.windowEvent(win.impl, cstring elementId, cstring element, data, cuint dataLen, cint ord eventType)
 
 proc getNumber*(win: Window): int =
   int bindings.windowGetNumber(win.impl)
@@ -611,6 +578,9 @@ proc waitProcess*(win: Window; status: bool) =
 
 proc generateJsBridge*(win: Window): string =
   $ bindings.generateJsBridge(win.impl)
+
+proc generateInternalId*(win: Window, element: string) = 
+  bindings.generateInternalId(win.impl, cstring element)
 
 export 
   bindings.webui, 

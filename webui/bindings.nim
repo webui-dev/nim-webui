@@ -84,19 +84,26 @@ else:
 {.deadCodeElim: on.}
 
 const
-  WEBUI_VERSION*          = "2.1.0"   ## Version
-  WEBUI_HEADER_SIGNATURE* = 0xFF      ## All packets should start with this 8bit
-  WEBUI_HEADER_JS*        = 0xFE      ## Javascript result in frontend
-  WEBUI_HEADER_CLICK*     = 0xFD      ## Click event
-  WEBUI_HEADER_SWITCH*    = 0xFC      ## Frontend refresh
-  WEBUI_HEADER_CLOSE*     = 0xFB      ## Close window
-  WEBUI_HEADER_CALL_FUNC* = 0xFA      ## Call a backend function
-  WEBUI_MAX_ARRAY*        = (1024)    ## Max num of threads, servers, windows, pointers...
-  WEBUI_MIN_PORT*         = (10000)   ## Minimum socket port
-  WEBUI_MAX_PORT*         = (65500)   ## Should be less than 65535
-  WEBUI_MAX_BUF*          = (1024000) ## 1024 Kb max dynamic memory allocation
-  WEBUI_DEFAULT_PATH*     = "."       ## Default root path
-  WEBUI_DEF_TIMEOUT*      = (8)       ## Default startup timeout in seconds
+  WEBUI_VERSION*                   = "2.1.1"   ## Version
+  WEBUI_HEADER_SIGNATURE*          = 0xFF      ## All packets should start with this 8bit
+  WEBUI_HEADER_JS*                 = 0xFE      ## Javascript result in frontend
+  WEBUI_HEADER_CLICK*              = 0xFD      ## Click event
+  WEBUI_HEADER_SWITCH*             = 0xFC      ## Frontend refresh
+  WEBUI_HEADER_CLOSE*              = 0xFB      ## Close window
+  WEBUI_HEADER_CALL_FUNC*          = 0xFA      ## Call a backend function
+  WEBUI_MAX_ARRAY*                 = (1024)    ## Max num of threads, servers, windows, pointers...
+  WEBUI_MIN_PORT*                  = (10000)   ## Minimum socket port
+  WEBUI_MAX_PORT*                  = (65500)   ## Should be less than 65535
+  WEBUI_MAX_BUF*                   = (1024000) ## 1024 Kb max dynamic memory allocation
+  WEBUI_DEFAULT_PATH*              = "."       ## Default root path
+  WEBUI_DEF_TIMEOUT*               = (8)       ## Default startup timeout in seconds
+  WEBUI_EVENT_CONNECTED*           = (1)       ## Window connected
+  WEBUI_EVENT_MULTI_CONNECTION*    = (2)       ## Multi clients connected
+  WEBUI_EVENT_UNWANTED_CONNECTION* = (3)       ## Unwanted client connected
+  WEBUI_EVENT_DISCONNECTED*        = (4)       ## Window disconnected
+  WEBUI_EVENT_MOUSE_CLICK*         = (5)       ## Mouse Click
+  WEBUI_EVENT_NAVIGATION*          = (6)       ## The window URL changed
+  WEBUI_EVENT_CALLBACK*            = (7)       ## Function call
 
 # -- Types -------------------------
 
@@ -113,9 +120,7 @@ type
     multiAccess*: bool
     serverRoot*: bool
     serverPort*: cuint
-    isBindAll*: bool
     url*: cstring
-    cbAll*: array[1, proc (e: Event)]
     html*: cstring
     htmlCpy*: cstring
     icon*: cstring
@@ -126,6 +131,7 @@ type
     connections*: cuint
     runtime*: cuint
     detectProcessClose*: bool
+    hasEvents*: bool
     #when defined(windows):
     #  serverThread: Handle
     #else:
@@ -142,6 +148,7 @@ type
     window*: ptr Window
     data*: pointer
     response*: pointer
+    `type`*: cint
 
   JavascriptResult* {.bycopy.} = object
     error*: bool
@@ -158,6 +165,8 @@ type
     internalId*: cstring
     elementName*: cstring
     data*: pointer
+    dataLen*: cuint
+    eventType*: cint
 
   CmdAsync* {.bycopy.} = object
     win*: ptr Window
@@ -214,9 +223,6 @@ type
     cb_interface*: array[WEBUI_MAX_ARRAY, proc (elementId: cuint;
         windowId: cuint; elementName: cstring; window: ptr Window;
         data: cstring; response: cstringArray) {.cdecl.}]
-    cb_interface_all*: array[1, proc(elementId: cuint; windowId: cuint;
-        elementName: cstring; window: ptr Window; data: cstring;
-        response: cstringArray) {.cdecl.}]
     executablePath*: cstring
     ptrList*: array[WEBUI_MAX_ARRAY, pointer]
     ptrPosition*: cuint
@@ -248,8 +254,6 @@ proc script*(win: ptr Window; script: ptr Script) {.cdecl,
 proc `bind`*(win: ptr Window; element: cstring; `func`: proc (
     e: ptr Event) {.cdecl.}): cuint {.
     cdecl, importc: "webui_bind", webui.}
-proc bindAll*(win: ptr Window; `func`: proc (e: ptr Event) {.cdecl.}) {.cdecl,
-    importc: "webui_bind_all", webui.}
 proc open*(win: ptr Window; url: cstring; browser: cuint): bool {.cdecl,
     importc: "webui_open", webui.}
 proc scriptCleanup*(script: ptr Script) {.cdecl,
@@ -309,7 +313,7 @@ proc windowReceive*(win: ptr Window; packet: cstring; len: csize_t) {.cdecl,
 proc windowSend*(win: ptr Window; packet: cstring;
     packetsSize: csize_t) {.cdecl, importc: "_webui_window_send", webui.}
 proc windowEvent*(win: ptr Window; elementId: cstring; element: cstring;
-                      data: pointer; dataLen: cuint) {.cdecl,
+                      data: pointer; dataLen: cuint, eventType: cint) {.cdecl,
     importc: "_webui_window_event", webui.}
 proc windowGetNumber*(win: ptr Window): cuint {.cdecl,
     importc: "_webui_window_get_number", webui.}
@@ -388,3 +392,6 @@ proc freeAllMem*() {.cdecl, importc: "_webui_free_all_mem", webui.}
 
 proc showWindow*(win: ptr Window; html: cstring; browser: cuint): bool {.cdecl, 
     importc: "_webui_show_window", webui.}
+proc generateInternalId*(win: ptr Window; element: cstring): cstring {.cdecl, 
+    importc: "_webui_generate_internal_id", webui.}
+ 
