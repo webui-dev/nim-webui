@@ -65,15 +65,10 @@ else:
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  when defined(linux):
+  when defined(linux) or defined(macosx):
     {.passL: "-lpthread".}
     {.passL: "-lm".}
 
-    {.passL: "-static".}
-
-    {.passC: "-I" & currentSourceDir / "webui" / "include".}
-
-  when defined(macosx):
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   {.pragma: webui, discardable.}
