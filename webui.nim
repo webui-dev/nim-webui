@@ -84,10 +84,7 @@ proc getString*(e: Event): string =
   $ bindings.getString(e.internalImpl)
 
 proc getBool*(e: Event): bool =
-  # doesnt work?
-  # bindings.getBool(e.impl)
-
-  e.getString() == "true"
+  bindings.getBool(e.internalImpl)
 
 proc returnInt*(e: Event; n: int) = 
   bindings.returnInt(e.internalImpl, clonglong n)
