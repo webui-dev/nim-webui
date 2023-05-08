@@ -26,7 +26,7 @@ const html = """
     <button OnClick="webui_fn('One', 'Hello');">Call Nim function one</button><br><br>
     <button OnClick="webui_fn('Two', 2023);">Call Nim function two</button><br><br>
     <button OnClick="webui_fn('Three', true);">Call Nim function three</button><br><br>
-    <p>Call Nim function four, and wait for the result</p>
+    <p>Call Nim function four and wait for the result</p>
     
     <br>
 
@@ -39,9 +39,11 @@ const html = """
 
     <script>
       function MyJS() {
-        const number = document.getElementById('MyInput').value;
-        var result = webui_fn('Four', number);
-        document.getElementById('MyInput').value = result;
+        const MyInput = document.getElementById('MyInput');
+        const number = MyInput.value;
+        webui_fn('Four', number).then((response) => {
+          MyInput.value = response;
+        });
       }
     </script>
   </body>

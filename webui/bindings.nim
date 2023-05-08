@@ -73,13 +73,16 @@ else:
 
   {.pragma: webui, discardable.}
   
-  {.compile: "./webui/src/mongoose.c".}
+  {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DNO_SSL -DUSE_WEBSOCKET -DMUST_IMPLEMENT_CLOCK_GETTIME".}
+
+  {.compile: "./webui/src/civetweb/civetweb.c".}
   {.compile: "./webui/src/webui.c".}
 
 {.deadCodeElim: on.}
 
 const
-  WEBUI_VERSION*                   = "2.2.0"   ## Version
+  WEBUI_VERSION* = "2.3.0"   ## Version
+  WEBUI_MAX_IDS* = (512)
 
 # -- Types -------------------------
 
@@ -107,11 +110,11 @@ type
     EventsCallback
 
   Event* {.bycopy.} = object
+    window*: csize_t
+    eventType*: csize_t
     element*: cstring
-    window*: pointer
     data*: cstring
-    response*: cstring
-    `type`*: cuint
+    eventNumber*: csize_t
 
   Runtime* {.bycopy.} = enum
     None
@@ -119,53 +122,62 @@ type
     NodeJS
 
 ##  -- Definitions ---------------------
-proc newWindow*(): pointer {.cdecl, importc: "webui_new_window".}
+proc newWindow*(): csize_t {.cdecl, importc: "webui_new_window".}
   ##  Create a new webui window object.
 
-proc `bind`*(window: pointer; element: cstring; `func`: proc (e: ptr Event) {.cdecl.}): cuint {.
+proc newWindowId*(windowNumber: csize_t) {.cdecl, importc: "webui_new_window_id".}
+  ##  Create a new webui window object.
+
+proc `bind`*(window: csize_t; element: cstring; `func`: proc (e: ptr Event) {.cdecl.}): csize_t {.
     cdecl, importc: "webui_bind".}
   ##  Bind a specific html element click event with a function. Empty element means all events.
  
-proc show*(window: pointer; content: cstring): bool {.cdecl, importc: "webui_show".}
+proc show*(window: csize_t; content: cstring): bool {.cdecl, importc: "webui_show".}
   ##  Show a window using a embedded HTML, or a file. If the window is already opened then it will be refreshed.
 
-proc showBrowser*(window: pointer; content: cstring; browser: cuint): bool {.cdecl,
+proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.cdecl,
     importc: "webui_show_browser".}
   ##  Same as webui_show(). But with a specific web browser.
+
+proc setKiosk*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_kiosk".}
+  ##  Set the window in Kiosk mode (Full screen)
 
 proc wait*() {.cdecl, importc: "webui_wait".}
   ##  Wait until all opened windows get closed.
 
-proc close*(window: pointer) {.cdecl, importc: "webui_close".}
-  ##  Close a specific window.
+proc close*(window: csize_t) {.cdecl, importc: "webui_close".}
+  ##  Close a specific window only. The window object will still exist.
+
+proc destroy*(window: csize_t) {.cdecl, importc: "destroy".}
+  ##  Close a specific window and free all memory resources.
 
 proc exit*() {.cdecl, importc: "webui_exit".}
   ##  Close all opened windows. webui_wait() will break.
 
 ##  -- Other ---------------------------
-proc isShown*(window: pointer): bool {.cdecl, importc: "webui_is_shown".}
+proc isShown*(window: csize_t): bool {.cdecl, importc: "webui_is_shown".}
   ##  Check a specific window if it's still running
 
-proc setTimeout*(second: cuint) {.cdecl, importc: "webui_set_timeout".}
+proc setTimeout*(second: csize_t) {.cdecl, importc: "webui_set_timeout".}
   ##  Set the maximum time in seconds to wait for browser to start
 
-proc setIcon*(window: pointer; icon: cstring; `type`: cstring) {.cdecl,
+proc setIcon*(window: csize_t; icon: cstring; `type`: cstring) {.cdecl,
     importc: "webui_set_icon".}
   ##  Set the default embedded HTML favicon
 
-proc setMultiAccess*(window: pointer; status: bool) {.cdecl,
+proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
     importc: "webui_set_multi_access".}
   ##  Allow the window URL to be re-used in normal web browsers
 
 ##  -- JavaScript ----------------------
-proc run*(window: pointer; script: cstring): bool {.cdecl, importc: "webui_run".}
+proc run*(window: csize_t; script: cstring): bool {.cdecl, importc: "webui_run".}
   ##  Run JavaScript quickly with no waiting for the response.
 
-proc script*(window: pointer; script: cstring; timeout: cuint; buffer: cstring;
+proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring;
             bufferLength: csize_t): bool {.cdecl, importc: "webui_script".}
   ##  Run a JavaScript, and get the response back (Make sure your local buffer can hold the response).
 
-proc setRuntime*(window: pointer; runtime: cuint) {.cdecl,
+proc setRuntime*(window: csize_t; runtime: csize_t) {.cdecl,
     importc: "webui_set_runtime".}
   ##  Chose between Deno and Nodejs runtime for .js and .ts files.
 
@@ -188,8 +200,8 @@ proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool".}
   ##  Return the response to JavaScript as boolean.
 
 ##  -- Interface -----------------------
-proc interfaceBind*(window: pointer; element: cstring; `func`: proc (a1: pointer;
-    a2: cuint; a3: cstring; a4: cstring; a5: cstring) {.cdecl.}): cuint {.cdecl,
+proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
+    a2: csize_t; a3: cstring; a4: cstring; a5: cstring) {.cdecl.}): csize_t {.cdecl,
     importc: "webui_interface_bind".}
   ##  Bind a specific html element click event with a function. Empty element means all events. This replace webui_bind(). The func is (Window, EventType, Element, Data, Response)
 
@@ -201,6 +213,11 @@ proc interfaceIsAppRunning*(): bool {.cdecl,
                                    importc: "webui_interface_is_app_running".}
   ##  Check if the app still running or not. This replace webui_wait().
 
-proc interfaceGetWindowId*(window: pointer): cuint {.cdecl,
+proc interfaceGetWindowId*(window: csize_t): csize_t {.cdecl,
     importc: "webui_interface_get_window_id".}
   ##  Get window unique ID
+
+# THANK YOU
+proc interfaceGetBindId*(window: csize_t; element: cstring): csize_t {.cdecl,
+    importc: "webui_interface_get_bind_id".}
+  ##  Get a unique ID. Same ID as `webui_bind()`. Return > 0 if bind exist.
