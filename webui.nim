@@ -7,6 +7,8 @@
   See: https://neroist.github.io/webui-docs/
 ]##
 
+import std/strutils
+
 from webui/bindings import nil
 
 type
@@ -150,17 +152,15 @@ proc shown*(win: Window): bool =
 
   bindings.isShown(csize_t win)
 
-proc script*(win: Window; script: string; timeout: int = 5): string =
+proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 + 8): tuple[data: string; error: bool] =
   ## Run script `script`
   
-  var s: string
-  s.setLen(1024 * 8)
+  var buffer: array[bufferLen, char]
 
-  var b =  cstring s
+  let error = bindings.script(csize_t win, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
 
-  discard bindings.script(csize_t win, cstring script, csize_t timeout, cast[cstring](addr b), csize_t len(b))
-
-  return $b
+  result.data = buffer.join()
+  result.error = error
 
 proc run*(win: Window; script: string): bool {.discardable.} =
   ## Evaluate Javascript code `script` and return the result
