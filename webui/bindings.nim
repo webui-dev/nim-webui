@@ -88,40 +88,40 @@ const
 
 type
   Browsers* {.bycopy.} = enum
-    BrowsersAny
-    BrowsersChrome
-    BrowsersFirefox
-    BrowsersEdge
-    BrowsersSafari
-    BrowsersChromium
-    BrowsersOpera
-    BrowsersBrave
-    BrowsersVivaldi
-    BrowsersEpic
-    BrowsersYandex 
+    BrowsersAny       ## 0. Default recommended web browser
+    BrowsersChrome    ## 1. Google Chrome
+    BrowsersFirefox   ## 2. Mozilla Firefox
+    BrowsersEdge      ## 3. Microsoft Edge
+    BrowsersSafari    ## 4. Apple Safari
+    BrowsersChromium  ## 5. The Chromium Project
+    BrowsersOpera     ## 6. Opera Browser
+    BrowsersBrave     ## 7. The Brave Browser
+    BrowsersVivaldi   ## 8. The Vivaldi Browser
+    BrowsersEpic      ## 9. The Epic Browser
+    BrowsersYandex    ## 10. The Yandex Browser
 
   Events* {.bycopy.} = enum
-    EventsDisconnected
-    EventsConnected
-    EventsMultiConnection
-    EventsUnwantedConnection
-    EventsMouseClick
-    EventsNavigation
-    EventsCallback
+    EventsDisconnected        ## 0. Window disconnection event
+    EventsConnected           ## 1. Window connection event
+    EventsMultiConnection     ## 2. New window connection event
+    EventsUnwantedConnection  ## 3. New unwanted window connection event
+    EventsMouseClick          ## 4. Mouse click event
+    EventsNavigation          ## 5. Window navigation event
+    EventsCallback            ## 6. Function call event
 
   Event* {.bycopy.} = object
-    window*: csize_t
-    eventType*: csize_t
-    element*: cstring
-    data*: cstring
-    eventNumber*: csize_t
+    window*: csize_t       ## The window object number
+    eventType*: csize_t    ## Event type
+    element*: cstring      ## HTML element ID
+    data*: cstring         ## JavaScript data
+    eventNumber*: csize_t  ## Internal WebUI
 
   Runtime* {.bycopy.} = enum
-    None
-    Deno
-    NodeJS
+    None    ## 0. Prevent WebUI from using any runtime for .js and .ts files
+    Deno    ## 1. Use Deno runtime for .js and .ts files
+    NodeJS  ## 2. Use Nodejs runtime for .js files
 
-##  -- Definitions ---------------------
+#  -- Definitions ---------------------
 proc newWindow*(): csize_t {.cdecl, importc: "webui_new_window".}
   ##  Create a new webui window object.
 
@@ -169,7 +169,7 @@ proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
     importc: "webui_set_multi_access".}
   ##  Allow the window URL to be re-used in normal web browsers
 
-##  -- JavaScript ----------------------
+#  -- JavaScript ----------------------
 proc run*(window: csize_t; script: cstring): bool {.cdecl, importc: "webui_run".}
   ##  Run JavaScript quickly with no waiting for the response.
 

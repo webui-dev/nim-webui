@@ -2,7 +2,7 @@
   Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
 
   :Author: Jasmine
-  :WebUI Version: 2.1.1
+  :WebUI Version: 2.3.0
 
   See: https://neroist.github.io/webui-docs/
 ]##
@@ -31,18 +31,17 @@ var
     ## Needed for `bind`
 
 proc wait*() =
-  ## Run application run until the user closes all 
-  ## visible windows or when calling `exit() <#exit>`_
+  ## Wait until all opened windows get closed.
 
   bindings.wait()
 
 proc exit*() = 
-  ## Try and close all related opened windows and make `wait() <#wait>`_ break.
+  ## Close all opened windows. `wait()` will break.
 
   bindings.exit()
 
 proc setTimeout*(timeout: int) = 
-  ## Waits `timeout` seconds to let the web browser start and connect.
+  ## Set the maximum time in seconds to wait for browser to start
   ## 
   ## Set `timeout` to `0` to wait forever.
   
@@ -79,22 +78,36 @@ proc eventNumber*(e: Event): int =
 proc eventType*(e: Event): bindings.Events =
   bindings.Events(int e.impl.eventType)
 
+# --- 
+
 proc getInt*(e: Event): int =
+  ## Parse argument as a integer.
+
   int bindings.getInt(e.internalImpl)
 
 proc getString*(e: Event): string =
+  ## Parse argument as a string.
+  
   $ bindings.getString(e.internalImpl)
 
 proc getBool*(e: Event): bool =
+  ## Parse argument as a boolean.
+
   bindings.getBool(e.internalImpl)
 
 proc returnInt*(e: Event; n: int) = 
+  ## Return the response to JavaScript as a integer.
+
   bindings.returnInt(e.internalImpl, clonglong n)
 
 proc returnString*(e: Event; s: string) =
+  ## Return the response to JavaScript as a string.
+
   bindings.returnString(e.internalImpl, cstring s)
 
 proc returnBool*(e: Event; b: bool) =
+  ## Return the response to JavaScript as a boolean.
+
   bindings.returnBool(e.internalImpl, b)
 
 # -------- Window --------
@@ -115,16 +128,21 @@ proc newWindow*(windowNumber: int): Window =
 proc show*(win: Window; content: string): bool = 
   ## Show Window `win`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
-  ## `content` can be a file name, or a static HTML script
+  ## 
+  ## `content` can be a file name, or a static HTML script.
 
   bindings.show(csize_t win, cstring content)
 
 proc show*(win: Window; content: string; browser: bindings.Browsers): bool =
+  ## Same as `show() <#show,Window,string>`_, but with a specific web browser.
+
   bindings.showBrowser(csize_t win, cstring content, csize_t ord(browser))
 
 {.pop.}
 
 proc `icon=`*(win: Window; icon, `type`: string) = 
+  ## Set the default embedded HTML favicon
+
   bindings.setIcon(csize_t win, cstring icon, cstring type)
 
 proc `multiAccess=`*(win: Window; status: bool) = 
@@ -138,7 +156,7 @@ proc `kiosk=`*(win: Window; status: bool) =
   bindings.setKiosk(csize_t win, status)
 
 proc close*(win: Window) = 
-  ##  Close a specific window only. The window object will still exist.
+  ## Close a specific window only. The window object will still exist.
   
   bindings.close(csize_t win)
 
@@ -148,12 +166,12 @@ proc destroy*(win: Window) =
   bindings.destroy(csize_t win)
 
 proc shown*(win: Window): bool = 
-  ## Return if window is still running
+  ## Return if window `win` is still running
 
   bindings.isShown(csize_t win)
 
 proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] {.discardable.} =
-  ## Run script `script`
+  ## Run Javascript code `script` and return the result
   
   var buffer: array[bufferLen, char]
 
@@ -166,7 +184,7 @@ proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[in
   result.error = error
 
 proc run*(win: Window; script: string): bool {.discardable.} =
-  ## Evaluate Javascript code `script` and return the result
+  ## Run JavaScript quickly without waiting for the response.
 
   bindings.run(csize_t win, cstring script)
   
@@ -183,8 +201,6 @@ proc run*(win: Window; script: string): bool {.discardable.} =
 #    internalImpl: addr event
 #  )
 #
-#  new e
-#
 #  cbs[bindings.interfaceGetWindowId(window)][bindings.interfaceGetBindId(window, element)](e)
 
 proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
@@ -193,7 +209,7 @@ proc bindHandler(e: ptr bindings.Event) {.cdecl.} =
   cbs[bindings.interfaceGetWindowId(e.window)][bindings.interfaceGetBindId(e.window, e.element)](event)
 
 proc `bind`*(win: Window; element: string; `func`: proc (e: Event)) =
-  ## Receive click events when the user clicks on any HTML element with a specific ID
+  ##  Bind a specific html element click event with a function. Empty element means all events.
 
   let bid = int bindings.bind(csize_t win, cstring element, bindHandler)
   let wid = int bindings.interfaceGetWindowId(csize_t win)
@@ -227,6 +243,8 @@ proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool) =
   )  
 
 proc `runtime=`*(win: Window; runtime: bindings.Runtime) = 
+  ## Chose between Deno and NodeJS runtime for .js and .ts files.
+  
   bindings.setRuntime(csize_t win, csize_t ord(runtime))
 
 export 
