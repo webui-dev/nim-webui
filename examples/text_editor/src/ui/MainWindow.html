@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="img/icon.png" />
+        <title>Text Editor in C using WebUI</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/lucario.css">
+        <link rel="stylesheet" href="css/codemirror.min.css">
+        <link rel="stylesheet" href="css/all.min.css">
+        <link rel="stylesheet" href="css/v4-shims.min.css">
+        <link rel="stylesheet" href="css/regular.min.css">
+
+        <script src="js/codemirror.min.js"></script>
+        <script src="js/xml.min.js"></script>
+        <script src="js/css.min.js"></script>
+        <script src="js/javascript.min.js"></script>
+        <script src="js/clike.min.js"></script>
+        <script src="js/python.min.js"></script>
+    </head>
+    <body>
+        <div class="topbar"></div>
+        <nav>
+            <ul>
+                <li>
+                    <a><i id="Open" class="fas fa-folder-open"></i></a>
+                </li>
+                <li id="SaveLi" style="pointer-events: none; color: #7ca0df;">
+                    <a><i onclick="SaveFile();" class="fa fa-floppy-o"></i></a>
+                </li>
+                <li>
+                    <a><i id="Close" class="fas fa-door-open"></i></a>
+                </li>
+                <li>
+                    <a><i id="About" class="fas fa-question-circle"></i></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="main" id="main">
+            <textarea id="editor"></textarea>
+        </div>
+        <div id="about-box" class="about-box">
+            <div class="about-box-content">
+                <h1>WebUI Text Editor</h1>
+                v1.0
+                <p>Example of a text editor software in C using WebUI library.</p>
+                <p><a href="https://webui.me" target="_blank">webui.me</a> | (C)2023 Hassan Draga</p>
+            </div>
+        </div>
+        <script src="/webui.js"></script>
+        <script src="js/ui.js"></script>
+    </body>
+</html>
