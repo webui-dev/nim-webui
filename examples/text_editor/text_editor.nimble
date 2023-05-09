@@ -1,7 +1,7 @@
 # Package
 
-version       = "0.1.0"
-author        = "Grave"
+version       = "1.0.0"
+author        = "Jasmine"
 description   = "Text editor example for webui"
 license       = "MIT"
 srcDir        = "src"
