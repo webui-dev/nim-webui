@@ -14,6 +14,7 @@ proc main =
     var di: DialogInfo
 
     di.kind = dkOpenFile
+    di.title = "Text Editor"
     di.filters = @[
       (name: "Text files", ext: "*.txt"),
       (name: "Any file", ext: "*")
