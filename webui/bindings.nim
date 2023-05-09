@@ -154,7 +154,7 @@ proc destroy*(window: csize_t) {.cdecl, importc: "destroy".}
 proc exit*() {.cdecl, importc: "webui_exit".}
   ##  Close all opened windows. webui_wait() will break.
 
-##  -- Other ---------------------------
+#  -- Other ---------------------------
 proc isShown*(window: csize_t): bool {.cdecl, importc: "webui_is_shown".}
   ##  Check a specific window if it's still running
 
@@ -199,7 +199,7 @@ proc returnString*(e: ptr Event; s: cstring) {.cdecl, importc: "webui_return_str
 proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool".}
   ##  Return the response to JavaScript as boolean.
 
-##  -- Interface -----------------------
+#  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
     a2: csize_t; a3: cstring; a4: cstring; a5: cstring) {.cdecl.}): csize_t {.cdecl,
     importc: "webui_interface_bind".}
