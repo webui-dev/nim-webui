@@ -152,14 +152,17 @@ proc shown*(win: Window): bool =
 
   bindings.isShown(csize_t win)
 
-proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 + 8): tuple[data: string; error: bool] =
+proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 + 8): tuple[data: string; error: bool] {.discardable.} =
   ## Run script `script`
   
   var buffer: array[bufferLen, char]
 
-  let error = bindings.script(csize_t win, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
+  let 
+    error = bindings.script(csize_t win, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
 
-  result.data = buffer.join()
+    data = buffer.join().strip(leading = false, chars = {'\x00'}) # remove trailing null chars
+
+  result.data = data
   result.error = error
 
 proc run*(win: Window; script: string): bool {.discardable.} =
