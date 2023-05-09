@@ -2,30 +2,60 @@ import std/os
 
 import webui
 
+var
+  window: Window
+  window2: Window
+
+proc exitApp(_: Event) = 
+  exit()
+
 proc main = 
-  # Create a new window
-  let window = newWindow()
+  # Create new windows
 
-  # Bind an HTML element ID with a C function
+  window = newWindow(1)
+  window2 = newWindow(2)
+  
   window.bind("SwitchToSecondPage") do (e: Event):
-    # This function gets called every time 
-    # the user clicks on "SwitchToSecondPage" button
+    # This function gets called every
+    # time the user clicks on "SwitchToSecondPage"
 
-    e.window.open("second.html")
+    # Switch to `./second.html` in the same opened window.
 
-  window.bind("Exit") do (_: Event):
-    webui.exit()
+    e.window.show("second.html")
 
-  # The root path. Leave it empty to let the WebUI
-  # automatically select the current working folder
-  let rootPath = ""
+  window.bind("OpenNewWindow") do (e: Event):
+    # This function gets called every
+    # time the user clicks on "OpenNewWindow"
 
-  # Create a new web server using WebUI
-  let link = newServer(window, rootPath)
+    # Show a new window, and navigate to `/second.html`
+    # if it's already open, then switch in the same window
 
-  # Show the window using the generated URL
-  if not window.open(link, BrowserChrome):  # Run the window on Chrome
-    window.open(link, BrowserAny)           # If not, run on any other installed web browser
+    window2.show("second.html")
+
+  window.bind("") do (e: Event):
+    # This function gets called every time
+    # there is an event
+
+    case e.eventType:
+      of EventsConnected:
+        echo "Connected"
+      of EventsDisconnected:
+        echo "Disconnected"
+      of EventsMouseClick:
+        echo "Click"
+      of EventsNavigation:
+        echo "Starting navigation to: ", e.data    
+      else:
+        discard
+
+  window.bind("Exit", exitApp)
+  window2.bind("Exit", exitApp)
+     
+  # Make Deno as the `.ts` and `.js` interpreter
+  window.runtime = Deno
+
+  # Show a new window
+  window.show("index.html")
 
   # Wait until all windows get closed
   wait()
