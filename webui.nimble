@@ -3,7 +3,7 @@
 version       = "0.6.0"
 author        = "Jasmine"
 description   = "Wrapper for WebUI"
-license       = "GPL-2.0"
+license       = "MIT"
 installFiles  = @["webui.nim"]
 installDirs   = @["webui"]
 

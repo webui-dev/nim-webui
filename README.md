@@ -128,7 +128,7 @@ only works for static compilation.
 
 ## License
 
-GPLv2.0 License. See [LICENSE](LICENSE)
+MIT License. See [LICENSE](LICENSE)
 
-Original WebUI library is licensed under GPLv2.0. See
+Original WebUI library is licensed under MIT. See
 [LICENSE](https://github.com/alifcommunity/webui/blob/main/LICENSE).
