@@ -128,6 +128,9 @@ proc newWindow*(): csize_t {.cdecl, importc: "webui_new_window".}
 proc newWindowId*(windowNumber: csize_t) {.cdecl, importc: "webui_new_window_id".}
   ##  Create a new webui window object.
 
+proc getNewWindowId*(): csize_t {.cdecl, importc: "webui_get_new_window_id".}
+  ##  Get a free window ID that can be used with `newWindowId()`
+
 proc `bind`*(window: csize_t; element: cstring; `func`: proc (e: ptr Event) {.cdecl.}): csize_t {.
     cdecl, importc: "webui_bind".}
   ##  Bind a specific html element click event with a function. Empty element means all events.
@@ -170,7 +173,7 @@ proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
   ##  Allow the window URL to be re-used in normal web browsers
 
 #  -- JavaScript ----------------------
-proc run*(window: csize_t; script: cstring): bool {.cdecl, importc: "webui_run".}
+proc run*(window: csize_t; script: cstring) {.cdecl, importc: "webui_run".}
   ##  Run JavaScript quickly with no waiting for the response.
 
 proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring;
@@ -199,6 +202,18 @@ proc returnString*(e: ptr Event; s: cstring) {.cdecl, importc: "webui_return_str
 proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool".}
   ##  Return the response to JavaScript as boolean.
 
+proc encode*(str: cstring): cstring {.cdecl, importc: "webui_encode".}
+  ##  Base64 encoding. Use this to safely send text based data to the UI.
+  ##  If it fails it will return `nil`.
+
+proc decode*(str: cstring): cstring {.cdecl, importc: "webui_decode".}
+  ##  Base64 decoding. Use this to safely decode received Base64 text from the UI.
+  ##  If it fails it will return `nil`.
+
+proc free*(`ptr`: pointer) {.cdecl, importc: "webui_free".}
+  ##  Safely free a buffer allocated by WebUI, for example when using 
+  ##  `encode()`.
+  
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
     a2: csize_t; a3: cstring; a4: cstring; a5: cstring) {.cdecl.}): csize_t {.cdecl,

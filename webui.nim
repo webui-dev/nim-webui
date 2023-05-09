@@ -47,6 +47,24 @@ proc setTimeout*(timeout: int) =
   
   bindings.setTimeout(csize_t timeout)
 
+proc encode*(str: string): string = 
+  ##  Base64 encoding. Use this to safely send text based data to the UI.
+  ##  If it fails it will return an empty string.
+
+  $ bindings.encode(cstring str)
+
+proc decode*(str: string): string = 
+  ##  Base64 decoding. Use this to safely decode received Base64 text from the UI.
+  ##  If it fails it will return an empty string.
+
+  $ bindings.decode(cstring str)
+
+proc free*(`ptr`: pointer): string = 
+  ##  Safely free a buffer allocated by WebUI, for example when using 
+  ##  `encode()`.
+
+  bindings.free(`ptr`)
+
 # ------- Impl funcs --------
 
 # --- Event ---
@@ -123,6 +141,9 @@ proc newWindow*(windowNumber: int): Window =
   bindings.newWindowId(csize_t windowNumber)
   result = Window(windowNumber)
 
+proc getNewWindowId*(): int = 
+  int bindings.getNewWindowId()
+
 {.push discardable.}
 
 proc show*(win: Window; content: string): bool = 
@@ -170,7 +191,7 @@ proc shown*(win: Window): bool =
 
   bindings.isShown(csize_t win)
 
-proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] {.discardable.} =
+proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] =
   ## Run Javascript code `script` and return the result
   
   var buffer: array[bufferLen, char]
@@ -183,7 +204,7 @@ proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[in
   result.data = data
   result.error = error
 
-proc run*(win: Window; script: string): bool {.discardable.} =
+proc run*(win: Window; script: string) =
   ## Run JavaScript quickly without waiting for the response.
 
   bindings.run(csize_t win, cstring script)
