@@ -152,7 +152,7 @@ proc shown*(win: Window): bool =
 
   bindings.isShown(csize_t win)
 
-proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 + 8): tuple[data: string; error: bool] {.discardable.} =
+proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] {.discardable.} =
   ## Run script `script`
   
   var buffer: array[bufferLen, char]
