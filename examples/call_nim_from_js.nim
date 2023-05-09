@@ -4,33 +4,46 @@ const html = """
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WebUI 2 - Nim Example</title>
+    <title>Call Nim from JavaScript Example</title>
 
     <style>
       body {
         color: white; 
         background: #0F2027;
-        background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
-        background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
         text-align: center; 
-        font-size: 18px; 
+        font-size: 16px; 
         font-family: sans-serif;
       }
     </style>
   </head>
 
   <body>
-    <h2>WebUI 2 - Nim Example</h2>
+    <h2>WebUI - Call Nim from JavaScript Example</h2>
 
-    <p>Call Nim function with arguments (See log in the console)</p><br>
-    <button OnClick="webui_fn('One', 'Hello');">Call Nim function one</button><br><br>
-    <button OnClick="webui_fn('Two', 2023);">Call Nim function two</button><br><br>
-    <button OnClick="webui_fn('Three', true);">Call Nim function three</button><br><br>
+    <p>Call Nim function with arguments (<em>See the logs in your terminal</em>)</p>
+    
+    <br>
+    
+    <button onclick="webui_fn('One', 'Hello');">Call Nim function one</button>
+    
+    <br>
+    <br>
+    
+    <button onclick="webui_fn('Two', 2023);">Call Nim function two</button>
+    
+    <br>
+    <br>
+    
+    <button onclick="webui_fn('Three', true);">Call Nim function three</button>
+    
+    <br>
+    <br>
+    
     <p>Call Nim function four and wait for the result</p>
     
     <br>
 
-    <button OnClick="MyJS();">Call Nim function four</button>
+    <button onclick="MyJS();">Call Nim function four</button>
 
     <br>
     <br>

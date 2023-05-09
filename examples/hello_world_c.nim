@@ -43,34 +43,27 @@ proc main =
 
     # This function gets called every time the user clicks on "MyButton1"
 
-    var js = newScript(
-      "return document.getElementById(\"MyInput\").value;",
-      3
-    )
-
     # Run the JavaScript on the UI (Web Browser)
-    e.window.script(js)
+    var js = e.window.script("return document.getElementById(\"MyInput\").value;")
 
     # Check if there is any JavaScript error
-    if js.result.error:
-      echo "JavaScript Error: ", js.result.data
+    if not js.error:
+      echo "JavaScript Error: ", js.data
       return
 
     # Get the password
-    let password = js.result.data
+    let password = js.data
     echo "Password: ", password
 
     # Check the password
     if password == "123456":
       # Correct password
 
-      js.script = "alert('Good. Password is correct.')"
-      e.window.script(js)
+      discard e.window.script("alert('Good. Password is correct.')")
     else:
       # Wrong password
 
-      js.script = "alert('Sorry. Wrong password.')"
-      e.window.script(js)
+      discard e.window.script("alert('Sorry. Wrong password.')")
 
   window.bind("MyButton2") do (_: Event):
     # Close all opened windows
