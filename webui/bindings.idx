@@ -1,0 +1,42 @@
+nimTitle	bindings	webui/bindings.html	module webui/bindings		0
+nim	useWebuiStaticLib	webui/bindings.html#useWebuiStaticLib	const useWebuiStaticLib		16
+nim	useWebuiDll	webui/bindings.html#useWebuiDll	const useWebuiDll		17
+nim	webuiDll	webui/bindings.html#webuiDll	const webuiDll		41
+nim	WEBUI_VERSION	webui/bindings.html#WEBUI_VERSION	const WEBUI_VERSION		84
+nim	WEBUI_MAX_IDS	webui/bindings.html#WEBUI_MAX_IDS	const WEBUI_MAX_IDS		85
+nim	Browsers	webui/bindings.html#Browsers	enum Browsers		90
+nim	Events	webui/bindings.html#Events	enum Events		103
+nim	Event	webui/bindings.html#Event	object Event		112
+nim	Runtime	webui/bindings.html#Runtime	enum Runtime		119
+nim	newWindow	webui/bindings.html#newWindow	proc newWindow(): csize_t		125
+nim	newWindowId	webui/bindings.html#newWindowId,csize_t	proc newWindowId(windowNumber: csize_t)		128
+nim	getNewWindowId	webui/bindings.html#getNewWindowId	proc getNewWindowId(): csize_t		131
+nim	`bind`	webui/bindings.html#bind,csize_t,cstring,proc(ptr.Event)	proc `bind`(window: csize_t; element: cstring; func: proc (e: ptr Event) {.cdecl.}): csize_t		134
+nim	show	webui/bindings.html#show,csize_t,cstring	proc show(window: csize_t; content: cstring): bool		138
+nim	showBrowser	webui/bindings.html#showBrowser,csize_t,cstring,csize_t	proc showBrowser(window: csize_t; content: cstring; browser: csize_t): bool		141
+nim	setKiosk	webui/bindings.html#setKiosk,csize_t,bool	proc setKiosk(window: csize_t; status: bool)		145
+nim	wait	webui/bindings.html#wait	proc wait()		148
+nim	close	webui/bindings.html#close,csize_t	proc close(window: csize_t)		151
+nim	destroy	webui/bindings.html#destroy,csize_t	proc destroy(window: csize_t)		154
+nim	exit	webui/bindings.html#exit	proc exit()		157
+nim	isShown	webui/bindings.html#isShown,csize_t	proc isShown(window: csize_t): bool		161
+nim	setTimeout	webui/bindings.html#setTimeout,csize_t	proc setTimeout(second: csize_t)		164
+nim	setIcon	webui/bindings.html#setIcon,csize_t,cstring,cstring	proc setIcon(window: csize_t; icon: cstring; type: cstring)		167
+nim	setMultiAccess	webui/bindings.html#setMultiAccess,csize_t,bool	proc setMultiAccess(window: csize_t; status: bool)		171
+nim	run	webui/bindings.html#run,csize_t,cstring	proc run(window: csize_t; script: cstring)		176
+nim	script	webui/bindings.html#script,csize_t,cstring,csize_t,cstring,csize_t	proc script(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring;\n       bufferLength: csize_t): bool		179
+nim	setRuntime	webui/bindings.html#setRuntime,csize_t,csize_t	proc setRuntime(window: csize_t; runtime: csize_t)		183
+nim	getInt	webui/bindings.html#getInt,ptr.Event	proc getInt(e: ptr Event): clonglong		187
+nim	getString	webui/bindings.html#getString,ptr.Event	proc getString(e: ptr Event): cstring		190
+nim	getBool	webui/bindings.html#getBool,ptr.Event	proc getBool(e: ptr Event): bool		193
+nim	returnInt	webui/bindings.html#returnInt,ptr.Event,clonglong	proc returnInt(e: ptr Event; n: clonglong)		196
+nim	returnString	webui/bindings.html#returnString,ptr.Event,cstring	proc returnString(e: ptr Event; s: cstring)		199
+nim	returnBool	webui/bindings.html#returnBool,ptr.Event,bool	proc returnBool(e: ptr Event; b: bool)		202
+nim	encode	webui/bindings.html#encode,cstring	proc encode(str: cstring): cstring		205
+nim	decode	webui/bindings.html#decode,cstring	proc decode(str: cstring): cstring		209
+nim	free	webui/bindings.html#free,pointer	proc free(ptr: pointer)		213
+nim	interfaceBind	webui/bindings.html#interfaceBind,csize_t,cstring,proc(csize_t,csize_t,cstring,cstring,cstring)	proc interfaceBind(window: csize_t; element: cstring; func: proc (a1: csize_t;\n    a2: csize_t; a3: cstring; a4: cstring; a5: cstring) {.cdecl.}): csize_t		218
+nim	interfaceSetResponse	webui/bindings.html#interfaceSetResponse,cstring,cstring	proc interfaceSetResponse(ptr: cstring; response: cstring)		223
+nim	interfaceIsAppRunning	webui/bindings.html#interfaceIsAppRunning	proc interfaceIsAppRunning(): bool		227
+nim	interfaceGetWindowId	webui/bindings.html#interfaceGetWindowId,csize_t	proc interfaceGetWindowId(window: csize_t): csize_t		231
+nim	interfaceGetBindId	webui/bindings.html#interfaceGetBindId,csize_t,cstring	proc interfaceGetBindId(window: csize_t; element: cstring): csize_t		236
