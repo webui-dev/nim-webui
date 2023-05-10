@@ -202,7 +202,7 @@ proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[in
     data = buffer.join().strip(leading = false, chars = {'\x00'}) # remove trailing null chars
 
   result.data = data
-  result.error = error
+  result.error = not error
 
 proc run*(win: Window; script: string) =
   ## Run JavaScript quickly without waiting for the response.

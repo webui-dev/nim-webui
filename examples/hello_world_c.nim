@@ -47,7 +47,7 @@ proc main =
     var js = e.window.script("return document.getElementById(\"MyInput\").value;")
 
     # Check if there is any JavaScript error
-    if not js.error:
+    if js.error:
       echo "JavaScript Error: ", js.data
       return
 
