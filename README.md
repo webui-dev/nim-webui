@@ -14,20 +14,24 @@ large SDK or library for development/production, all you need is a web browser!
 
 > :warning: **Notice**:
 >
-> * WebUI is not a web-server solution or a framework, but it's an easy-embeddable
-> tool to use any installed web browser as a user interface.
+> * WebUI is not a web-server solution or a framework, but it's an lightweight portable lib
+> to use any installed web browser as a user interface.
 >
 > * WebUI's documentation is **not** finished.
->
-> * WebUI is not ready yet for production release.
 
 ## Features
 
 * Fully Independent (*No need for any third-party library*)
 * Lightweight (*~600 Kb* (*300 Kb when compiling with DLL*)) & Small memory footprint
-* Fast WS binary communication (*App--WebUI--Browser*)
+* Fast binary communication protocol between WebUI and the browser (*Instead of JSON*)
 * Multi-platform & Multi-Browser
-* Uses private profile for safety
+* Using private profile for safety
+
+## Screenshot
+
+This [text editor example](https://github.com/neroist/webui/tree/main/examples/text_editor) is written in Nim using WebUI as the GUI library.
+
+![ScreenShot](nim_example.png)
 
 ## Installation
 
@@ -107,22 +111,22 @@ only works for static compilation.
 | - | - | - |
 | Linux | Mozilla Firefox | ✔️ |
 | Linux | Google Chrome | ✔️ |
-| Linux | Microsoft Edge | *coming soon* |
+| Linux | Microsoft Edge | ✔️ |
 | Linux | Chromium | ✔️ |
-| Linux | Yandex | *coming soon* |
-| Linux | Brave | *coming soon* |
-| Linux | Vivaldi | *coming soon* |
-| Linux | Epic | *coming soon* |
+| Linux | Yandex | ✔️ |
+| Linux | Brave | ✔️ |
+| Linux | Vivaldi | ✔️ |
+| Linux | Epic | *Does Not Exist* |
 | Linux | Opera | *coming soon* |
 | - | - | - |
-| macOS | Mozilla Firefox | *coming soon* |
+| macOS | Mozilla Firefox | ✔️ |
 | macOS | Google Chrome | ✔️ |
-| macOS | Microsoft Edge | *coming soon* |
-| macOS | Chromium | *coming soon* |
-| macOS | Yandex | *coming soon* |
-| macOS | Brave | *coming soon* |
-| macOS | Vivaldi | *coming soon* |
-| macOS | Epic | *coming soon* |
+| macOS | Microsoft Edge | ✔️ |
+| macOS | Chromium | ✔️ |
+| macOS | Yandex | ✔️ |
+| macOS | Brave | ✔️ |
+| macOS | Vivaldi | ✔️ |
+| macOS | Epic | ✔️ |
 | macOS | Apple Safari | *coming soon* |
 | macOS | Opera | *coming soon* |
 
