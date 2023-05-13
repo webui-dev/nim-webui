@@ -66,16 +66,6 @@ proc decode*(str: string): string =
 
   $ bindings.decode(cstring str)
 
-proc free*(`ptr`: pointer): string = 
-  ## Safely free a buffer allocated by WebUI, for example when using 
-  ## `encode()`.
-  ## 
-  ## Probably unneeded with GC/memory manager and such.
-  ## 
-  ## :ptr: Pointer to buffer to free
-
-  bindings.free(`ptr`)
-
 # ------- Impl funcs --------
 
 # --- Event ---
