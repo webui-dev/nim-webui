@@ -1,5 +1,5 @@
 ##[ 
-  Nim wrapper for [WebUI](https://github.com/alifcommunity/webui)
+  Nim wrapper for [WebUI](https://github.com/webui-dev/webui)
 
   :Author: Jasmine
   :WebUI Version: 2.3.0
@@ -17,8 +17,8 @@ type
   Event* = ref object
     ## When you use `bind()`, your application will receive an event every time 
     ## the user clicks on the specified HTML element. The event comes with the 
-    ## `element_name`, which is The HTML ID of the clicked element, for example,
-    ## `MyButton`, `MyInput`, etc. The event also comes with the element name
+    ## `element`, which is The HTML ID of the clicked element, for example,
+    ## `MyButton`, `MyInput`, etc. The event also comes with the element ID
     ## & the unique window ID.
   
     internalImpl*: ptr bindings.Event
