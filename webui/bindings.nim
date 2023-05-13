@@ -87,18 +87,18 @@ const
 # -- Types -------------------------
 
 type
-  Browsers* {.bycopy.} = enum
-    BrowsersAny       ## 0. Default recommended web browser
-    BrowsersChrome    ## 1. Google Chrome
-    BrowsersFirefox   ## 2. Mozilla Firefox
-    BrowsersEdge      ## 3. Microsoft Edge
-    BrowsersSafari    ## 4. Apple Safari
-    BrowsersChromium  ## 5. The Chromium Project
-    BrowsersOpera     ## 6. Opera Browser
-    BrowsersBrave     ## 7. The Brave Browser
-    BrowsersVivaldi   ## 8. The Vivaldi Browser
-    BrowsersEpic      ## 9. The Epic Browser
-    BrowsersYandex    ## 10. The Yandex Browser
+  Browsers* {.bycopy, pure.} = enum
+    Any       ## 0. Default recommended web browser
+    Chrome    ## 1. Google Chrome
+    Firefox   ## 2. Mozilla Firefox
+    Edge      ## 3. Microsoft Edge
+    Safari    ## 4. Apple Safari
+    Chromium  ## 5. The Chromium Project
+    Opera     ## 6. Opera Browser
+    Brave     ## 7. The Brave Browser
+    Vivaldi   ## 8. The Vivaldi Browser
+    Epic      ## 9. The Epic Browser
+    Yandex    ## 10. The Yandex Browser
 
   Events* {.bycopy.} = enum
     EventsDisconnected        ## 0. Window disconnection event
@@ -116,7 +116,7 @@ type
     data*: cstring         ## JavaScript data
     eventNumber*: csize_t  ## Internal WebUI
 
-  Runtime* {.bycopy.} = enum
+  Runtime* {.bycopy, pure.} = enum
     None    ## 0. Prevent WebUI from using any runtime for .js and .ts files
     Deno    ## 1. Use Deno runtime for .js and .ts files
     NodeJS  ## 2. Use Nodejs runtime for .js files
