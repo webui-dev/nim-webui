@@ -18,8 +18,8 @@ type
     ## When you use `bind()`, your application will receive an event every time 
     ## the user clicks on the specified HTML element. The event comes with the 
     ## `element_name`, which is The HTML ID of the clicked element, for example,
-    ## `MyButton`, `MyInput`, etc. The event also comes with the WebUI unique element 
-    ## ID & the unique window ID.
+    ## `MyButton`, `MyInput`, etc. The event also comes with the element name
+    ## & the unique window ID.
   
     internalImpl*: ptr bindings.Event
 
@@ -44,24 +44,35 @@ proc setTimeout*(timeout: int) =
   ## Set the maximum time in seconds to wait for browser to start
   ## 
   ## Set `timeout` to `0` to wait forever.
+  ## 
+  ## :timeout: The maximum time in seconds to wait for browser to start.
+  ##           Set to `0` to wait forever.
   
   bindings.setTimeout(csize_t timeout)
 
 proc encode*(str: string): string = 
-  ##  Base64 encoding. Use this to safely send text based data to the UI.
-  ##  If it fails it will return an empty string.
+  ## Base64 encoding. Use this to safely send text based data to the UI.
+  ## If it fails it will return an empty string.
+  ## 
+  ## :str: The string to encode.
 
   $ bindings.encode(cstring str)
 
 proc decode*(str: string): string = 
-  ##  Base64 decoding. Use this to safely decode received Base64 text from the UI.
-  ##  If it fails it will return an empty string.
+  ## Base64 decoding. Use this to safely decode received Base64 text from the UI.
+  ## If it fails it will return an empty string.
+  ## 
+  ## :str: The string to decode.
 
   $ bindings.decode(cstring str)
 
 proc free*(`ptr`: pointer): string = 
-  ##  Safely free a buffer allocated by WebUI, for example when using 
-  ##  `encode()`.
+  ## Safely free a buffer allocated by WebUI, for example when using 
+  ## `encode()`.
+  ## 
+  ## Probably unneeded with GC/memory manager and such.
+  ## 
+  ## :ptr: Pointer to buffer to free
 
   bindings.free(`ptr`)
 
@@ -69,64 +80,79 @@ proc free*(`ptr`: pointer): string =
 
 # --- Event ---
 
-func impl*(e: Event): ptr bindings.Event = 
+func impl*(event: Event): ptr bindings.Event = 
   ## Returns the internal implementation of `e`
 
-  e.internalImpl
+  event.internalImpl
 
-func `impl=`*(e: Event, be: ptr bindings.Event) = 
+func `impl=`*(event: Event, be: ptr bindings.Event) = 
   ## Sets the internal implementation of `e`
 
-  e.internalImpl = be
+  event.internalImpl = be
 
 # -------- Event --------
 
-proc element*(e: Event): string =
-  $ e.impl.element
+proc element*(event: Event): string =
+  $ event.impl.element
 
-proc window*(e: Event): Window =
-  result = Window(int e.impl.window)
+proc window*(event: Event): Window =
+  result = Window(int event.impl.window)
 
-proc data*(e: Event): string =
-  $ e.impl.data
+proc data*(event: Event): string =
+  $ event.impl.data
 
-proc eventNumber*(e: Event): int =
-  int e.impl.eventNumber
+proc eventNumber*(event: Event): int =
+  int event.impl.eventNumber
 
-proc eventType*(e: Event): bindings.Events =
-  bindings.Events(int e.impl.eventType)
+proc eventType*(event: Event): bindings.Events =
+  bindings.Events(int event.impl.eventType)
 
 # --- 
 
-proc getInt*(e: Event): int =
-  ## Parse argument as a integer.
+proc getInt*(event: Event): int =
+  ## Parse event as a integer.
+  ## 
+  ## :event: The event to parse as an integer
 
-  int bindings.getInt(e.internalImpl)
+  int bindings.getInt(event.internalImpl)
 
-proc getString*(e: Event): string =
-  ## Parse argument as a string.
+proc getString*(event: Event): string =
+  ## Parse event as a string.
+  ## 
+  ## :event: The event to parse as an string
   
-  $ bindings.getString(e.internalImpl)
+  $ bindings.getString(event.internalImpl)
 
-proc getBool*(e: Event): bool =
-  ## Parse argument as a boolean.
+proc getBool*(event: Event): bool =
+  ## Parse event as a boolean.
+  ## 
+  ## :event: The event to parse as an boolean
 
-  bindings.getBool(e.internalImpl)
+  bindings.getBool(event.internalImpl)
 
-proc returnInt*(e: Event; n: int) = 
+proc returnInt*(event: Event; integer: int) = 
   ## Return the response to JavaScript as a integer.
+  ## 
+  ## :event: The event to set the response for
+  ## :integer: The int to return back to Javascript.
 
-  bindings.returnInt(e.internalImpl, clonglong n)
+  bindings.returnInt(event.internalImpl, clonglong integer)
 
-proc returnString*(e: Event; s: string) =
+proc returnString*(event: Event; str: string) =
   ## Return the response to JavaScript as a string.
+  ## 
+  ## :event: The event to set the response for
+  ## :str: The string to return back to Javascript.
 
-  bindings.returnString(e.internalImpl, cstring s)
+  bindings.returnString(event.internalImpl, cstring str)
 
-proc returnBool*(e: Event; b: bool) =
+proc returnBool*(event: Event; b: bool) =
   ## Return the response to JavaScript as a boolean.
+  ## 
+  ## :event: The event to set the response for
+  ## :b: The bool to return back to Javascript.
 
-  bindings.returnBool(e.internalImpl, b)
+  bindings.returnBool(event.internalImpl, b)
 
 # -------- Window --------
 
@@ -137,77 +163,123 @@ proc newWindow*(): Window =
 
 proc newWindow*(windowNumber: int): Window = 
   ## Create a new Window object
+  ## 
+  ## :windowNumber: The ID of the new window
   
   bindings.newWindowId(csize_t windowNumber)
   result = Window(windowNumber)
 
 proc getNewWindowId*(): int = 
+  ## Get new window ID. To be used in conjuction with
+  ## [newWindow()](#newWindow,int).
+  
   int bindings.getNewWindowId()
 
 {.push discardable.}
 
-proc show*(win: Window; content: string): bool = 
-  ## Show Window `win`. If the window is already shown, the UI will get 
+proc show*(window: Window; content: string): bool = 
+  ## Show Window `window`. If the window is already shown, the UI will get 
   ## refreshed in the same window.
   ## 
-  ## `content` can be a file name, or a static HTML script.
+  ## :window: The window to show `content` in. If the window is already
+  ##          shown, the UI will get refreshed in the same window.
+  ## :content: The content to show in `window`. Can be a file name, or a
+  ##           static HTML script.
 
-  bindings.show(csize_t win, cstring content)
+  bindings.show(csize_t window, cstring content)
 
-proc show*(win: Window; content: string; browser: bindings.Browsers): bool =
+proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific web browser.
+  ## 
+  ## :window: The window to show `content` in. If the window is already
+  ##          shown, the UI will get refreshed in the same window.
+  ## :content: The content to show in `window`. Can be a file name, or a
+  ##           static HTML script.
+  ## :browser: The browser to open the window in.
 
-  bindings.showBrowser(csize_t win, cstring content, csize_t ord(browser))
+
+  bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
 {.pop.}
 
-proc `icon=`*(win: Window; icon, `type`: string) = 
-  ## Set the default embedded HTML favicon
+proc `icon=`*(window: Window; icon, `type`: string) = 
+  ## Set the default embedded HTML favicon.
+  ## 
+  ## :icon: The path to the icon to set.
+  ## :type: The MIME type of the icon?
 
-  bindings.setIcon(csize_t win, cstring icon, cstring type)
+  bindings.setIcon(csize_t window, cstring icon, cstring type)
 
-proc `multiAccess=`*(win: Window; status: bool) = 
-  ## Allow the window URL to be re-used in normal web browsers
+proc `multiAccess=`*(window: Window; status: bool) = 
+  ## Allow the window URL to be re-used in normal web browsers.
+  ## 
+  ## :window: The window to enable or disable multi access (whether or not
+  ##          to allow the window URL to be re-used).
+  ## :status: Whether or not to enable multi access mode. `true` to enable, `false`
+  ##          to disable.
 
-  bindings.setMultiAccess(csize_t win, status)
+  bindings.setMultiAccess(csize_t window, status)
 
-proc `kiosk=`*(win: Window; status: bool) = 
-  ## Set the window in Kiosk mode (Full screen)
+proc `kiosk=`*(window: Window; status: bool) = 
+  ## Set the window in Kiosk mode (full screen).
+  ## 
+  ## :window: The window to enable or disable kiosk mode in.
+  ## :status: Whether or not to enable kiosk mode. `true` to enable, `false`
+  ##          to disable.
   
-  bindings.setKiosk(csize_t win, status)
+  bindings.setKiosk(csize_t window, status)
 
-proc close*(win: Window) = 
+proc close*(window: Window) = 
   ## Close a specific window only. The window object will still exist.
+  ## 
+  ## :window: The window to close.
   
-  bindings.close(csize_t win)
+  bindings.close(csize_t window)
 
-proc destroy*(win: Window) =
+proc destroy*(window: Window) =
   ## Close a specific window and free all memory resources.
+  ## 
+  ## :window: The window to destroy.
   
-  bindings.destroy(csize_t win)
+  bindings.destroy(csize_t window)
 
-proc shown*(win: Window): bool = 
-  ## Return if window `win` is still running
+proc shown*(window: Window): bool = 
+  ## Return if window `window` is still running
+  ## 
+  ## :window: The window to return `true` if still running.
 
-  bindings.isShown(csize_t win)
+  bindings.isShown(csize_t window)
 
-proc script*(win: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] =
+proc script*(window: Window; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] =
   ## Run Javascript code `script` and return the result
+  ## 
+  ## Returns a tuple containing the response (`data`) and whether or not
+  ## there was an error (`error`, true if an error occured, false otherwise).
+  ## If an error occured, the error message will be held in `data`.
+  ## 
+  ## :window: The window to run the Javascript code in.
+  ## :script: The Javascript code to execute.
+  ## :timeout: How long to wait, at most, for a response.
+  ## :bufferLen: How large to make the buffer for the response. Default is
+  ##             8 kibibytes. (For larger responses make `bufferLen` larger)
   
   var buffer: array[bufferLen, char]
 
   let 
-    error = bindings.script(csize_t win, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
+    error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
 
     data = buffer.join().strip(leading = false, chars = {'\x00'}) # remove trailing null chars
 
   result.data = data
   result.error = not error
 
-proc run*(win: Window; script: string) =
+proc run*(window: Window; script: string) =
   ## Run JavaScript quickly without waiting for the response.
+  ## 
+  ## :window: The window to run the Javascript code in.
+  ## :script: The Javascript code to execute.
 
-  bindings.run(csize_t win, cstring script)
+  bindings.run(csize_t window, cstring script)
   
 #proc interfaceHandler(window: csize_t; eventType: csize_t; element: cstring; data: cstring; eventNumber: csize_t) {.cdecl.} =
 #  var event = bindings.Event()
@@ -229,44 +301,61 @@ proc bindHandler(e: ptr bindings.Event) {.cdecl.} =
 
   cbs[bindings.interfaceGetWindowId(e.window)][bindings.interfaceGetBindId(e.window, e.element)](event)
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event)) =
-  ##  Bind a specific html element click event with a function. Empty element means all events.
+proc `bind`*(window: Window; element: string; `func`: proc (e: Event)) =
+  ## Bind a specific html element click event with a function. Empty element means all events.
+  ## 
+  ## Each element can have only one function bound to it.
+  ## 
+  ## :window: The window to bind the function onto.
+  ## :element: The element to bind the function `func` to. `func` will be
+  ##           called on click events. An empty element means `func` will
+  ##           be bound to all events.
+  ## :func: The function to bind to `element`. 
 
-  let bid = int bindings.bind(csize_t win, cstring element, bindHandler)
-  let wid = int bindings.interfaceGetWindowId(csize_t win)
+  let bid = int bindings.bind(csize_t window, cstring element, bindHandler)
+  let wid = int bindings.interfaceGetWindowId(csize_t window)
   
   cbs[wid][bid] = `func`
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): string) =
-  win.bind(
+proc `bind`*(window: Window; element: string; `func`: proc (e: Event): string) =
+  window.bind(
     element, 
     proc (e: Event) =
       let res = `func`(e)
       e.returnString(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): int) =
-  win.bind(
+proc `bind`*(window: Window; element: string; `func`: proc (e: Event): int) =
+  window.bind(
     element, 
     proc (e: Event) =
       let res = `func`(e)
       e.returnInt(res)
   )  
 
-proc `bind`*(win: Window; element: string; `func`: proc (e: Event): bool) =  
-  ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript
+proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =  
+  ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript.
+  ## 
+  ## :window: The window to bind the function onto.
+  ## :element: The element to bind the function `func` to. `func` will be
+  ##           called on click events. An empty element means `func` will
+  ##           be called on all events.
+  ## :func: The function to bind to `element`.
 
-  win.bind(
+  window.bind(
     element, 
     proc (e: Event) =
       let res = `func`(e)
       e.returnBool(res)
   )  
 
-proc `runtime=`*(win: Window; runtime: bindings.Runtime) = 
-  ## Chose between Deno and NodeJS runtime for .js and .ts files.
+proc `runtime=`*(window: Window; runtime: bindings.Runtime) = 
+  ## Chose a runtime for .js and .ts files.
+  ## 
+  ## :window: The window to set the runtime for.
+  ## :runtime: The runtime to set.
   
-  bindings.setRuntime(csize_t win, csize_t ord(runtime))
+  bindings.setRuntime(csize_t window, csize_t ord(runtime))
 
 export 
   bindings.Events, 
