@@ -7,8 +7,6 @@
   See: https://neroist.github.io/webui-docs/
 ]##
 
-import std/strutils
-
 from webui/bindings import nil
 
 type
