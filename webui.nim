@@ -191,7 +191,6 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
   ##           static HTML script.
   ## :browser: The browser to open the window in.
 
-
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
 {.pop.}
