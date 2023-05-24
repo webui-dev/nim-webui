@@ -254,7 +254,7 @@ proc script*(window: Window; script: string; timeout: int = 0, bufferLen: static
   var buffer: array[bufferLen, char]
 
   let 
-    error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
+    error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer[0]), csize_t bufferLen)
 
     data = $(cast[cstring](addr buffer[0])) # remove trailing null chars
 
