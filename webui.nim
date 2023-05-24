@@ -54,7 +54,10 @@ proc encode*(str: string): string =
   ## 
   ## :str: The string to encode.
 
-  $ bindings.encode(cstring str)
+  var cstr = bindings.encode(cstring str)
+  result = $cstr
+
+  bindings.free(addr cstr)
 
 proc decode*(str: string): string = 
   ## Base64 decoding. Use this to safely decode received Base64 text from the UI.
@@ -62,7 +65,10 @@ proc decode*(str: string): string =
   ## 
   ## :str: The string to decode.
 
-  $ bindings.decode(cstring str)
+  var cstr = bindings.decode(cstring str)
+  result = $cstr
+  
+  bindings.free(addr cstr)
 
 # ------- Impl funcs --------
 
