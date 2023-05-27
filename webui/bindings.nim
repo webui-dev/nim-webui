@@ -172,6 +172,10 @@ proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
     importc: "webui_set_multi_access".}
   ##  Allow the window URL to be re-used in normal web browsers
 
+proc setRootFolder*(window: csize_t; path: cstring) {.cdecl,
+    importc: "webui_set_root_folder".}
+  ## DOC HERE
+
 #  -- JavaScript ----------------------
 proc run*(window: csize_t; script: cstring) {.cdecl, importc: "webui_run".}
   ##  Run JavaScript quickly with no waiting for the response.

@@ -347,6 +347,14 @@ proc `runtime=`*(window: Window; runtime: bindings.Runtime) =
   
   bindings.setRuntime(csize_t window, csize_t ord(runtime))
 
+proc `rootFolder=`*(window: Window; path: string) = 
+  ## DOC HERE; TODO
+  ##
+  ## :window: The window to set the root folder for.
+  ## :path: The path to the root folder.
+
+  bindings.setRootFolder(csize_t window, cstring path)
+
 export 
   bindings.Events, 
   bindings.Browsers, 
