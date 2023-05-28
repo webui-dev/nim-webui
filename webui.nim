@@ -7,8 +7,6 @@
   See: https://neroist.github.io/webui-docs/
 ]##
 
-import std/strutils
-
 from webui/bindings import nil
 
 type
@@ -56,7 +54,10 @@ proc encode*(str: string): string =
   ## 
   ## :str: The string to encode.
 
-  $ bindings.encode(cstring str)
+  var cstr = bindings.encode(cstring str)
+  result = $cstr
+
+  bindings.free(addr cstr)
 
 proc decode*(str: string): string = 
   ## Base64 decoding. Use this to safely decode received Base64 text from the UI.
@@ -64,7 +65,10 @@ proc decode*(str: string): string =
   ## 
   ## :str: The string to decode.
 
-  $ bindings.decode(cstring str)
+  var cstr = bindings.decode(cstring str)
+  result = $cstr
+  
+  bindings.free(addr cstr)
 
 # ------- Impl funcs --------
 
@@ -187,7 +191,6 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
   ##           static HTML script.
   ## :browser: The browser to open the window in.
 
-
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
 {.pop.}
@@ -256,9 +259,9 @@ proc script*(window: Window; script: string; timeout: int = 0, bufferLen: static
   var buffer: array[bufferLen, char]
 
   let 
-    error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
+    error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer[0]), csize_t bufferLen)
 
-    data = buffer.join().strip(leading = false, chars = {'\x00'}) # remove trailing null chars
+    data = $(cast[cstring](addr buffer[0])) # remove trailing null chars
 
   result.data = data
   result.error = not error
