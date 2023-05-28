@@ -54,14 +54,13 @@ proc main =
   # Make Deno as the `.ts` and `.js` interpreter
   window.runtime = Deno
 
+  # Set root folder to current directory
+  window.rootFolder = currentSourcePath().parentDir()
+
   # Show a new window
   window.show("index.html")
 
   # Wait until all windows get closed
   wait()
-
-# set current dir to current source path so you
-# don't have to look for the example/folder
-setCurrentDir(currentSourcePath().parentDir())
 
 main()

@@ -39,12 +39,11 @@ proc main =
 
     exit()
 
-  window.show("ui/MainWindow.html", FireFox)
+  # Set root folder
+  window.rootFolder = currentSourcePath().parentDir() / "ui"
+
+  window.show("MainWindow.html")
 
   wait()
-
-# set current dir to current source path so you
-# don't have to look for the example/folder
-setCurrentDir(currentSourcePath().parentDir())
 
 main()
