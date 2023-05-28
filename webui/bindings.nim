@@ -157,6 +157,10 @@ proc destroy*(window: csize_t) {.cdecl, importc: "destroy".}
 proc exit*() {.cdecl, importc: "webui_exit".}
   ##  Close all opened windows. webui_wait() will break.
 
+proc setRootFolder*(window: csize_t; path: cstring): bool {.cdecl,
+    importc: "webui_set_root_folder".}
+  ##  Set the web-server root folder path.
+
 #  -- Other ---------------------------
 proc isShown*(window: csize_t): bool {.cdecl, importc: "webui_is_shown".}
   ##  Check a specific window if it's still running
@@ -171,10 +175,6 @@ proc setIcon*(window: csize_t; icon: cstring; `type`: cstring) {.cdecl,
 proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
     importc: "webui_set_multi_access".}
   ##  Allow the window URL to be re-used in normal web browsers
-
-proc setRootFolder*(window: csize_t; path: cstring) {.cdecl,
-    importc: "webui_set_root_folder".}
-  ## DOC HERE
 
 #  -- JavaScript ----------------------
 proc run*(window: csize_t; script: cstring) {.cdecl, importc: "webui_run".}
