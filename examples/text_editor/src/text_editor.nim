@@ -17,6 +17,7 @@ proc main =
     di.title = "Text Editor"
     di.filters = @[
       (name: "Text files", ext: "*.txt"),
+      (name: "Nim source files", ext: "*.nim;*.nims;*.nimble;*.nimf;nim.cfg;nimdoc.cfg"),
       (name: "Any file", ext: "*")
     ]
 
