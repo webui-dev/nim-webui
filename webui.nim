@@ -350,13 +350,13 @@ proc `runtime=`*(window: Window; runtime: bindings.Runtime) =
   
   bindings.setRuntime(csize_t window, csize_t ord(runtime))
 
-proc `rootFolder=`*(window: Window; path: string) = 
+proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} = 
   ## Set the web-server root folder path.
   ##
   ## :window: The window to set the root folder for.
   ## :path: The path to the root folder.
 
-  discard bindings.setRootFolder(csize_t window, cstring path)
+  bindings.setRootFolder(csize_t window, cstring path)
 
 export 
   bindings.Events, 
