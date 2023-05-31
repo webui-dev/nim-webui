@@ -178,7 +178,7 @@ proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
 
 #  -- JavaScript ----------------------
 proc run*(window: csize_t; script: cstring) {.cdecl, importc: "webui_run".}
-  ##  Run JavaScript quickly with no waiting for the response.
+  ##  Run JavaScript quickly without waiting for the response.
 
 proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring;
             bufferLength: csize_t): bool {.cdecl, importc: "webui_script".}
