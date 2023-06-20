@@ -17,6 +17,9 @@ proc main =
     di.title = "Text Editor"
     di.filters = @[
       (name: "Text files", ext: "*.txt"),
+      (name: "HTML/XHTML source files", ext: "*.html;*.html;*.xhtml"),
+      (name: "Javascript Files", ext: "*.js;*.jsx;*.ts;*.tsx"),
+      (name: "Stylesheets", ext: "*.css;*.less;*.sass;*.scss;*.styl;*.bass"),
       (name: "Nim source files", ext: "*.nim;*.nims;*.nimble;*.nimf;nim.cfg;nimdoc.cfg"),
       (name: "Any file", ext: "*")
     ]
