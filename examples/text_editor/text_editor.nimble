@@ -10,5 +10,5 @@ bin           = @["text_editor"]
 
 # Dependencies
 
-requires "nim >= 1.6.12"
+requires "nim >= 1.4.0"
 requires "osfiles"
