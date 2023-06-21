@@ -1,0 +1,39 @@
+Window	webui.html#Window	webui: Window	
+Event	webui.html#Event	webui: Event	
+wait	webui.html#wait	webui: wait()	
+exit	webui.html#exit	webui: exit()	
+setTimeout	webui.html#setTimeout,int	webui: setTimeout(timeout: int)	
+encode	webui.html#encode,string	webui: encode(str: string): string	
+decode	webui.html#decode,string	webui: decode(str: string): string	
+impl	webui.html#impl,Event	webui: impl(event: Event): ptr bindings.Event	
+impl=	webui.html#impl=,Event,ptr.	webui: impl=(event: Event; be: ptr bindings.Event)	
+element	webui.html#element,Event	webui: element(event: Event): string	
+window	webui.html#window,Event	webui: window(event: Event): Window	
+data	webui.html#data,Event	webui: data(event: Event): string	
+eventNumber	webui.html#eventNumber,Event	webui: eventNumber(event: Event): int	
+eventType	webui.html#eventType,Event	webui: eventType(event: Event): bindings.Events	
+getInt	webui.html#getInt,Event	webui: getInt(event: Event): int	
+getString	webui.html#getString,Event	webui: getString(event: Event): string	
+getBool	webui.html#getBool,Event	webui: getBool(event: Event): bool	
+returnInt	webui.html#returnInt,Event,int	webui: returnInt(event: Event; integer: int)	
+returnString	webui.html#returnString,Event,string	webui: returnString(event: Event; str: string)	
+returnBool	webui.html#returnBool,Event,bool	webui: returnBool(event: Event; b: bool)	
+newWindow	webui.html#newWindow	webui: newWindow(): Window	
+newWindow	webui.html#newWindow,int	webui: newWindow(windowNumber: int): Window	
+getNewWindowId	webui.html#getNewWindowId	webui: getNewWindowId(): int	
+show	webui.html#show,Window,string	webui: show(window: Window; content: string): bool	
+show	webui.html#show,Window,string,	webui: show(window: Window; content: string; browser: bindings.Browsers): bool	
+icon=	webui.html#icon=,Window,string,string	webui: icon=(window: Window; icon, type: string)	
+multiAccess=	webui.html#multiAccess=,Window,bool	webui: multiAccess=(window: Window; status: bool)	
+kiosk=	webui.html#kiosk=,Window,bool	webui: kiosk=(window: Window; status: bool)	
+close	webui.html#close,Window	webui: close(window: Window)	
+destroy	webui.html#destroy,Window	webui: destroy(window: Window)	
+shown	webui.html#shown,Window	webui: shown(window: Window): bool	
+script	webui.html#script,Window,string,int,static[int]	webui: script(window: Window; script: string; timeout: int = 0;\n       bufferLen: static[int] = 1024 * 8): tuple[data: string, error: bool]	
+run	webui.html#run,Window,string	webui: run(window: Window; script: string)	
+`bind`	webui.html#bind,Window,string,proc(Event)	webui: `bind`(window: Window; element: string; func: proc (e: Event))	
+`bind`	webui.html#bind,Window,string,proc(Event)_2	webui: `bind`(window: Window; element: string; func: proc (e: Event): string)	
+`bind`	webui.html#bind,Window,string,proc(Event)_3	webui: `bind`(window: Window; element: string; func: proc (e: Event): int)	
+`bind`	webui.html#bind,Window,string,proc(Event)_4	webui: `bind`(window: Window; element: string; func: proc (e: Event): bool)	
+runtime=	webui.html#runtime=,Window,	webui: runtime=(window: Window; runtime: bindings.Runtime)	
+rootFolder=	webui.html#rootFolder=,Window,string	webui: rootFolder=(window: Window; path: string): bool	
