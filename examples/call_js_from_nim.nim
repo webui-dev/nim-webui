@@ -63,7 +63,7 @@ proc main =
     # Run Javascript and hold the response in `js`
     let js = e.window.script("return GetCount();")
 
-    if not js.error:
+    if js.error:
       echo "JavaScript Error: ", js.data
       return
 
