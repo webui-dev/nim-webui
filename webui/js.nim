@@ -6,7 +6,7 @@ import std/macros
 import std/osproc
 import std/os
 
-#import ../webui
+import ../webui
 
 #let (file, path) = createTempFile("tmpnim_", "webui.nim")
 #file.write quote(body).astToStr
@@ -15,12 +15,24 @@ import std/os
 
 var code*: seq[string]
 
-macro defJsProcImpl*(name: static string, body: untyped): string = 
-  var fn = newProc(ident(name), body=body)
+proc nimToJs*(nimCode: string): string = 
+  let (file, path) = createTempFile("tmpnim_", "webui.nim")
+  file.write nimCode
+  file.close()
 
-  fn.addPragma(ident"exportc")
+  echo path
 
-  return newStrLitNode(repr fn)
+  discard execProcess(
+    "nim",
+    getCurrentDir(),
+    ["js", "-d:release", "-d:danger", "--opt:size", path],
+    options={poUsePath, poStdErrToStdOut}
+    )
+
+  return readFile(path.changeFileExt("js"))
+
+macro getCodeAsStr*(body: untyped): string =
+  return newStrLitNode(repr body)
 
 macro jsCodeImpl*(body: untyped): string =
   if body.kind() == nnkProcDef:
@@ -31,8 +43,19 @@ macro jsCodeImpl*(body: untyped): string =
 template jsCode*(body: untyped) = 
   code.add jsCodeImpl(body)
 
-template defJsProc*(name: static string, body: untyped) =
-  code.add defJsProcImpl(name, body)
+# alias for `jsCode`
+template jsProc*(body: untyped) = 
+  code.add jsCodeImpl(body)
+
+template runJs*(window: Window, body: untyped) =
+  let js = nimToJs(getCodeAsStr(body))
+
+  window.run(js)
+
+template scriptJs*(window: Window, body: untyped): tuple[data: string; error: bool] =
+  let js = nimToJs(getCodeAsStr(body))
+
+  window.script(js, bufferLen = js.len)
 
 # TODO fix approach? parsing the html isnt the best
 proc collectJs*(html: string): string = 
@@ -69,11 +92,8 @@ proc collectJs*(html: string): string =
 
   return $xml
   ]#
-  
-when isMainModule:
-  defJsProc("conversation"):
-    echo "i am made of love"
 
+when isMainModule:
   proc thisorthat(who: string, where: int) {.jsCode.} = 
     let this = where * 5
 
