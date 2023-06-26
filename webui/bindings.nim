@@ -75,8 +75,8 @@ else:
   
   {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DNO_SSL -DUSE_WEBSOCKET -DMUST_IMPLEMENT_CLOCK_GETTIME".}
 
-  {.compile: "./webui/src/civetweb/civetweb.c".}
-  {.compile: "./webui/src/webui.c".}
+  {.compile: currentSourceDir / "webui/src/civetweb/civetweb.c".}
+  {.compile: currentSourceDir / "webui/src/webui.c".}
 
 {.deadCodeElim: on.}
 
