@@ -161,6 +161,9 @@ proc setRootFolder*(window: csize_t; path: cstring): bool {.cdecl,
     importc: "webui_set_root_folder".}
   ##  Set the web-server root folder path.
 
+proc setFileHandler*(window: csize_t; handler: proc (filename: cstring, length: ptr cint): pointer {.cdecl.}) {.cdecl, importc: "webui_set_file_handler".}
+  ##  Set a custom handler to serve files
+
 #  -- Other ---------------------------
 proc isShown*(window: csize_t): bool {.cdecl, importc: "webui_is_shown".}
   ##  Check a specific window if it's still running
@@ -217,6 +220,10 @@ proc decode*(str: cstring): cstring {.cdecl, importc: "webui_decode".}
 proc free*(`ptr`: pointer) {.cdecl, importc: "webui_free".}
   ##  Safely free a buffer allocated by WebUI, for example when using 
   ##  `encode()`.
+
+proc malloc*(size: csize_t) {.cdecl, importc: "webui_malloc".}
+  ##  Safely allocate memory using the WebUI memory management system.
+  ##  It can be safely free using `free()`.
   
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
