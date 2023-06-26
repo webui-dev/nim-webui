@@ -55,7 +55,7 @@ template runJs*(window: Window, body: untyped) =
 template scriptJs*(window: Window, body: untyped): tuple[data: string; error: bool] =
   let js = nimToJs(getCodeAsStr(body))
 
-  window.script(js, bufferLen = js.len)
+  window.script(js, bufferLen = 4000)
 
 # TODO fix approach? parsing the html isnt the best
 proc collectJs*(html: string): string = 
