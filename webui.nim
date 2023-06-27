@@ -345,21 +345,23 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =
       e.returnBool(res)
   )
 
+proc fileHandlerImpl(filename: cstring, length: ptr cint): pointer {.cdecl.} =
+  let content = cstring currHandler($filename)
+
+  #? maybe use webui_malloc
+
+  # setting length is optional apparently
+  length[] = cint content.len
+
+  if len($content) == 0:
+    return nil
+
+  return cast[pointer](content)
+
 proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) = 
   currHandler = handler
 
-  bindings.setFileHandler(csize_t window) do (filename: cstring, length: ptr cint) -> pointer {.cdecl.}:
-    let content = cstring currHandler($filename)
-
-    #? maybe use webui_malloc
-
-    # setting length is option apparently
-    length[] = cint content.len
-
-    if len($content) == 0:
-      return nil
-
-    return cast[pointer](content)
+  bindings.setFileHandler(csize_t window, fileHandlerImpl)
 
 # mainly for use with `do` notation
 proc setFileHandler*(window: Window; handler: proc (filename: string): string) = 
