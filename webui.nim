@@ -319,7 +319,7 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): string) =
     proc (e: Event) =
       let res = `func`(e)
       e.returnString(res)
-  )  
+  )
 
 proc `bind`*(window: Window; element: string; `func`: proc (e: Event): int) =
   window.bind(
@@ -327,7 +327,7 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): int) =
     proc (e: Event) =
       let res = `func`(e)
       e.returnInt(res)
-  )  
+  )
 
 proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =  
   ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript.
@@ -343,7 +343,7 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =
     proc (e: Event) =
       let res = `func`(e)
       e.returnBool(res)
-  )  
+  )
 
 proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) = 
   currHandler = handler
