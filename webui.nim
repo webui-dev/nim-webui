@@ -353,6 +353,7 @@ proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
 
     #? maybe use webui_malloc
 
+    # setting length is option apparently
     length[] = cint content.len
 
     if len($content) == 0:

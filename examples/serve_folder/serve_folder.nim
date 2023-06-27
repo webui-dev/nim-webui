@@ -1,3 +1,4 @@
+import std/strformat
 import std/os
 
 import webui
@@ -5,6 +6,8 @@ import webui
 var
   window: Window
   window2: Window
+
+  count: int
 
 proc exitApp(_: Event) = 
   exit()
@@ -47,6 +50,35 @@ proc main =
         echo "Starting navigation to: ", e.data    
       else:
         discard
+
+  window.setFileHandler() do (filename: string) -> string:
+    echo "File: ", filename
+
+    case filename
+    of "/test.txt":
+      # Const static file example
+      # Note: The connection will drop if the content
+      # does not have `<script src="/webui.js"></script>`
+
+      return "This is a embedded file content example."
+    of "/dynamic.html":
+      # Dynamic file example
+      inc count
+
+      return fmt"""
+<html>
+  This is a dynamic file content example.
+  <br>
+  Count: {count} <a href="dynamic.html">[Refresh]</a>
+  <br>
+
+  <script src="/webui.js"></script>
+</html>
+"""
+
+    # By default, this function returns an empty string
+    # returning an empty string will make WebUI look for 
+    # the requested file locally
 
   window.bind("Exit", exitApp)
   window2.bind("Exit", exitApp)
