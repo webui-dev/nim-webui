@@ -27,6 +27,9 @@ var
   cbs: array[bindings.WEBUI_MAX_IDS, array[bindings.WEBUI_MAX_IDS, proc (e: Event)]]
     ## array of binded callbacks.
     ## Needed for `bind`
+  currHandler: proc (filename: string): string
+    ## Most recent file handler set by `fileHandler=`.
+    ## Meeded for `fileHandler=`.
 
 proc wait*() =
   ## Wait until all opened windows get closed.
@@ -341,6 +344,25 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =
       let res = `func`(e)
       e.returnBool(res)
   )  
+
+proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) = 
+  currHandler = handler
+
+  bindings.setFileHandler(csize_t window) do (filename: cstring, length: ptr cint) -> pointer {.cdecl.}:
+    let content = cstring currHandler($filename)
+
+    #? maybe use webui_malloc
+
+    length[] = cint content.len
+
+    if len($content) == 0:
+      return nil
+
+    return cast[pointer](content)
+
+# mainly for use with `do` notation
+proc setFileHandler*(window: Window; handler: proc (filename: string): string) = 
+  window.fileHandler = handler
 
 proc `runtime=`*(window: Window; runtime: bindings.Runtime) = 
   ## Chose a runtime for .js and .ts files.
