@@ -19,7 +19,7 @@ proc xxd*(inputfile, outputFile: string) =
   
   let input = readFile(inputFile)
 
-  output.add "unsigned char webui_js[] = {\n"
+  output.add "unsigned char client_webui_js[] = {\n"
 
   for idx, c in input:
     content.add "0x" & toHex($c).toLowerAscii()
@@ -39,6 +39,10 @@ proc xxd*(inputfile, outputFile: string) =
   outputFile.writeFile(output)
 
 after install:
+  withDir("webui/webui/src/client"):
+    xxd("webui.js", "webui.h")
+
+task xxd, "Create webui.h file without installing webui":
   withDir("webui/webui/src/client"):
     xxd("webui.js", "webui.h")
 
