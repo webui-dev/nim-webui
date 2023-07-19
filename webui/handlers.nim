@@ -30,7 +30,7 @@ macro staticHandler*(dir: string = "."): untyped =
   ## 
   ## `dir` is relative to the current working directory.
   ## 
-  ## **ISSUE**: results in longer compilation times
+  ## **ISSUE**: results in MUCH longer compilation times
   
   var branches: seq[tuple[cond, body: NimNode]]
 
