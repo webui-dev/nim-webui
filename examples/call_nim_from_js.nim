@@ -24,17 +24,17 @@ const html = """
     
     <br>
     
-    <button onclick="webui_fn('One', 'Hello');">Call Nim function one</button>
+    <button onclick="webui.call('One', 'Hello');">Call Nim function one</button>
     
     <br>
     <br>
     
-    <button onclick="webui_fn('Two', 2023);">Call Nim function two</button>
+    <button onclick="webui.call('Two', 2023);">Call Nim function two</button>
     
     <br>
     <br>
     
-    <button onclick="webui_fn('Three', true);">Call Nim function three</button>
+    <button onclick="webui.call('Three', true);">Call Nim function three</button>
     
     <br>
     <br>
@@ -54,7 +54,7 @@ const html = """
       function MyJS() {
         const MyInput = document.getElementById('MyInput');
         const number = MyInput.value;
-        webui_fn('Four', number).then((response) => {
+        webui.call('Four', number).then((response) => {
           MyInput.value = response;
         });
       }
@@ -68,25 +68,25 @@ proc main =
   let window = newWindow()
 
   window.bind("One") do (e: Event):
-    # JavaScript: webui_fn('One', 'Hello');
+    # JavaScript: webui.call('One', 'Hello');
 
     let str = e.getString()
     echo "function_one: ", str # Hello
 
   window.bind("Two") do (e: Event):
-    # JavaScript: webui_fn('Two', 2023);
+    # JavaScript: webui.call('Two', 2023);
 
     let number = e.getInt()
     echo "function_two: ", number # 2023
 
   window.bind("Three") do (e: Event):
-    # JavaScript: webui_fn('Three', true);
+    # JavaScript: webui.call('Three', true);
 
     let status = e.getBool()
     echo "function_three: ", status # true/false
 
   window.bind("Four") do (e: Event) -> int:
-    # JavaScript: const result = webui_fn('Four', 2);
+    # JavaScript: const result = webui.call('Four', 2);
 
     result = e.getInt() * 2
     echo "function_four: ", result # 4
