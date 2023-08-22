@@ -112,6 +112,7 @@ type
     eventType*: csize_t    ## Event type
     element*: cstring      ## HTML element ID
     data*: cstring         ## JavaScript data
+    size*: clonglong       ## JavaScript data len
     eventNumber*: csize_t  ## Internal WebUI
 
   Runtime* {.pure.} = enum
