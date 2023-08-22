@@ -224,6 +224,12 @@ proc malloc*(size: csize_t) {.cdecl, importc: "webui_malloc".}
   ##  Safely allocate memory using the WebUI memory management system.
   ##  It can be safely free using `free()`.
   
+proc sendRaw*(window: csize_t; function: cstring; raw: pointer; size: csize_t) {.cdecl, importc: "webui_send_raw".}
+  ##  Safely send raw data to the UI.
+
+proc setHide*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_hide".}
+  ##  Run the window in hidden mode
+
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
     a2: csize_t; a3: cstring; a4: cstring; a5: cstring) {.cdecl.}): csize_t {.cdecl,
