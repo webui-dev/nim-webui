@@ -38,7 +38,12 @@ const html = """
     
     <br>
     <br>
+
+    <button onclick="webui.call('RawBinary', new Uint8Array([0x41, 0x42, 0x43]));">Call Nim RawBinary function</button>
     
+    <br>
+    <br>
+
     <p>Call Nim function four and wait for the result</p>
     
     <br>
@@ -92,6 +97,17 @@ proc main =
     echo "function_four: ", result # 4
 
     # result is sent back to Javascript for you
+
+  window.bind("RawBinary") do (e: Event) -> int:
+    # JavaScript:
+    # webui.call('MyID_RawBinary', new Uint8Array([0x42, 0x43, 0x44]));
+
+    let 
+      raw = e.data
+      len = e.size
+
+    echo "function_raw_binary: ", len, " bytes"
+    echo "function_raw_binary: ", raw
 
   # Show the window
   window.show(html)
