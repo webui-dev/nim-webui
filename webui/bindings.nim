@@ -223,7 +223,7 @@ proc free*(`ptr`: pointer) {.cdecl, importc: "webui_free".}
 proc malloc*(size: csize_t) {.cdecl, importc: "webui_malloc".}
   ##  Safely allocate memory using the WebUI memory management system.
   ##  It can be safely free using `free()`.
-  
+
 proc sendRaw*(window: csize_t; function: cstring; raw: pointer; size: csize_t) {.cdecl, importc: "webui_send_raw".}
   ##  Safely send raw data to the UI.
 
