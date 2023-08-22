@@ -383,6 +383,20 @@ proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} =
 
   bindings.setRootFolder(csize_t window, cstring path)
 
+proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) = 
+  ## Safely send raw data to the UI.
+  
+  bindings.sendRaw(csize_t window, cstring function, raw, csize_t size)
+
+proc `hidden=`*(window: Window; status: bool) = 
+  ## Run the window in hidden mode
+  ## 
+  ## :window: The window to hide or show.
+  ## :status: Whether or not to hide the window. `true` to hide, `false`
+  ##          to show.
+  
+  bindings.setHide(csize_t window, status)
+
 export 
   bindings.Events, 
   bindings.Browsers, 
