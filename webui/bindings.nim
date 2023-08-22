@@ -78,8 +78,6 @@ else:
   {.compile: currentSourceDir / "webui/src/civetweb/civetweb.c".}
   {.compile: currentSourceDir / "webui/src/webui.c".}
 
-{.deadCodeElim: on.}
-
 const
   WEBUI_VERSION* = "2.3.0"   ## Version
   WEBUI_MAX_IDS* = (512)
