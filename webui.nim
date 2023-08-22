@@ -101,6 +101,9 @@ proc data*(event: Event): string =
 proc eventNumber*(event: Event): int =
   int event.impl.eventNumber
 
+proc size*(event: Event): int =
+  int event.impl.size
+
 proc eventType*(event: Event): bindings.Events =
   bindings.Events(int event.impl.eventType)
 
