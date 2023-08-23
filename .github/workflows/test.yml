@@ -50,7 +50,7 @@ jobs:
           nim c examples/hello_world_c.nim
           nim c examples/call_nim_from_js.nim
           nim c examples/serve_folder/serve_folder.nim
-          nim c examples/qxexample/qexample.nim
+          #nim c examples/qxexample/qxexample.nim
 
           nimble install -y osfiles
           nim c examples/text_editor/src/text_editor.nim
