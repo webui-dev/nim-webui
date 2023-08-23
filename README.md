@@ -5,7 +5,7 @@
 
 ![Image](https://raw.githubusercontent.com/malisipi/vwebui/main/screenshot.png)
 
-Nim wrapper and bindings for [WebUI](https://github.com/alifcommunity/webui), a
+Nim wrapper and bindings for [WebUI](https://github.com/webui-dev/webui), a
 fully independent and cross-platform web UI library.
 
 Instead of using a third-party library, WebUI instead uses a pre-installed
@@ -49,7 +49,7 @@ Online documentation can be found here:
 
 There isn't much documentation as of right now, so I suggest to get started
 using some [examples](#examples) or WebUI's own
-[examples](https://github.com/alifcommunity/webui/tree/main/examples) or
+[examples](https://github.com/webui-dev/webui/tree/main/examples) or
 [documentation](https://webui.me/docs/).
 
 Heres a very [*minimal*](examples/minimal.nim) example of using the wrapper:
@@ -135,4 +135,4 @@ only works for static compilation.
 MIT License. See [LICENSE](LICENSE)
 
 Original WebUI library is licensed under MIT. See
-[LICENSE](https://github.com/alifcommunity/webui/blob/main/LICENSE).
+[LICENSE](https://github.com/webui-dev/webui/blob/main/LICENSE).

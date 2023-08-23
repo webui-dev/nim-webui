@@ -1,4 +1,4 @@
-## Nim bindings for [WebUI](https://github.com/alifcommunity/webui)
+## Nim bindings for [WebUI](https://github.com/webui-dev/webui)
 
 runnableExamples:
 
