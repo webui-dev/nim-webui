@@ -1,7 +1,6 @@
 # WebUI
 
-> *Use any web browser as GUI, with Nim in the backend, and*
-> *HTML/Nim/JS/TS/CSS in the frontend.*
+> WebUI is not a web-server solution or a framework, but it allows you to use any web browser as a GUI, with Nim in the backend and HTML5 in the frontend. All in a lightweight portable lib.
 
 ![Image](https://raw.githubusercontent.com/malisipi/vwebui/main/screenshot.png)
 
@@ -97,38 +96,18 @@ only works for static compilation.
 
 ## Supported Web Browsers
 
-| OS | Browser | Status |
-| ------ | ------ | ------ |
-| Windows | Mozilla Firefox | ✔️ |
-| Windows | Google Chrome | ✔️ |
-| Windows | Microsoft Edge | ✔️ |
-| Windows | Chromium | ✔️ |
-| Windows | Yandex | ✔️ |
-| Windows | Brave | ✔️ |
-| Windows | Vivaldi | ✔️ |
-| Windows | Epic | ✔️ |
-| Windows | Opera | *coming soon* |
-| - | - | - |
-| Linux | Mozilla Firefox | ✔️ |
-| Linux | Google Chrome | ✔️ |
-| Linux | Microsoft Edge | ✔️ |
-| Linux | Chromium | ✔️ |
-| Linux | Yandex | ✔️ |
-| Linux | Brave | ✔️ |
-| Linux | Vivaldi | ✔️ |
-| Linux | Epic | *Does Not Exist* |
-| Linux | Opera | *coming soon* |
-| - | - | - |
-| macOS | Mozilla Firefox | ✔️ |
-| macOS | Google Chrome | ✔️ |
-| macOS | Microsoft Edge | ✔️ |
-| macOS | Chromium | ✔️ |
-| macOS | Yandex | ✔️ |
-| macOS | Brave | ✔️ |
-| macOS | Vivaldi | ✔️ |
-| macOS | Epic | ✔️ |
-| macOS | Apple Safari | *coming soon* |
-| macOS | Opera | *coming soon* |
+| Browser | Windows | macOS | Linux |
+| ------ | ------ | ------ | ------ |
+| Mozilla Firefox | ✔️ | ✔️ | ✔️ |
+| Google Chrome | ✔️ | ✔️ | ✔️ |
+| Microsoft Edge | ✔️ | ✔️ | ✔️ |
+| Chromium | ✔️ | ✔️ | ✔️ |
+| Yandex | ✔️ | ✔️ | ✔️ |
+| Brave | ✔️ | ✔️ | ✔️ |
+| Vivaldi | ✔️ | ✔️ | ✔️ |
+| Epic | ✔️ | ✔️ | *not available* |
+| Apple Safari | *not available* | *coming soon* | *not available* |
+| Opera | *coming soon* | *coming soon* | *coming soon* |
 
 ## License
 
