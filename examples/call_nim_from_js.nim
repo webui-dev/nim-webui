@@ -98,7 +98,7 @@ proc main =
 
     # result is sent back to Javascript for you
 
-  window.bind("RawBinary") do (e: Event) -> int:
+  window.bind("RawBinary") do (e: Event):
     # JavaScript:
     # webui.call('MyID_RawBinary', new Uint8Array([0x42, 0x43, 0x44]));
 
