@@ -73,6 +73,9 @@ proc decode*(str: string): string =
   
   bindings.free(addr cstr)
 
+proc setDefaultRootFolder*(path: string): bool {.discardable.} = 
+  bindings.setDefaultRootFolder(cstring path)
+
 # ------- Impl funcs --------
 
 # --- Event ---
