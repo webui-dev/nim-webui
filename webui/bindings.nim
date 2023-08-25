@@ -158,7 +158,11 @@ proc exit*() {.cdecl, importc: "webui_exit".}
 
 proc setRootFolder*(window: csize_t; path: cstring): bool {.cdecl,
     importc: "webui_set_root_folder".}
-  ##  Set the web-server root folder path.
+  ##  Set the web-server root folder path for a specific window.
+
+proc setDefaultRootFolder*(path: cstring): bool {.cdecl,
+    importc: "webui_default_set_root_folder".}
+  ##  Set the web-server root folder path for all windows.
 
 proc setFileHandler*(window: csize_t; handler: proc (filename: cstring, length: ptr cint): pointer {.cdecl.}) {.cdecl, importc: "webui_set_file_handler".}
   ##  Set a custom handler to serve files
