@@ -231,6 +231,31 @@ proc `kiosk=`*(window: Window; status: bool) =
   
   bindings.setKiosk(csize_t window, status)
 
+proc `runtime=`*(window: Window; runtime: bindings.Runtime) = 
+  ## Chose a runtime for .js and .ts files.
+  ## 
+  ## :window: The window to set the runtime for.
+  ## :runtime: The runtime to set.
+  
+  bindings.setRuntime(csize_t window, csize_t ord(runtime))
+
+proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} = 
+  ## Set the web-server root folder path.
+  ##
+  ## :window: The window to set the root folder for.
+  ## :path: The path to the root folder.
+
+  bindings.setRootFolder(csize_t window, cstring path)
+
+proc `hidden=`*(window: Window; status: bool) = 
+  ## Run the window in hidden mode
+  ## 
+  ## :window: The window to hide or show.
+  ## :status: Whether or not to hide the window. `true` to hide, `false`
+  ##          to show.
+  
+  bindings.setHide(csize_t window, status)
+
 proc close*(window: Window) = 
   ## Close a specific window only. The window object will still exist.
   ## 
@@ -373,35 +398,10 @@ proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
 proc setFileHandler*(window: Window; handler: proc (filename: string): string) = 
   window.fileHandler = handler
 
-proc `runtime=`*(window: Window; runtime: bindings.Runtime) = 
-  ## Chose a runtime for .js and .ts files.
-  ## 
-  ## :window: The window to set the runtime for.
-  ## :runtime: The runtime to set.
-  
-  bindings.setRuntime(csize_t window, csize_t ord(runtime))
-
-proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} = 
-  ## Set the web-server root folder path.
-  ##
-  ## :window: The window to set the root folder for.
-  ## :path: The path to the root folder.
-
-  bindings.setRootFolder(csize_t window, cstring path)
-
 proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) = 
   ## Safely send raw data to the UI.
   
   bindings.sendRaw(csize_t window, cstring function, raw, csize_t size)
-
-proc `hidden=`*(window: Window; status: bool) = 
-  ## Run the window in hidden mode
-  ## 
-  ## :window: The window to hide or show.
-  ## :status: Whether or not to hide the window. `true` to hide, `false`
-  ##          to show.
-  
-  bindings.setHide(csize_t window, status)
 
 export 
   bindings.Events, 
