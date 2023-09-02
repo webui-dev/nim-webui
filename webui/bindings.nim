@@ -235,10 +235,10 @@ proc setHide*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_hide".
   ##  Run the window in hidden mode
 
 proc setSize*(window: csize_t; width: cuint; height: cuint) {.cdecl, importc: "webui_set_size".}
-  ##  Run the window in hidden mode
+  ##  Set the window size
 
 proc setPosition*(window: csize_t; x: cuint; y: cuint) {.cdecl, importc: "webui_set_position".}
-  ##  Run the window in hidden mode
+  ##  Set the window position
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
