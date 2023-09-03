@@ -256,6 +256,18 @@ proc `hidden=`*(window: Window; status: bool) =
   
   bindings.setHide(csize_t window, status)
 
+proc `size=`*(window: Window; size: tuple[width, height: int]) = 
+  bindings.setSize(csize_t window, cuint size.width, cuint size.height)
+
+proc `pos=`*(window: Window; pos: tuple[x, y: int]) = 
+  bindings.setPosition(csize_t window, cuint pos.x, cuint pos.y)
+
+proc setSize*(window: Window; width, height: int) = 
+  bindings.setSize(csize_t window, cuint width, cuint height)
+
+proc setPos*(window: Window; x, y: int) = 
+  bindings.setPosition(csize_t window, cuint x, cuint y)
+
 proc close*(window: Window) = 
   ## Close a specific window only. The window object will still exist.
   ## 
