@@ -112,7 +112,7 @@ type
     eventType*: csize_t    ## Event type
     element*: cstring      ## HTML element ID
     data*: cstring         ## JavaScript data
-    size*: clonglong       ## JavaScript data len
+    size*: csize_t       ## JavaScript data len
     eventNumber*: csize_t  ## Internal WebUI
 
   Runtime* {.pure.} = enum
@@ -234,13 +234,16 @@ proc sendRaw*(window: csize_t; function: cstring; raw: pointer; size: csize_t) {
 proc setHide*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_hide".}
   ##  Run the window in hidden mode
 
+proc getChildProcessId*(window: csize_t): csize_t {.importc: "webui_get_child_process_id".}
+proc getParentProcessId*(window: csize_t): csize_t {.importc: "webui_get_parent_process_id".}
+
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
-    a2: csize_t; a3: cstring; a4: cstring; a5: cstring) {.cdecl.}): csize_t {.cdecl,
+    a2: csize_t; a3: cstring; a4: cstring; a5: csize_t; a6: csize_t) {.cdecl.}): csize_t {.cdecl,
     importc: "webui_interface_bind".}
   ##  Bind a specific html element click event with a function. Empty element means all events. This replace webui_bind(). The func is (Window, EventType, Element, Data, Response)
 
-proc interfaceSetResponse*(`ptr`: cstring; response: cstring) {.cdecl,
+proc interfaceSetResponse*(window: csize_t, event_number: csize_t, repsonse: cstring) {.cdecl,
     importc: "webui_interface_set_response".}
   ##  When using `webui_interface_bind()` you need this function to easily set your callback response.
 

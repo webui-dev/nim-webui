@@ -178,6 +178,12 @@ proc getNewWindowId*(): int =
   
   int bindings.getNewWindowId()
 
+proc childProcessId*(window: Window): int =
+  int bindings.getChildProcessId(csize_t window)
+
+proc parentProcessId*(window: Window): int =
+  int bindings.getParentProcessId(csize_t window)
+
 {.push discardable.}
 
 proc show*(window: Window; content: string): bool = 
