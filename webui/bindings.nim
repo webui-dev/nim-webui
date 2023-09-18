@@ -235,7 +235,14 @@ proc setHide*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_hide".
   ##  Run the window in hidden mode
 
 proc getChildProcessId*(window: csize_t): csize_t {.importc: "webui_get_child_process_id".}
+
 proc getParentProcessId*(window: csize_t): csize_t {.importc: "webui_get_parent_process_id".}
+
+proc setSize*(window: csize_t; width: cuint; height: cuint) {.cdecl, importc: "webui_set_size".}
+  ##  Run the window in hidden mode
+
+proc setPosition*(window: csize_t; x: cuint; y: cuint) {.cdecl, importc: "webui_set_position".}
+  ##  Run the window in hidden mode
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
