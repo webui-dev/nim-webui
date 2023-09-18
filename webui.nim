@@ -74,6 +74,12 @@ proc decode*(str: string): string =
   bindings.free(addr cstr)
 
 proc setDefaultRootFolder*(path: string): bool {.discardable.} = 
+  ## Set the web-server root folder path for all windows. 
+  ## 
+  ## .. note:: Should be used before `webui_show()`.
+  ## 
+  ## :path: The path to the root folder.
+
   bindings.setDefaultRootFolder(cstring path)
 
 # ------- Impl funcs --------
@@ -160,14 +166,14 @@ proc returnBool*(event: Event; b: bool) =
 # -------- Window --------
 
 proc newWindow*(): Window =
-  ## Create new Window object
+  ## Create a new WebUI window object.
 
   result = Window(bindings.newWindow())
 
 proc newWindow*(windowNumber: int): Window = 
-  ## Create a new Window object
+  ## Create a new webui window object using a specified window ID.
   ## 
-  ## :windowNumber: The ID of the new window
+  ## :windowNumber: The window ID  (should be > 0, and < WEBUI_MAX_IDS)
   
   bindings.newWindowId(csize_t windowNumber)
   result = Window(windowNumber)
@@ -175,6 +181,8 @@ proc newWindow*(windowNumber: int): Window =
 proc getNewWindowId*(): int = 
   ## Get new window ID. To be used in conjuction with
   ## [newWindow()](#newWindow,int).
+  ## 
+  ## Returns the first available free window number. Starting from 1.
   
   int bindings.getNewWindowId()
 
@@ -187,13 +195,15 @@ proc parentProcessId*(window: Window): int =
 {.push discardable.}
 
 proc show*(window: Window; content: string): bool = 
-  ## Show Window `window`. If the window is already shown, the UI will get 
-  ## refreshed in the same window.
+  ## Show a window using embedded HTML, or a file. If the window is already
+  ## open, it will be refreshed. 
   ## 
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
   ## :content: The content to show in `window`. Can be a file name, or a
   ##           static HTML script.
+  ## 
+  ## Returns `true` if showing the window is a success.
 
   bindings.show(csize_t window, cstring content)
 
@@ -205,6 +215,8 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
   ## :content: The content to show in `window`. Can be a file name, or a
   ##           static HTML script.
   ## :browser: The browser to open the window in.
+  ## 
+  ## Returns `true` if showing the window is a success.
 
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
@@ -213,8 +225,9 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
 proc `icon=`*(window: Window; icon, `type`: string) = 
   ## Set the default embedded HTML favicon.
   ## 
-  ## :icon: The path to the icon to set.
-  ## :type: The MIME type of the icon?
+  ## :window: The window to set the icon for.
+  ## :icon: The icon as string: `<svg>...</svg>`
+  ## :type: The MIME type of the icon
 
   bindings.setIcon(csize_t window, cstring icon, cstring type)
 
@@ -371,6 +384,11 @@ proc fileHandlerImpl(filename: cstring, length: ptr cint): pointer {.cdecl.} =
   return cast[pointer](content)
 
 proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) = 
+  ## Set a custom handler to serve files.
+  ## 
+  ## :window: The window to set the file handler.
+  ## :runtime: The file handler callback/proc.
+
   currHandler = handler
 
   bindings.setFileHandler(csize_t window, fileHandlerImpl)
@@ -388,7 +406,7 @@ proc `runtime=`*(window: Window; runtime: bindings.Runtime) =
   bindings.setRuntime(csize_t window, csize_t ord(runtime))
 
 proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} = 
-  ## Set the web-server root folder path.
+  ## Set the web-server root folder path for a specific window.
   ##
   ## :window: The window to set the root folder for.
   ## :path: The path to the root folder.
@@ -397,11 +415,16 @@ proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} =
 
 proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) = 
   ## Safely send raw data to the UI.
+  ## 
+  ## :window: The window to send the raw data to.
+  ## :function: The JavaScript function to receive raw data: `function myFunc(myData){}`
+  ## :raw: The raw data buffer.
+  ## :size: The size of the raw data in bytes.
   
   bindings.sendRaw(csize_t window, cstring function, raw, csize_t size)
 
 proc `hidden=`*(window: Window; status: bool) = 
-  ## Run the window in hidden mode
+  ## Run the window in hidden mode. Should be called before `webui_show()`.
   ## 
   ## :window: The window to hide or show.
   ## :status: Whether or not to hide the window. `true` to hide, `false`
@@ -411,12 +434,20 @@ proc `hidden=`*(window: Window; status: bool) =
 
 proc setSize*(window: Window; width, height: int) =
   ## Set window size
+  ## 
+  ## :window: The window to set the size for.
+  ## :width: What to set the window's width to.
+  ## :height: What to set the window's height to.
   
   bindings.setSize(csize_t window, cuint width, cuint height)
 
 proc setPosition*(window: Window; x, y: int) =
   ## Set window position
-  
+  ## 
+  ## :window: The window to set the size for.
+  ## :x: What to set the window's X to.
+  ## :y: What to set the window's Y to.
+
   bindings.setPosition(csize_t window, cuint x, cuint y)
 
 export 
