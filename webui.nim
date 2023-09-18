@@ -409,6 +409,16 @@ proc `hidden=`*(window: Window; status: bool) =
   
   bindings.setHide(csize_t window, status)
 
+proc setSize*(window: Window; width, height: int) =
+  ## Set window size
+  
+  bindings.setSize(csize_t window, cuint width, cuint height)
+
+proc setPosition*(window: Window; x, y: int) =
+  ## Set window position
+  
+  bindings.setPosition(csize_t window, cuint x, cuint y)
+
 export 
   bindings.Events, 
   bindings.Browsers, 
