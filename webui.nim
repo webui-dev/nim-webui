@@ -2,7 +2,7 @@
   Nim wrapper for [WebUI](https://github.com/webui-dev/webui)
 
   :Author: Jasmine
-  :WebUI Version: 2.3.0
+  :WebUI Version: 2.4.0
 
   See: https://neroist.github.io/webui-docs/
 ]##
