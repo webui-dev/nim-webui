@@ -236,8 +236,10 @@ proc setHide*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_hide".
   ##  Run the window in hidden mode
 
 proc getChildProcessId*(window: csize_t): csize_t {.importc: "webui_get_child_process_id".}
+  ## Get child process id 
 
 proc getParentProcessId*(window: csize_t): csize_t {.importc: "webui_get_parent_process_id".}
+  ## Get parent process id 
 
 proc setSize*(window: csize_t; width: cuint; height: cuint) {.cdecl, importc: "webui_set_size".}
   ##  Set window size
