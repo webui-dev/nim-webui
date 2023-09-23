@@ -247,7 +247,7 @@ proc setSize*(window: csize_t; width: cuint; height: cuint) {.cdecl, importc: "w
 proc setPosition*(window: csize_t; x: cuint; y: cuint) {.cdecl, importc: "webui_set_position".}
   ##  Set window position
 
-proc setProfile*(window: csize_t, name: cstring, path: string) {.cdecl, importc: "webui_set_profile".}
+proc setProfile*(window: csize_t, name: cstring, path: cstring) {.cdecl, importc: "webui_set_profile".}
   ## Set the web browser profile to use. An empty `name` and `path` means
   ## the default user profile. Needs to be called before `webui_show()`.
 
