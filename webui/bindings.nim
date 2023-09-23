@@ -86,17 +86,18 @@ const
 
 type
   Browsers* {.pure.} = enum
-    Any       ## 0. Default recommended web browser
-    Chrome    ## 1. Google Chrome
-    Firefox   ## 2. Mozilla Firefox
-    Edge      ## 3. Microsoft Edge
-    Safari    ## 4. Apple Safari
-    Chromium  ## 5. The Chromium Project
-    Opera     ## 6. Opera Browser
-    Brave     ## 7. The Brave Browser
-    Vivaldi   ## 8. The Vivaldi Browser
-    Epic      ## 9. The Epic Browser
-    Yandex    ## 10. The Yandex Browser
+    Any           ## 0. Default recommended web browser
+    Chrome        ## 1. Google Chrome
+    Firefox       ## 2. Mozilla Firefox
+    Edge          ## 3. Microsoft Edge
+    Safari        ## 4. Apple Safari
+    Chromium      ## 5. The Chromium Project
+    Opera         ## 6. Opera Browser
+    Brave         ## 7. The Brave Browser
+    Vivaldi       ## 8. The Vivaldi Browser
+    Epic          ## 9. The Epic Browser
+    Yandex        ## 10. The Yandex Browser
+    ChromiumBased ## 11. Any Chromium based browser
 
   Events* = enum
     EventsDisconnected        ## 0. Window disconnection event
@@ -243,6 +244,13 @@ proc setSize*(window: csize_t; width: cuint; height: cuint) {.cdecl, importc: "w
 
 proc setPosition*(window: csize_t; x: cuint; y: cuint) {.cdecl, importc: "webui_set_position".}
   ##  Set window position
+
+proc setProfile*(window: csize_t, name: cstring, path: string) {.cdecl, importc: "webui_set_profile".}
+  ## Set the web browser profile to use. An empty `name` and `path` means
+  ## the default user profile. Needs to be called before `webui_show()`.
+
+proc getUrl*(window: csize_t): cstring {.cdecl, importc: "webui_get_url".}
+  ## Get the full current URL
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
