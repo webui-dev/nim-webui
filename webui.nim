@@ -450,6 +450,26 @@ proc setPosition*(window: Window; x, y: int) =
 
   bindings.setPosition(csize_t window, cuint x, cuint y)
 
+proc setProfile*(window: Window; name, path: string) = 
+  ## Set the web browser profile to use. An empty `name` and `path` means the default user profile. Need to be called before `webui_show()`.
+  ## 
+  ## :window: The window to set the browser profile for.
+  ## :name: The web browser profile name.
+  ## :path: The web browser profile full path.
+  
+  runnableExamples:
+    window.setProfile("Bar", "/Home/Foo/Bar")
+    window.setProfile("", "")
+
+  bindings.setProfile(csize_t window, cstring name, cstring path)
+  
+proc url*(window: Window): string =
+  ## Get the full current URL
+  ## 
+  ## :window: The window to get the URL from
+  
+  $ bindings.getUrl(csize_t window)
+
 export 
   bindings.Events, 
   bindings.Browsers, 
