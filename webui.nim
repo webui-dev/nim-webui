@@ -371,17 +371,19 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =
   )
 
 proc fileHandlerImpl(filename: cstring, length: ptr cint): pointer {.cdecl.} =
-  let content = cstring currHandler($filename)
+  let content = currHandler($filename)
 
-  #? maybe use webui_malloc
-
-  # setting length is optional apparently
-  length[] = cint content.len
-
-  if len($content) == 0:
+  if content.len == 0:
     return nil
 
-  return cast[pointer](content)
+  # Always set length for memory safety, especially binarys with '\0' inside
+  length[] = cint content.len
+
+  # Use webui_malloc to ensure memory safety
+  let mem = bindings.malloc(csize_t content.len)
+  copyMem(mem, cstring content, content.len)
+
+  return mem
 
 proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) = 
   ## Set a custom handler to serve files.
