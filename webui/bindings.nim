@@ -225,7 +225,7 @@ proc free*(`ptr`: pointer) {.cdecl, importc: "webui_free".}
   ##  Safely free a buffer allocated by WebUI, for example when using 
   ##  `encode()`.
 
-proc malloc*(size: csize_t) {.cdecl, importc: "webui_malloc".}
+proc malloc*(size: csize_t): pointer {.cdecl, importc: "webui_malloc".}
   ##  Safely allocate memory using the WebUI memory management system.
   ##  It can be safely free using `free()`.
 
