@@ -86,18 +86,19 @@ const
 
 type
   Browsers* {.pure.} = enum
-    Any           ## 0. Default recommended web browser
-    Chrome        ## 1. Google Chrome
-    Firefox       ## 2. Mozilla Firefox
-    Edge          ## 3. Microsoft Edge
-    Safari        ## 4. Apple Safari
-    Chromium      ## 5. The Chromium Project
-    Opera         ## 6. Opera Browser
-    Brave         ## 7. The Brave Browser
-    Vivaldi       ## 8. The Vivaldi Browser
-    Epic          ## 9. The Epic Browser
-    Yandex        ## 10. The Yandex Browser
-    ChromiumBased ## 11. Any Chromium based browser
+    NoBrowser     ## 0. No web browser
+    Any           ## 1. Default recommended web browser
+    Chrome        ## 2. Google Chrome
+    Firefox       ## 3. Mozilla Firefox
+    Edge          ## 4. Microsoft Edge
+    Safari        ## 5. Apple Safari
+    Chromium      ## 6. The Chromium Project
+    Opera         ## 7. Opera Browser
+    Brave         ## 8. The Brave Browser
+    Vivaldi       ## 9. The Vivaldi Browser
+    Epic          ## 10. The Epic Browser
+    Yandex        ## 11. The Yandex Browser
+    ChromiumBased ## 12. Any Chromium based browser
 
   Events* = enum
     EventsDisconnected        ## 0. Window disconnection event
@@ -236,10 +237,10 @@ proc setHide*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_hide".
   ##  Run the window in hidden mode
 
 proc getChildProcessId*(window: csize_t): csize_t {.importc: "webui_get_child_process_id".}
-  ## Get child process id 
+  ##  Get child process id 
 
 proc getParentProcessId*(window: csize_t): csize_t {.importc: "webui_get_parent_process_id".}
-  ## Get parent process id 
+  ##  Get parent process id 
 
 proc setSize*(window: csize_t; width: cuint; height: cuint) {.cdecl, importc: "webui_set_size".}
   ##  Set window size
@@ -248,11 +249,23 @@ proc setPosition*(window: csize_t; x: cuint; y: cuint) {.cdecl, importc: "webui_
   ##  Set window position
 
 proc setProfile*(window: csize_t, name: cstring, path: cstring) {.cdecl, importc: "webui_set_profile".}
-  ## Set the web browser profile to use. An empty `name` and `path` means
-  ## the default user profile. Needs to be called before `webui_show()`.
+  ##  Set the web browser profile to use. An empty `name` and `path` means
+  ##  the default user profile. Needs to be called before `webui_show()`.
 
 proc getUrl*(window: csize_t): cstring {.cdecl, importc: "webui_get_url".}
-  ## Get the full current URL
+  ##  Get the full current URL
+
+proc navigate*(window: csize_t; url: cstring) {.cdecl, importc: "webui_navigate".}
+  ##  Navigate to a specific URL
+
+proc clean*() {.cdecl, importc: "webui_clean".}
+  ##  Free all memory resources. Should be called only at the end.
+
+proc deleteAllProfiles*() {.cdecl, importc: "webui_delete_all_profiles".}
+  ##  Delete all local web-browser profiles folder. It should be called at the end.
+
+proc deleteProfile*(window: csize_t) {.cdecl, importc: "webui_delete_profile".}
+  ##  Delete a specific window web-browser local folder profile.
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
