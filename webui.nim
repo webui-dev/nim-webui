@@ -82,6 +82,16 @@ proc setDefaultRootFolder*(path: string): bool {.discardable.} =
 
   bindings.setDefaultRootFolder(cstring path)
 
+proc clean*() =
+  ## Free all memory resources. Should be called only at the end.
+  
+  bindings.clean()
+
+proc deleteAllProfiles*() = 
+  ## Delete all local web-browser profiles folder. It should be called at the end.
+  
+  bindings.deleteAllProfiles()
+
 # ------- Impl funcs --------
 
 # --- Event ---
@@ -474,6 +484,21 @@ proc url*(window: Window): string =
   ## :window: The window to get the URL from
   
   $ bindings.getUrl(csize_t window)
+  
+proc navigate*(window: Window, url: string) =
+  ## Navigate to a specific URL
+  ## 
+  ## :window: The window to navigate on
+  ## :url: The URL to navigate to
+  
+  bindings.navigate(csize_t window, cstring url)
+
+proc deleteProfile*(window: Window) = 
+  ## Delete a specific window web-browser local folder profile.
+  ##
+  ## :window: The window whose profile will be deleted
+
+  bindings.deleteProfile(csize_t window)
 
 export 
   bindings.Events, 
