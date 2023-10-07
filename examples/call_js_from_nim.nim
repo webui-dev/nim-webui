@@ -85,4 +85,7 @@ proc main =
   # Wait until all windows get closed
   wait()
 
+  # Free all memory resources (Optional)
+  clean()
+
 main()
