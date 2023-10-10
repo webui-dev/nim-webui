@@ -2,7 +2,7 @@
   Nim wrapper for [WebUI](https://github.com/webui-dev/webui)
 
   :Author: Jasmine
-  :WebUI Version: 2.3.0
+  :WebUI Version: 2.4.0
 
   See: https://neroist.github.io/webui-docs/
 ]##
@@ -74,7 +74,23 @@ proc decode*(str: string): string =
   bindings.free(addr cstr)
 
 proc setDefaultRootFolder*(path: string): bool {.discardable.} = 
+  ## Set the web-server root folder path for all windows. 
+  ## 
+  ## .. note:: Should be used before `webui_show()`.
+  ## 
+  ## :path: The path to the root folder.
+
   bindings.setDefaultRootFolder(cstring path)
+
+proc clean*() =
+  ## Free all memory resources. Should be called only at the end.
+  
+  bindings.clean()
+
+proc deleteAllProfiles*() = 
+  ## Delete all local web-browser profiles folder. It should be called at the end.
+  
+  bindings.deleteAllProfiles()
 
 # ------- Impl funcs --------
 
@@ -160,14 +176,14 @@ proc returnBool*(event: Event; b: bool) =
 # -------- Window --------
 
 proc newWindow*(): Window =
-  ## Create new Window object
+  ## Create a new WebUI window object.
 
   result = Window(bindings.newWindow())
 
 proc newWindow*(windowNumber: int): Window = 
-  ## Create a new Window object
+  ## Create a new webui window object using a specified window ID.
   ## 
-  ## :windowNumber: The ID of the new window
+  ## :windowNumber: The window ID  (should be > 0, and < WEBUI_MAX_IDS)
   
   bindings.newWindowId(csize_t windowNumber)
   result = Window(windowNumber)
@@ -175,19 +191,29 @@ proc newWindow*(windowNumber: int): Window =
 proc getNewWindowId*(): int = 
   ## Get new window ID. To be used in conjuction with
   ## [newWindow()](#newWindow,int).
+  ## 
+  ## Returns the first available free window number. Starting from 1.
   
   int bindings.getNewWindowId()
+
+proc childProcessId*(window: Window): int =
+  int bindings.getChildProcessId(csize_t window)
+
+proc parentProcessId*(window: Window): int =
+  int bindings.getParentProcessId(csize_t window)
 
 {.push discardable.}
 
 proc show*(window: Window; content: string): bool = 
-  ## Show Window `window`. If the window is already shown, the UI will get 
-  ## refreshed in the same window.
+  ## Show a window using embedded HTML, or a file. If the window is already
+  ## open, it will be refreshed. 
   ## 
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
   ## :content: The content to show in `window`. Can be a file name, or a
   ##           static HTML script.
+  ## 
+  ## Returns `true` if showing the window is a success.
 
   bindings.show(csize_t window, cstring content)
 
@@ -199,6 +225,8 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
   ## :content: The content to show in `window`. Can be a file name, or a
   ##           static HTML script.
   ## :browser: The browser to open the window in.
+  ## 
+  ## Returns `true` if showing the window is a success.
 
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
@@ -207,8 +235,9 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
 proc `icon=`*(window: Window; icon, `type`: string) = 
   ## Set the default embedded HTML favicon.
   ## 
-  ## :icon: The path to the icon to set.
-  ## :type: The MIME type of the icon?
+  ## :window: The window to set the icon for.
+  ## :icon: The icon as string: `<svg>...</svg>`
+  ## :type: The MIME type of the icon
 
   bindings.setIcon(csize_t window, cstring icon, cstring type)
 
@@ -389,19 +418,26 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =
   )
 
 proc fileHandlerImpl(filename: cstring, length: ptr cint): pointer {.cdecl.} =
-  let content = cstring currHandler($filename)
+  let content = currHandler($filename)
 
-  #? maybe use webui_malloc
-
-  # setting length is optional apparently
-  length[] = cint content.len
-
-  if len($content) == 0:
+  if content.len == 0:
     return nil
 
-  return cast[pointer](content)
+  # Always set length for memory safety, especially binarys with '\0' inside
+  length[] = cint content.len
+
+  # Use webui_malloc to ensure memory safety
+  let mem = bindings.malloc(csize_t content.len)
+  copyMem(mem, cstring content, content.len)
+
+  return mem
 
 proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) = 
+  ## Set a custom handler to serve files.
+  ## 
+  ## :window: The window to set the file handler.
+  ## :runtime: The file handler callback/proc.
+
   currHandler = handler
 
   bindings.setFileHandler(csize_t window, fileHandlerImpl)
@@ -410,10 +446,96 @@ proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
 proc setFileHandler*(window: Window; handler: proc (filename: string): string) = 
   window.fileHandler = handler
 
+proc `runtime=`*(window: Window; runtime: bindings.Runtime) = 
+  ## Chose a runtime for .js and .ts files.
+  ## 
+  ## :window: The window to set the runtime for.
+  ## :runtime: The runtime to set.
+  
+  bindings.setRuntime(csize_t window, csize_t ord(runtime))
+
+proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} = 
+  ## Set the web-server root folder path for a specific window.
+  ##
+  ## :window: The window to set the root folder for.
+  ## :path: The path to the root folder.
+
+  bindings.setRootFolder(csize_t window, cstring path)
+
 proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) = 
   ## Safely send raw data to the UI.
+  ## 
+  ## :window: The window to send the raw data to.
+  ## :function: The JavaScript function to receive raw data: `function myFunc(myData){}`
+  ## :raw: The raw data buffer.
+  ## :size: The size of the raw data in bytes.
   
   bindings.sendRaw(csize_t window, cstring function, raw, csize_t size)
+
+proc `hidden=`*(window: Window; status: bool) = 
+  ## Run the window in hidden mode. Should be called before `webui_show()`.
+  ## 
+  ## :window: The window to hide or show.
+  ## :status: Whether or not to hide the window. `true` to hide, `false`
+  ##          to show.
+  
+  bindings.setHide(csize_t window, status)
+
+proc setSize*(window: Window; width, height: int) =
+  ## Set window size
+  ## 
+  ## :window: The window to set the size for.
+  ## :width: What to set the window's width to.
+  ## :height: What to set the window's height to.
+  
+  bindings.setSize(csize_t window, cuint width, cuint height)
+
+proc setPosition*(window: Window; x, y: int) =
+  ## Set window position
+  ## 
+  ## :window: The window to set the size for.
+  ## :x: What to set the window's X to.
+  ## :y: What to set the window's Y to.
+
+  bindings.setPosition(csize_t window, cuint x, cuint y)
+
+proc setProfile*(window: Window; name, path: string) = 
+  ## Set the web browser profile to use. An empty `name` and `path` means
+  ## the default user profile. 
+  ## 
+  ## .. note:: Needs to be called before `webui_show()`.
+  ## 
+  ## :window: The window to set the browser profile for.
+  ## :name: The web browser profile name.
+  ## :path: The web browser profile full path.
+  
+  runnableExamples:
+    window.setProfile("Bar", "/Home/Foo/Bar")
+    window.setProfile("", "")
+
+  bindings.setProfile(csize_t window, cstring name, cstring path)
+  
+proc url*(window: Window): string =
+  ## Get the full current URL
+  ## 
+  ## :window: The window to get the URL from
+  
+  $ bindings.getUrl(csize_t window)
+  
+proc navigate*(window: Window, url: string) =
+  ## Navigate to a specific URL
+  ## 
+  ## :window: The window to navigate on
+  ## :url: The URL to navigate to
+  
+  bindings.navigate(csize_t window, cstring url)
+
+proc deleteProfile*(window: Window) = 
+  ## Delete a specific window web-browser local folder profile.
+  ##
+  ## :window: The window whose profile will be deleted
+
+  bindings.deleteProfile(csize_t window)
 
 export 
   bindings.Events, 

@@ -4,21 +4,26 @@ const html = """
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="webui.js"></script>
     <title>Call Nim from JavaScript Example</title>
 
     <style>
       body {
-        color: white; 
-        background: #0F2027;
-        text-align: center; 
-        font-size: 16px; 
-        font-family: sans-serif;
+        background: linear-gradient(to left, #36265a, #654da9);
+        color: AliceBlue;
+        font-size: 16px sans-serif;
+        text-align: center;
+        margin-top: 30px;
       }
+
+      button {
+        margin: 5px 0 10px;
+      }    
     </style>
   </head>
 
   <body>
-    <h2>WebUI - Call Nim from JavaScript Example</h2>
+    <h1>WebUI - Call Nim from JavaScript</h1>
 
     <p>Call Nim function with arguments (<em>See the logs in your terminal</em>)</p>
     
@@ -27,21 +32,18 @@ const html = """
     <button onclick="webui.call('One', 'Hello');">Call Nim function one</button>
     
     <br>
-    <br>
     
     <button onclick="webui.call('Two', 2023);">Call Nim function two</button>
     
     <br>
-    <br>
     
     <button onclick="webui.call('Three', true);">Call Nim function three</button>
+    <p>Call a Nim function that returns a response</p>
     
-    <br>
     <br>
 
     <button onclick="webui.call('RawBinary', new Uint8Array([0x41, 0x42, 0x43]));">Call Nim RawBinary function</button>
     
-    <br>
     <br>
 
     <p>Call Nim function four and wait for the result</p>
@@ -50,10 +52,7 @@ const html = """
 
     <button onclick="MyJS();">Call Nim function four</button>
 
-    <br>
-    <br>
-
-    <input type="text" id="MyInput" value="2">
+    <div>Double: <input type="text" id="MyInput" value="2"></div>
 
     <script>
       function MyJS() {
@@ -114,5 +113,8 @@ proc main =
 
   # Wait until all windows get closed
   wait()
+
+  # Free all memory resources (Optional)
+  clean()
 
 main()

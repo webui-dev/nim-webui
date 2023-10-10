@@ -89,6 +89,12 @@ proc main =
   # Set root folder to current directory
   window.rootFolder = currentSourcePath().parentDir()
 
+  # Set window size
+  window.setSize(800, 600)
+
+  # Set window position
+  window.setPosition(100, 100)
+
   # Show a new window
   window.show("index.html")
 
