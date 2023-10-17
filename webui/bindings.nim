@@ -81,6 +81,7 @@ else:
 const
   WEBUI_VERSION* = "2.4.0"   ## Version
   WEBUI_MAX_IDS* = (512)
+  WEBUI_MAX_ARG* = (16)
 
 # -- Types -------------------------
 
@@ -113,8 +114,6 @@ type
     window*: csize_t       ## The window object number
     eventType*: csize_t    ## Event type
     element*: cstring      ## HTML element ID
-    data*: cstring         ## JavaScript data
-    size*: csize_t       ## JavaScript data len
     eventNumber*: csize_t  ## Internal WebUI
 
   Runtime* {.pure.} = enum
@@ -196,14 +195,29 @@ proc setRuntime*(window: csize_t; runtime: csize_t) {.cdecl,
     importc: "webui_set_runtime".}
   ##  Chose between Deno and Nodejs runtime for .js and .ts files.
 
+proc getIntAt*(e: ptr Event; index: csize_t): clonglong {.cdecl, importc: "webui_get_int".}
+  ##  Get an argument as integer at a specific index.
+
 proc getInt*(e: ptr Event): clonglong {.cdecl, importc: "webui_get_int".}
-  ##  Parse argument as integer.
+  ##  Get the first argument as integer.
+
+proc getStringAt*(e: ptr Event; index: csize_t): cstring {.cdecl, importc: "webui_get_string".}
+  ##  Get an argument as string at a specific index.
 
 proc getString*(e: ptr Event): cstring {.cdecl, importc: "webui_get_string".}
-  ##  Parse argument as string.
+  ##  Get the first argument as string.
+
+proc getBoolAt*(e: ptr Event; index: csize_t): bool {.cdecl, importc: "webui_get_bool".}
+  ##  Get an argument as boolean at a specific index.
 
 proc getBool*(e: ptr Event): bool {.cdecl, importc: "webui_get_bool".}
-  ##  Parse argument as boolean.
+  ##  Get the first argument as boolean.
+
+proc getSizeAt*(e: ptr Event; index: csize_t): csize_t {.cdecl, importc: "webui_get_bool".}
+  ##  Get the size in bytes of an argument at a specific index.
+
+proc getSize*(e: ptr Event): csize_t {.cdecl, importc: "webui_get_bool".}
+  ##  Get size in bytes of the first argument.
 
 proc returnInt*(e: ptr Event; n: clonglong) {.cdecl, importc: "webui_return_int".}
   ##  Return the response to JavaScript as integer.
@@ -269,7 +283,7 @@ proc deleteProfile*(window: csize_t) {.cdecl, importc: "webui_delete_profile".}
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
-    a2: csize_t; a3: cstring; a4: cstring; a5: csize_t; a6: csize_t) {.cdecl.}): csize_t {.cdecl,
+    a2: csize_t; a3: cstring; a4: csize_t) {.cdecl.}): csize_t {.cdecl,
     importc: "webui_interface_bind".}
   ##  Bind a specific html element click event with a function. Empty element means all events. This replace webui_bind(). The func is (Window, EventType, Element, Data, Response)
 
