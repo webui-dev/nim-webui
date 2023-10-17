@@ -79,7 +79,7 @@ else:
   {.compile: currentSourceDir / "webui/src/webui.c".}
 
 const
-  WEBUI_VERSION* = "2.4.0"   ## Version
+  WEBUI_VERSION* = "2.4.0 (Beta)"   ## Version
   WEBUI_MAX_IDS* = (512)
   WEBUI_MAX_ARG* = (16)
 
