@@ -104,17 +104,16 @@ type
   Events* = enum
     EventsDisconnected        ## 0. Window disconnection event
     EventsConnected           ## 1. Window connection event
-    EventsMultiConnection     ## 2. New window connection event
-    EventsUnwantedConnection  ## 3. New unwanted window connection event
-    EventsMouseClick          ## 4. Mouse click event
-    EventsNavigation          ## 5. Window navigation event
-    EventsCallback            ## 6. Function call event
+    EventsMouseClick          ## 2. Mouse click event
+    EventsNavigation          ## 3. Window navigation event
+    EventsCallback            ## 4. Function call event
 
   Event* {.bycopy.} = object
     window*: csize_t       ## The window object number
     eventType*: csize_t    ## Event type
     element*: cstring      ## HTML element ID
     eventNumber*: csize_t  ## Internal WebUI
+    bindId*: csize_t
 
   Runtime* {.pure.} = enum
     None    ## 0. Prevent WebUI from using any runtime for .js and .ts files
@@ -178,10 +177,6 @@ proc setTimeout*(second: csize_t) {.cdecl, importc: "webui_set_timeout".}
 proc setIcon*(window: csize_t; icon: cstring; `type`: cstring) {.cdecl,
     importc: "webui_set_icon".}
   ##  Set the default embedded HTML favicon
-
-proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
-    importc: "webui_set_multi_access".}
-  ##  Allow the window URL to be re-used in normal web browsers
 
 #  -- JavaScript ----------------------
 proc run*(window: csize_t; script: cstring) {.cdecl, importc: "webui_run".}
@@ -283,9 +278,9 @@ proc deleteProfile*(window: csize_t) {.cdecl, importc: "webui_delete_profile".}
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
-    a2: csize_t; a3: cstring; a4: csize_t) {.cdecl.}): csize_t {.cdecl,
+    a2: csize_t; a3: cstring; a4: csize_t, a5: csize_t) {.cdecl.}): csize_t {.cdecl,
     importc: "webui_interface_bind".}
-  ##  Bind a specific html element click event with a function. Empty element means all events. This replace webui_bind(). The func is (Window, EventType, Element, Data, Response)
+  ##  Bind a specific html element click event with a function. Empty element means all events. This replace webui_bind(). The func is (Window, EventType, Element, EventNumber, BindID)
 
 proc interfaceSetResponse*(window: csize_t, event_number: csize_t, repsonse: cstring) {.cdecl,
     importc: "webui_interface_set_response".}
@@ -298,11 +293,6 @@ proc interfaceIsAppRunning*(): bool {.cdecl,
 proc interfaceGetWindowId*(window: csize_t): csize_t {.cdecl,
     importc: "webui_interface_get_window_id".}
   ##  Get window unique ID
-
-# THANK YOU
-proc interfaceGetBindId*(window: csize_t; element: cstring): csize_t {.cdecl,
-    importc: "webui_interface_get_bind_id".}
-  ##  Get a unique ID. Same ID as `webui_bind()`. Return > 0 if bind exist.
 
 proc interfaceGetStringAt*(window: csize_t, event_number: csize_t, index: csize_t): cstring {.cdecl,
     importc: "webui_interface_get_string_at".}
