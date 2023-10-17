@@ -289,3 +289,15 @@ proc interfaceGetWindowId*(window: csize_t): csize_t {.cdecl,
 proc interfaceGetBindId*(window: csize_t; element: cstring): csize_t {.cdecl,
     importc: "webui_interface_get_bind_id".}
   ##  Get a unique ID. Same ID as `webui_bind()`. Return > 0 if bind exist.
+
+proc interfaceGetStringAt*(window: csize_t, event_number: csize_t, index: csize_t): cstring {.cdecl,
+    importc: "webui_interface_get_string_at".}
+  ## Get an argument as string at a specific index
+
+proc interfaceGetIntAt*(window: csize_t, event_number: csize_t, index: csize_t): clonglong {.cdecl,
+    importc: "webui_interface_get_int_at".}
+  ## Get an argument as integer at a specific index
+
+proc interfaceGetBoolAt*(window: csize_t, event_number: csize_t, index: csize_t): bool {.cdecl,
+    importc: "webui_interface_get_bool_at".}
+  ## Get an argument as boolean at a specific index
