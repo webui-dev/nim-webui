@@ -275,10 +275,10 @@ proc getStringAt*(e: ptr Event, index: csize_t): cstring {.webui, importc: "webu
 proc getString*(e: ptr Event): cstring {.webui, importc: "webui_get_string".}
   ##  Get the first argument as string
 
-proc getBoolAt*(e: ptr Event, index: csize_t): bool {.webui, importc: "webui_get_bool_at".}
+proc getBoolAt*(e: ptr Event, index: csize_t): csize_t {.webui, importc: "webui_get_bool_at".}
   ##  Get an argument as boolean at a specific index
 
-proc getBool*(e: ptr Event): bool {.webui, importc: "webui_get_bool".}
+proc getBool*(e: ptr Event): csize_t {.webui, importc: "webui_get_bool".}
   ##  Get the first argument as boolean
 
 proc getSizeAt*(e: ptr Event, index: csize_t): csize_t {.webui, importc: "webui_get_bool_at".}
