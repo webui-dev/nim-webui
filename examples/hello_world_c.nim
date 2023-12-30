@@ -5,18 +5,35 @@ const html = """
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <script src="webui.js"></script>
     <title>WebUI 2 - Nim Example</title>
 
     <style>
-      body {
-        color: white; 
-        background: #0F2027;
-        background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
-        background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
-        text-align: center; 
-        font-size: 18px; 
-        font-family: sans-serif;
-      }
+       body {
+            font-family: 'Arial', sans-serif;
+            color: white;
+            background: linear-gradient(to right, #507d91, #1c596f, #022737);
+            text-align: center;
+            font-size: 18px;
+        }
+        button, input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        button {
+            background: #3498db;
+            color: #fff; 
+            cursor: pointer;
+            font-size: 16px;
+        }
+        h1 { text-shadow: -7px 10px 7px rgb(67 57 57 / 76%); }
+        button:hover { background: #c9913d; }
+        input:focus { outline: none; border-color: #3498db; }
     </style>
   </head>
 
@@ -44,7 +61,7 @@ proc main =
     # This function gets called every time the user clicks on "MyButton1"
 
     # Run the JavaScript on the UI (Web Browser)
-    var js = e.window.script("return document.getElementById(\"MyInput\").value;")
+    var js = e.window.script("return document.getElementById('MyInput').value;")
 
     # Check if there is any JavaScript error
     if js.error:
