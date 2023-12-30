@@ -17,7 +17,7 @@ const
   useWebuiDll* = defined(useWebuiDll)
 
 when useWebuiStaticLib:
-  const webuiStaticLib* {.strdefine.} = "webui-2-static-x64"
+  const webuiStaticLib* {.strdefine.} = "webui-2-static"
 
   when defined(vcc):
     {.link: "user32.lib".}
@@ -39,11 +39,11 @@ when useWebuiStaticLib:
   {.pragma: webui, cdecl.}
 elif useWebuiDll:
   const webuiDll* {.strdefine.} = when defined(windows):
-    "webui-2-x64.dll"
+    "webui-2.dll"
   elif defined(macos):
-    "webui-2-x64.dyn"
+    "webui-2.dyn"
   else:
-    "webui-2-x64.so" # no lib prefix
+    "webui-2.so" # no lib prefix
 
   {.pragma: webui, dynlib: webuiDll, cdecl.}
 else:
