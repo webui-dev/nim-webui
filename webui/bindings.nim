@@ -109,18 +109,20 @@ type
   Events* = enum
     EventsDisconnected        ## 0. Window disconnection event
     EventsConnected           ## 1. Window connection event
-    EventsMultiConnection     ## 2. New window connection event
-    EventsUnwantedConnection  ## 3. New unwanted window connection event
-    EventsMouseClick          ## 4. Mouse click event
-    EventsNavigation          ## 5. Window navigation event
-    EventsCallback            ## 6. Function call event
+    EventsMouseClick          ## 2. Mouse click event
+    EventsNavigation          ## 3. Window navigation event
+    EventsCallback            ## 4. Function call event
 
   Event* {.bycopy.} = object
     window*: csize_t       ## The window object number
     eventType*: csize_t    ## Event type
     element*: cstring      ## HTML element ID
     eventNumber*: csize_t  ## Internal WebUI
-    bindId*: csize_t       ## Bind ID
+
+  Runtime* {.pure.} = enum
+    None    ## 0. Prevent WebUI from using any runtime for .js and .ts files
+    Deno    ## 1. Use Deno runtime for .js and .ts files
+    NodeJS  ## 2. Use Nodejs runtime for .js files
 
 #  -- Definitions ---------------------
 
@@ -178,7 +180,41 @@ proc setTimeout*(second: csize_t) {.cdecl, importc: "webui_set_timeout".}
 
 proc setIcon*(window: csize_t; icon: cstring; `type`: cstring) {.cdecl,
     importc: "webui_set_icon".}
-  ##  Set the default embedded HTML favicon.
+  ##  Set the default embedded HTML favicon
+
+proc setMultiAccess*(window: csize_t; status: bool) {.cdecl,
+    importc: "webui_set_multi_access".}
+  ##  Allow the window URL to be re-used in normal web browsers
+
+#  -- JavaScript ----------------------
+proc run*(window: csize_t; script: cstring) {.cdecl, importc: "webui_run".}
+  ##  Run JavaScript quickly without waiting for the response.
+
+proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring;
+            bufferLength: csize_t): bool {.cdecl, importc: "webui_script".}
+  ##  Run a JavaScript, and get the response back (Make sure your local buffer can hold the response).
+
+proc setRuntime*(window: csize_t; runtime: csize_t) {.cdecl,
+    importc: "webui_set_runtime".}
+  ##  Chose between Deno and Nodejs runtime for .js and .ts files.
+
+proc getInt*(e: ptr Event): clonglong {.cdecl, importc: "webui_get_int".}
+  ##  Parse argument as integer.
+
+proc getString*(e: ptr Event): cstring {.cdecl, importc: "webui_get_string".}
+  ##  Parse argument as string.
+
+proc getBool*(e: ptr Event): bool {.cdecl, importc: "webui_get_bool".}
+  ##  Parse argument as boolean.
+
+proc returnInt*(e: ptr Event; n: clonglong) {.cdecl, importc: "webui_return_int".}
+  ##  Return the response to JavaScript as integer.
+
+proc returnString*(e: ptr Event; s: cstring) {.cdecl, importc: "webui_return_string".}
+  ##  Return the response to JavaScript as string.
+
+proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool".}
+  ##  Return the response to JavaScript as boolean.
 
 proc encode*(str: cstring): cstring {.cdecl, importc: "webui_encode".}
   ##  Base64 encoding. Use this to safely send text based data to the UI.
@@ -298,11 +334,9 @@ proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool".}
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
-    a2: csize_t; a3: cstring; a5: csize_t; a6: csize_t) {.cdecl.}): csize_t {.cdecl,
+    a2: csize_t; a3: cstring; a4: cstring; a5: csize_t; a6: csize_t) {.cdecl.}): csize_t {.cdecl,
     importc: "webui_interface_bind".}
-  ##  Bind a specific HTML element click event with a function. Empty element means all events.
-  ## 
-  ##  :func: The callback as myFunc(Window, EventType, Element, EventNumber, BindID)
+  ##  Bind a specific html element click event with a function. Empty element means all events. This replace webui_bind(). The func is (Window, EventType, Element, Data, Response)
 
 proc interfaceSetResponse*(window: csize_t, event_number: csize_t, repsonse: cstring) {.cdecl,
     importc: "webui_interface_set_response".}
@@ -314,16 +348,9 @@ proc interfaceIsAppRunning*(): bool {.cdecl,
 
 proc interfaceGetWindowId*(window: csize_t): csize_t {.cdecl,
     importc: "webui_interface_get_window_id".}
-  ##  Get a unique window ID.
+  ##  Get window unique ID
 
-proc interfaceGetIntAt*(window: csize_t, event_number: csize_t, index: csize_t): clonglong {.cdecl, importc: "webui_interface_get_int_at".}
-  ##  Get an argument as integer at a specific index
-
-proc interfaceGetStringAt*(window: csize_t, event_number: csize_t, index: csize_t): cstring {.cdecl, importc: "webui_interface_get_string_at".}
-  ##  Get an argument as string at a specific index
-
-proc interfaceGetBoolAt*(window: csize_t, event_number: csize_t, index: csize_t): bool {.cdecl, importc: "webui_interface_get_bool_at".}
-  ##  Get an argument as boolean at a specific index
-
-proc interfaceGetSizeAt*(window: csize_t, event_number: csize_t, index: csize_t): csize_t {.cdecl, importc: "webui_interface_get_bool_at".}
-  ##  Get the size in bytes of an argument at a specific index
+# THANK YOU
+proc interfaceGetBindId*(window: csize_t; element: cstring): csize_t {.cdecl,
+    importc: "webui_interface_get_bind_id".}
+  ##  Get a unique ID. Same ID as `webui_bind()`. Return > 0 if bind exist.
