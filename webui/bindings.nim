@@ -36,7 +36,7 @@ when useWebuiStaticLib:
     {.passL: "-lws2_32".}
     {.passL: "-lAdvapi32".}
 
-  {.pragma: webui, discardable.}
+  {.pragma: webui, cdecl.}
 elif useWebuiDll:
   const webuiDll* {.strdefine.} = when defined(windows):
     "webui-2-x64.dll"
@@ -45,7 +45,7 @@ elif useWebuiDll:
   else:
     "webui-2-x64.so" # no lib prefix
 
-  {.pragma: webui, dynlib: webuiDll, discardable.}
+  {.pragma: webui, dynlib: webuiDll, cdecl.}
 else:
   # -d:webuiLog
   when defined(webuiLog):
@@ -71,7 +71,7 @@ else:
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  {.pragma: webui, discardable.}
+  {.pragma: webui, cdecl.}
   
   {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DNO_SSL -DUSE_WEBSOCKET -DMUST_IMPLEMENT_CLOCK_GETTIME".}
 
@@ -124,206 +124,206 @@ type
 
 #  -- Definitions ---------------------
 
-proc newWindow*(): csize_t {.cdecl, importc: "webui_new_window".}
+proc newWindow*(): csize_t {.webui, importc: "webui_new_window".}
   ##  Create a new WebUI window object.
 
-proc newWindowId*(windowNumber: csize_t): csize_t {.cdecl, importc: "webui_new_window_id".}
+proc newWindowId*(windowNumber: csize_t): csize_t {.webui, importc: "webui_new_window_id".}
   ##  Create a new webui window object using a specified window number.
 
-proc getNewWindowId*(): csize_t {.cdecl, importc: "webui_get_new_window_id".}
+proc getNewWindowId*(): csize_t {.webui, importc: "webui_get_new_window_id".}
   ##  Get a free window number that can be used with `newWindowId()`
 
 proc `bind`*(window: csize_t; element: cstring; `func`: proc (e: ptr Event) {.cdecl.}): csize_t {.
-    cdecl, importc: "webui_bind".}
+    webui, importc: "webui_bind".}
   ##  Bind a specific html element click event with a function. Empty element means all events.
  
-proc show*(window: csize_t; content: cstring): bool {.cdecl, importc: "webui_show".}
+proc show*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show".}
   ##  Show a window using embedded HTML, or a file. If the window is already open, it will be refreshed.
 
-proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.cdecl,
+proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.webui,
     importc: "webui_show_browser".}
   ##  Same as `show()`, but using a specific web browser.
 
-proc setKiosk*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_kiosk".}
+proc setKiosk*(window: csize_t; status: bool) {.webui, importc: "webui_set_kiosk".}
   ##  Set the window in Kiosk mode (Full screen)
 
-proc wait*() {.cdecl, importc: "webui_wait".}
+proc wait*() {.webui, importc: "webui_wait".}
   ##  Wait until all opened windows get closed.
 
-proc close*(window: csize_t) {.cdecl, importc: "webui_close".}
+proc close*(window: csize_t) {.webui, importc: "webui_close".}
   ##  Close a specific window only. The window object will still exist.
 
-proc destroy*(window: csize_t) {.cdecl, importc: "destroy".}
+proc destroy*(window: csize_t) {.webui, importc: "destroy".}
   ##  Close a specific window and free all memory resources.
 
-proc exit*() {.cdecl, importc: "webui_exit".}
+proc exit*() {.webui, importc: "webui_exit".}
   ##  Close all open windows. `wait()` will return (Break).
 
-proc setRootFolder*(window: csize_t; path: cstring): bool {.cdecl,
+proc setRootFolder*(window: csize_t; path: cstring): bool {.webui,
     importc: "webui_set_root_folder".}
   ##  Set the web-server root folder path for a specific window.
 
-proc setDefaultRootFolder*(path: cstring): bool {.cdecl,
+proc setDefaultRootFolder*(path: cstring): bool {.webui,
     importc: "webui_default_set_root_folder".}
   ##  Set the web-server root folder path for all windows. Should be used before `show()`.
 
-proc setFileHandler*(window: csize_t; handler: proc (filename: cstring, length: ptr cint): pointer {.cdecl.}) {.cdecl, importc: "webui_set_file_handler".}
+proc setFileHandler*(window: csize_t; handler: proc (filename: cstring, length: ptr cint): pointer {.cdecl.}) {.webui, importc: "webui_set_file_handler".}
   ##  Set a custom handler to serve files.
 
-proc isShown*(window: csize_t): bool {.cdecl, importc: "webui_is_shown".}
+proc isShown*(window: csize_t): bool {.webui, importc: "webui_is_shown".}
   ##  Check if the specified window is still running.
 
-proc setTimeout*(second: csize_t) {.cdecl, importc: "webui_set_timeout".}
+proc setTimeout*(second: csize_t) {.webui, importc: "webui_set_timeout".}
   ##  Set the maximum time in seconds to wait for the browser to start.
 
-proc setIcon*(window: csize_t; icon: cstring; `type`: cstring) {.cdecl,
+proc setIcon*(window: csize_t; icon: cstring; `type`: cstring) {.webui,
     importc: "webui_set_icon".}
   ##  Set the default embedded HTML favicon.
 
-proc encode*(str: cstring): cstring {.cdecl, importc: "webui_encode".}
+proc encode*(str: cstring): cstring {.webui, importc: "webui_encode".}
   ##  Base64 encoding. Use this to safely send text based data to the UI.
   ##  If it fails it will return `nil`.
 
-proc decode*(str: cstring): cstring {.cdecl, importc: "webui_decode".}
+proc decode*(str: cstring): cstring {.webui, importc: "webui_decode".}
   ##  Base64 decoding. Use this to safely decode received Base64 text from the UI.
   ##  If it fails it will return `nil`.
 
-proc free*(`ptr`: pointer) {.cdecl, importc: "webui_free".}
+proc free*(`ptr`: pointer) {.webui, importc: "webui_free".}
   ##  Safely free a buffer allocated by WebUI using `webui_malloc()`.
 
-proc malloc*(size: csize_t): pointer {.cdecl, importc: "webui_malloc".}
+proc malloc*(size: csize_t): pointer {.webui, importc: "webui_malloc".}
   ##  Safely allocate memory using the WebUI memory management system. It
   ##  can be safely freed using `webui_free()` at any time.
 
-proc sendRaw*(window: csize_t; function: cstring; raw: pointer; size: csize_t) {.cdecl, importc: "webui_send_raw".}
+proc sendRaw*(window: csize_t; function: cstring; raw: pointer; size: csize_t) {.webui, importc: "webui_send_raw".}
   ##  Safely send raw data to the UI.
 
-proc setHide*(window: csize_t; status: bool) {.cdecl, importc: "webui_set_hide".}
+proc setHide*(window: csize_t; status: bool) {.webui, importc: "webui_set_hide".}
   ##  Set a window in hidden mode. Should be called before `show()`.
 
-proc setSize*(window: csize_t; width: cuint; height: cuint) {.cdecl, importc: "webui_set_size".}
+proc setSize*(window: csize_t; width: cuint; height: cuint) {.webui, importc: "webui_set_size".}
   ##  Set the window size.
 
-proc setPosition*(window: csize_t; x: cuint; y: cuint) {.cdecl, importc: "webui_set_position".}
+proc setPosition*(window: csize_t; x: cuint; y: cuint) {.webui, importc: "webui_set_position".}
   ##  Set the window position.
 
-proc setProfile*(window: csize_t, name: cstring, path: cstring) {.cdecl, importc: "webui_set_profile".}
+proc setProfile*(window: csize_t, name: cstring, path: cstring) {.webui, importc: "webui_set_profile".}
   ##  Set the web browser profile to use. An empty `name` and `path` means
   ##  the default user profile. Need to be called before `show()`.
 
-proc getUrl*(window: csize_t): cstring {.cdecl, importc: "webui_get_url".}
+proc getUrl*(window: csize_t): cstring {.webui, importc: "webui_get_url".}
   ##  Get the full current URL.
 
-proc setPublic*(window: csize_t; status: bool) {.cdecl,
+proc setPublic*(window: csize_t; status: bool) {.webui,
     importc: "webui_set_public".}
   ##  Allow a specific window address to be accessible from a public network
 
-proc navigate*(window: csize_t; url: cstring) {.cdecl, importc: "webui_navigate".}
+proc navigate*(window: csize_t; url: cstring) {.webui, importc: "webui_navigate".}
   ##  Navigate to a specific URL
 
-proc clean*() {.cdecl, importc: "webui_clean".}
+proc clean*() {.webui, importc: "webui_clean".}
   ##  Free all memory resources. Should be called only at the end.
 
-proc deleteAllProfiles*() {.cdecl, importc: "webui_delete_all_profiles".}
+proc deleteAllProfiles*() {.webui, importc: "webui_delete_all_profiles".}
   ##  Delete all local web-browser profiles folder. It should called at the end.
 
-proc deleteProfile*(window: csize_t) {.cdecl, importc: "webui_delete_profile".}
+proc deleteProfile*(window: csize_t) {.webui, importc: "webui_delete_profile".}
   ##  Delete a specific window web-browser local folder profile.
 
-proc getParentProcessId*(window: csize_t): csize_t {.cdecl, importc: "webui_get_parent_process_id".}
+proc getParentProcessId*(window: csize_t): csize_t {.webui, importc: "webui_get_parent_process_id".}
   ##  Get the ID of the parent process (The web browser may re-create
   ##  another new process).
 
-proc getChildProcessId*(window: csize_t): csize_t {.cdecl, importc: "webui_get_child_process_id".}
+proc getChildProcessId*(window: csize_t): csize_t {.webui, importc: "webui_get_child_process_id".}
   ##  Get the ID of the last child process.
 
-proc setPort*(window: csize_t, port: csize_t): bool {.cdecl, importc: "webui_set_port", discardable.}
+proc setPort*(window: csize_t, port: csize_t): bool {.webui, importc: "webui_set_port", discardable.}
   ##  Set a custom web-server network port to be used by WebUI.
   ##  This can be useful to determine the HTTP link of `webui.js` in case
   ##  you are trying to use WebUI with an external web-server like NGNIX
 
 # -- SSL/TLS -------------------------
 
-proc setTlsCertificate*(certificate_pem: cstring; private_key_pem: cstring): bool {.cdecl, importc: "webui_set_tls_certificate".}
+proc setTlsCertificate*(certificate_pem: cstring; private_key_pem: cstring): bool {.webui, importc: "webui_set_tls_certificate".}
   ##  Set the SSL/TLS certificate and the private key content, both in PEM
   ##  format. This works only with `webui-2-secure` library. If set empty WebUI
   ##  will generate a self-signed certificate.
 
 # -- JavaScript ----------------------
 
-proc run*(window: csize_t; script: cstring) {.cdecl, importc: "webui_run".}
+proc run*(window: csize_t; script: cstring) {.webui, importc: "webui_run".}
   ##  Run JavaScript without waiting for the response.
 
 proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring;
-            bufferLength: csize_t): bool {.cdecl, importc: "webui_script".}
+            bufferLength: csize_t): bool {.webui, importc: "webui_script".}
   ##  Run JavaScript and get the response back.
   ##  Make sure your local buffer can hold the response.
 
-proc setRuntime*(window: csize_t; runtime: csize_t) {.cdecl,
+proc setRuntime*(window: csize_t; runtime: csize_t) {.webui,
     importc: "webui_set_runtime".}
   ##  Chose between Deno and Nodejs as runtime for .js and .ts files.
 
-proc getIntAt*(e: ptr Event, index: csize_t): clonglong {.cdecl, importc: "webui_get_int_at".}
+proc getIntAt*(e: ptr Event, index: csize_t): clonglong {.webui, importc: "webui_get_int_at".}
   ##  Get an argument as integer at a specific index
 
-proc getInt*(e: ptr Event): clonglong {.cdecl, importc: "webui_get_int".}
+proc getInt*(e: ptr Event): clonglong {.webui, importc: "webui_get_int".}
   ##  Get the first argument as integer
 
-proc getStringAt*(e: ptr Event, index: csize_t): cstring {.cdecl, importc: "webui_get_string_at".}
+proc getStringAt*(e: ptr Event, index: csize_t): cstring {.webui, importc: "webui_get_string_at".}
   ##  Get an argument as string at a specific index
 
-proc getString*(e: ptr Event): cstring {.cdecl, importc: "webui_get_string".}
+proc getString*(e: ptr Event): cstring {.webui, importc: "webui_get_string".}
   ##  Get the first argument as string
 
-proc getBoolAt*(e: ptr Event, index: csize_t): bool {.cdecl, importc: "webui_get_bool_at".}
+proc getBoolAt*(e: ptr Event, index: csize_t): bool {.webui, importc: "webui_get_bool_at".}
   ##  Get an argument as boolean at a specific index
 
-proc getBool*(e: ptr Event): bool {.cdecl, importc: "webui_get_bool".}
+proc getBool*(e: ptr Event): bool {.webui, importc: "webui_get_bool".}
   ##  Get the first argument as boolean
 
-proc getSizeAt*(e: ptr Event, index: csize_t): csize_t {.cdecl, importc: "webui_get_bool_at".}
+proc getSizeAt*(e: ptr Event, index: csize_t): csize_t {.webui, importc: "webui_get_bool_at".}
   ##  Get the size in bytes of an argument at a specific index
 
-proc getSize*(e: ptr Event): csize_t {.cdecl, importc: "webui_get_bool".}
+proc getSize*(e: ptr Event): csize_t {.webui, importc: "webui_get_bool".}
   ##  Get size in bytes of the first argument
 
-proc returnInt*(e: ptr Event; n: clonglong) {.cdecl, importc: "webui_return_int".}
+proc returnInt*(e: ptr Event; n: clonglong) {.webui, importc: "webui_return_int".}
   ##  Return the response to JavaScript as integer.
 
-proc returnString*(e: ptr Event; s: cstring) {.cdecl, importc: "webui_return_string".}
+proc returnString*(e: ptr Event; s: cstring) {.webui, importc: "webui_return_string".}
   ##  Return the response to JavaScript as string.
 
-proc returnBool*(e: ptr Event; b: bool) {.cdecl, importc: "webui_return_bool".}
+proc returnBool*(e: ptr Event; b: bool) {.webui, importc: "webui_return_bool".}
   ##  Return the response to JavaScript as boolean.
 
 #  -- Interface -----------------------
 proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (a1: csize_t;
-    a2: csize_t; a3: cstring; a5: csize_t; a6: csize_t) {.cdecl.}): csize_t {.cdecl,
+    a2: csize_t; a3: cstring; a5: csize_t; a6: csize_t) {.cdecl.}): csize_t {.webui,
     importc: "webui_interface_bind".}
   ##  Bind a specific HTML element click event with a function. Empty element means all events.
   ## 
   ##  :func: The callback as myFunc(Window, EventType, Element, EventNumber, BindID)
 
-proc interfaceSetResponse*(window: csize_t, event_number: csize_t, repsonse: cstring) {.cdecl,
+proc interfaceSetResponse*(window: csize_t, event_number: csize_t, repsonse: cstring) {.webui,
     importc: "webui_interface_set_response".}
   ##  When using `interfaceBind()`, you may need this function to easily set a response.
 
-proc interfaceIsAppRunning*(): bool {.cdecl,
+proc interfaceIsAppRunning*(): bool {.webui,
                                    importc: "webui_interface_is_app_running".}
   ##  Check if the app still running or not. This replace webui_wait().
 
-proc interfaceGetWindowId*(window: csize_t): csize_t {.cdecl,
+proc interfaceGetWindowId*(window: csize_t): csize_t {.webui,
     importc: "webui_interface_get_window_id".}
   ##  Get a unique window ID.
 
-proc interfaceGetIntAt*(window: csize_t, event_number: csize_t, index: csize_t): clonglong {.cdecl, importc: "webui_interface_get_int_at".}
+proc interfaceGetIntAt*(window: csize_t, event_number: csize_t, index: csize_t): clonglong {.webui, importc: "webui_interface_get_int_at".}
   ##  Get an argument as integer at a specific index
 
-proc interfaceGetStringAt*(window: csize_t, event_number: csize_t, index: csize_t): cstring {.cdecl, importc: "webui_interface_get_string_at".}
+proc interfaceGetStringAt*(window: csize_t, event_number: csize_t, index: csize_t): cstring {.webui, importc: "webui_interface_get_string_at".}
   ##  Get an argument as string at a specific index
 
-proc interfaceGetBoolAt*(window: csize_t, event_number: csize_t, index: csize_t): bool {.cdecl, importc: "webui_interface_get_bool_at".}
+proc interfaceGetBoolAt*(window: csize_t, event_number: csize_t, index: csize_t): bool {.webui, importc: "webui_interface_get_bool_at".}
   ##  Get an argument as boolean at a specific index
 
-proc interfaceGetSizeAt*(window: csize_t, event_number: csize_t, index: csize_t): csize_t {.cdecl, importc: "webui_interface_get_bool_at".}
+proc interfaceGetSizeAt*(window: csize_t, event_number: csize_t, index: csize_t): csize_t {.webui, importc: "webui_interface_get_bool_at".}
   ##  Get the size in bytes of an argument at a specific index
