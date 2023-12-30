@@ -237,7 +237,7 @@ proc getParentProcessId*(window: csize_t): csize_t {.cdecl, importc: "webui_get_
 proc getChildProcessId*(window: csize_t): csize_t {.cdecl, importc: "webui_get_child_process_id".}
   ##  Get the ID of the last child process.
 
-proc setPort*(window: csize_t, port: csize_t): bool {.cdecl, importc: "webui_set_port".}
+proc setPort*(window: csize_t, port: csize_t): bool {.cdecl, importc: "webui_set_port", discardable.}
   ##  Set a custom web-server network port to be used by WebUI.
   ##  This can be useful to determine the HTTP link of `webui.js` in case
   ##  you are trying to use WebUI with an external web-server like NGNIX
