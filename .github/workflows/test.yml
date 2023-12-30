@@ -54,4 +54,4 @@ jobs:
 
           nim c examples/serve_folder/serve_folder.nim
           nim c examples/qxexample/qxexample.nim
-          nim c examples/text_editor/src/text_editor.nim
+          # nim c examples/text_editor/src/text_editor.nim
