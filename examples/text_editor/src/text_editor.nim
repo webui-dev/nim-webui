@@ -35,7 +35,7 @@ proc main =
     e.window.run("SetFile('$1')" % encode(filePath))
 
   window.bind("Save") do (e: Event):
-    writeFile(filePath, e.data)
+    writeFile(filePath, e.getString())
 
   window.bind("Close") do (_: Event):
     echo "Exit."
