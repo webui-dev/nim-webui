@@ -32,7 +32,7 @@ proc main() =
   let window = newWindow()
   
   window.bind("Button1Click") do (e: Event) -> string:
-    echo "Received callback: ", e.data
+    echo "Received callback: ", e.getString()
     inc counter
 
     return """{"label1": "Message from Nim", "label2": "$1"}""" % $counter
