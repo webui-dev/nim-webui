@@ -92,6 +92,18 @@ proc deleteAllProfiles*() =
   
   bindings.deleteAllProfiles()
 
+proc setTlsCertificate*(certificate_pem, private_key_pem: string): bool =
+  ## Set the SSL/TLS certificate and the private key content, both in PEM
+  ## format. This works only with `webui-2-secure` library. If set empty, WebUI
+  ## will generate a self-signed certificate.
+  ##
+  ## :certificate_pem: The SSL/TLS certificate content in PEM format
+  ## :private_key_pem: The private key content in PEM format
+  ##
+  ## Returns `true` if the certificate and the key are valid.
+  
+  bindings.setTlsCertificate(cstring certificate_pem, cstring private_key_pem)
+
 # ------- Impl funcs --------
 
 # --- Event ---
@@ -108,46 +120,82 @@ func `impl=`*(event: Event, be: ptr bindings.Event) =
 
 # -------- Event --------
 
-proc element*(event: Event): string =
-  $ event.impl.element
-
 proc window*(event: Event): Window =
   result = Window(int event.impl.window)
-
-proc data*(event: Event): string =
-  $ event.impl.data
-
-proc eventNumber*(event: Event): int =
-  int event.impl.eventNumber
-
-proc size*(event: Event): int =
-  int event.impl.size
 
 proc eventType*(event: Event): bindings.Events =
   bindings.Events(int event.impl.eventType)
 
+proc element*(event: Event): string =
+  $ event.impl.element
+
+proc eventNumber*(event: Event): int =
+  int event.impl.eventNumber
+
+proc bindId*(event: Event): int =
+  int event.impl.bindId
+
 # --- 
 
-proc getInt*(event: Event): int =
-  ## Parse event as a integer.
+proc getInt*(event: Event, index: int): int =
+  ## Get an argument as integer at a specific index
   ## 
-  ## :event: The event to parse as an integer
+  ## :event: The event 
+  ## :index: The argument position starting from 0
+
+  int bindings.getIntAt(event.internalImpl, csize_t index)
+
+proc getInt*(event: Event): int =
+  ## Get the first argument as integer
+  ## 
+  ## :event: The event 
 
   int bindings.getInt(event.internalImpl)
 
-proc getString*(event: Event): string =
-  ## Parse event as a string.
+proc getString*(event: Event, index: int): string =
+  ## Get an argument as string at a specific index
   ## 
-  ## :event: The event to parse as an string
+  ## :event: The event 
+  ## :index: The argument position starting from 0
+  
+  $ bindings.getStringAt(event.internalImpl, csize_t index)
+
+proc getString*(event: Event): string =
+  ## Get the first argument as string
+  ## 
+  ## :event: The event 
   
   $ bindings.getString(event.internalImpl)
 
-proc getBool*(event: Event): bool =
-  ## Parse event as a boolean.
+proc getBool*(event: Event, index: int): bool =
+  ## Get an argument as boolean at a specific index
   ## 
-  ## :event: The event to parse as an boolean
+  ## :event: The event 
+  ## :index: The argument position starting from 0
 
-  bindings.getBool(event.internalImpl)
+  bool bindings.getBoolAt(event.internalImpl, csize_t index)
+
+proc getBool*(event: Event): bool =
+  ## Get the first argument as boolean
+  ## 
+  ## :event: The event 
+
+  bool bindings.getBool(event.internalImpl)
+
+proc getSize*(event: Event, index: int): int =
+  ## Get the size in bytes of an argument at a specific index
+  ## 
+  ## :event: The event 
+  ## :index: The argument position starting from 0
+
+  int bindings.getSizeAt(event.internalImpl, csize_t index)
+
+proc getSize*(event: Event): int =
+  ## Get size in bytes of the first argument
+  ## 
+  ## :event: The event 
+
+  int bindings.getSize(event.internalImpl)
 
 proc returnInt*(event: Event; integer: int) = 
   ## Return the response to JavaScript as a integer.
@@ -185,8 +233,7 @@ proc newWindow*(windowNumber: int): Window =
   ## 
   ## :windowNumber: The window ID  (should be > 0, and < WEBUI_MAX_IDS)
   
-  bindings.newWindowId(csize_t windowNumber)
-  result = Window(windowNumber)
+  result = Window(bindings.newWindowId(csize_t windowNumber))
 
 proc getNewWindowId*(): int = 
   ## Get new window ID. To be used in conjuction with
@@ -230,6 +277,18 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
 
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
+proc `port=`*(window: Window, port: int) = 
+  ## Set a custom web-server network port to be used by WebUI.
+  ## This can be useful to determine the HTTP link of `webui.js` in case
+  ## you are trying to use WebUI with an external web-server like NGNIX
+  ## 
+  ## :window: The window
+  ## :port: The web-server network port WebUI should use
+  ## 
+  ## Returns True if the port is free and usable by WebUI
+  
+  bindings.setPort(csize_t window, csize_t port)
+
 {.pop.}
 
 proc `icon=`*(window: Window; icon, `type`: string) = 
@@ -241,15 +300,14 @@ proc `icon=`*(window: Window; icon, `type`: string) =
 
   bindings.setIcon(csize_t window, cstring icon, cstring type)
 
-proc `multiAccess=`*(window: Window; status: bool) = 
-  ## Allow the window URL to be re-used in normal web browsers.
+proc `public=`*(window: Window; status: bool) = 
+  ## Allow a specific window address to be accessible from a public network
   ## 
-  ## :window: The window to enable or disable multi access (whether or not
-  ##          to allow the window URL to be re-used).
-  ## :status: Whether or not to enable multi access mode. `true` to enable, `false`
+  ## :window: The window
+  ## :status: Whether or not to set public. `true` to enable, `false`
   ##          to disable.
 
-  bindings.setMultiAccess(csize_t window, status)
+  bindings.setPublic(csize_t window, status)
 
 proc `kiosk=`*(window: Window; status: bool) = 
   ## Set the window in Kiosk mode (full screen).
@@ -367,7 +425,8 @@ proc run*(window: Window; script: string) =
 proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
   var event = Event(internalImpl: e)
 
-  cbs[bindings.interfaceGetWindowId(e.window)][bindings.interfaceGetBindId(e.window, e.element)](event)
+  #cbs[bindings.interfaceGetWindowId(e.window)][bindings.interfaceGetBindId(e.window, e.element)](event)
+  cbs[bindings.interfaceGetWindowId(e.window)][e.bindId](event)
 
 proc `bind`*(window: Window; element: string; `func`: proc (e: Event)) =
   ## Bind a specific html element click event with a function. Empty element means all events.
@@ -446,22 +505,6 @@ proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
 proc setFileHandler*(window: Window; handler: proc (filename: string): string) = 
   window.fileHandler = handler
 
-proc `runtime=`*(window: Window; runtime: bindings.Runtime) = 
-  ## Chose a runtime for .js and .ts files.
-  ## 
-  ## :window: The window to set the runtime for.
-  ## :runtime: The runtime to set.
-  
-  bindings.setRuntime(csize_t window, csize_t ord(runtime))
-
-proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} = 
-  ## Set the web-server root folder path for a specific window.
-  ##
-  ## :window: The window to set the root folder for.
-  ## :path: The path to the root folder.
-
-  bindings.setRootFolder(csize_t window, cstring path)
-
 proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) = 
   ## Safely send raw data to the UI.
   ## 
@@ -471,24 +514,6 @@ proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) =
   ## :size: The size of the raw data in bytes.
   
   bindings.sendRaw(csize_t window, cstring function, raw, csize_t size)
-
-proc `hidden=`*(window: Window; status: bool) = 
-  ## Run the window in hidden mode. Should be called before `webui_show()`.
-  ## 
-  ## :window: The window to hide or show.
-  ## :status: Whether or not to hide the window. `true` to hide, `false`
-  ##          to show.
-  
-  bindings.setHide(csize_t window, status)
-
-proc setSize*(window: Window; width, height: int) =
-  ## Set window size
-  ## 
-  ## :window: The window to set the size for.
-  ## :width: What to set the window's width to.
-  ## :height: What to set the window's height to.
-  
-  bindings.setSize(csize_t window, cuint width, cuint height)
 
 proc setPosition*(window: Window; x, y: int) =
   ## Set window position
