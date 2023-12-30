@@ -47,7 +47,7 @@ proc main =
       of EventsMouseClick:
         echo "Click"
       of EventsNavigation:
-        echo "Starting navigation to: ", e.data    
+        echo "Starting navigation to: ", e.getString()    
       else:
         discard
 
@@ -88,6 +88,7 @@ proc main =
 
   # Set root folder to current directory
   window.rootFolder = currentSourcePath().parentDir()
+  window2.rootFolder = currentSourcePath().parentDir()
 
   # Set window size
   window.setSize(800, 600)
