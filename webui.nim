@@ -291,7 +291,7 @@ proc `port=`*(window: Window, port: int) =
 
 {.pop.}
 
-proc `icon=`*(window: Window; icon, `type`: string) = 
+proc setIcon*(window: Window; icon, `type`: string) = 
   ## Set the default embedded HTML favicon.
   ## 
   ## :window: The window to set the icon for.
