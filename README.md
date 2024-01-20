@@ -1,22 +1,28 @@
-# WebUI
+<div align="center">
+
+# WebUI Nim
+
+[last-commit]: https://img.shields.io/github/last-commit/webui-dev/nim-webui?style=for-the-badge&logo=github&logoColor=C0CAF5&labelColor=414868
+<!-- [release-version]: https://img.shields.io/github/v/tag/webui-dev/go-webui?style=for-the-badge&logo=webtrees&logoColor=C0CAF5&labelColor=414868&color=7664C6 -->
+[license]: https://img.shields.io/github/license/webui-dev/nim-webui?style=for-the-badge&logo=opensourcehardware&label=License&logoColor=C0CAF5&labelColor=414868&color=8c73cc
+
+<!-- [![][build-status]](https://github.com/webui-dev/go-webui/actions?query=branch%3Amain) -->
+
+[![][last-commit]](https://github.com/webui-dev/nim-webui/pulse)
+<!-- [![][release-version]](https://github.com/webui-dev/go-webui/releases/latest) -->
+[![][license]](https://github.com/webui-dev/nim-webui/blob/main/LICENSE)
+
 
 > WebUI is not a web-server solution or a framework, but it allows you to use any web browser as a GUI, with Nim in the backend and HTML5 in the frontend. All in a lightweight portable lib.
 
+<!--
+Nim wrapper and bindings for [WebUI](https://github.com/webui-dev/webui), a fully independent and cross-platform web UI library.
+
+Instead of using a third-party library, WebUI instead uses a pre-installed browser (Edge, Firefox, Chrome, Chromium, or Safari). So, there's no need for any large SDK or library for development/production, all you need is a web browser!
+-->
 ![Image](https://raw.githubusercontent.com/malisipi/vwebui/main/screenshot.png)
 
-Nim wrapper and bindings for [WebUI](https://github.com/webui-dev/webui), a
-fully independent and cross-platform web UI library.
-
-Instead of using a third-party library, WebUI instead uses a pre-installed
-browser (Edge, Firefox, Chrome, Chromium, or Safari). So, there's no need for any
-large SDK or library for development/production, all you need is a web browser!
-
-> :warning: **Notice**:
->
-> * WebUI is not a web-server solution or a framework, but it's an lightweight portable lib
-> to use any installed web browser as a user interface.
->
-> * WebUI's documentation is **not** finished.
+</div>
 
 ## Features
 
@@ -46,10 +52,7 @@ Online documentation can be found here:
   - <https://webui.me/docs/2.4.0/#/nim_api>
   - <https://neroist.github.io/webui-docs/> (same thing but made in nimib)
 
-There isn't much documentation as of right now, so I suggest to get started
-using some [examples](#examples) or WebUI's own
-[examples](https://github.com/webui-dev/webui/tree/main/examples) or
-[documentation](https://webui.me/docs/).
+There isn't much documentation as of right now, so I suggest to get started using some [examples](#examples) or WebUI's own [examples](https://github.com/webui-dev/webui/tree/main/examples) or [documentation](https://webui.me/docs/).
 
 Heres a very [*minimal*](examples/minimal.nim) example of using the wrapper:
 
@@ -66,9 +69,7 @@ wait() # Wait until the window gets closed
 
 Examples can be found here at [`examples/`](examples/).
 
-If you're trying to run the examples remember to clone the repository
-*recursively*, as it depends on the WebUI repo as a submodule. Here's
-the command to do so for the truly lazy:
+If you're trying to run the examples remember to clone the repository *recursively*, as it depends on the WebUI repo as a submodule. Here's the command to do so for the truly lazy:
 
 ```shell
 git clone --recursive https://github.com/neroist/webui.git
