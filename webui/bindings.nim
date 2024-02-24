@@ -153,7 +153,7 @@ proc wait*() {.webui, importc: "webui_wait".}
 proc close*(window: csize_t) {.webui, importc: "webui_close".}
   ##  Close a specific window only. The window object will still exist.
 
-proc destroy*(window: csize_t) {.webui, importc: "destroy".}
+proc destroy*(window: csize_t) {.webui, importc: "webui_destroy".}
   ##  Close a specific window and free all memory resources.
 
 proc exit*() {.webui, importc: "webui_exit".}
@@ -281,10 +281,10 @@ proc getBoolAt*(e: ptr Event, index: csize_t): csize_t {.webui, importc: "webui_
 proc getBool*(e: ptr Event): csize_t {.webui, importc: "webui_get_bool".}
   ##  Get the first argument as boolean
 
-proc getSizeAt*(e: ptr Event, index: csize_t): csize_t {.webui, importc: "webui_get_bool_at".}
+proc getSizeAt*(e: ptr Event, index: csize_t): csize_t {.webui, importc: "webui_get_size_at".}
   ##  Get the size in bytes of an argument at a specific index
 
-proc getSize*(e: ptr Event): csize_t {.webui, importc: "webui_get_bool".}
+proc getSize*(e: ptr Event): csize_t {.webui, importc: "webui_get_size".}
   ##  Get size in bytes of the first argument
 
 proc returnInt*(e: ptr Event; n: clonglong) {.webui, importc: "webui_return_int".}
@@ -325,5 +325,5 @@ proc interfaceGetStringAt*(window: csize_t, event_number: csize_t, index: csize_
 proc interfaceGetBoolAt*(window: csize_t, event_number: csize_t, index: csize_t): bool {.webui, importc: "webui_interface_get_bool_at".}
   ##  Get an argument as boolean at a specific index
 
-proc interfaceGetSizeAt*(window: csize_t, event_number: csize_t, index: csize_t): csize_t {.webui, importc: "webui_interface_get_bool_at".}
+proc interfaceGetSizeAt*(window: csize_t, event_number: csize_t, index: csize_t): csize_t {.webui, importc: "webui_interface_get_size_at".}
   ##  Get the size in bytes of an argument at a specific index
