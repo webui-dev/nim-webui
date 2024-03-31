@@ -18,6 +18,8 @@ const loginHtml = """
         font-family: sans-serif;
       }
     </style>
+
+    <script src="webui.js"></script>
   </head>
 
   <body>
@@ -53,6 +55,8 @@ const dashboardHtml = """
         font-family: sans-serif;
       }
     </style>
+
+    <script src="webui.js"></script>
   </head>
 
   <body>
