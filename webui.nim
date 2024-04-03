@@ -42,9 +42,11 @@ proc exit*() =
   bindings.exit()
 
 proc setTimeout*(timeout: int) = 
-  ## Set the maximum time in seconds to wait for browser to start
+  ## Set the maximum time in seconds to wait for browser to start.
   ## 
-  ## Set `timeout` to `0` to wait forever.
+  ## Set `timeout` to `0` to wait forever. Attention: 
+  ## In this case a crash of the browser window 
+  ## would likely keep the backend open indefinitely.
   ## 
   ## :timeout: The maximum time in seconds to wait for browser to start.
   ##           Set to `0` to wait forever.
@@ -254,7 +256,10 @@ proc parentProcessId*(window: Window): int =
 proc show*(window: Window; content: string): bool = 
   ## Show a window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed. 
-  ## 
+  ## Please include <script src="webui.js"></script> in the html
+  ## for proper window response. Essential for creating/opening
+  ## multiple windows. 
+  ##
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
   ## :content: The content to show in `window`. Can be a file name, or a
@@ -265,7 +270,10 @@ proc show*(window: Window; content: string): bool =
   bindings.show(csize_t window, cstring content)
 
 proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
-  ## Same as `show() <#show,Window,string>`_, but with a specific web browser.
+  ## Same as `show() <#show,Window,string>`_, but with a specific web browser.    
+  ## Please include <script src="webui.js"></script> in the html
+  ## for proper window response. Essential for creating/opening
+  ## multiple windows. 
   ## 
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
