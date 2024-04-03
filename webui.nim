@@ -44,7 +44,8 @@ proc exit*() =
 proc setTimeout*(timeout: int) = 
   ## Set the maximum time in seconds to wait for browser to start.
   ## 
-  ## Set `timeout` to `0` to wait forever. Attention: 
+  ## Set `timeout` to `0` or a number >86400 to wait forever. 
+  ## Attention: 
   ## In this case a crash of the browser window 
   ## would likely keep the backend open indefinitely.
   ## 
