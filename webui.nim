@@ -255,8 +255,7 @@ proc show*(window: Window; content: string): bool =
   ## Show a window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed. 
   ## Please include <script src="webui.js"></script> in the HTML
-  ## for proper window communication. Essential for creating
-  ## multiple windows. 
+  ## for proper window communication. 
   ##
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
@@ -270,8 +269,7 @@ proc show*(window: Window; content: string): bool =
 proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific web browser.    
   ## Please include <script src="webui.js"></script> in the HTML
-  ## for proper window communication. Essential for creating
-  ## multiple windows. 
+  ## for proper window communication. 
   ##
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
