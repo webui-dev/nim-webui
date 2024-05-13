@@ -29,7 +29,7 @@ var
     ## Needed for `bind`
   currHandler: proc (filename: string): string
     ## Most recent file handler set by `fileHandler=`.
-    ## Meeded for `fileHandler=`.
+    ## Needed for `fileHandler=`.
 
 proc wait*() =
   ## Wait until all opened windows get closed.
