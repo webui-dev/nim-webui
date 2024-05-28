@@ -370,8 +370,24 @@ proc `pos=`*(window: Window; pos: tuple[x, y: int]) =
 proc setSize*(window: Window; width, height: int) = 
   bindings.setSize(csize_t window, cuint width, cuint height)
 
-proc setPos*(window: Window; x, y: int) = 
+proc setPos*(window: Window; x, y: int) =
+  ## Set the window position.
+  ## 
+  ## :window: The window.
+  ## :x: The window's X coordinate.
+  ## :y: The window's Y coordinate.
+
   bindings.setPosition(csize_t window, cuint x, cuint y)
+
+proc `size=`*(window: Window; size: tuple[width, height: int]) {.deprecated: "Use `setSize` instead".} =
+  ## Alias for `setSize`_  
+
+  bindings.setSize(csize_t window, cuint size.width, cuint size.height)
+
+proc `pos=`*(window: Window; pos: tuple[x, y: int]) {.deprecated: "Use `setPos` instead".} = 
+  ## Alias for `setPos`_
+
+  bindings.setPosition(csize_t window, cuint pos.x, cuint pos.y)
 
 proc close*(window: Window) = 
   ## Close a specific window only. The window object will still exist.
