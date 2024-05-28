@@ -277,6 +277,19 @@ proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
 
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
+proc showWv*(window: Window; content: string): bool =
+  ## Show a WebView window using embedded HTML, or a file. If the window is already
+  ## open, it will be refreshed. 
+  ## 
+  ## .. note:: Windows needs `WebView2Loader.dll`.
+  ## 
+  ## :window: The window
+  ## :content: The HTML, URL, or a local file
+  ## 
+  ## Returns `true` if showing the WebView window is successed.
+
+  bindings.showWv(csize_t window, cstring content)
+
 proc `port=`*(window: Window, port: int) = 
   ## Set a custom web-server network port to be used by WebUI.
   ## This can be useful to determine the HTTP link of `webui.js` in case
