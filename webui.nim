@@ -294,6 +294,8 @@ proc showWv*(window: Window; content: string): bool =
 
   bindings.showWv(csize_t window, cstring content)
 
+{.pop.}
+
 proc `port=`*(window: Window, port: int) = 
   ## Set a custom web-server network port to be used by WebUI.
   ## This can be useful to determine the HTTP link of `webui.js` in case
@@ -305,8 +307,6 @@ proc `port=`*(window: Window, port: int) =
   ## Returns True if the port is free and usable by WebUI
   
   bindings.setPort(csize_t window, csize_t port)
-
-{.pop.}
 
 proc setIcon*(window: Window; icon, `type`: string) = 
   ## Set the default embedded HTML favicon.
