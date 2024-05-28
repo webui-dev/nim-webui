@@ -36,16 +36,16 @@ proc wait*() =
 
   bindings.wait()
 
-proc exit*() = 
+proc exit*() =
   ## Close all opened windows. `wait()` will break.
 
   bindings.exit()
 
-proc setTimeout*(timeout: int) = 
+proc setTimeout*(timeout: int) =
   ## Set the maximum time in seconds to wait for browser to start.
   ## 
   ## Set `timeout` to `0` to wait forever. 
-  ##
+  ## 
   ## :timeout: The maximum time in seconds to wait for browser to start.
   ##           Set to `0` to wait forever.
   
@@ -87,7 +87,7 @@ proc clean*() =
   
   bindings.clean()
 
-proc deleteAllProfiles*() = 
+proc deleteAllProfiles*() =
   ## Delete all local web-browser profiles folder. It should be called at the end.
   
   bindings.deleteAllProfiles()
@@ -96,10 +96,10 @@ proc setTlsCertificate*(certificate_pem, private_key_pem: string): bool =
   ## Set the SSL/TLS certificate and the private key content, both in PEM
   ## format. This works only with `webui-2-secure` library. If set empty, WebUI
   ## will generate a self-signed certificate.
-  ##
+  ## 
   ## :certificate_pem: The SSL/TLS certificate content in PEM format
   ## :private_key_pem: The private key content in PEM format
-  ##
+  ## 
   ## Returns `true` if the certificate and the key are valid.
   
   bindings.setTlsCertificate(cstring certificate_pem, cstring private_key_pem)
@@ -113,7 +113,7 @@ func impl*(event: Event): ptr bindings.Event =
 
   event.internalImpl
 
-func `impl=`*(event: Event, be: ptr bindings.Event) = 
+func `impl=`*(event: Event, be: ptr bindings.Event) =
   ## Sets the internal implementation of `e`
 
   event.internalImpl = be
@@ -197,7 +197,7 @@ proc getSize*(event: Event): int =
 
   int bindings.getSize(event.internalImpl)
 
-proc returnInt*(event: Event; integer: int) = 
+proc returnInt*(event: Event; integer: int) =
   ## Return the response to JavaScript as a integer.
   ## 
   ## :event: The event to set the response for
@@ -254,10 +254,10 @@ proc parentProcessId*(window: Window): int =
 proc show*(window: Window; content: string): bool = 
   ## Show a window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed.
-  ##
+  ## 
   ## .. note:: Please include `<script src="webui.js"></script>` in the HTML
   ##           for proper window communication. 
-  ##
+  ## 
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
   ## :content: The content to show in `window`. Can be a file name, or a
@@ -297,7 +297,7 @@ proc showWv*(window: Window; content: string): bool =
 
 {.pop.}
 
-proc `port=`*(window: Window, port: int) = 
+proc `port=`*(window: Window, port: int) =
   ## Set a custom web-server network port to be used by WebUI.
   ## This can be useful to determine the HTTP link of `webui.js` in case
   ## you are trying to use WebUI with an external web-server like NGNIX
@@ -309,7 +309,7 @@ proc `port=`*(window: Window, port: int) =
   
   bindings.setPort(csize_t window, csize_t port)
 
-proc setIcon*(window: Window; icon, `type`: string) = 
+proc setIcon*(window: Window; icon, `type`: string) =
   ## Set the default embedded HTML favicon.
   ## 
   ## :window: The window to set the icon for.
@@ -318,7 +318,7 @@ proc setIcon*(window: Window; icon, `type`: string) =
 
   bindings.setIcon(csize_t window, cstring icon, cstring type)
 
-proc `public=`*(window: Window; status: bool) = 
+proc `public=`*(window: Window; status: bool) =
   ## Allow a specific window address to be accessible from a public network
   ## 
   ## :window: The window
@@ -327,7 +327,7 @@ proc `public=`*(window: Window; status: bool) =
 
   bindings.setPublic(csize_t window, status)
 
-proc `kiosk=`*(window: Window; status: bool) = 
+proc `kiosk=`*(window: Window; status: bool) =
   ## Set the window in Kiosk mode (full screen).
   ## 
   ## :window: The window to enable or disable kiosk mode in.
@@ -336,7 +336,7 @@ proc `kiosk=`*(window: Window; status: bool) =
   
   bindings.setKiosk(csize_t window, status)
 
-proc `runtime=`*(window: Window; runtime: bindings.Runtime) = 
+proc `runtime=`*(window: Window; runtime: bindings.Runtime) =
   ## Chose a runtime for .js and .ts files.
   ## 
   ## :window: The window to set the runtime for.
@@ -346,13 +346,13 @@ proc `runtime=`*(window: Window; runtime: bindings.Runtime) =
 
 proc `rootFolder=`*(window: Window; path: string): bool {.discardable.} = 
   ## Set the web-server root folder path.
-  ##
+  ## 
   ## :window: The window to set the root folder for.
   ## :path: The path to the root folder.
 
   bindings.setRootFolder(csize_t window, cstring path)
 
-proc `hidden=`*(window: Window; status: bool) = 
+proc `hidden=`*(window: Window; status: bool) =
   ## Run the window in hidden mode
   ## 
   ## :window: The window to hide or show.
@@ -361,13 +361,13 @@ proc `hidden=`*(window: Window; status: bool) =
   
   bindings.setHide(csize_t window, status)
 
-proc `size=`*(window: Window; size: tuple[width, height: int]) = 
-  bindings.setSize(csize_t window, cuint size.width, cuint size.height)
+proc setSize*(window: Window; width, height: int) =
+  ## Set the window size.
+  ## 
+  ## :window: The window.
+  ## :width: The window width.
+  ## :height: The window height.
 
-proc `pos=`*(window: Window; pos: tuple[x, y: int]) = 
-  bindings.setPosition(csize_t window, cuint pos.x, cuint pos.y)
-
-proc setSize*(window: Window; width, height: int) = 
   bindings.setSize(csize_t window, cuint width, cuint height)
 
 proc setPos*(window: Window; x, y: int) =
@@ -389,7 +389,7 @@ proc `pos=`*(window: Window; pos: tuple[x, y: int]) {.deprecated: "Use `setPos` 
 
   bindings.setPosition(csize_t window, cuint pos.x, cuint pos.y)
 
-proc close*(window: Window) = 
+proc close*(window: Window) =
   ## Close a specific window only. The window object will still exist.
   ## 
   ## :window: The window to close.
@@ -494,7 +494,7 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): int) =
       e.returnInt(res)
   )
 
-proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =  
+proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =
   ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript.
   ## 
   ## :window: The window to bind the function onto.
@@ -525,7 +525,7 @@ proc fileHandlerImpl(filename: cstring, length: ptr cint): pointer {.cdecl.} =
 
   return mem
 
-proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) = 
+proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
   ## Set a custom handler to serve files.
   ## 
   ## :window: The window to set the file handler.
@@ -536,10 +536,10 @@ proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
   bindings.setFileHandler(csize_t window, fileHandlerImpl)
 
 # mainly for use with `do` notation
-proc setFileHandler*(window: Window; handler: proc (filename: string): string) = 
+proc setFileHandler*(window: Window; handler: proc (filename: string): string) =
   window.fileHandler = handler
 
-proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) = 
+proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) =
   ## Safely send raw data to the UI.
   ## 
   ## :window: The window to send the raw data to.
@@ -558,7 +558,7 @@ proc setPosition*(window: Window; x, y: int) =
 
   bindings.setPosition(csize_t window, cuint x, cuint y)
 
-proc setProfile*(window: Window; name, path: string) = 
+proc setProfile*(window: Window; name, path: string) =
   ## Set the web browser profile to use. An empty `name` and `path` means
   ## the default user profile. 
   ## 
@@ -589,9 +589,9 @@ proc navigate*(window: Window, url: string) =
   
   bindings.navigate(csize_t window, cstring url)
 
-proc deleteProfile*(window: Window) = 
+proc deleteProfile*(window: Window) =
   ## Delete a specific window web-browser local folder profile.
-  ##
+  ## 
   ## :window: The window whose profile will be deleted
 
   bindings.deleteProfile(csize_t window)
