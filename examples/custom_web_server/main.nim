@@ -14,7 +14,7 @@ proc main =
     of EventsConnected:
       echo "Connected"
     of EventsDisconnected:
-      echo "Disonnected"
+      echo "Disconnected"
     #of EventsMouseClick:
     #  echo "Click"
     of EventsNavigation:
@@ -23,7 +23,7 @@ proc main =
 
       # Because we used `window.bind("")`
       # WebUI will block all `href` link clicks and sent here instead.
-      # We can then control the behaviour of links as needed.
+      # We can then control the behavior of links as needed.
 
       e.window.navigate(url)
     else: 
