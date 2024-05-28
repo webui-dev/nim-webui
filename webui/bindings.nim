@@ -52,6 +52,7 @@ else:
     {.passC: "-DWEBUI_LOG".}
 
   when defined(vcc):
+    {.link: "ole32.lib".}
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
     {.link: "Advapi32.lib".}
@@ -59,6 +60,7 @@ else:
     {.passC: "/I " & currentSourceDir / "webui" / "include".}
 
   elif defined(windows):
+    {.passL: "-lole32".}
     {.passL: "-lws2_32".}
     {.passL: "-luser32".}
     {.passL: "-lAdvapi32".}
@@ -70,6 +72,10 @@ else:
     {.passL: "-lm".}
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
+  
+  when defined(macos):
+    {.compile: currentSourceDir / "webui" / "src" / "wkwebview.m".}
+    {.passL: "-framework Cocoa -framework WebKit".}
 
   {.pragma: webui, cdecl.}
   
@@ -79,7 +85,7 @@ else:
   {.compile: currentSourceDir / "webui/src/webui.c".}
 
 const
-  WEBUI_VERSION* = "2.4.2"   ## Version
+  WEBUI_VERSION* = "2.5.0-Beta-1"   ## Version
   WEBUI_MAX_IDS* = (256)
   WEBUI_MAX_ARG* = (16)
 
@@ -143,6 +149,12 @@ proc show*(window: csize_t; content: cstring): bool {.webui, importc: "webui_sho
 proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.webui,
     importc: "webui_show_browser".}
   ##  Same as `show()`, but using a specific web browser.
+
+proc showWv*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show_wv".}
+  ##  Show a WebView window using embedded HTML, or a file. If the window is already
+  ##  open, it will be refreshed. 
+  ##
+  ## .. note:: Note: Windows needs `WebView2Loader.dll`.
 
 proc setKiosk*(window: csize_t; status: bool) {.webui, importc: "webui_set_kiosk".}
   ##  Set the window in Kiosk mode (Full screen)
