@@ -253,7 +253,7 @@ proc parentProcessId*(window: Window): int =
 
 proc show*(window: Window; content: string): bool = 
   ## Show a window using embedded HTML, or a file. If the window is already
-  ## open, it will be refreshed. 
+  ## open, it will be refreshed.
   ##
   ## .. note:: Please include `<script src="webui.js"></script>` in the HTML
   ##           for proper window communication. 
@@ -425,20 +425,20 @@ proc run*(window: Window; script: string) =
 
   bindings.run(csize_t window, cstring script)
   
-#proc interfaceHandler(window: csize_t; eventType: csize_t; element: cstring; data: cstring; eventNumber: csize_t) {.cdecl.} =
-#  var event = bindings.Event()
-#
-#  event.element = element
-#  event.window = window
-#  event.data = data
-#  event.eventType = eventType
-#  event.eventNumber = eventNumber
-#
-#  var e = Event(
-#    internalImpl: addr event
-#  )
-#
-#  cbs[bindings.interfaceGetWindowId(window)][bindings.interfaceGetBindId(window, element)](e)
+# proc interfaceHandler(window: csize_t; eventType: csize_t; element: cstring; data: cstring; eventNumber: csize_t) {.cdecl.} =
+#   var event = bindings.Event()
+# 
+#   event.element = element
+#   event.window = window
+#   event.data = data
+#   event.eventType = eventType
+#   event.eventNumber = eventNumber
+# 
+#   var e = Event(
+#     internalImpl: addr event
+#   )
+# 
+#   cbs[bindings.interfaceGetWindowId(window)][bindings.interfaceGetBindId(window, element)](e)
 
 proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
   var event = Event(internalImpl: e)
@@ -500,7 +500,7 @@ proc fileHandlerImpl(filename: cstring, length: ptr cint): pointer {.cdecl.} =
   if content.len == 0:
     return nil
 
-  # Always set length for memory safety, especially binarys with '\0' inside
+  # Always set length for memory safety, especially with binaries with '\0' inside
   length[] = cint content.len
 
   # Use webui_malloc to ensure memory safety
