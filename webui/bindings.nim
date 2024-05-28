@@ -121,6 +121,9 @@ type
     EventsNavigation          ## 5. Window navigation event
     EventsCallback            ## 6. Function call event
 
+  WebuiConfigs* = enum
+    wcShowWaitConnection
+
   Event* {.bycopy.} = object
     window*: csize_t       ## The window object number
     eventType*: csize_t    ## Event type
@@ -253,6 +256,9 @@ proc setPort*(window: csize_t, port: csize_t): bool {.webui, importc: "webui_set
   ##  Set a custom web-server network port to be used by WebUI.
   ##  This can be useful to determine the HTTP link of `webui.js` in case
   ##  you are trying to use WebUI with an external web-server like NGNIX
+
+proc config*(option: WebuiConfigs; status: bool) {.webui, importc: "webui_config".}
+  ## Control WebUI's behaviour. It's better to this call at the beginning.
 
 # -- SSL/TLS -------------------------
 
