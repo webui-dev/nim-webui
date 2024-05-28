@@ -231,13 +231,13 @@ proc newWindow*(): Window =
 proc newWindow*(windowNumber: int): Window = 
   ## Create a new webui window object using a specified window ID.
   ## 
-  ## :windowNumber: The window ID  (should be > 0, and < WEBUI_MAX_IDS)
+  ## :windowNumber: The window ID (should be within the range of `0..<WEBUI_MAX_IDS`)
   
   result = Window(bindings.newWindowId(csize_t windowNumber))
 
 proc getNewWindowId*(): int = 
   ## Get new window ID. To be used in conjuction with
-  ## [newWindow()](#newWindow,int).
+  ## `newWindow(int)`_.
   ## 
   ## Returns the first available free window number. Starting from 1.
   
@@ -254,8 +254,9 @@ proc parentProcessId*(window: Window): int =
 proc show*(window: Window; content: string): bool = 
   ## Show a window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed. 
-  ## Please include <script src="webui.js"></script> in the HTML
-  ## for proper window communication. 
+  ##
+  ## .. note:: Please include `<script src="webui.js"></script>` in the HTML
+  ##           for proper window communication. 
   ##
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
