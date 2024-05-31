@@ -75,6 +75,8 @@ else:
   
   when defined(macos):
     {.compile: currentSourceDir / "webui" / "src" / "wkwebview.m".}
+
+    {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
     {.passL: "-framework Cocoa -framework WebKit".}
 
   {.pragma: webui, cdecl.}
