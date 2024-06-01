@@ -137,6 +137,13 @@ proc bindId*(event: Event): int =
 
 # --- 
 
+proc getCount*(event: Event): int =
+  ## Get how many arguments there are in an event.
+  ## 
+  ## :event: The event 
+
+  int bindings.getCount(event.internalImpl)
+
 proc getInt*(event: Event, index: int): int =
   ## Get an argument as integer at a specific index
   ## 
@@ -151,6 +158,21 @@ proc getInt*(event: Event): int =
   ## :event: The event 
 
   int bindings.getInt(event.internalImpl)
+
+proc getFloat*(event: Event, index: int): float =
+  ## Get an argument as integer at a specific index
+  ## 
+  ## :event: The event 
+  ## :index: The argument position starting from 0
+
+  float bindings.getFloatAt(event.internalImpl, csize_t index)
+
+proc getFloat*(event: Event): float =
+  ## Get the first argument as a float
+  ## 
+  ## :event: The event 
+
+  float bindings.getFloat(event.internalImpl)
 
 proc getString*(event: Event, index: int): string =
   ## Get an argument as string at a specific index
@@ -205,6 +227,14 @@ proc returnInt*(event: Event; integer: int) =
 
   bindings.returnInt(event.internalImpl, clonglong integer)
 
+proc returnFloat*(event: Event; f: float) =
+  ## Return the response to JavaScript as a float.
+  ## 
+  ## :event: The event to set the response for
+  ## :integer: The float to return back to Javascript.
+
+  bindings.returnFloat(event.internalImpl, cdouble f)
+
 proc returnString*(event: Event; str: string) =
   ## Return the response to JavaScript as a string.
   ## 
@@ -244,10 +274,27 @@ proc getNewWindowId*(): int =
   int bindings.getNewWindowId()
 
 proc childProcessId*(window: Window): int =
+  ## Get the ID of the last child process.
+  ## 
+  ## :window: The window
+
   int bindings.getChildProcessId(csize_t window)
 
 proc parentProcessId*(window: Window): int =
+  ## Get the ID of the parent process (The web browser may re-create
+  ## another new process).
+  ## 
+  ## :window: The window
+
   int bindings.getParentProcessId(csize_t window)
+
+proc getBestBrowser*(window: Window): bindings.Browsers =
+  ## Get the "best" browser to be used. If running `show()`, this function will
+  ## return the same browser that will be used.
+  ## 
+  ## :window: The window
+
+  bindings.Browsers(bindings.getBestBrowser(csize_t window))
 
 {.push discardable.}
 
@@ -291,7 +338,7 @@ proc showWv*(window: Window; content: string): bool =
   ## :window: The window
   ## :content: The HTML, URL, or a local file
   ## 
-  ## Returns `true` if showing the WebView window is successed.
+  ## Returns `true` if showing the WebView window succeeded.
 
   bindings.showWv(csize_t window, cstring content)
 
@@ -304,8 +351,6 @@ proc `port=`*(window: Window, port: int) =
   ## 
   ## :window: The window
   ## :port: The web-server network port WebUI should use
-  ## 
-  ## Returns True if the port is free and usable by WebUI
   
   bindings.setPort(csize_t window, csize_t port)
 
@@ -535,8 +580,9 @@ proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
 
   bindings.setFileHandler(csize_t window, fileHandlerImpl)
 
-# mainly for use with `do` notation
 proc setFileHandler*(window: Window; handler: proc (filename: string): string) =
+  ## Same as `fileHandler=`, but targeted towards use with `do` notation
+
   window.fileHandler = handler
 
 proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) =

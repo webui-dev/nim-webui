@@ -51,7 +51,7 @@ else:
     {.passC: "-DWEBUI_LOG".}
   
   # -d:webuiTLS
-  when defined(webuiTls):
+  when defined(webuiTLS):
     {.passC: "-DWEBUI_TLS".}
 
   when defined(vcc):
