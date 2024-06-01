@@ -1,36 +1,39 @@
 <div align="center">
 
+![Logo](https://raw.githubusercontent.com/webui-dev/webui-logo/main/webui_240.png)
+
 # WebUI Nim
 
+<!-- [build-status]: https://img.shields.io/github/actions/workflow/status/webui-dev/webui-nim/ci.yml?branch=main&style=for-the-badge&logo=githubactions&labelColor=414868&logoColor=C0CAF5 -->
 [last-commit]: https://img.shields.io/github/last-commit/webui-dev/nim-webui?style=for-the-badge&logo=github&logoColor=C0CAF5&labelColor=414868
-<!-- [release-version]: https://img.shields.io/github/v/tag/webui-dev/go-webui?style=for-the-badge&logo=webtrees&logoColor=C0CAF5&labelColor=414868&color=7664C6 -->
+[release-version]: https://img.shields.io/github/v/tag/webui-dev/nim-webui?style=for-the-badge&logo=webtrees&logoColor=C0CAF5&labelColor=414868&color=7664C6
 [license]: https://img.shields.io/github/license/webui-dev/nim-webui?style=for-the-badge&logo=opensourcehardware&label=License&logoColor=C0CAF5&labelColor=414868&color=8c73cc
 
-<!-- [![][build-status]](https://github.com/webui-dev/go-webui/actions?query=branch%3Amain) -->
-
+<!-- [![][build-status]](https://github.com/webui-dev/webui-nim/actions?query=branch%3Amain) -->
 [![][last-commit]](https://github.com/webui-dev/nim-webui/pulse)
-<!-- [![][release-version]](https://github.com/webui-dev/go-webui/releases/latest) -->
+[![][release-version]](https://github.com/webui-dev/nim-webui/releases/latest)
 [![][license]](https://github.com/webui-dev/nim-webui/blob/main/LICENSE)
 
-
-> WebUI is not a web-server solution or a framework, but it allows you to use any web browser as a GUI, with Nim in the backend and HTML5 in the frontend. All in a lightweight portable lib.
+> Use any web browser or WebView as GUI, with Nim in the backend and modern web technologies in the frontend, all in a lightweight portable lib.
 
 <!--
 Nim wrapper and bindings for [WebUI](https://github.com/webui-dev/webui), a fully independent and cross-platform web UI library.
 
-Instead of using a third-party library, WebUI instead uses a pre-installed browser (Edge, Firefox, Chrome, Chromium, or Safari). So, there's no need for any large SDK or library for development/production, all you need is a web browser!
+Instead of using a third-party library, WebUI instead uses a pre-installed browser (Edge, Firefox, Chrome, Chromium, or Safari). So, there's no need for any large SDK or library for development/production, all you need is a web browser (or a webview, if you're into that)!
 -->
-![Image](https://raw.githubusercontent.com/malisipi/vwebui/main/screenshot.png)
+
+![Screenshot](https://github.com/webui-dev/webui/assets/16948659/39c5b000-83eb-4779-a7ce-9769d3acf204)
 
 </div>
 
 ## Features
 
-* Fully Independent (*No need for any third-party library*)
-* Lightweight (*~600 Kb* (*300 Kb when compiling with DLL*)) & Small memory footprint
-* Fast binary communication protocol between WebUI and the browser (*Instead of JSON*)
+* Fully Independent (*Only needs a web browser or a WebView at runtime*)
+* Lightweight & Small memory footprint
+* Fast binary communication protocol between WebUI and the browser
 * Multi-platform & Multi-Browser
 * Using private profile for safety
+* Cross-platform WebView
 
 ## Screenshot
 
@@ -52,7 +55,7 @@ Online documentation can be found here:
   - <https://webui.me/docs/2.4.0/#/nim_api>
   - <https://neroist.github.io/webui-docs/> (same thing but made in nimib)
 
-There isn't much documentation as of right now, so I suggest to get started using some [examples](#examples) or WebUI's own [examples](https://github.com/webui-dev/webui/tree/main/examples) or [documentation](https://webui.me/docs/).
+I suggest to get started using some [examples](#examples) or WebUI's own [examples](https://github.com/webui-dev/webui/tree/main/examples) or [documentation](https://webui.me/docs/).
 
 Heres a very [*minimal*](examples/minimal.nim) example of using the wrapper:
 
@@ -95,20 +98,44 @@ be found in WebUI's website [here](https://webui.me/#download).
 In addition, you can also enable WebUI's logging via `-d:webuiLog` but that flag
 only works for static compilation.
 
+## Other Wrappers/Bindings
+
+| Language                | Status         | Link                                                      |
+| ----------------------- | -------------- | --------------------------------------------------------- |
+| Go                      | ✔️             | [Go-WebUI](https://github.com/webui-dev/go-webui)         |
+| Nim                     | ✔️             | [Nim-WebUI](https://github.com/webui-dev/nim-webui)       |
+| Pascal                  | ✔️             | [Pascal-WebUI](https://github.com/webui-dev/pascal-webui) |
+| Python                  | ✔️             | [Python-WebUI](https://github.com/webui-dev/python-webui) |
+| Rust                    | ✔️             | [Rust-WebUI](https://github.com/webui-dev/rust-webui)     |
+| TypeScript / JavaScript | ✔️             | [Deno-WebUI](https://github.com/webui-dev/deno-webui)     |
+| V                       | ✔️             | [V-WebUI](https://github.com/webui-dev/v-webui)           |
+| Zig                     | ✔️             | [Zig-WebUI](https://github.com/webui-dev/zig-webui)       |
+| Odin                    | _not complete_ | [Odin-WebUI](https://github.com/webui-dev/odin-webui)     |
+| Delphi                  | ✔️             | [WebUI4Delphi](https://github.com/salvadordf/WebUI4Delphi)|
+| QuickJS                 | ✔️             | [QuickUI](https://github.com/xland/QuickUI)               |
+
 ## Supported Web Browsers
 
-| Browser | Windows | macOS | Linux |
-| ------ | ------ | ------ | ------ |
-| Mozilla Firefox | ✔️ | ✔️ | ✔️ |
-| Google Chrome | ✔️ | ✔️ | ✔️ |
-| Microsoft Edge | ✔️ | ✔️ | ✔️ |
-| Chromium | ✔️ | ✔️ | ✔️ |
-| Yandex | ✔️ | ✔️ | ✔️ |
-| Brave | ✔️ | ✔️ | ✔️ |
-| Vivaldi | ✔️ | ✔️ | ✔️ |
-| Epic | ✔️ | ✔️ | *not available* |
-| Apple Safari | *not available* | *coming soon* | *not available* |
-| Opera | *coming soon* | *coming soon* | *coming soon* |
+| Browser         | Windows         | macOS         | Linux           |
+| --------------- | --------------- | ------------- | --------------- |
+| Mozilla Firefox | ✔️              | ✔️            | ✔️              |
+| Google Chrome   | ✔️              | ✔️            | ✔️              |
+| Microsoft Edge  | ✔️              | ✔️            | ✔️              |
+| Chromium        | ✔️              | ✔️            | ✔️              |
+| Yandex          | ✔️              | ✔️            | ✔️              |
+| Brave           | ✔️              | ✔️            | ✔️              |
+| Vivaldi         | ✔️              | ✔️            | ✔️              |
+| Epic            | ✔️              | ✔️            | _not available_ |
+| Apple Safari    | _not available_ | _coming soon_ | _not available_ |
+| Opera           | _coming soon_   | _coming soon_ | _coming soon_   |
+
+## Supported WebView Platforms
+
+| WebView           | Status            |
+| ----------------- | ----------------- |
+| Windows WebView2  | ✔️                |
+| Linux GTK WebView | ✔️                |
+| macOS WKWebView   | ✔️                |
 
 ## License
 
