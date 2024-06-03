@@ -1,8 +1,8 @@
 ##[ 
   Nim wrapper for [WebUI](https://github.com/webui-dev/webui)
 
-  :Author: Jasmine
-  :WebUI Version: 2.4.0
+  :author: neroist
+  :WebUI Version: 2.5.0-Beta
 
   See: https://neroist.github.io/webui-docs/
 ]##
@@ -16,7 +16,7 @@ type
     ## When you use `bind()`, your application will receive an event every time 
     ## the user clicks on the specified HTML element. The event comes with the 
     ## `element`, which is The HTML ID of the clicked element, for example,
-    ## `MyButton`, `MyInput`, etc. The event also comes with the element ID
+    ## `"MyButton"`, `"MyInput"`, etc. The event also comes with the element ID
     ## & the unique window ID.
   
     internalImpl*: ptr bindings.Event
@@ -27,6 +27,7 @@ var
   cbs: array[bindings.WEBUI_MAX_IDS, array[bindings.WEBUI_MAX_IDS, proc (e: Event)]]
     ## array of binded callbacks.
     ## Needed for `bind`
+
   currHandler: proc (filename: string): string
     ## Most recent file handler set by `fileHandler=`.
     ## Needed for `fileHandler=`.
@@ -288,13 +289,13 @@ proc parentProcessId*(window: Window): int =
 
   int bindings.getParentProcessId(csize_t window)
 
-proc getBestBrowser*(window: Window): bindings.Browsers =
+proc getBestBrowser*(window: Window): bindings.Browser =
   ## Get the "best" browser to be used. If running `show()`, this function will
   ## return the same browser that will be used.
   ## 
   ## :window: The window
 
-  bindings.Browsers(bindings.getBestBrowser(csize_t window))
+  bindings.Browser(bindings.getBestBrowser(csize_t window))
 
 {.push discardable.}
 
@@ -314,7 +315,7 @@ proc show*(window: Window; content: string): bool =
 
   bindings.show(csize_t window, cstring content)
 
-proc show*(window: Window; content: string; browser: bindings.Browsers): bool =
+proc show*(window: Window; content: string; browser: bindings.Browser): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific web browser.    
   ## Please include <script src="webui.js"></script> in the HTML
   ## for proper window communication. 
@@ -644,7 +645,7 @@ proc deleteProfile*(window: Window) =
 
 export 
   bindings.Events, 
-  bindings.Browsers, 
+  bindings.Browser, 
   bindings.Runtime, 
   bindings.WEBUI_VERSION,
   bindings.WEBUI_MAX_IDS
