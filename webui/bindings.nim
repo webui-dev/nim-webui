@@ -97,7 +97,7 @@ const
 # -- Types -------------------------
 
 type
-  Browsers* {.pure.} = enum
+  Browser* {.pure.} = enum
     NoBrowser     ## 0. No web browser
     Any           ## 1. Default recommended web browser
     Chrome        ## 2. Google Chrome
