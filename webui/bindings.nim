@@ -17,8 +17,13 @@ const
   useWebuiDll* = defined(useWebuiDll)
 
 when useWebuiStaticLib:
-  const webuiStaticLib* {.strdefine.} = "webui-2-static"
+  const webuiStaticLib* {.strdefine.} =
+    when defined(webuiTls):
+      "webui-2-secure-static"
+    else:
+      "webui-2-static"
 
+  # TODO link ssl libs
   when defined(vcc):
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
@@ -30,10 +35,18 @@ when useWebuiStaticLib:
 
     {.passL: "-L.".} # so gcc/clang can find the library
     {.passL: "-l" & webuiStaticLib.} # link the static library itself
+    
+    when defined(webuiTls):
+      {.passL: "-lcrypto".}
+      {.passL: "-lssl".}
 
-    {.passL: "-luser32".} # link dependencies
-    {.passL: "-lws2_32".}
-    {.passL: "-lAdvapi32".}
+      when defined(windows):
+        {.passL: "-lbcrypt".}
+
+    when defined(windows):
+      {.passL: "-luser32".} # link dependencies
+      {.passL: "-lws2_32".}
+      {.passL: "-lAdvapi32".}
 
   {.pragma: webui, cdecl.}
 elif useWebuiDll:
