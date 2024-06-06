@@ -107,10 +107,10 @@ else:
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
   when defined(macos) or defined(macosx):
-    {.compile: currentSourceDir / "webui" / "src" / "wkwebview.m".}
-
     {.passL: "-framework Cocoa -framework WebKit".}
     {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
+    
+    {.compile: currentSourceDir / "webui" / "src" / "webview" / "wkwebview.m".}
 
   {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DUSE_WEBSOCKET".}
 
