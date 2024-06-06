@@ -65,7 +65,14 @@ else:
   
   # -d:webuiTLS
   when defined(webuiTLS):
+    when defined(windows):
+      {.passL: "-lbcrypt".}
+  
+    {.passL: "-lcrypto".}
+    {.passL: "-lssl".}
+
     {.passC: "-DWEBUI_TLS".}
+    {.passC: "-DNO_SSL_DL -DOPENSSL_API_1_1".}
 
   when defined(vcc):
     {.link: "ole32.lib".}
@@ -73,6 +80,7 @@ else:
     {.link: "ws2_32.lib".}
     {.link: "Advapi32.lib".}
 
+    {.passC: "/DMUST_IMPLEMENT_CLOCK_GETTIME".}
     {.passC: "/I " & currentSourceDir / "webui" / "include".}
 
   elif defined(windows):
@@ -83,24 +91,24 @@ else:
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  when defined(linux) or defined(macosx):
+  else:
     {.passL: "-lpthread".}
     {.passL: "-lm".}
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  when defined(macos):
+  when defined(macos) or defined(macosx):
     {.compile: currentSourceDir / "webui" / "src" / "wkwebview.m".}
 
-    {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
     {.passL: "-framework Cocoa -framework WebKit".}
+    {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
 
-  {.pragma: webui, cdecl.}
-
-  {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DNO_SSL -DUSE_WEBSOCKET -DMUST_IMPLEMENT_CLOCK_GETTIME".}
+  {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DUSE_WEBSOCKET".}
 
   {.compile: currentSourceDir / "webui/src/civetweb/civetweb.c".}
   {.compile: currentSourceDir / "webui/src/webui.c".}
+
+  {.pragma: webui, cdecl.}
 
 const
   WEBUI_VERSION* = "2.5.0-Beta-1" ## Version
