@@ -50,12 +50,19 @@ when useWebuiStaticLib:
 
   {.pragma: webui, cdecl.}
 elif useWebuiDll:
-  const webuiDll* {.strdefine.} = when defined(windows):
-    "webui-2.dll"
-  elif defined(macos):
-    "webui-2.dyn"
-  else:
-    "webui-2.so" # no lib prefix
+  const webuiDll* {.strdefine.} =
+    block:
+      var base = "./webui-2" # no lib prefix
+
+      when defined(webuiTls):
+        base &= "-secure"
+
+      when defined(windows):
+        base & ".dll"
+      elif defined(macos):
+        base & ".dylib"
+      else:
+        base & ".so"
 
   {.pragma: webui, dynlib: webuiDll, cdecl.}
 else:
