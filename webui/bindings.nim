@@ -80,6 +80,8 @@ else:
 
     {.passC: "-DWEBUI_TLS".}
     {.passC: "-DNO_SSL_DL -DOPENSSL_API_1_1".}
+  else:
+    {.passC: "-DNO_SSL".}
 
   when defined(vcc):
     {.link: "ole32.lib".}
