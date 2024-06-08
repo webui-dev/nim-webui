@@ -17,8 +17,13 @@ const
   useWebuiDll* = defined(useWebuiDll)
 
 when useWebuiStaticLib:
-  const webuiStaticLib* {.strdefine.} = "webui-2-static"
+  const webuiStaticLib* {.strdefine.} =
+    when defined(webuiTls):
+      "webui-2-secure-static"
+    else:
+      "webui-2-static"
 
+  # TODO link ssl libs
   when defined(vcc):
     {.link: "user32.lib".}
     {.link: "ws2_32.lib".}
@@ -30,19 +35,34 @@ when useWebuiStaticLib:
 
     {.passL: "-L.".} # so gcc/clang can find the library
     {.passL: "-l" & webuiStaticLib.} # link the static library itself
+    
+    when defined(webuiTls):
+      {.passL: "-lcrypto".}
+      {.passL: "-lssl".}
 
-    {.passL: "-luser32".} # link dependencies
-    {.passL: "-lws2_32".}
-    {.passL: "-lAdvapi32".}
+      when defined(windows):
+        {.passL: "-lbcrypt".}
+
+    when defined(windows):
+      {.passL: "-luser32".} # link dependencies
+      {.passL: "-lws2_32".}
+      {.passL: "-lAdvapi32".}
 
   {.pragma: webui, cdecl.}
 elif useWebuiDll:
-  const webuiDll* {.strdefine.} = when defined(windows):
-    "webui-2.dll"
-  elif defined(macos):
-    "webui-2.dyn"
-  else:
-    "webui-2.so" # no lib prefix
+  const webuiDll* {.strdefine.} =
+    block:
+      var base = "./webui-2" # no lib prefix
+
+      when defined(webuiTls):
+        base &= "-secure"
+
+      when defined(windows):
+        base & ".dll"
+      elif defined(macos):
+        base & ".dylib"
+      else:
+        base & ".so"
 
   {.pragma: webui, dynlib: webuiDll, cdecl.}
 else:
@@ -52,7 +72,16 @@ else:
   
   # -d:webuiTLS
   when defined(webuiTLS):
+    when defined(windows):
+      {.passL: "-lbcrypt".}
+  
+    {.passL: "-lcrypto".}
+    {.passL: "-lssl".}
+
     {.passC: "-DWEBUI_TLS".}
+    {.passC: "-DNO_SSL_DL -DOPENSSL_API_1_1".}
+  else:
+    {.passC: "-DNO_SSL".}
 
   when defined(vcc):
     {.link: "ole32.lib".}
@@ -60,6 +89,7 @@ else:
     {.link: "ws2_32.lib".}
     {.link: "Advapi32.lib".}
 
+    {.passC: "/DMUST_IMPLEMENT_CLOCK_GETTIME".}
     {.passC: "/I " & currentSourceDir / "webui" / "include".}
 
   elif defined(windows):
@@ -70,24 +100,24 @@ else:
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  when defined(linux) or defined(macosx):
+  else:
     {.passL: "-lpthread".}
     {.passL: "-lm".}
 
     {.passC: "-I" & currentSourceDir / "webui" / "include".}
 
-  when defined(macos):
-    {.compile: currentSourceDir / "webui" / "src" / "wkwebview.m".}
-
-    {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
+  when defined(macos) or defined(macosx):
     {.passL: "-framework Cocoa -framework WebKit".}
+    {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
+    
+    {.compile: currentSourceDir / "webui" / "src" / "webview" / "wkwebview.m".}
 
-  {.pragma: webui, cdecl.}
-
-  {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DNO_SSL -DUSE_WEBSOCKET -DMUST_IMPLEMENT_CLOCK_GETTIME".}
+  {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DUSE_WEBSOCKET".}
 
   {.compile: currentSourceDir / "webui/src/civetweb/civetweb.c".}
   {.compile: currentSourceDir / "webui/src/webui.c".}
+
+  {.pragma: webui, cdecl.}
 
 const
   WEBUI_VERSION* = "2.5.0-Beta.1" ## Version
