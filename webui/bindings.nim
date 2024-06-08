@@ -111,6 +111,10 @@ else:
     {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
     
     {.compile: currentSourceDir / "webui" / "src" / "webview" / "wkwebview.m".}
+  
+  # fix for cpp
+  when (defined(clang) or defined(gcc)) and defined(cpp):
+    {.passL: "-static".}
 
   {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DUSE_WEBSOCKET".}
 
