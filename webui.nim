@@ -373,7 +373,7 @@ proc `public=`*(window: Window; status: bool) =
 
   bindings.setPublic(csize_t window, status)
 
-proc `kiosk=`*(window: Window; status: bool) =
+proc setKiosk*(window: Window; status: bool) =
   ## Set the window in Kiosk mode (full screen).
   ## 
   ## :window: The window to enable or disable kiosk mode in.
