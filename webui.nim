@@ -105,6 +105,13 @@ proc setTlsCertificate*(certificate_pem, private_key_pem: string): bool =
   
   bindings.setTlsCertificate(cstring certificate_pem, cstring private_key_pem)
 
+proc userPrefersHighContrast*(): bool =
+  ## Get the user's high contrast preference.
+  ##
+  ## Returns `true` if the user is prefers the high contrast theme
+
+  bindings.userPrefersHighContrast()
+
 # ------- Impl funcs --------
 
 # --- Event ---
@@ -406,6 +413,14 @@ proc `hidden=`*(window: Window; status: bool) =
   ##          to show.
   
   bindings.setHide(csize_t window, status)
+
+proc `highContrastSupport`*(window: Window; status: bool) = 
+  ##  Set the window's high contrast support. This is useful when thedefault high
+  ##  contrast support of the browser is not operating correctly or you want to build better
+  ##  high contrast theme by CSS.
+  ## 
+  ## :window: The window to set the high contrast theme support for
+  ## :status: Whether or not to support high contrast themes.
 
 proc setSize*(window: Window; width, height: int) =
   ## Set the window size.
