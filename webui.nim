@@ -108,9 +108,16 @@ proc setTlsCertificate*(certificate_pem, private_key_pem: string): bool =
 proc isHighContrast*(): bool =
   ## Get the OS's high contrast preference.
   ##
-  ## Returns `true` if the OS prefers a high contrast theme
+  ## Returns `true` if the OS prefers a high contrast theme.
 
   bindings.isHighContrast()
+
+proc browserExist*(browser: bindings.Browser): bool =
+  ## Check if a web browser is installed.
+  ##
+  ## Returns `true` if the specified browser is available.
+
+  bindings.browserExist(browser)
 
 # ------- Impl funcs --------
 

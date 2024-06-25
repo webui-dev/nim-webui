@@ -213,6 +213,9 @@ proc setHighContrast*(window: csize_t; status: bool) {.webui, importc: "webui_se
 proc isHighContrast*(): bool {.webui, importc: "webui_is_high_contrast".}
   ##  Get the OS's high contrast preference.
 
+proc browserExist*(browser: Browser): bool {.webui, importc: "webui_browser_exist".}
+  ##  Check if a web browser is installed.
+
 proc wait*() {.webui, importc: "webui_wait".}
   ##  Wait until all opened windows get closed.
 
