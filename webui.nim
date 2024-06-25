@@ -310,8 +310,8 @@ proc show*(window: Window; content: string): bool =
   ## Show a window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed.
   ## 
-  ## .. note:: Please include `<script src="webui.js"></script>` in the HTML
-  ##           for proper window communication. 
+  ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
+  ##                for proper window communication. 
   ## 
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
@@ -324,8 +324,9 @@ proc show*(window: Window; content: string): bool =
 
 proc show*(window: Window; content: string; browser: bindings.Browser): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific web browser.    
-  ## Please include <script src="webui.js"></script> in the HTML
-  ## for proper window communication. 
+  ##
+  ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
+  ##                for proper window communication. 
   ##
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
@@ -337,11 +338,29 @@ proc show*(window: Window; content: string; browser: bindings.Browser): bool =
 
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
+proc show*(window: Window; content: string; browsers: openArray[bindings.Browser] or set[bindings.Browser]): bool =
+  ## Same as `show() <#show,Window,string>`_, but with a specific set of web browsers to use.    
+  ## 
+  ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
+  ##                for proper window communication. 
+  ##
+  ## :window: The window to show `content` in. If the window is already
+  ##          shown, the UI will get refreshed in the same window.
+  ## :content: The content to show in `window`. Can be a file name, or a
+  ##           static HTML script.
+  ## :browser: The browsers to open the window in.
+  ## 
+  ## Returns `true` if showing the window is a success.
+
+  for browser in browsers:
+    if bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser)):
+      return true
+
 proc showWv*(window: Window; content: string): bool =
   ## Show a WebView window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed. 
   ## 
-  ## .. note:: Windows needs `WebView2Loader.dll`.
+  ## .. note:: On Windows, you will need `WebView2Loader.dll`.
   ## 
   ## :window: The window
   ## :content: The HTML, URL, or a local file
