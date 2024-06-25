@@ -355,14 +355,14 @@ proc `port=`*(window: Window, port: int) =
   
   bindings.setPort(csize_t window, csize_t port)
 
-proc setIcon*(window: Window; icon, `type`: string) =
+proc setIcon*(window: Window; icon, mime: string) =
   ## Set the default embedded HTML favicon.
   ## 
   ## :window: The window to set the icon for.
   ## :icon: The icon as string: `<svg>...</svg>`
-  ## :type: The MIME type of the icon
+  ## :mime: The MIME type of the icon
 
-  bindings.setIcon(csize_t window, cstring icon, cstring type)
+  bindings.setIcon(csize_t window, cstring icon, cstring mime)
 
 proc `public=`*(window: Window; status: bool) =
   ## Allow a specific window address to be accessible from a public network
