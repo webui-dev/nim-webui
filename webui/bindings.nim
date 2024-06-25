@@ -206,13 +206,12 @@ proc showWv*(window: csize_t; content: cstring): bool {.webui, importc: "webui_s
 proc setKiosk*(window: csize_t; status: bool) {.webui, importc: "webui_set_kiosk".}
   ##  Set the window in Kiosk mode (Full screen)
 
-proc setHighContrastSupport*(window: csize_t; status: bool) {.webui, importc: "webui_set_high_contrast_support".}
-  ##  Set the window's high contrast support. This is useful when thedefault high
-  ##  contrast support of the browser is not operating correctly or you want to build better
-  ##  high contrast theme by CSS.
+proc setHighContrast*(window: csize_t; status: bool) {.webui, importc: "webui_set_high_contrast".}
+  ##  Setup the window with high-contrast support. Useful when you want to 
+  ##  build a better high-contrast theme with CSS.
 
-proc userPrefersHighContrast*(): bool {.webui, importc: "webui_user_prefers_high_contrast".}
-  ##  Get the user's high contrast preference.
+proc isHighContrast*(): bool {.webui, importc: "webui_is_high_contrast".}
+  ##  Get the OS's high contrast preference.
 
 proc wait*() {.webui, importc: "webui_wait".}
   ##  Wait until all opened windows get closed.
