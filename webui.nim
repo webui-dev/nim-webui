@@ -119,6 +119,15 @@ proc browserExist*(browser: bindings.Browser): bool =
 
   bindings.browserExist(browser)
 
+proc setConfig*(option: bindings.WebuiConfigs; status: bool) =
+  ## Control WebUI's behaviour via setting configuration option `option` to either
+  ## `true` or `false`. It's better to this call at the beginning of your program.
+  ## 
+  ## :option: The desired option from the `WebuiConfig` enum
+  ## :status: The status of the option, `true` or `false`
+  
+  bindings.setConfig(option, status)
+
 # ------- Impl funcs --------
 
 # --- Event ---
@@ -440,7 +449,7 @@ proc `hidden=`*(window: Window; status: bool) =
   
   bindings.setHide(csize_t window, status)
 
-proc `highContrast`*(window: Window; status: bool) = 
+proc `highContrast=`*(window: Window; status: bool) = 
   ## Setup the window with high-contrast support. Useful when you want to 
   ## build a better high-contrast theme with CSS.
   ## 
@@ -448,6 +457,25 @@ proc `highContrast`*(window: Window; status: bool) =
   ## :status: Whether or not to support high contrast themes.
   
   bindings.setHighContrast(csize_t window, status)
+
+proc `eventBlocking=`*(window: Window; status: bool) =
+  ## Control if UI events comming from this window should be processed
+  ## one a time in a single blocking thread (`true`), or process every event in
+  ## a new non-blocking thread (`false`). This function only affects a single window 
+  ## You may use `setConfig(wcUiEventBlocking, ...)` to update all windows.
+  ## 
+  ## :window: The window to configure event blocking for.
+  ## :status: Whether or not to process window events blockingly *(single vs multi-threaded)*.
+
+  bindings.setEventBlocking(csize_t window, status)
+
+proc `proxy=`*(window: Window, proxyServer: string) =
+  ## Set the web browser to use `proxyServer`. Must be called before `show()`.
+  ## 
+  ## :window: The window to set the proxy server for
+  ## :proxyServer: The proxy server to use
+  
+  bindings.setProxy(csize_t window, cstring proxyServer)
 
 proc setSize*(window: Window; width, height: int) =
   ## Set the window size.
@@ -582,6 +610,14 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event): int) =
       e.returnInt(res)
   )
 
+proc `bind`*(window: Window; element: string; `func`: proc (e: Event): float) =
+  window.bind(
+    element, 
+    proc (e: Event) =
+      let res = `func`(e)
+      e.returnFloat(res)
+  )
+
 proc `bind`*(window: Window; element: string; `func`: proc (e: Event): bool) =
   ## Bind `func` to element `element` and automatically pass return value of `func` to Javascript.
   ## 
@@ -689,5 +725,6 @@ export
   bindings.Events, 
   bindings.Browser, 
   bindings.Runtime, 
+  bindings.WebuiConfigs, 
   bindings.WEBUI_VERSION,
   bindings.WEBUI_MAX_IDS
