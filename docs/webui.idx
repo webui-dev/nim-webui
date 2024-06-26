@@ -1,0 +1,87 @@
+nimTitle	webui	webui.html	module webui		0
+nim	Window	webui.html#Window	type Window		13
+nim	Event	webui.html#Event	type Event		15
+nim	wait	webui.html#wait	proc wait()		35
+nim	exit	webui.html#exit	proc exit()		40
+nim	setTimeout	webui.html#setTimeout,int	proc setTimeout(timeout: int)		45
+nim	encode	webui.html#encode,string	proc encode(str: string): string		55
+nim	decode	webui.html#decode,string	proc decode(str: string): string		66
+nim	setDefaultRootFolder	webui.html#setDefaultRootFolder,string	proc setDefaultRootFolder(path: string): bool		77
+nim	clean	webui.html#clean	proc clean()		86
+nim	deleteAllProfiles	webui.html#deleteAllProfiles	proc deleteAllProfiles()		91
+nim	setTlsCertificate	webui.html#setTlsCertificate,string,string	proc setTlsCertificate(certificate_pem, private_key_pem: string): bool		96
+nim	isHighContrast	webui.html#isHighContrast	proc isHighContrast(): bool		108
+nim	browserExist	webui.html#browserExist	proc browserExist(browser: bindings.WebuiBrowser): bool		115
+nim	setConfig	webui.html#setConfig,,bool	proc setConfig(option: bindings.WebuiConfig; status: bool)		122
+nim	impl	webui.html#impl,Event	proc impl(event: Event): ptr bindings.Event		135
+nim	impl=	webui.html#impl=,Event,ptr.	proc impl=(event: Event; be: ptr bindings.Event)		140
+nim	window	webui.html#window,Event	proc window(event: Event): Window		147
+nim	eventType	webui.html#eventType,Event	proc eventType(event: Event): bindings.WebuiEvent		150
+nim	element	webui.html#element,Event	proc element(event: Event): string		153
+nim	eventNumber	webui.html#eventNumber,Event	proc eventNumber(event: Event): int		156
+nim	bindId	webui.html#bindId,Event	proc bindId(event: Event): int		159
+nim	getCount	webui.html#getCount,Event	proc getCount(event: Event): int		164
+nim	getInt	webui.html#getInt,Event,int	proc getInt(event: Event; index: int): int		171
+nim	getInt	webui.html#getInt,Event	proc getInt(event: Event): int		179
+nim	getFloat	webui.html#getFloat,Event,int	proc getFloat(event: Event; index: int): float		186
+nim	getFloat	webui.html#getFloat,Event	proc getFloat(event: Event): float		194
+nim	getString	webui.html#getString,Event,int	proc getString(event: Event; index: int): string		201
+nim	getString	webui.html#getString,Event	proc getString(event: Event): string		209
+nim	getBool	webui.html#getBool,Event,int	proc getBool(event: Event; index: int): bool		216
+nim	getBool	webui.html#getBool,Event	proc getBool(event: Event): bool		224
+nim	getSize	webui.html#getSize,Event,int	proc getSize(event: Event; index: int): int		231
+nim	getSize	webui.html#getSize,Event	proc getSize(event: Event): int		239
+nim	returnInt	webui.html#returnInt,Event,int	proc returnInt(event: Event; integer: int)		246
+nim	returnFloat	webui.html#returnFloat,Event,float	proc returnFloat(event: Event; f: float)		254
+nim	returnString	webui.html#returnString,Event,string	proc returnString(event: Event; str: string)		262
+nim	returnBool	webui.html#returnBool,Event,bool	proc returnBool(event: Event; b: bool)		270
+nim	newWindow	webui.html#newWindow	proc newWindow(): Window		280
+nim	newWindow	webui.html#newWindow,int	proc newWindow(windowNumber: int): Window		285
+nim	getNewWindowId	webui.html#getNewWindowId	proc getNewWindowId(): int		292
+nim	childProcessId	webui.html#childProcessId,Window	proc childProcessId(window: Window): int		300
+nim	parentProcessId	webui.html#parentProcessId,Window	proc parentProcessId(window: Window): int		307
+nim	getBestBrowser	webui.html#getBestBrowser,Window	proc getBestBrowser(window: Window): bindings.WebuiBrowser		315
+nim	show	webui.html#show,Window,string	proc show(window: Window; content: string): bool		325
+nim	show	webui.html#show,Window,string,	proc show(window: Window; content: string; browser: bindings.WebuiBrowser): bool		341
+nim	show	webui.html#show,Window,string,_2	proc show(window: Window; content: string;\n     browsers: openArray[bindings.WebuiBrowser] or set[bindings.WebuiBrowser]): bool		357
+nim	showWv	webui.html#showWv,Window,string	proc showWv(window: Window; content: string): bool		375
+nim	port=	webui.html#port=,Window,int	proc port=(window: Window; port: int)		390
+nim	setIcon	webui.html#setIcon,Window,string,string	proc setIcon(window: Window; icon, mime: string)		400
+nim	public=	webui.html#public=,Window,bool	proc public=(window: Window; status: bool)		409
+nim	kiosk=	webui.html#kiosk=,Window,bool	proc kiosk=(window: Window; status: bool)		418
+nim	runtime=	webui.html#runtime=,Window,	proc runtime=(window: Window; runtime: bindings.WebuiRuntime)		427
+nim	rootFolder=	webui.html#rootFolder=,Window,string	proc rootFolder=(window: Window; path: string): bool		435
+nim	hidden=	webui.html#hidden=,Window,bool	proc hidden=(window: Window; status: bool)		443
+nim	highContrast=	webui.html#highContrast=,Window,bool	proc highContrast=(window: Window; status: bool)		452
+nim	eventBlocking=	webui.html#eventBlocking=,Window,bool	proc eventBlocking=(window: Window; status: bool)		461
+nim	proxy=	webui.html#proxy=,Window,string	proc proxy=(window: Window; proxyServer: string)		472
+nim	setSize	webui.html#setSize,Window,int,int	proc setSize(window: Window; width, height: int)		480
+nim	setPos	webui.html#setPos,Window,int,int	proc setPos(window: Window; x, y: int)		489
+nim	size=	webui.html#size=,Window,tuple[int,int]	proc size=(window: Window; size: tuple[width, height: int])		498
+nim	pos=	webui.html#pos=,Window,tuple[int,int]	proc pos=(window: Window; pos: tuple[x, y: int])		503
+nim	close	webui.html#close,Window	proc close(window: Window)		508
+nim	destroy	webui.html#destroy,Window	proc destroy(window: Window)		515
+nim	shown	webui.html#shown,Window	proc shown(window: Window): bool		522
+nim	script	webui.html#script,Window,string,int,static[int]	proc script(window: Window; script: string; timeout: int = 0;\n       bufferLen: static[int] = 1024 * 8): tuple[data: string, error: bool]		529
+nim	run	webui.html#run,Window,string	proc run(window: Window; script: string)		552
+nim	`bind`	webui.html#bind,Window,string,proc(Event)	proc `bind`(window: Window; element: string; func: proc (e: Event))		581
+nim	`bind`	webui.html#bind,Window,string,proc(Event)_2	proc `bind`(window: Window; element: string; func: proc (e: Event): string)		597
+nim	`bind`	webui.html#bind,Window,string,proc(Event)_3	proc `bind`(window: Window; element: string; func: proc (e: Event): int)		605
+nim	`bind`	webui.html#bind,Window,string,proc(Event)_4	proc `bind`(window: Window; element: string; func: proc (e: Event): float)		613
+nim	`bind`	webui.html#bind,Window,string,proc(Event)_5	proc `bind`(window: Window; element: string; func: proc (e: Event): bool)		621
+nim	fileHandler=	webui.html#fileHandler=,Window,proc(string)	proc fileHandler=(window: Window; handler: proc (filename: string): string)		652
+nim	setFileHandler	webui.html#setFileHandler,Window,proc(string)	proc setFileHandler(window: Window; handler: proc (filename: string): string)		662
+nim	sendRaw	webui.html#sendRaw,Window,string,pointer,uint	proc sendRaw(window: Window; function: string; raw: pointer; size: uint)		667
+nim	setPosition	webui.html#setPosition,Window,int,int	proc setPosition(window: Window; x, y: int)		677
+nim	setProfile	webui.html#setProfile,Window,string,string	proc setProfile(window: Window; name, path: string)		686
+nim	url	webui.html#url,Window	proc url(window: Window): string		702
+nim	navigate	webui.html#navigate,Window,string	proc navigate(window: Window; url: string)		709
+nim	deleteProfile	webui.html#deleteProfile,Window	proc deleteProfile(window: Window)		717
+nimgrp	getint	webui.html#getInt-procs-all	proc		171
+nimgrp	show	webui.html#show-procs-all	proc		325
+nimgrp	bind	webui.html#bind-procs-all	proc		581
+nimgrp	newwindow	webui.html#newWindow-procs-all	proc		280
+nimgrp	getbool	webui.html#getBool-procs-all	proc		216
+nimgrp	getfloat	webui.html#getFloat-procs-all	proc		186
+nimgrp	getstring	webui.html#getString-procs-all	proc		201
+nimgrp	getsize	webui.html#getSize-procs-all	proc		231

@@ -1,0 +1,130 @@
+nimTitle	bindings	webui/bindings.html	module webui/bindings		0
+nim	useWebuiStaticLib	webui/bindings.html#useWebuiStaticLib	const useWebuiStaticLib		16
+nim	useWebuiDll	webui/bindings.html#useWebuiDll	const useWebuiDll		17
+nim	WEBUI_VERSION	webui/bindings.html#WEBUI_VERSION	const WEBUI_VERSION		127
+nim	WEBUI_MAX_IDS	webui/bindings.html#WEBUI_MAX_IDS	const WEBUI_MAX_IDS		128
+nim	WEBUI_MAX_ARG	webui/bindings.html#WEBUI_MAX_ARG	const WEBUI_MAX_ARG		129
+nim	wbNoBrowser	webui/bindings.html#wbNoBrowser	WebuiBrowser.wbNoBrowser		134
+nim	wbAny	webui/bindings.html#wbAny	WebuiBrowser.wbAny		134
+nim	wbChrome	webui/bindings.html#wbChrome	WebuiBrowser.wbChrome		134
+nim	wbFirefox	webui/bindings.html#wbFirefox	WebuiBrowser.wbFirefox		134
+nim	wbEdge	webui/bindings.html#wbEdge	WebuiBrowser.wbEdge		134
+nim	wbSafari	webui/bindings.html#wbSafari	WebuiBrowser.wbSafari		134
+nim	wbChromium	webui/bindings.html#wbChromium	WebuiBrowser.wbChromium		134
+nim	wbOpera	webui/bindings.html#wbOpera	WebuiBrowser.wbOpera		134
+nim	wbBrave	webui/bindings.html#wbBrave	WebuiBrowser.wbBrave		134
+nim	wbVivaldi	webui/bindings.html#wbVivaldi	WebuiBrowser.wbVivaldi		134
+nim	wbEpic	webui/bindings.html#wbEpic	WebuiBrowser.wbEpic		134
+nim	wbYandex	webui/bindings.html#wbYandex	WebuiBrowser.wbYandex		134
+nim	wbChromiumBased	webui/bindings.html#wbChromiumBased	WebuiBrowser.wbChromiumBased		134
+nim	WebuiBrowser	webui/bindings.html#WebuiBrowser	enum WebuiBrowser		134
+nim	wrNone	webui/bindings.html#wrNone	WebuiRuntime.wrNone		149
+nim	wrDeno	webui/bindings.html#wrDeno	WebuiRuntime.wrDeno		149
+nim	wrNodeJs	webui/bindings.html#wrNodeJs	WebuiRuntime.wrNodeJs		149
+nim	WebuiRuntime	webui/bindings.html#WebuiRuntime	enum WebuiRuntime		149
+nim	weDisconnected	webui/bindings.html#weDisconnected	WebuiEvent.weDisconnected		154
+nim	weConnected	webui/bindings.html#weConnected	WebuiEvent.weConnected		154
+nim	weMultiConnection	webui/bindings.html#weMultiConnection	WebuiEvent.weMultiConnection		154
+nim	weUnwantedConnection	webui/bindings.html#weUnwantedConnection	WebuiEvent.weUnwantedConnection		154
+nim	weMouseClick	webui/bindings.html#weMouseClick	WebuiEvent.weMouseClick		154
+nim	weNavigation	webui/bindings.html#weNavigation	WebuiEvent.weNavigation		154
+nim	weCallback	webui/bindings.html#weCallback	WebuiEvent.weCallback		154
+nim	WebuiEvent	webui/bindings.html#WebuiEvent	enum WebuiEvent		154
+nim	wcShowWaitConnection	webui/bindings.html#wcShowWaitConnection	WebuiConfig.wcShowWaitConnection		163
+nim	wcUiEventBlocking	webui/bindings.html#wcUiEventBlocking	WebuiConfig.wcUiEventBlocking		163
+nim	wcFolderMonitor	webui/bindings.html#wcFolderMonitor	WebuiConfig.wcFolderMonitor		163
+nim	WebuiConfig	webui/bindings.html#WebuiConfig	enum WebuiConfig		163
+nim	Event	webui/bindings.html#Event	object Event		181
+nim	NoBrowser	webui/bindings.html#NoBrowser	const NoBrowser		190
+nim	Any	webui/bindings.html#Any	const Any		191
+nim	Chrome	webui/bindings.html#Chrome	const Chrome		192
+nim	Firefox	webui/bindings.html#Firefox	const Firefox		193
+nim	Edge	webui/bindings.html#Edge	const Edge		194
+nim	Safari	webui/bindings.html#Safari	const Safari		195
+nim	Chromium	webui/bindings.html#Chromium	const Chromium		196
+nim	Opera	webui/bindings.html#Opera	const Opera		197
+nim	Brave	webui/bindings.html#Brave	const Brave		198
+nim	Vivaldi	webui/bindings.html#Vivaldi	const Vivaldi		199
+nim	Epic	webui/bindings.html#Epic	const Epic		200
+nim	Yandex	webui/bindings.html#Yandex	const Yandex		201
+nim	ChromiumBased	webui/bindings.html#ChromiumBased	const ChromiumBased		202
+nim	None	webui/bindings.html#None	const None		204
+nim	Deno	webui/bindings.html#Deno	const Deno		205
+nim	NodeJs	webui/bindings.html#NodeJs	const NodeJs		206
+nim	EventsDisconnected	webui/bindings.html#EventsDisconnected	const EventsDisconnected		208
+nim	EventsConnected	webui/bindings.html#EventsConnected	const EventsConnected		209
+nim	EventsMultiConnection	webui/bindings.html#EventsMultiConnection	const EventsMultiConnection		210
+nim	EventsUnwantedConnection	webui/bindings.html#EventsUnwantedConnection	const EventsUnwantedConnection		211
+nim	EventsMouseClick	webui/bindings.html#EventsMouseClick	const EventsMouseClick		212
+nim	EventsNavigation	webui/bindings.html#EventsNavigation	const EventsNavigation		213
+nim	EventsCallback	webui/bindings.html#EventsCallback	const EventsCallback		214
+nim	newWindow	webui/bindings.html#newWindow	proc newWindow(): csize_t		218
+nim	newWindowId	webui/bindings.html#newWindowId,csize_t	proc newWindowId(windowNumber: csize_t): csize_t		221
+nim	getNewWindowId	webui/bindings.html#getNewWindowId	proc getNewWindowId(): csize_t		224
+nim	`bind`	webui/bindings.html#bind,csize_t,cstring,proc(ptr.Event)	proc `bind`(window: csize_t; element: cstring; func: proc (e: ptr Event) {.cdecl.}): csize_t		227
+nim	getBestBrowser	webui/bindings.html#getBestBrowser,csize_t	proc getBestBrowser(window: csize_t): csize_t		231
+nim	show	webui/bindings.html#show,csize_t,cstring	proc show(window: csize_t; content: cstring): bool		234
+nim	showBrowser	webui/bindings.html#showBrowser,csize_t,cstring,csize_t	proc showBrowser(window: csize_t; content: cstring; browser: csize_t): bool		237
+nim	showWv	webui/bindings.html#showWv,csize_t,cstring	proc showWv(window: csize_t; content: cstring): bool		240
+nim	setKiosk	webui/bindings.html#setKiosk,csize_t,bool	proc setKiosk(window: csize_t; status: bool)		246
+nim	setHighContrast	webui/bindings.html#setHighContrast,csize_t,bool	proc setHighContrast(window: csize_t; status: bool)		249
+nim	isHighContrast	webui/bindings.html#isHighContrast	proc isHighContrast(): bool		253
+nim	browserExist	webui/bindings.html#browserExist,WebuiBrowser	proc browserExist(browser: WebuiBrowser): bool		256
+nim	wait	webui/bindings.html#wait	proc wait()		259
+nim	close	webui/bindings.html#close,csize_t	proc close(window: csize_t)		262
+nim	destroy	webui/bindings.html#destroy,csize_t	proc destroy(window: csize_t)		265
+nim	exit	webui/bindings.html#exit	proc exit()		268
+nim	setRootFolder	webui/bindings.html#setRootFolder,csize_t,cstring	proc setRootFolder(window: csize_t; path: cstring): bool		271
+nim	setDefaultRootFolder	webui/bindings.html#setDefaultRootFolder,cstring	proc setDefaultRootFolder(path: cstring): bool		274
+nim	setFileHandler	webui/bindings.html#setFileHandler,csize_t,proc(cstring,ptr.cint)	proc setFileHandler(window: csize_t; handler: proc (filename: cstring;\n    length: ptr cint): pointer {.cdecl.})		277
+nim	isShown	webui/bindings.html#isShown,csize_t	proc isShown(window: csize_t): bool		281
+nim	setTimeout	webui/bindings.html#setTimeout,csize_t	proc setTimeout(second: csize_t)		284
+nim	setIcon	webui/bindings.html#setIcon,csize_t,cstring,cstring	proc setIcon(window: csize_t; icon: cstring; type: cstring)		287
+nim	encode	webui/bindings.html#encode,cstring	proc encode(str: cstring): cstring		290
+nim	decode	webui/bindings.html#decode,cstring	proc decode(str: cstring): cstring		294
+nim	free	webui/bindings.html#free,pointer	proc free(ptr: pointer)		298
+nim	malloc	webui/bindings.html#malloc,csize_t	proc malloc(size: csize_t): pointer		301
+nim	sendRaw	webui/bindings.html#sendRaw,csize_t,cstring,pointer,csize_t	proc sendRaw(window: csize_t; function: cstring; raw: pointer; size: csize_t)		305
+nim	setHide	webui/bindings.html#setHide,csize_t,bool	proc setHide(window: csize_t; status: bool)		308
+nim	setSize	webui/bindings.html#setSize,csize_t,cuint,cuint	proc setSize(window: csize_t; width: cuint; height: cuint)		311
+nim	setPosition	webui/bindings.html#setPosition,csize_t,cuint,cuint	proc setPosition(window: csize_t; x: cuint; y: cuint)		314
+nim	setProfile	webui/bindings.html#setProfile,csize_t,cstring,cstring	proc setProfile(window: csize_t; name: cstring; path: cstring)		317
+nim	setProxy	webui/bindings.html#setProxy,csize_t,cstring	proc setProxy(window: csize_t; proxy_server: cstring)		321
+nim	getUrl	webui/bindings.html#getUrl,csize_t	proc getUrl(window: csize_t): cstring		324
+nim	setPublic	webui/bindings.html#setPublic,csize_t,bool	proc setPublic(window: csize_t; status: bool)		327
+nim	navigate	webui/bindings.html#navigate,csize_t,cstring	proc navigate(window: csize_t; url: cstring)		330
+nim	clean	webui/bindings.html#clean	proc clean()		333
+nim	deleteAllProfiles	webui/bindings.html#deleteAllProfiles	proc deleteAllProfiles()		336
+nim	deleteProfile	webui/bindings.html#deleteProfile,csize_t	proc deleteProfile(window: csize_t)		339
+nim	getParentProcessId	webui/bindings.html#getParentProcessId,csize_t	proc getParentProcessId(window: csize_t): csize_t		342
+nim	getChildProcessId	webui/bindings.html#getChildProcessId,csize_t	proc getChildProcessId(window: csize_t): csize_t		346
+nim	setPort	webui/bindings.html#setPort,csize_t,csize_t	proc setPort(window: csize_t; port: csize_t): bool		349
+nim	setConfig	webui/bindings.html#setConfig,WebuiConfig,bool	proc setConfig(option: WebuiConfig; status: bool)		354
+nim	setEventBlocking	webui/bindings.html#setEventBlocking,csize_t,bool	proc setEventBlocking(window: csize_t; status: bool)		357
+nim	setTlsCertificate	webui/bindings.html#setTlsCertificate,cstring,cstring	proc setTlsCertificate(certificate_pem: cstring; private_key_pem: cstring): bool		365
+nim	run	webui/bindings.html#run,csize_t,cstring	proc run(window: csize_t; script: cstring)		373
+nim	script	webui/bindings.html#script,csize_t,cstring,csize_t,cstring,csize_t	proc script(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring;\n       bufferLength: csize_t): bool		376
+nim	setRuntime	webui/bindings.html#setRuntime,csize_t,csize_t	proc setRuntime(window: csize_t; runtime: csize_t)		381
+nim	getCount	webui/bindings.html#getCount,ptr.Event	proc getCount(e: ptr Event): csize_t		384
+nim	getIntAt	webui/bindings.html#getIntAt,ptr.Event,csize_t	proc getIntAt(e: ptr Event; index: csize_t): clonglong		387
+nim	getInt	webui/bindings.html#getInt,ptr.Event	proc getInt(e: ptr Event): clonglong		390
+nim	getFloatAt	webui/bindings.html#getFloatAt,ptr.Event,csize_t	proc getFloatAt(e: ptr Event; index: csize_t): cdouble		393
+nim	getFloat	webui/bindings.html#getFloat,ptr.Event	proc getFloat(e: ptr Event): cdouble		396
+nim	getStringAt	webui/bindings.html#getStringAt,ptr.Event,csize_t	proc getStringAt(e: ptr Event; index: csize_t): cstring		399
+nim	getString	webui/bindings.html#getString,ptr.Event	proc getString(e: ptr Event): cstring		402
+nim	getBoolAt	webui/bindings.html#getBoolAt,ptr.Event,csize_t	proc getBoolAt(e: ptr Event; index: csize_t): csize_t		405
+nim	getBool	webui/bindings.html#getBool,ptr.Event	proc getBool(e: ptr Event): csize_t		408
+nim	getSizeAt	webui/bindings.html#getSizeAt,ptr.Event,csize_t	proc getSizeAt(e: ptr Event; index: csize_t): csize_t		411
+nim	getSize	webui/bindings.html#getSize,ptr.Event	proc getSize(e: ptr Event): csize_t		414
+nim	returnInt	webui/bindings.html#returnInt,ptr.Event,clonglong	proc returnInt(e: ptr Event; n: clonglong)		417
+nim	returnFloat	webui/bindings.html#returnFloat,ptr.Event,cdouble	proc returnFloat(e: ptr Event; f: cdouble)		420
+nim	returnString	webui/bindings.html#returnString,ptr.Event,cstring	proc returnString(e: ptr Event; s: cstring)		423
+nim	returnBool	webui/bindings.html#returnBool,ptr.Event,bool	proc returnBool(e: ptr Event; b: bool)		426
+nim	interfaceBind	webui/bindings.html#interfaceBind,csize_t,cstring,proc(csize_t,csize_t,cstring,csize_t,csize_t)	proc interfaceBind(window: csize_t; element: cstring; func: proc (window: csize_t;\n    eventType: csize_t; element: cstring; eventNumber: csize_t; bindId: csize_t) {.\n    cdecl.}): csize_t		431
+nim	interfaceSetResponse	webui/bindings.html#interfaceSetResponse,csize_t,csize_t,cstring	proc interfaceSetResponse(window: csize_t; event_number: csize_t; repsonse: cstring)		438
+nim	interfaceIsAppRunning	webui/bindings.html#interfaceIsAppRunning	proc interfaceIsAppRunning(): bool		442
+nim	interfaceGetWindowId	webui/bindings.html#interfaceGetWindowId,csize_t	proc interfaceGetWindowId(window: csize_t): csize_t		445
+nim	interfaceGetIntAt	webui/bindings.html#interfaceGetIntAt,csize_t,csize_t,csize_t	proc interfaceGetIntAt(window: csize_t; event_number: csize_t; index: csize_t): clonglong		448
+nim	interfaceGetStringAt	webui/bindings.html#interfaceGetStringAt,csize_t,csize_t,csize_t	proc interfaceGetStringAt(window: csize_t; event_number: csize_t; index: csize_t): cstring		452
+nim	interfaceGetBoolAt	webui/bindings.html#interfaceGetBoolAt,csize_t,csize_t,csize_t	proc interfaceGetBoolAt(window: csize_t; event_number: csize_t; index: csize_t): bool		456
+nim	interfaceGetSizeAt	webui/bindings.html#interfaceGetSizeAt,csize_t,csize_t,csize_t	proc interfaceGetSizeAt(window: csize_t; event_number: csize_t; index: csize_t): csize_t		460
