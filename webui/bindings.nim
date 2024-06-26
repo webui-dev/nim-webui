@@ -186,32 +186,37 @@ type
     bindId*: csize_t      ## Bind ID
 
 # aliases to reduce breaking changes
+
+when NimMajor > 1:
+  {.push deprecated.}
+
 const
-  NoBrowser* {.deprecated: "Use `wbNoBrowser` instead".} = wbNoBrowser
-  Any* {.deprecated: "Use `wbAny` instead".} = wbAny
-  Chrome* {.deprecated: "Use `wbChrome` instead".} = wbChrome
-  Firefox* {.deprecated: "Use `wbFirefox` instead".} = wbFirefox
-  Edge* {.deprecated: "Use `wbEdge` instead".} = wbEdge
-  Safari* {.deprecated: "Use `wbSafari` instead".} = wbSafari
-  Chromium* {.deprecated: "Use `wbChromium` instead".} = wbChromium
-  Opera* {.deprecated: "Use `wbOpera` instead".} = wbOpera
-  Brave* {.deprecated: "Use `wbBrave` instead".} = wbBrave
-  Vivaldi* {.deprecated: "Use `wbVivaldi` instead".} = wbVivaldi
-  Epic* {.deprecated: "Use `wbEpic` instead".} = wbEpic
-  Yandex* {.deprecated: "Use `wbYandex` instead".} = wbYandex
-  ChromiumBased* {.deprecated: "Use `wbChromiumBased` instead".} = wbChromiumBased
+  NoBrowser* = wbNoBrowser
+  Any* = wbAny
+  Chrome* = wbChrome
+  Firefox* = wbFirefox
+  Edge* = wbEdge
+  Safari* = wbSafari
+  Chromium* = wbChromium
+  Opera* = wbOpera
+  Brave* = wbBrave
+  Vivaldi* = wbVivaldi
+  Epic* = wbEpic
+  Yandex* = wbYandex
+  ChromiumBased* = wbChromiumBased
+  None* = wrNone
+  Deno* = wrDeno
+  NodeJs* = wrNodeJs
+  EventsDisconnected* = weDisconnected
+  EventsConnected* = weConnected
+  EventsMultiConnection* = weMultiConnection
+  EventsUnwantedConnection* = weUnwantedConnection
+  EventsMouseClick* = weMouseClick
+  EventsNavigation* = weNavigation
+  EventsCallback* = weCallback
 
-  None* {.deprecated: "Use `wrNone` instead".} = wrNone
-  Deno* {.deprecated: "Use `wrDeno` instead".} = wrDeno
-  NodeJs* {.deprecated: "Use `wrNodeJs` instead".} = wrNodeJs
-
-  EventsDisconnected* {.deprecated: "Use `weDisconnected` instead".} = weDisconnected
-  EventsConnected* {.deprecated: "Use `weConnected` instead".} = weConnected
-  EventsMultiConnection* {.deprecated: "Use `weMultiConnection` instead".} = weMultiConnection
-  EventsUnwantedConnection* {.deprecated: "Use `weUnwantedConnection` instead".} = weUnwantedConnection
-  EventsMouseClick* {.deprecated: "Use `weMouseClick` instead".} = weMouseClick
-  EventsNavigation* {.deprecated: "Use `weNavigation` instead".} = weNavigation
-  EventsCallback* {.deprecated: "Use `weCallback` instead".} = weCallback
+when NimMajor > 1:
+  {.pop.}
 
 #  -- Definitions ---------------------
 
