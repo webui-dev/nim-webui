@@ -204,9 +204,11 @@ const
   Epic* = wbEpic
   Yandex* = wbYandex
   ChromiumBased* = wbChromiumBased
+
   None* = wrNone
   Deno* = wrDeno
   NodeJs* = wrNodeJs
+
   EventsDisconnected* = weDisconnected
   EventsConnected* = weConnected
   EventsMultiConnection* = weMultiConnection
