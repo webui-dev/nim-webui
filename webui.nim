@@ -112,14 +112,14 @@ proc isHighContrast*(): bool =
 
   bindings.isHighContrast()
 
-proc browserExist*(browser: bindings.Browser): bool =
+proc browserExist*(browser: bindings.WebuiBrowser): bool =
   ## Check if a web browser is installed.
   ##
   ## Returns `true` if the specified browser is available.
 
   bindings.browserExist(browser)
 
-proc setConfig*(option: bindings.WebuiConfigs; status: bool) =
+proc setConfig*(option: bindings.WebuiConfig; status: bool) =
   ## Control WebUI's behaviour via setting configuration option `option` to either
   ## `true` or `false`. It's better to this call at the beginning of your program.
   ## 
@@ -147,8 +147,8 @@ func `impl=`*(event: Event, be: ptr bindings.Event) =
 proc window*(event: Event): Window =
   result = Window(int event.impl.window)
 
-proc eventType*(event: Event): bindings.Events =
-  bindings.Events(int event.impl.eventType)
+proc eventType*(event: Event): bindings.WebuiEvent =
+  bindings.WebuiEvent(int event.impl.eventType)
 
 proc element*(event: Event): string =
   $ event.impl.element
@@ -312,13 +312,13 @@ proc parentProcessId*(window: Window): int =
 
   int bindings.getParentProcessId(csize_t window)
 
-proc getBestBrowser*(window: Window): bindings.Browser =
+proc getBestBrowser*(window: Window): bindings.WebuiBrowser =
   ## Get the "best" browser to be used. If running `show()`, this function will
   ## return the same browser that will be used.
   ## 
   ## :window: The window
 
-  bindings.Browser(bindings.getBestBrowser(csize_t window))
+  bindings.WebuiBrowser(bindings.getBestBrowser(csize_t window))
 
 {.push discardable.}
 
@@ -338,7 +338,7 @@ proc show*(window: Window; content: string): bool =
 
   bindings.show(csize_t window, cstring content)
 
-proc show*(window: Window; content: string; browser: bindings.Browser): bool =
+proc show*(window: Window; content: string; browser: bindings.WebuiBrowser): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific web browser.    
   ##
   ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
@@ -354,7 +354,7 @@ proc show*(window: Window; content: string; browser: bindings.Browser): bool =
 
   bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser))
 
-proc show*(window: Window; content: string; browsers: openArray[bindings.Browser] or set[bindings.Browser]): bool =
+proc show*(window: Window; content: string; browsers: openArray[bindings.WebuiBrowser] or set[bindings.WebuiBrowser]): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific set of web browsers to use.    
   ## 
   ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
@@ -424,7 +424,7 @@ proc `kiosk=`*(window: Window; status: bool) =
   
   bindings.setKiosk(csize_t window, status)
 
-proc `runtime=`*(window: Window; runtime: bindings.Runtime) =
+proc `runtime=`*(window: Window; runtime: bindings.WebuiRuntime) =
   ## Chose a runtime for .js and .ts files.
   ## 
   ## :window: The window to set the runtime for.
@@ -722,9 +722,9 @@ proc deleteProfile*(window: Window) =
   bindings.deleteProfile(csize_t window)
 
 export 
-  bindings.Events, 
-  bindings.Browser, 
-  bindings.Runtime, 
-  bindings.WebuiConfigs, 
+  bindings.WebuiEvent, 
+  bindings.WebuiBrowser, 
+  bindings.WebuiRuntime, 
+  bindings.WebuiConfig, 
   bindings.WEBUI_VERSION,
   bindings.WEBUI_MAX_IDS

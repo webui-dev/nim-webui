@@ -131,36 +131,36 @@ const
 # -- Types -------------------------
 
 type
-  Browser* {.pure.} = enum
-    NoBrowser     ## 0. No web browser
-    Any           ## 1. Default recommended web browser
-    Chrome        ## 2. Google Chrome
-    Firefox       ## 3. Mozilla Firefox
-    Edge          ## 4. Microsoft Edge
-    Safari        ## 5. Apple Safari
-    Chromium      ## 6. The Chromium Project
-    Opera         ## 7. Opera Browser
-    Brave         ## 8. The Brave Browser
-    Vivaldi       ## 9. The Vivaldi Browser
-    Epic          ## 10. The Epic Browser
-    Yandex        ## 11. The Yandex Browser
-    ChromiumBased ## 12. Any Chromium based browser
+  WebuiBrowser* = enum
+    wbNoBrowser     ## 0. No web browser
+    wbAny           ## 1. Default recommended web browser
+    wbChrome        ## 2. Google Chrome
+    wbFirefox       ## 3. Mozilla Firefox
+    wbEdge          ## 4. Microsoft Edge
+    wbSafari        ## 5. Apple Safari
+    wbChromium      ## 6. The Chromium Project
+    wbOpera         ## 7. Opera Browser
+    wbBrave         ## 8. The Brave Browser
+    wbVivaldi       ## 9. The Vivaldi Browser
+    wbEpic          ## 10. The Epic Browser
+    wbYandex        ## 11. The Yandex Browser
+    wbChromiumBased ## 12. Any Chromium based browser
 
-  Runtime* {.pure.} = enum
-    None   ## 0. Prevent WebUI from using any runtime for .js and .ts files
-    Deno   ## 1. Use Deno runtime for .js and .ts files
-    NodeJS ## 2. Use Nodejs runtime for .js files
+  WebuiRuntime* = enum
+    wrNone   ## 0. Prevent WebUI from using any runtime for .js and .ts files
+    wrDeno   ## 1. Use Deno runtime for .js and .ts files
+    wrNodeJs ## 2. Use Nodejs runtime for .js files
 
-  Events* = enum
-    EventsDisconnected       ## 0. Window disconnection event
-    EventsConnected          ## 1. Window connection event
-    EventsMultiConnection    ## 2. New window connection event
-    EventsUnwantedConnection ## 3. New unwanted window connection event
-    EventsMouseClick         ## 4. Mouse click event
-    EventsNavigation         ## 5. Window navigation event
-    EventsCallback           ## 6. Function call event
+  WebuiEvent* = enum
+    weDisconnected       ## 0. Window disconnection event
+    weConnected          ## 1. Window connection event
+    weMultiConnection    ## 2. New window connection event
+    weUnwantedConnection ## 3. New unwanted window connection event
+    weMouseClick         ## 4. Mouse click event
+    weNavigation         ## 5. Window navigation event
+    weCallback           ## 6. Function call event
 
-  WebuiConfigs* = enum
+  WebuiConfig* = enum
     wcShowWaitConnection
       ## Control if `show()` and `showX()` (e.g. `showBrowser()` & `showWv`) should wait
       ## for the window to connect before returns or not.
@@ -185,6 +185,34 @@ type
     eventNumber*: csize_t ## Internal WebUI
     bindId*: csize_t      ## Bind ID
 
+# aliases to reduce breaking changes
+const
+  NoBrowser* {.deprecated: "Use `wbNoBrowser` instead".} = wbNoBrowser
+  Any* {.deprecated: "Use `wbAny` instead".} = wbAny
+  Chrome* {.deprecated: "Use `wbChrome` instead".} = wbChrome
+  Firefox* {.deprecated: "Use `wbFirefox` instead".} = wbFirefox
+  Edge* {.deprecated: "Use `wbEdge` instead".} = wbEdge
+  Safari* {.deprecated: "Use `wbSafari` instead".} = wbSafari
+  Chromium* {.deprecated: "Use `wbChromium` instead".} = wbChromium
+  Opera* {.deprecated: "Use `wbOpera` instead".} = wbOpera
+  Brave* {.deprecated: "Use `wbBrave` instead".} = wbBrave
+  Vivaldi* {.deprecated: "Use `wbVivaldi` instead".} = wbVivaldi
+  Epic* {.deprecated: "Use `wbEpic` instead".} = wbEpic
+  Yandex* {.deprecated: "Use `wbYandex` instead".} = wbYandex
+  ChromiumBased* {.deprecated: "Use `wbChromiumBased` instead".} = wbChromiumBased
+
+  None* {.deprecated: "Use `wrNone` instead".} = wrNone
+  Deno* {.deprecated: "Use `wrDeno` instead".} = wrDeno
+  NodeJs* {.deprecated: "Use `wrNodeJs` instead".} = wrNodeJs
+
+  EventsDisconnected* {.deprecated: "Use `weDisconnected` instead".} = weDisconnected
+  EventsConnected* {.deprecated: "Use `weConnected` instead".} = weConnected
+  EventsMultiConnection* {.deprecated: "Use `weMultiConnection` instead".} = weMultiConnection
+  EventsUnwantedConnection* {.deprecated: "Use `weUnwantedConnection` instead".} = weUnwantedConnection
+  EventsMouseClick* {.deprecated: "Use `weMouseClick` instead".} = weMouseClick
+  EventsNavigation* {.deprecated: "Use `weNavigation` instead".} = weNavigation
+  EventsCallback* {.deprecated: "Use `weCallback` instead".} = weCallback
+
 #  -- Definitions ---------------------
 
 proc newWindow*(): csize_t {.webui, importc: "webui_new_window".}
@@ -201,7 +229,7 @@ proc `bind`*(window: csize_t; element: cstring; `func`: proc (e: ptr Event) {.cd
   ##  Bind a specific html element click event with a function. Empty element means all events.
 
 proc getBestBrowser*(window: csize_t): csize_t {.webui, importc: "webui_get_best_browser".}
-  ##  Get the "best" browser to be used. If running `show()` or passing `Browsers.AnyBrowser` to `showBrowser()`, this function will return the same browser that will be used.
+  ##  Get the "best" browser to be used. If running `show()` or passing `wbAnyBrowser` to `showBrowser()`, this function will return the same browser that will be used.
 
 proc show*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show".}
   ##  Show a window using embedded HTML, or a file. If the window is already open, it will be refreshed.
@@ -225,7 +253,7 @@ proc setHighContrast*(window: csize_t; status: bool) {.webui, importc: "webui_se
 proc isHighContrast*(): bool {.webui, importc: "webui_is_high_contrast".}
   ##  Get the OS's high contrast preference.
 
-proc browserExist*(browser: Browser): bool {.webui, importc: "webui_browser_exist".}
+proc browserExist*(browser: WebuiBrowser): bool {.webui, importc: "webui_browser_exist".}
   ##  Check if a web browser is installed.
 
 proc wait*() {.webui, importc: "webui_wait".}
@@ -323,7 +351,7 @@ proc setPort*(window: csize_t; port: csize_t): bool {.webui, importc: "webui_set
   ##  This can be useful to determine the HTTP link of `webui.js` in case
   ##  you are trying to use WebUI with an external web-server like NGNIX
 
-proc setConfig*(option: WebuiConfigs; status: bool) {.webui, importc: "webui_set_config".}
+proc setConfig*(option: WebuiConfig; status: bool) {.webui, importc: "webui_set_config".}
   ## Control WebUI's behaviour. It's better to this call at the beginning.
 
 proc setEventBlocking*(window: csize_t; status: bool) {.webui, importc: "webui_set_event_blocking".}

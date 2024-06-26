@@ -11,13 +11,13 @@ proc main =
     # there is an event
 
     case e.eventType
-    of EventsConnected:
+    of weConnected:
       echo "Connected"
-    of EventsDisconnected:
+    of weDisconnected:
       echo "Disconnected"
     #of EventsMouseClick:
     #  echo "Click"
-    of EventsNavigation:
+    of weNavigation:
       let url = e.getString()
       echo "Starting navigation to: ", url
 
