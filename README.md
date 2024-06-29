@@ -75,7 +75,7 @@ Examples can be found here at [`examples/`](examples/).
 If you're trying to run the examples remember to clone the repository *recursively*, as it depends on the WebUI repo as a submodule. Here's the command to do so for the truly lazy:
 
 ```shell
-git clone --recursive https://github.com/neroist/webui.git
+git clone --recursive https://github.com/webui-dev/nim-webui.git
 ```
 
 ## Bindings and Wrapper

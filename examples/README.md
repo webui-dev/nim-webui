@@ -1,7 +1,7 @@
 # Webui Examples
 
 > ⚠️ NOTE: These examples are built for the most recent commit of the GitHub
-> repository, not the most recent release.
+> repository, not the most recent release (for instance `nimble install webui@#main`).
 
 Examples using the `webui` module in Nim, currently there are 7 examples:
 
