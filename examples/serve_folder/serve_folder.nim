@@ -40,13 +40,13 @@ proc main =
     # there is an event
 
     case e.eventType:
-      of EventsConnected:
+      of weConnected:
         echo "Connected"
-      of EventsDisconnected:
+      of weDisconnected:
         echo "Disconnected"
-      of EventsMouseClick:
+      of weMouseClick:
         echo "Click"
-      of EventsNavigation:
+      of weNavigation:
         echo "Starting navigation to: ", e.getString()    
       else:
         discard
