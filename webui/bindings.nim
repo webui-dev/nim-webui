@@ -190,6 +190,7 @@ type
     element*: cstring     ## HTML element ID
     eventNumber*: csize_t ## Internal WebUI
     bindId*: csize_t      ## Bind ID
+    clientId*: csize_t    ## Client unique ID
 
 # aliases to reduce breaking changes
 const
