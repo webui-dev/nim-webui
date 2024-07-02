@@ -186,39 +186,32 @@ type
     bindId*: csize_t      ## Bind ID
 
 # aliases to reduce breaking changes
-
-when NimMajor > 1:
-  {.push deprecated.}
-
 const
-  NoBrowser* = wbNoBrowser
-  Any* = wbAny
-  Chrome* = wbChrome
-  Firefox* = wbFirefox
-  Edge* = wbEdge
-  Safari* = wbSafari
-  Chromium* = wbChromium
-  Opera* = wbOpera
-  Brave* = wbBrave
-  Vivaldi* = wbVivaldi
-  Epic* = wbEpic
-  Yandex* = wbYandex
-  ChromiumBased* = wbChromiumBased
+  NoBrowser* {.deprecated.} = wbNoBrowser
+  Any* {.deprecated.} = wbAny
+  Chrome* {.deprecated.} = wbChrome
+  Firefox* {.deprecated.} = wbFirefox
+  Edge* {.deprecated.} = wbEdge
+  Safari* {.deprecated.} = wbSafari
+  Chromium* {.deprecated.} = wbChromium
+  Opera* {.deprecated.} = wbOpera
+  Brave* {.deprecated.} = wbBrave
+  Vivaldi* {.deprecated.} = wbVivaldi
+  Epic* {.deprecated.} = wbEpic
+  Yandex* {.deprecated.} = wbYandex
+  ChromiumBased* {.deprecated.} = wbChromiumBased
 
-  None* = wrNone
-  Deno* = wrDeno
-  NodeJs* = wrNodeJs
+  None* {.deprecated.} = wrNone
+  Deno* {.deprecated.} = wrDeno
+  NodeJs* {.deprecated.} = wrNodeJs
 
-  EventsDisconnected* = weDisconnected
-  EventsConnected* = weConnected
-  EventsMultiConnection* = weMultiConnection
-  EventsUnwantedConnection* = weUnwantedConnection
-  EventsMouseClick* = weMouseClick
-  EventsNavigation* = weNavigation
-  EventsCallback* = weCallback
-
-when NimMajor > 1:
-  {.pop.}
+  EventsDisconnected* {.deprecated.} = weDisconnected
+  EventsConnected* {.deprecated.} = weConnected
+  EventsMultiConnection* {.deprecated.} = weMultiConnection
+  EventsUnwantedConnection* {.deprecated.} = weUnwantedConnection
+  EventsMouseClick* {.deprecated.} = weMouseClick
+  EventsNavigation* {.deprecated.} = weNavigation
+  EventsCallback* {.deprecated.} = weCallback
 
 #  -- Definitions ---------------------
 
