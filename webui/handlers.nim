@@ -8,7 +8,6 @@ macro dynamicHandler*(dir: string = ".", isStatic: bool): untyped =
   var branches: seq[tuple[cond, body: NimNode]]
 
   for file in walkDirRec($dir, relative=true):
-    
     var currBranch: tuple[cond, body: NimNode]
 
     currBranch.cond = infix(ident"filename", "==", newStrLitNode("/" & file.normalizePath('/')))
@@ -35,7 +34,6 @@ macro staticHandler*(dir: string = "."): untyped =
   var branches: seq[tuple[cond, body: NimNode]]
 
   for file in walkDirRec($dir, relative=true):
-    
     var currBranch: tuple[cond, body: NimNode]
     let cont = readFile($dir / file)
 
