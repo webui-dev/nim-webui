@@ -124,7 +124,7 @@ else:
   {.pragma: webui, cdecl.}
 
 const
-  WEBUI_VERSION* = "2.5.0-Beta.1" ## Version
+  WEBUI_VERSION* = "2.5.0-Beta.2" ## Version
   WEBUI_MAX_IDS* = (256)
   WEBUI_MAX_ARG* = (16)
 
