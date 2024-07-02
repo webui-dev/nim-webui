@@ -255,6 +255,9 @@ proc showClient*(e: ptr Event; content: cstring): bool {.webui, importc: "webui_
 proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.webui, importc: "webui_show_browser".}
   ##  Same as `show()`, but using a specific web browser.
 
+proc startServer*(window: csize_t; path: cstring): cstring {.webui, importc: "webui_start_server".}
+  ##  Start only the web server and return the URL. This is useful for web app.
+
 proc showWv*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show_wv".}
   ##  Show a WebView window using embedded HTML, or a file. If the window is
   ##  already open, it will be refreshed.
@@ -262,7 +265,7 @@ proc showWv*(window: csize_t; content: cstring): bool {.webui, importc: "webui_s
   ##  .. note:: Windows needs `WebView2Loader.dll`.
 
 proc setKiosk*(window: csize_t; status: bool) {.webui, importc: "webui_set_kiosk".}
-  ##  Set the window in Kiosk mode (Full screen)
+  ##  Set the window in Kiosk mode (Full screen).
 
 proc setHighContrast*(window: csize_t; status: bool) {.webui, importc: "webui_set_high_contrast".}
   ##  Setup the window with high-contrast support. Useful when you want to 
@@ -302,21 +305,25 @@ proc setFileHandler*(window: csize_t; handler: proc (filename: cstring; length: 
   ##  Set a custom handler to serve files.
 
 proc isShown*(window: csize_t): bool {.webui, importc: "webui_is_shown".}
-  ##  Check if the specified window is still running.
+  ##  Check if the specified winFdow is still running.
 
 proc setTimeout*(second: csize_t) {.webui, importc: "webui_set_timeout".}
-  ##  Set the maximum time in seconds to wait for the browser to start.
+  ##  Set the maximum time in seconds to wait for the window to connect. This
+  ##  will affect `show()` and `wait()`. Setting the timeout to `0` will cause
+  ##  WebUI to wait forever.
 
 proc setIcon*(window: csize_t; icon: cstring; `type`: cstring) {.webui, importc: "webui_set_icon".}
   ##  Set the default embedded HTML favicon.
 
 proc encode*(str: cstring): cstring {.webui, importc: "webui_encode".}
-  ##  Base64 encoding. Use this to safely send text based data to the UI.
-  ##  If it fails it will return `nil`. The returned buffer must be freed.
+  ##  Encode text to Base64 encoding. Use this to safely send text based data
+  ##  to the UI. If it fails it will return `nil`. The returned buffer must be
+  ##  freed.
 
 proc decode*(str: cstring): cstring {.webui, importc: "webui_decode".}
-  ##  Base64 decoding. Use this to safely decode received Base64 text from the
-  ##  UI. If it fails it will return `nil`. The returned buffer must be freed.
+  ##  Decode a Base64 encoded text. Use this to safely decode received Base64
+  ##  text from the UI. If it fails it will return `nil`. The returned buffer
+  ##  must be freed.
 
 proc free*(`ptr`: pointer) {.webui, importc: "webui_free".}
   ##  Safely free a buffer allocated by WebUI using `malloc()`.
@@ -352,7 +359,7 @@ proc getUrl*(window: csize_t): cstring {.webui, importc: "webui_get_url".}
   ##  Get current URL of a running window.
 
 proc setPublic*(window: csize_t; status: bool) {.webui, importc: "webui_set_public".}
-  ##  Allow a specific window address to be accessible from a public network
+  ##  Allow a specific window address to be accessible from a public network.
 
 proc navigate*(window: csize_t; url: cstring) {.webui, importc: "webui_navigate".}
   ##  Navigate to a specific URL. All clients.
@@ -364,7 +371,7 @@ proc clean*() {.webui, importc: "webui_clean".}
   ##  Free all memory resources. Should be called only at the end.
 
 proc deleteAllProfiles*() {.webui, importc: "webui_delete_all_profiles".}
-  ##  Delete all local web-browser profiles folder. It should called at the
+  ##  Delete all local web-browser profiles folder. It should be called at the
   ##  end.
 
 proc deleteProfile*(window: csize_t) {.webui, importc: "webui_delete_profile".}
@@ -378,9 +385,9 @@ proc getChildProcessId*(window: csize_t): csize_t {.webui, importc: "webui_get_c
   ##  Get the ID of the last child process.
 
 proc setPort*(window: csize_t; port: csize_t): bool {.webui, importc: "webui_set_port", discardable.}
-  ##  Set a custom web-server network port to be used by WebUI.
-  ##  This can be useful to determine the HTTP link of `webui.js` in case
-  ##  you are trying to use WebUI with an external web-server like NGNIX
+  ##  Set a custom web-server/websocket network port to be used by WebUI. This
+  ##  can be useful to determine the HTTP link of `webui.js` in case you are
+  ##  trying to use WebUI with an external web-server like NGNIX.
 
 proc setConfig*(option: WebuiConfig; status: bool) {.webui, importc: "webui_set_config".}
   ## Control WebUI's behaviour. It's recommended to call this at the beginning.
@@ -422,34 +429,34 @@ proc getCount*(e: ptr Event): csize_t {.webui, importc: "webui_get_count".}
   ##  Get how many arguments there are in an event.
 
 proc getIntAt*(e: ptr Event; index: csize_t): clonglong {.webui, importc: "webui_get_int_at".}
-  ##  Get an argument as integer at a specific index
+  ##  Get an argument as integer at a specific index.
 
 proc getInt*(e: ptr Event): clonglong {.webui, importc: "webui_get_int".}
-  ##  Get the first argument as integer
+  ##  Get the first argument as integer.
 
 proc getFloatAt*(e: ptr Event; index: csize_t): cdouble {.webui, importc: "webui_get_float_at".}
-  ##  Get an argument as float at a specific index
+  ##  Get an argument as float at a specific index.
 
 proc getFloat*(e: ptr Event): cdouble {.webui, importc: "webui_get_float".}
-  ##  Get the first argument as float
+  ##  Get the first argument as float.
 
 proc getStringAt*(e: ptr Event; index: csize_t): cstring {.webui, importc: "webui_get_string_at".}
-  ##  Get an argument as string at a specific index
+  ##  Get an argument as string at a specific index.
 
 proc getString*(e: ptr Event): cstring {.webui, importc: "webui_get_string".}
-  ##  Get the first argument as string
+  ##  Get the first argument as string.
 
 proc getBoolAt*(e: ptr Event; index: csize_t): csize_t {.webui, importc: "webui_get_bool_at".}
-  ##  Get an argument as boolean at a specific index
+  ##  Get an argument as boolean at a specific index.
 
 proc getBool*(e: ptr Event): csize_t {.webui, importc: "webui_get_bool".}
-  ##  Get the first argument as boolean
+  ##  Get the first argument as boolean.
 
 proc getSizeAt*(e: ptr Event; index: csize_t): csize_t {.webui, importc: "webui_get_size_at".}
-  ##  Get the size in bytes of an argument at a specific index
+  ##  Get the size in bytes of an argument at a specific index.
 
 proc getSize*(e: ptr Event): csize_t {.webui, importc: "webui_get_size".}
-  ##  Get size in bytes of the first argument
+  ##  Get size in bytes of the first argument.
 
 proc returnInt*(e: ptr Event; n: clonglong) {.webui, importc: "webui_return_int".}
   ##  Return the response to JavaScript as integer.
@@ -482,13 +489,16 @@ proc interfaceGetWindowId*(window: csize_t): csize_t {.webui, importc: "webui_in
   ##  Get a unique window ID.
 
 proc interfaceGetIntAt*(window: csize_t; event_number: csize_t; index: csize_t): clonglong {.webui, importc: "webui_interface_get_int_at".}
-  ##  Get an argument as integer at a specific index
+  ##  Get an argument as an integer at a specific index.
+
+proc interfaceGetFloatAt*(window: csize_t; event_number: csize_t; index: csize_t): cdouble {.webui, importc: "webui_interface_get_float_at".}
+  ##  Get an argument as a float at a specific index.
 
 proc interfaceGetStringAt*(window: csize_t; event_number: csize_t; index: csize_t): cstring {.webui, importc: "webui_interface_get_string_at".}
-  ##  Get an argument as string at a specific index
+  ##  Get an argument as a string at a specific index.
 
 proc interfaceGetBoolAt*(window: csize_t; event_number: csize_t; index: csize_t): bool {.webui, importc: "webui_interface_get_bool_at".}
-  ##  Get an argument as boolean at a specific index
+  ##  Get an argument as a boolean at a specific index.
 
 proc interfaceGetSizeAt*(window: csize_t; event_number: csize_t; index: csize_t): csize_t {.webui, importc: "webui_interface_get_size_at".}
-  ##  Get the size in bytes of an argument at a specific index
+  ##  Get the size in bytes of an argument at a specific index.
