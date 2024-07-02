@@ -145,6 +145,7 @@ type
     wbEpic          ## 10. The Epic Browser
     wbYandex        ## 11. The Yandex Browser
     wbChromiumBased ## 12. Any Chromium based browser
+    wbWebview       ## 13. Webview (not a web browser)
 
   WebuiRuntime* = enum
     wrNone   ## 0. Prevent WebUI from using any runtime for .js and .ts files
@@ -175,6 +176,11 @@ type
       ## Default: `false`
     wcFolderMonitor
       ## Automatically refresh the window UI when any file in the root folder changes
+      ## 
+      ## Default: `false`
+    wcMultiClient
+      ## Allow multiple clients to connect to the same window. This is helpful for web
+      ## apps (non-desktop software). Please see the documentation for more details.
       ## 
       ## Default: `false`
 
@@ -226,13 +232,20 @@ proc getNewWindowId*(): csize_t {.webui, importc: "webui_get_new_window_id".}
 
 proc `bind`*(window: csize_t; element: cstring; `func`: proc (e: ptr Event) {.cdecl.}): csize_t {.webui,
     importc: "webui_bind".}
-  ##  Bind a specific html element click event with a function. Empty element means all events.
+  ##  Bind an HTML element and a JavaScript object with a backend function. Empty
+  ##  `element` means all events.
 
 proc getBestBrowser*(window: csize_t): csize_t {.webui, importc: "webui_get_best_browser".}
-  ##  Get the "best" browser to be used. If running `show()` or passing `wbAnyBrowser` to `showBrowser()`, this function will return the same browser that will be used.
+  ##  Get the "best" browser to be used. If running `show()` or passing `wbAnyBrowser` to
+  ##  `showBrowser()`, this function will return the same browser that will be used.
 
 proc show*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show".}
-  ##  Show a window using embedded HTML, or a file. If the window is already open, it will be refreshed.
+  ##  Show a window using embedded HTML, or a file. If the window is already open, it
+  ##  will be refreshed. This will refresh all windows in multi-client mode.
+
+proc showClient*(e: ptr Event; content: cstring): bool {.webui, importc: "webui_show_client".}
+  ##  Show a window using embedded HTML, or a file. If the window is already open, it
+  ##  will be refreshed. Single client.
 
 proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.webui, importc: "webui_show_browser".}
   ##  Same as `show()`, but using a specific web browser.
@@ -260,7 +273,10 @@ proc wait*() {.webui, importc: "webui_wait".}
   ##  Wait until all opened windows get closed.
 
 proc close*(window: csize_t) {.webui, importc: "webui_close".}
-  ##  Close a specific window only. The window object will still exist.
+  ##  Close a specific window only. The window object will still exist. All clients.
+
+proc closeClient*(e: ptr Event) {.webui, importc: "webui_close_client".}
+  ##  Close a specific client.
 
 proc destroy*(window: csize_t) {.webui, importc: "webui_destroy".}
   ##  Close a specific window and free all memory resources.
@@ -303,7 +319,10 @@ proc malloc*(size: csize_t): pointer {.webui, importc: "webui_malloc".}
   ##  can be safely freed using `free()` at any time.
 
 proc sendRaw*(window: csize_t; function: cstring; raw: pointer; size: csize_t) {.webui, importc: "webui_send_raw".}
-  ##  Safely send raw data to the UI.
+  ##  Safely send raw data to the UI. All clients.
+
+proc sendRawClient*(e: ptr Event; function: cstring; raw: pointer; size: csize_t) {.webui, importc: "webui_send_raw_client".}
+  ##  Safely send raw data to the UI. Single client.
 
 proc setHide*(window: csize_t; status: bool) {.webui, importc: "webui_set_hide".}
   ##  Set a window in hidden mode. Should be called before `show()`.
@@ -328,7 +347,10 @@ proc setPublic*(window: csize_t; status: bool) {.webui, importc: "webui_set_publ
   ##  Allow a specific window address to be accessible from a public network
 
 proc navigate*(window: csize_t; url: cstring) {.webui, importc: "webui_navigate".}
-  ##  Navigate to a specific URL
+  ##  Navigate to a specific URL. All clients.
+
+proc navigateClient*(e: ptr Event; url: cstring) {.webui, importc: "webui_navigate_client".}
+  ##  Navigate to a specific URL. Single client.
 
 proc clean*() {.webui, importc: "webui_clean".}
   ##  Free all memory resources. Should be called only at the end.
@@ -352,7 +374,7 @@ proc setPort*(window: csize_t; port: csize_t): bool {.webui, importc: "webui_set
   ##  you are trying to use WebUI with an external web-server like NGNIX
 
 proc setConfig*(option: WebuiConfig; status: bool) {.webui, importc: "webui_set_config".}
-  ## Control WebUI's behaviour. It's better to this call at the beginning.
+  ## Control WebUI's behaviour. It's recommended to call this at the beginning.
 
 proc setEventBlocking*(window: csize_t; status: bool) {.webui, importc: "webui_set_event_blocking".}
   ##  Control if UI events comming from this window should be processed
@@ -371,12 +393,20 @@ proc setTlsCertificate*(certificate_pem: cstring; private_key_pem: cstring): boo
 # -- JavaScript ----------------------
 
 proc run*(window: csize_t; script: cstring) {.webui, importc: "webui_run".}
-  ##  Run JavaScript without waiting for the response.
+  ##  Run JavaScript without waiting for the response. All clients.
+
+proc runClient*(e: ptr Event; script: cstring) {.webui, importc: "webui_run_client".}
+  ##  Run JavaScript without waiting for the response. Single client.
 
 proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring; bufferLength: csize_t): bool {.webui,
     importc: "webui_script".}
-  ##  Run JavaScript and get the response back.
-  ##  Make sure your local buffer can hold the response.
+  ##  Run JavaScript and get the response back. Make sure your local buffer can hold the
+  ##  response. All clients.
+
+proc scriptClient*(e: ptr Event; script: cstring; timeout: csize_t; buffer: cstring; bufferLength: csize_t): bool {.webui,
+    importc: "webui_script_client".}
+  ##  Run JavaScript and get the response back. Make sure your local buffer can hold the
+  ##  response. Single client.
 
 proc setRuntime*(window: csize_t; runtime: csize_t) {.webui, importc: "webui_set_runtime".}
   ##  Chose between Deno and Nodejs as runtime for .js and .ts files.
