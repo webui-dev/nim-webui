@@ -90,7 +90,7 @@ else:
     {.link: "Advapi32.lib".}
 
     {.passC: "/DMUST_IMPLEMENT_CLOCK_GETTIME".}
-    {.passC: "/I " & currentSourceDir / "webui" / "include".}
+    {.passC: "/I " & currentSourceDir / "webui/include".}
 
   elif defined(windows):
     {.passL: "-lole32".}
@@ -98,19 +98,19 @@ else:
     {.passL: "-luser32".}
     {.passL: "-lAdvapi32".}
 
-    {.passC: "-I" & currentSourceDir / "webui" / "include".}
+    {.passC: "-I" & currentSourceDir / "webui/include".}
 
   else:
     {.passL: "-lpthread".}
     {.passL: "-lm".}
 
-    {.passC: "-I" & currentSourceDir / "webui" / "include".}
+    {.passC: "-I" & currentSourceDir / "webui/include".}
 
   when defined(macos) or defined(macosx):
     {.passL: "-framework Cocoa -framework WebKit".}
-    {.passC: "-I" & currentSourceDir / "webui" / "src" / "webview".}
+    {.passC: "-I" & currentSourceDir / "webui/src/webview".}
     
-    {.compile: currentSourceDir / "webui" / "src" / "webview" / "wkwebview.m".}
+    {.compile: currentSourceDir / "webui/src/webview/wkwebview.m".}
   
   # fix for cpp
   when (defined(clang) or defined(gcc)) and defined(cpp):
@@ -163,24 +163,26 @@ type
 
   WebuiConfig* = enum
     wcShowWaitConnection
-      ## Control if `show()` and `showX()` (e.g. `showBrowser()` & `showWv`) should wait
-      ## for the window to connect before returns or not.
+      ## Control if `show()` and `showX()` (e.g. `showBrowser()` & `showWv`)
+      ## should wait for the window to connect before returns or not.
       ## 
       ## Default: `true`
     wcUiEventBlocking
-      ## Control if WebUI should block and process the UI events one a time in a single
-      ## thread (`true`), or process every event in a new non-blocking thread (`false`).
-      ## This updates all windows. You can use `setEventBlocking()` for a specific single
-      ## window update.
+      ## Control if WebUI should block and process the UI events one a time in
+      ## a single thread (`true`), or process every event in a new non-blocking
+      ## thread (`false`). This updates all windows. You can use
+      ## `setEventBlocking()` for a specific single window update.
       ## 
       ## Default: `false`
     wcFolderMonitor
-      ## Automatically refresh the window UI when any file in the root folder changes
+      ## Automatically refresh the window UI when any file in the root folder
+      ## changes
       ## 
       ## Default: `false`
     wcMultiClient
-      ## Allow multiple clients to connect to the same window. This is helpful for web
-      ## apps (non-desktop software). Please see the documentation for more details.
+      ## Allow multiple clients to connect to the same window. This is helpful
+      ## for web apps (non-desktop software). Please see the documentation for
+      ## more details.
       ## 
       ## Default: `false`
 
@@ -233,28 +235,30 @@ proc getNewWindowId*(): csize_t {.webui, importc: "webui_get_new_window_id".}
 
 proc `bind`*(window: csize_t; element: cstring; `func`: proc (e: ptr Event) {.cdecl.}): csize_t {.webui,
     importc: "webui_bind".}
-  ##  Bind an HTML element and a JavaScript object with a backend function. Empty
-  ##  `element` means all events.
+  ##  Bind an HTML element and a JavaScript object with a backend function.
+  ##  Empty `element` means all events.
 
 proc getBestBrowser*(window: csize_t): csize_t {.webui, importc: "webui_get_best_browser".}
-  ##  Get the "best" browser to be used. If running `show()` or passing `wbAnyBrowser` to
-  ##  `showBrowser()`, this function will return the same browser that will be used.
+  ##  Get the "best" browser to be used. If running `show()` or passing
+  ##  `wbAnyBrowser` to `showBrowser()`, this function will return the same
+  ##  browser that will be used.
 
 proc show*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show".}
-  ##  Show a window using embedded HTML, or a file. If the window is already open, it
-  ##  will be refreshed. This will refresh all windows in multi-client mode.
+  ##  Show a window using embedded HTML, or a file. If the window is already
+  ##  open, it will be refreshed. This will refresh all windows in multi-client
+  ##  mode.
 
 proc showClient*(e: ptr Event; content: cstring): bool {.webui, importc: "webui_show_client".}
-  ##  Show a window using embedded HTML, or a file. If the window is already open, it
-  ##  will be refreshed. Single client.
+  ##  Show a window using embedded HTML, or a file. If the window is already
+  ##  open, it will be refreshed. Single client.
 
 proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.webui, importc: "webui_show_browser".}
   ##  Same as `show()`, but using a specific web browser.
 
 proc showWv*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show_wv".}
-  ##  Show a WebView window using embedded HTML, or a file. If the window is already
-  ##  open, it will be refreshed.
-  ##
+  ##  Show a WebView window using embedded HTML, or a file. If the window is
+  ##  already open, it will be refreshed.
+  ##  
   ##  .. note:: Windows needs `WebView2Loader.dll`.
 
 proc setKiosk*(window: csize_t; status: bool) {.webui, importc: "webui_set_kiosk".}
@@ -274,7 +278,8 @@ proc wait*() {.webui, importc: "webui_wait".}
   ##  Wait until all opened windows get closed.
 
 proc close*(window: csize_t) {.webui, importc: "webui_close".}
-  ##  Close a specific window only. The window object will still exist. All clients.
+  ##  Close a specific window only. The window object will still exist. All
+  ##  clients.
 
 proc closeClient*(e: ptr Event) {.webui, importc: "webui_close_client".}
   ##  Close a specific client.
@@ -289,7 +294,8 @@ proc setRootFolder*(window: csize_t; path: cstring): bool {.webui, importc: "web
   ##  Set the web-server root folder path for a specific window.
 
 proc setDefaultRootFolder*(path: cstring): bool {.webui, importc: "webui_default_set_root_folder".}
-  ##  Set the web-server root folder path for all windows. Should be used before `show()`.
+  ##  Set the web-server root folder path for all windows. Should be used
+  ##  before `show()`.
 
 proc setFileHandler*(window: csize_t; handler: proc (filename: cstring; length: ptr cint): pointer {.cdecl.}) {.webui,
     importc: "webui_set_file_handler".}
@@ -309,8 +315,8 @@ proc encode*(str: cstring): cstring {.webui, importc: "webui_encode".}
   ##  If it fails it will return `nil`. The returned buffer must be freed.
 
 proc decode*(str: cstring): cstring {.webui, importc: "webui_decode".}
-  ##  Base64 decoding. Use this to safely decode received Base64 text from the UI.
-  ##  If it fails it will return `nil`. The returned buffer must be freed.
+  ##  Base64 decoding. Use this to safely decode received Base64 text from the
+  ##  UI. If it fails it will return `nil`. The returned buffer must be freed.
 
 proc free*(`ptr`: pointer) {.webui, importc: "webui_free".}
   ##  Safely free a buffer allocated by WebUI using `malloc()`.
@@ -339,7 +345,8 @@ proc setProfile*(window: csize_t; name: cstring; path: cstring) {.webui, importc
   ##  the default user profile. Must be called before `show()`.
 
 proc setProxy*(window: csize_t; proxy_server: cstring) {.webui, importc: "webui_set_proxy".}
-  ##  Set the web browser to use `proxy_server`. Must be called before `show()`.
+  ##  Set the web browser to use `proxy_server`. Must be called before
+  ##  `show()`.
 
 proc getUrl*(window: csize_t): cstring {.webui, importc: "webui_get_url".}
   ##  Get current URL of a running window.
@@ -357,7 +364,8 @@ proc clean*() {.webui, importc: "webui_clean".}
   ##  Free all memory resources. Should be called only at the end.
 
 proc deleteAllProfiles*() {.webui, importc: "webui_delete_all_profiles".}
-  ##  Delete all local web-browser profiles folder. It should called at the end.
+  ##  Delete all local web-browser profiles folder. It should called at the
+  ##  end.
 
 proc deleteProfile*(window: csize_t) {.webui, importc: "webui_delete_profile".}
   ##  Delete a specific window web-browser local folder profile.
@@ -379,14 +387,14 @@ proc setConfig*(option: WebuiConfig; status: bool) {.webui, importc: "webui_set_
 
 proc setEventBlocking*(window: csize_t; status: bool) {.webui, importc: "webui_set_event_blocking".}
   ##  Control if UI events comming from this window should be processed
-  ##  one a time in a single blocking thread (`true`), or process every event in
-  ##  a new non-blocking thread (`false`). This function only updates a single window 
-  ##  You can use `setConfig(wcUiEventBlocking, ...)` to update all windows.
+  ##  one a time in a single blocking thread (`true`), or process every event
+  ##  in a new non-blocking thread (`false`). This function only updates a
+  ##  single window. You can use `setConfig(wcUiEventBlocking, ...)` to update
+  ##  all windows.
 
 # -- SSL/TLS -------------------------
 
-proc setTlsCertificate*(certificate_pem: cstring; private_key_pem: cstring): bool {.webui,
-    importc: "webui_set_tls_certificate".}
+proc setTlsCertificate*(certificate_pem: cstring; private_key_pem: cstring): bool {.webui, importc: "webui_set_tls_certificate".}
   ##  Set the SSL/TLS certificate and the private key content, both in PEM
   ##  format. This works only with `webui-2-secure` library. If set empty WebUI
   ##  will generate a self-signed certificate.
@@ -399,15 +407,13 @@ proc run*(window: csize_t; script: cstring) {.webui, importc: "webui_run".}
 proc runClient*(e: ptr Event; script: cstring) {.webui, importc: "webui_run_client".}
   ##  Run JavaScript without waiting for the response. Single client.
 
-proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring; bufferLength: csize_t): bool {.webui,
-    importc: "webui_script".}
-  ##  Run JavaScript and get the response back. Make sure your local buffer can hold the
-  ##  response. All clients.
+proc script*(window: csize_t; script: cstring; timeout: csize_t; buffer: cstring; bufferLength: csize_t): bool {.webui, importc: "webui_script".}
+  ##  Run JavaScript and get the response back. Make sure your local buffer can
+  ##  hold the response. All clients.
 
-proc scriptClient*(e: ptr Event; script: cstring; timeout: csize_t; buffer: cstring; bufferLength: csize_t): bool {.webui,
-    importc: "webui_script_client".}
-  ##  Run JavaScript and get the response back. Make sure your local buffer can hold the
-  ##  response. Single client.
+proc scriptClient*(e: ptr Event; script: cstring; timeout: csize_t; buffer: cstring; bufferLength: csize_t): bool {.webui, importc: "webui_script_client".}
+  ##  Run JavaScript and get the response back. Make sure your local buffer can
+  ##  hold the response. Single client.
 
 proc setRuntime*(window: csize_t; runtime: csize_t) {.webui, importc: "webui_set_runtime".}
   ##  Chose between Deno and Nodejs as runtime for .js and .ts files.
@@ -459,16 +465,15 @@ proc returnBool*(e: ptr Event; b: bool) {.webui, importc: "webui_return_bool".}
 
 #  -- Interface -----------------------
 
-proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (window: csize_t; eventType: csize_t;
-    element: cstring; eventNumber: csize_t; bindId: csize_t) {.cdecl.}): csize_t {.webui,
-    importc: "webui_interface_bind".}
-  ##  Bind a specific HTML element click event with a function. Empty element means all events.
-  ##
+proc interfaceBind*(window: csize_t; element: cstring; `func`: proc (window: csize_t; eventType: csize_t; element: cstring; eventNumber: csize_t; bindId: csize_t) {.cdecl.}): csize_t {.webui, importc: "webui_interface_bind".}
+  ##  Bind a specific HTML element click event with a function. Empty element
+  ##  means all events.
+  ##  
   ##  :func: The callback as `myFunc(Window, EventType, Element, EventNumber, BindID)`
 
-proc interfaceSetResponse*(window: csize_t; event_number: csize_t; repsonse: cstring) {.webui,
-    importc: "webui_interface_set_response".}
-  ##  When using `interfaceBind()`, you may need this function to easily set a response.
+proc interfaceSetResponse*(window: csize_t; event_number: csize_t; repsonse: cstring) {.webui, importc: "webui_interface_set_response".}
+  ##  When using `interfaceBind()`, you may need this function to easily set a
+  ##  response.
 
 proc interfaceIsAppRunning*(): bool {.webui, importc: "webui_interface_is_app_running".}
   ##  Check if the app still running or not. This replaces `wait()`.
@@ -476,18 +481,14 @@ proc interfaceIsAppRunning*(): bool {.webui, importc: "webui_interface_is_app_ru
 proc interfaceGetWindowId*(window: csize_t): csize_t {.webui, importc: "webui_interface_get_window_id".}
   ##  Get a unique window ID.
 
-proc interfaceGetIntAt*(window: csize_t; event_number: csize_t; index: csize_t): clonglong {.webui,
-    importc: "webui_interface_get_int_at".}
+proc interfaceGetIntAt*(window: csize_t; event_number: csize_t; index: csize_t): clonglong {.webui, importc: "webui_interface_get_int_at".}
   ##  Get an argument as integer at a specific index
 
-proc interfaceGetStringAt*(window: csize_t; event_number: csize_t; index: csize_t): cstring {.webui,
-    importc: "webui_interface_get_string_at".}
+proc interfaceGetStringAt*(window: csize_t; event_number: csize_t; index: csize_t): cstring {.webui, importc: "webui_interface_get_string_at".}
   ##  Get an argument as string at a specific index
 
-proc interfaceGetBoolAt*(window: csize_t; event_number: csize_t; index: csize_t): bool {.webui,
-    importc: "webui_interface_get_bool_at".}
+proc interfaceGetBoolAt*(window: csize_t; event_number: csize_t; index: csize_t): bool {.webui, importc: "webui_interface_get_bool_at".}
   ##  Get an argument as boolean at a specific index
 
-proc interfaceGetSizeAt*(window: csize_t; event_number: csize_t; index: csize_t): csize_t {.webui,
-    importc: "webui_interface_get_size_at".}
+proc interfaceGetSizeAt*(window: csize_t; event_number: csize_t; index: csize_t): csize_t {.webui, importc: "webui_interface_get_size_at".}
   ##  Get the size in bytes of an argument at a specific index
