@@ -154,8 +154,6 @@ func `impl=`*(event: Event, be: ptr bindings.Event) =
 
   event.internalImpl = be
 
-# -------- Event --------
-
 proc window*(event: Event): Window =
   result = Window(int event.impl.window)
 
