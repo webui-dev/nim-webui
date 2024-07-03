@@ -218,15 +218,31 @@ proc getString*(event: Event, index: int): string =
   ## 
   ## :event: The event 
   ## :index: The argument position starting from 0
-  
-  $ bindings.getStringAt(event.internalImpl, csize_t index)
+
+  let
+    # cast[uint] returns the char* as its integer address
+    cptr = cast[uint](bindings.getStringAt(event.internalImpl, csize_t index))
+    size = uint bindings.getSizeAt(event.internalImpl, csize_t index)
+
+  result = newString(size)
+
+  for i in 0..<size:
+    result[i] = cast[ptr char](cptr + i)[]
 
 proc getString*(event: Event): string =
   ## Get the first argument as string
   ## 
   ## :event: The event 
-  
-  $ bindings.getString(event.internalImpl)
+
+  let
+    # cast[uint] returns the char* as its integer address
+    cptr = cast[uint](bindings.getString(event.internalImpl))
+    size = uint bindings.getSize(event.internalImpl)
+
+  result = newString(size)
+
+  for i in 0..<size:
+    result[i] = cast[ptr char](cptr + i)[]
 
 proc getBool*(event: Event, index: int): bool =
   ## Get an argument as boolean at a specific index
