@@ -607,12 +607,13 @@ proc script*(window: Window; script: string; timeout: int = 0, bufferLen: static
   ##             8 kibibytes. (For larger responses make `bufferLen` larger)
   
   var buffer: array[bufferLen, char]
+  let error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
 
-  let 
-    error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer[0]), csize_t bufferLen)
-    data = $(cast[cstring](addr buffer[0])) # remove trailing null chars
+  result.data = newString(buffer.find('\0'))
+  for i in 0 ..< result.data.len:
+    result.data[i] = buffer[i]
 
-  result.data = data
+  # webui returns `false` in case of an error, we want to return `true`
   result.error = not error
 
 proc scriptClient*(event: Event; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] =
@@ -629,12 +630,13 @@ proc scriptClient*(event: Event; script: string; timeout: int = 0, bufferLen: st
   ##             8 kibibytes. (For larger responses make `bufferLen` larger)
   
   var buffer: array[bufferLen, char]
+  let error = bindings.scriptClient(event.impl, cstring script, csize_t timeout, cast[cstring](addr buffer), csize_t bufferLen)
 
-  let 
-    error = bindings.scriptClient(event.impl, cstring script, csize_t timeout, cast[cstring](addr buffer[0]), csize_t bufferLen)
-    data = $(cast[cstring](addr buffer[0])) # remove trailing null chars
+  result.data = newString(buffer.find('\0'))
+  for i in 0 ..< result.data.len:
+    result.data[i] = buffer[i]
 
-  result.data = data
+  # webui returns `false` in case of an error, we want to return `true`
   result.error = not error
 
 proc run*(window: Window; script: string) =
