@@ -43,9 +43,9 @@ proc exit*() =
   bindings.exit()
 
 proc setTimeout*(timeout: int) =
-  ## Set the maximum time in seconds to wait for browser to start.
-  ## 
-  ## Set `timeout` to `0` to wait forever. 
+  ## Set the maximum time in seconds to wait for the window to connect. This
+  ## will affect `show()` and `wait()`. Setting the timeout to `0` will cause
+  ## WebUI to wait forever.
   ## 
   ## :timeout: The maximum time in seconds to wait for browser to start.
   ##           Set to `0` to wait forever.
@@ -75,11 +75,13 @@ proc decode*(str: string): string =
   bindings.free(addr cstr)
 
 proc setDefaultRootFolder*(path: string): bool {.discardable.} = 
-  ## Set the web-server root folder path for all windows. 
+  ## Set the default web-server root folder path for all windows.
   ## 
   ## .. note:: Should be used before `webui_show()`.
   ## 
   ## :path: The path to the root folder.
+  ## 
+  ## Returns `true` on success.
 
   bindings.setDefaultRootFolder(cstring path)
 
@@ -128,6 +130,16 @@ proc setConfig*(option: bindings.WebuiConfig; status: bool) =
   
   bindings.setConfig(option, status)
 
+proc setConfig*(options: openArray[bindings.WebuiConfig] or set[bindings.WebuiConfig]; status: bool) =
+  ## Control WebUI's behaviour via setting configuration options `options` to either
+  ## `true` or `false`. It's better to this call at the beginning of your program.
+  ## 
+  ## :option:s The desired options from the `WebuiConfig` enum
+  ## :status: The desired status of all of the options, `true` or `false`
+  
+  for option in options:
+    bindings.setConfig(option, status)
+
 # ------- Impl funcs --------
 
 # --- Event ---
@@ -158,6 +170,9 @@ proc eventNumber*(event: Event): int =
 
 proc bindId*(event: Event): int =
   int event.impl.bindId
+
+proc clientId*(event: Event): int =
+  int event.impl.clientId
 
 # --- 
 
@@ -283,17 +298,18 @@ proc newWindow*(): Window =
   result = Window(bindings.newWindow())
 
 proc newWindow*(windowNumber: int): Window = 
-  ## Create a new webui window object using a specified window ID.
+  ## Create a new webui window object using a specified window number.
   ## 
-  ## :windowNumber: The window ID (should be within the range of `0..<WEBUI_MAX_IDS`)
-  
+  ## :windowNumber: The window ID (should be within the range of
+  ##                `0..<WEBUI_MAX_IDS`)
+
   result = Window(bindings.newWindowId(csize_t windowNumber))
 
 proc getNewWindowId*(): int = 
-  ## Get new window ID. To be used in conjuction with
+  ## Get a free window number that can be used in conjuction with
   ## `newWindow(int)`_.
   ## 
-  ## Returns the first available free window number. Starting from 1.
+  ## Returns the first available free window number, starting from 1.
   
   int bindings.getNewWindowId()
 
@@ -313,10 +329,12 @@ proc parentProcessId*(window: Window): int =
   int bindings.getParentProcessId(csize_t window)
 
 proc getBestBrowser*(window: Window): bindings.WebuiBrowser =
-  ## Get the "best" browser to be used. If running `show()`, this function will
-  ## return the same browser that will be used.
+  ## Get the recommended web browser to use. If running `show()`, this function
+  ## will return the same browser that is already being used.
   ## 
-  ## :window: The window
+  ## :window: The window to get the best browser for
+  ## 
+  ## Returns a value from the `WebuiBrowser` enum.
 
   bindings.WebuiBrowser(bindings.getBestBrowser(csize_t window))
 
@@ -324,14 +342,15 @@ proc getBestBrowser*(window: Window): bindings.WebuiBrowser =
 
 proc show*(window: Window; content: string): bool = 
   ## Show a window using embedded HTML, or a file. If the window is already
-  ## open, it will be refreshed.
+  ## open, it will be refreshed. This will refresh all windows in multi-client
+  ## mode.
   ## 
-  ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
-  ##                for proper window communication. 
+  ## .. important:: Please include `<script src="webui.js"></script>` in the
+  ##                HTML for proper window communication. 
   ## 
   ## :window: The window to show `content` in. If the window is already
   ##          shown, the UI will get refreshed in the same window.
-  ## :content: The content to show in `window`. Can be a file name, or a
+  ## :content: The content to show in `window`. Can be a file name, URL, or a
   ##           static HTML script.
   ## 
   ## Returns `true` if showing the window is a success.
@@ -372,20 +391,47 @@ proc show*(window: Window; content: string; browsers: openArray[bindings.WebuiBr
     if bindings.showBrowser(csize_t window, cstring content, csize_t ord(browser)):
       return true
 
+proc showClient*(event: Event; content: string): bool = 
+  ## Show a window using embedded HTML, or a file. If the window is already
+  ## open, it will be refreshed. Single client.
+  ## 
+  ## .. important:: Please include `<script src="webui.js"></script>` in the
+  ##                HTML for proper window communication. 
+  ## 
+  ## :event: The event to use.
+  ## :content: The content to show. Can be a file name, URL, or a
+  ##           static HTML script.
+  ## 
+  ## Returns `true` if showing the window is a success.
+
+  bindings.showClient(event.impl, cstring content)
+
 proc showWv*(window: Window; content: string): bool =
   ## Show a WebView window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed. 
   ## 
   ## .. note:: On Windows, you will need `WebView2Loader.dll`.
   ## 
-  ## :window: The window
-  ## :content: The HTML, URL, or a local file
+  ## :window: The window to show `content` in. If the window is already
+  ##          shown, the UI will get refreshed in the same window.
+  ## :content: The content to show in `window`. Can be a file name, or a
+  ##           static HTML script.
   ## 
   ## Returns `true` if showing the WebView window succeeded.
 
   bindings.showWv(csize_t window, cstring content)
 
 {.pop.}
+
+proc startServer*(window: Window, path: string): string =
+  ## Start only the web server and return the URL. This is useful for web apps.
+  ## 
+  ## :window: The window to start the web server for
+  ## :path: The full path to the local root folder
+  ## 
+  ## Returns the url of the window server.
+
+  $ bindings.startServer(csize_t window, cstring path)
 
 proc `port=`*(window: Window, port: int) =
   ## Set a custom web-server network port to be used by WebUI.
@@ -512,6 +558,13 @@ proc close*(window: Window) =
   
   bindings.close(csize_t window)
 
+proc closeClient*(event: Event) =
+  ## Close a specific client.
+  ## 
+  ## :event: The event object.
+  
+  bindings.closeClient(event.impl)
+
 proc destroy*(window: Window) =
   ## Close a specific window and free all memory resources.
   ## 
@@ -530,12 +583,12 @@ proc script*(window: Window; script: string; timeout: int = 0, bufferLen: static
   ## Run Javascript code `script` and return the result
   ## 
   ## Returns a tuple containing the response (`data`) and whether or not
-  ## there was an error (`error`, true if an error occured, false otherwise).
+  ## there was an error (`error`, `true` if an error occured, `false` otherwise).
   ## If an error occured, the error message will be held in `data`.
   ## 
   ## :window: The window to run the Javascript code in.
   ## :script: The Javascript code to execute.
-  ## :timeout: How long to wait, at most, for a response.
+  ## :timeout: The execution timeout in seconds.
   ## :bufferLen: How large to make the buffer for the response. Default is
   ##             8 kibibytes. (For larger responses make `bufferLen` larger)
   
@@ -543,20 +596,49 @@ proc script*(window: Window; script: string; timeout: int = 0, bufferLen: static
 
   let 
     error = bindings.script(csize_t window, cstring script, csize_t timeout, cast[cstring](addr buffer[0]), csize_t bufferLen)
+    data = $(cast[cstring](addr buffer[0])) # remove trailing null chars
 
+  result.data = data
+  result.error = not error
+
+proc scriptClient*(event: Event; script: string; timeout: int = 0, bufferLen: static[int] = 1024 * 8): tuple[data: string; error: bool] =
+  ## Run Javascript code `script` and return the result
+  ## 
+  ## Returns a tuple containing the response (`data`) and whether or not
+  ## there was an error (`error`, `true` if an error occured, `false` otherwise).
+  ## If an error occured, the error message will be held in `data`.
+  ## 
+  ## :event: The event.
+  ## :script: The Javascript code to execute.
+  ## :timeout: The execution timeout in seconds.
+  ## :bufferLen: How large to make the buffer for the response. Default is
+  ##             8 kibibytes. (For larger responses make `bufferLen` larger)
+  
+  var buffer: array[bufferLen, char]
+
+  let 
+    error = bindings.scriptClient(event.impl, cstring script, csize_t timeout, cast[cstring](addr buffer[0]), csize_t bufferLen)
     data = $(cast[cstring](addr buffer[0])) # remove trailing null chars
 
   result.data = data
   result.error = not error
 
 proc run*(window: Window; script: string) =
-  ## Run JavaScript quickly without waiting for the response.
+  ## Run JavaScript quickly without waiting for the response. All clients.
   ## 
   ## :window: The window to run the Javascript code in.
   ## :script: The Javascript code to execute.
 
   bindings.run(csize_t window, cstring script)
-  
+
+proc runClient*(event: Event; script: string) =
+  ## Run JavaScript quickly without waiting for the response. All clients.
+  ## 
+  ## :event: The event.
+  ## :script: The Javascript code to execute.
+
+  bindings.runClient(event.impl, cstring script)
+
 # proc interfaceHandler(window: csize_t; eventType: csize_t; element: cstring; data: cstring; eventNumber: csize_t) {.cdecl.} =
 #   var event = bindings.Event()
 # 
@@ -579,14 +661,15 @@ proc bindHandler(e: ptr bindings.Event) {.cdecl.} =
   cbs[bindings.interfaceGetWindowId(e.window)][e.bindId](event)
 
 proc `bind`*(window: Window; element: string; `func`: proc (e: Event)) =
-  ## Bind a specific html element click event with a function. Empty element means all events.
+  ## Bind a specific html element and a JavaScript object with a backend
+  ## function. Empty `element` will bind all events.
   ## 
   ## Each element can have only one function bound to it.
   ## 
   ## :window: The window to bind the function onto.
-  ## :element: The element to bind the function `func` to. `func` will be
-  ##           called on click events. An empty element means `func` will
-  ##           be bound to all events.
+  ## :element: The HTML element / JavaScript object to bind the function `func`
+  ##           to. For HTML elements, `func` will be called on click events.
+  ##           An empty element means `func` will be bound to all events.
   ## :func: The function to bind to `element`. 
 
   let bid = int bindings.bind(csize_t window, cstring element, bindHandler)
@@ -665,7 +748,7 @@ proc setFileHandler*(window: Window; handler: proc (filename: string): string) =
   window.fileHandler = handler
 
 proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) =
-  ## Safely send raw data to the UI.
+  ## Safely send raw data to the UI. All clients.
   ## 
   ## :window: The window to send the raw data to.
   ## :function: The JavaScript function to receive raw data: `function myFunc(myData){}`
@@ -673,6 +756,16 @@ proc sendRaw*(window: Window; function: string; raw: pointer; size: uint) =
   ## :size: The size of the raw data in bytes.
   
   bindings.sendRaw(csize_t window, cstring function, raw, csize_t size)
+
+proc sendRawClient*(event: Event; function: string; raw: pointer; size: uint) =
+  ## Safely send raw data to the UI. All clients.
+  ## 
+  ## :event: The event.
+  ## :function: The JavaScript function to receive raw data: `function myFunc(myData){}`
+  ## :raw: The raw data buffer.
+  ## :size: The size of the raw data in bytes.
+  
+  bindings.sendRawClient(event.impl, cstring function, raw, csize_t size)
 
 proc setPosition*(window: Window; x, y: int) =
   ## Set window position
@@ -700,19 +793,27 @@ proc setProfile*(window: Window; name, path: string) =
   bindings.setProfile(csize_t window, cstring name, cstring path)
   
 proc url*(window: Window): string =
-  ## Get the full current URL
+  ## Get the full current URL.
   ## 
   ## :window: The window to get the URL from
   
   $ bindings.getUrl(csize_t window)
-  
+
 proc navigate*(window: Window, url: string) =
-  ## Navigate to a specific URL
+  ## Navigate to a specific URL. All clients.
   ## 
   ## :window: The window to navigate on
   ## :url: The URL to navigate to
   
   bindings.navigate(csize_t window, cstring url)
+
+proc navigateClient*(event: Event, url: string) =
+  ## Navigate to a specific URL. Single client.
+  ## 
+  ## :window: The window to navigate on
+  ## :url: The URL to navigate to
+  
+  bindings.navigateClient(event.impl, cstring url)
 
 proc deleteProfile*(window: Window) =
   ## Delete a specific window web-browser local folder profile.
