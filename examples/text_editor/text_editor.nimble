@@ -1,7 +1,7 @@
 # Package
 
 version       = "1.1.0"
-author        = "Jasmine"
+author        = "neroist"
 description   = "Text editor example for webui"
 license       = "MIT"
 srcDir        = "src"
