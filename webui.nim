@@ -668,9 +668,9 @@ proc runClient*(event: Event; script: string) =
 # 
 #   cbs[bindings.interfaceGetWindowId(window)][bindings.interfaceGetBindId(window, element)](e)
 
-proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
+proc bindHandler(e: ptr bindings.Event) {.cdecl.} =
   var event = new Event
-  event.internalImpl = e
+  event.impl = e
 
   cbs[int bindings.interfaceGetWindowId(e.window)][int e.bindId](event)
 
