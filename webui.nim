@@ -655,10 +655,10 @@ proc runClient*(event: Event; script: string) =
 #   cbs[bindings.interfaceGetWindowId(window)][bindings.interfaceGetBindId(window, element)](e)
 
 proc bindHandler(e: ptr bindings.Event) {.cdecl.} = 
-  var event = Event(internalImpl: e)
+  var event = new Event
+  event.internalImpl = e
 
-  #cbs[bindings.interfaceGetWindowId(e.window)][bindings.interfaceGetBindId(e.window, e.element)](event)
-  cbs[bindings.interfaceGetWindowId(e.window)][e.bindId](event)
+  cbs[int bindings.interfaceGetWindowId(e.window)][int e.bindId](event)
 
 proc `bind`*(window: Window; element: string; `func`: proc (e: Event)) =
   ## Bind a specific html element and a JavaScript object with a backend
