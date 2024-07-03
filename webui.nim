@@ -345,7 +345,7 @@ proc show*(window: Window; content: string): bool =
   ## open, it will be refreshed. This will refresh all windows in multi-client
   ## mode.
   ## 
-  ## .. important:: Please include `<script src="webui.js"></script>` in the
+  ## .. important:: Please include `<script src="/webui.js"></script>` in the
   ##                HTML for proper window communication. 
   ## 
   ## :window: The window to show `content` in. If the window is already
@@ -360,7 +360,7 @@ proc show*(window: Window; content: string): bool =
 proc show*(window: Window; content: string; browser: bindings.WebuiBrowser): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific web browser.    
   ##
-  ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
+  ## .. important:: Please include `<script src="/webui.js"></script>` in the HTML
   ##                for proper window communication. 
   ##
   ## :window: The window to show `content` in. If the window is already
@@ -376,7 +376,7 @@ proc show*(window: Window; content: string; browser: bindings.WebuiBrowser): boo
 proc show*(window: Window; content: string; browsers: openArray[bindings.WebuiBrowser] or set[bindings.WebuiBrowser]): bool =
   ## Same as `show() <#show,Window,string>`_, but with a specific set of web browsers to use.    
   ## 
-  ## .. important:: Please include `<script src="webui.js"></script>` in the HTML
+  ## .. important:: Please include `<script src="/webui.js"></script>` in the HTML
   ##                for proper window communication. 
   ##
   ## :window: The window to show `content` in. If the window is already
@@ -395,7 +395,7 @@ proc showClient*(event: Event; content: string): bool =
   ## Show a window using embedded HTML, or a file. If the window is already
   ## open, it will be refreshed. Single client.
   ## 
-  ## .. important:: Please include `<script src="webui.js"></script>` in the
+  ## .. important:: Please include `<script src="/webui.js"></script>` in the
   ##                HTML for proper window communication. 
   ## 
   ## :event: The event to use.

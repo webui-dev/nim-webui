@@ -19,7 +19,7 @@ const loginHtml = """
       }
     </style>
 
-    <script src="webui.js"></script>
+    <script src="/webui.js"></script>
   </head>
 
   <body>
@@ -56,7 +56,7 @@ const dashboardHtml = """
       }
     </style>
 
-    <script src="webui.js"></script>
+    <script src="/webui.js"></script>
   </head>
 
   <body>

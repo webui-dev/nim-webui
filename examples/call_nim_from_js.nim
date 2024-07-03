@@ -5,7 +5,7 @@ const html = """
 <html>
   <head>
     <meta charset="UTF-8">
-    <script src="webui.js"></script>
+    <script src="/webui.js"></script>
     <title>Call C from JavaScript Example</title>
     <style>
        body {

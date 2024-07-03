@@ -6,7 +6,7 @@ const
 <html>
   <head>
     <meta charset="UTF-8">
-    <script src="webui.js"></script>
+    <script src="/webui.js"></script>
     <title>Public Network Access Example</title>
     <style>
        body {
@@ -56,7 +56,7 @@ const
 <html>
   <head>
     <meta charset="UTF-8">
-    <script src="webui.js"></script>
+    <script src="/webui.js"></script>
     <title>Welcome to Public UI</title>
   </head>
   <body>
