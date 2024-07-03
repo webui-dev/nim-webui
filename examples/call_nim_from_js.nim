@@ -135,7 +135,7 @@ proc main =
     echo "function_raw_binary 1 (", len1, " bytes): ", raw1
 
     # check raw2 (Big)
-    if raw2[0] == chr(0xa1) and raw2[len2 - 1] == chr(0xa2):
+    if raw2[0] == chr(0xa1) and raw2[^1] == chr(0xa2):
       echo "function_raw_binary 2 (", len2, " bytes): valid data? ", "Yes"
     else:
       echo "function_raw_binary 2 (", len2, " bytes): valid data? ", "No"
