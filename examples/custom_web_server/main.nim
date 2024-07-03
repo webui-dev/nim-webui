@@ -15,8 +15,8 @@ proc main =
       echo "Connected"
     of weDisconnected:
       echo "Disconnected"
-    #of EventsMouseClick:
-    #  echo "Click"
+    of weMouseClick:
+     echo "Click"
     of weNavigation:
       let url = e.getString()
       echo "Starting navigation to: ", url
