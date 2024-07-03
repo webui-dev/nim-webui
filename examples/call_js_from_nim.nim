@@ -93,7 +93,7 @@ proc main =
     exit()
 
   # Show the window
-  window.show(html) # webui_show_browser(my_window, my_html, Chrome);
+  window.show(html) # window.show(html, wbChrome);
 
   # Wait until all windows get closed
   wait()
