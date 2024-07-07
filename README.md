@@ -1,8 +1,8 @@
 <div align="center">
 
-![Logo](https://raw.githubusercontent.com/webui-dev/webui-logo/main/webui_240.png)
+![Logo](https://raw.githubusercontent.com/webui-dev/webui-logo/main/webui_nim.png)
 
-# WebUI Nim
+# Nim-WebUI
 
 <!-- [build-status]: https://img.shields.io/github/actions/workflow/status/webui-dev/webui-nim/ci.yml?branch=main&style=for-the-badge&logo=githubactions&labelColor=414868&logoColor=C0CAF5 -->
 [last-commit]: https://img.shields.io/github/last-commit/webui-dev/nim-webui?style=for-the-badge&logo=github&logoColor=C0CAF5&labelColor=414868
@@ -22,7 +22,7 @@ Nim wrapper and bindings for [WebUI](https://github.com/webui-dev/webui), a full
 Instead of using a third-party library, WebUI instead uses a pre-installed browser (Edge, Firefox, Chrome, Chromium, or Safari). So, there's no need for any large SDK or library for development/production, all you need is a web browser (or a webview, if you're into that)!
 -->
 
-![Screenshot](https://github.com/webui-dev/webui/assets/16948659/39c5b000-83eb-4779-a7ce-9769d3acf204)
+![Screenshot](https://raw.githubusercontent.com/webui-dev/webui-logo/main/screenshot.png)
 
 </div>
 
@@ -34,12 +34,6 @@ Instead of using a third-party library, WebUI instead uses a pre-installed brows
 * Multi-platform & Multi-Browser
 * Using private profile for safety
 * Cross-platform WebView
-
-## Screenshot
-
-This [text editor example](https://github.com/neroist/webui/tree/main/examples/text_editor) is written in Nim using WebUI as the GUI library.
-
-![ScreenShot](nim_example.png)
 
 ## Installation
 
