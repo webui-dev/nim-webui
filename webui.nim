@@ -140,6 +140,13 @@ proc setConfig*(options: openArray[bindings.WebuiConfig] or set[bindings.WebuiCo
   for option in options:
     bindings.setConfig(option, status)
 
+proc openUrl*(url: string) =
+  ## Open an URL in the native default web browser.
+  ## 
+  ## :url: The URL to open
+
+  bindings.openUrl(cstring url)
+
 # ------- Impl funcs --------
 
 # --- Event ---

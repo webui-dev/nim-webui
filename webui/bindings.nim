@@ -367,6 +367,9 @@ proc setProxy*(window: csize_t; proxy_server: cstring) {.webui, importc: "webui_
 proc getUrl*(window: csize_t): cstring {.webui, importc: "webui_get_url".}
   ##  Get current URL of a running window.
 
+proc openUrl*(url: cstring) {.webui, importc: "webui_open_url".}
+  ##  Open an URL in the native default web browser.
+
 proc setPublic*(window: csize_t; status: bool) {.webui, importc: "webui_set_public".}
   ##  Allow a specific window address to be accessible from a public network.
 
