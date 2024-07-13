@@ -398,6 +398,10 @@ proc getParentProcessId*(window: csize_t): csize_t {.webui, importc: "webui_get_
 proc getChildProcessId*(window: csize_t): csize_t {.webui, importc: "webui_get_child_process_id".}
   ##  Get the ID of the last child process.
 
+proc getPort*(window: csize_t): csize_t {.webui, importc: "webui_get_port", discardable.}
+  ##  Get the network port of a running window. This can be useful to determine
+  ## the HTTP link of `webui.js`.
+
 proc setPort*(window: csize_t; port: csize_t): bool {.webui, importc: "webui_set_port", discardable.}
   ##  Set a custom web-server/websocket network port to be used by WebUI. This
   ##  can be useful to determine the HTTP link of `webui.js` in case you are

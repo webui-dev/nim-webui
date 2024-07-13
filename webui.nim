@@ -455,6 +455,16 @@ proc startServer*(window: Window, path: string): string =
 
   $ bindings.startServer(csize_t window, cstring path)
 
+proc port*(window: Window): int =
+  ## Get the network port of a running window.
+  ## 
+  ## This can be useful to determine the HTTP link of `webui.js`
+  ## 
+  ## :window: The window
+  ## :port: The web-server network port WebUI should use
+  
+  int bindings.getPort(csize_t window)
+
 proc `port=`*(window: Window, port: int) =
   ## Set a custom web-server network port to be used by WebUI.
   ## This can be useful to determine the HTTP link of `webui.js` in case
