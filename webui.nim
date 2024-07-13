@@ -152,6 +152,13 @@ proc getFreePort*(): int =
   
   int bindings.getFreePort()
 
+proc getMimeType*(file: string): string =
+  ## Get the HTTP mime type of a file.
+  ## 
+  ## :file: The name of the file (e.g. `foo.png`)
+  
+  $ bindings.getMimeType(cstring file)
+
 # ------- Impl funcs --------
 
 # --- Event ---

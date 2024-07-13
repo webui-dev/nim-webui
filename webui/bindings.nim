@@ -400,7 +400,7 @@ proc getChildProcessId*(window: csize_t): csize_t {.webui, importc: "webui_get_c
 
 proc getPort*(window: csize_t): csize_t {.webui, importc: "webui_get_port", discardable.}
   ##  Get the network port of a running window. This can be useful to determine
-  ## the HTTP link of `webui.js`.
+  ##  the HTTP link of `webui.js`.
 
 proc setPort*(window: csize_t; port: csize_t): bool {.webui, importc: "webui_set_port", discardable.}
   ##  Set a custom web-server/websocket network port to be used by WebUI. This
@@ -419,6 +419,9 @@ proc setEventBlocking*(window: csize_t; status: bool) {.webui, importc: "webui_s
   ##  in a new non-blocking thread (`false`). This function only updates a
   ##  single window. You can use `setConfig(wcUiEventBlocking, ...)` to update
   ##  all windows.
+
+proc getMimeType*(file: cstring): cstring {.webui, importc: "webui_get_mime_type".}
+  ## Get the HTTP mime type of a file.
 
 # -- SSL/TLS -------------------------
 
