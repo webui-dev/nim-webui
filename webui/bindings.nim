@@ -151,6 +151,7 @@ type
     wrNone   ## 0. Prevent WebUI from using any runtime for .js and .ts files
     wrDeno   ## 1. Use Deno runtime for .js and .ts files
     wrNodeJs ## 2. Use Nodejs runtime for .js files
+    wrBun    ## 2. Use Bun runtime for .js files
 
   WebuiEvent* = enum
     weDisconnected       ## 0. Window disconnection event
