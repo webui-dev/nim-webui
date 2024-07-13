@@ -402,6 +402,9 @@ proc setPort*(window: csize_t; port: csize_t): bool {.webui, importc: "webui_set
   ##  can be useful to determine the HTTP link of `webui.js` in case you are
   ##  trying to use WebUI with an external web-server like NGNIX.
 
+proc getFreePort*(): csize_t {.webui, importc: "webui_get_free_port".}
+  ##  Get an available and usable free network port.
+
 proc setConfig*(option: WebuiConfig; status: bool) {.webui, importc: "webui_set_config".}
   ## Control WebUI's behaviour. It's recommended to call this at the beginning.
 

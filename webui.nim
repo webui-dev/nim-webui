@@ -147,6 +147,11 @@ proc openUrl*(url: string) =
 
   bindings.openUrl(cstring url)
 
+proc getFreePort*(): int =
+  ## Get an available and usable free network port.
+  
+  int bindings.getFreePort()
+
 # ------- Impl funcs --------
 
 # --- Event ---
