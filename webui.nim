@@ -191,7 +191,7 @@ proc getCount*(event: Event): int =
   ## 
   ## :event: The event 
 
-  int bindings.getCount(event.internalImpl)
+  int bindings.getCount(event.impl)
 
 proc getInt*(event: Event, index: int): int =
   ## Get an argument as integer at a specific index
@@ -199,14 +199,14 @@ proc getInt*(event: Event, index: int): int =
   ## :event: The event 
   ## :index: The argument position starting from 0
 
-  int bindings.getIntAt(event.internalImpl, csize_t index)
+  int bindings.getIntAt(event.impl, csize_t index)
 
 proc getInt*(event: Event): int =
   ## Get the first argument as integer
   ## 
   ## :event: The event 
 
-  int bindings.getInt(event.internalImpl)
+  int bindings.getInt(event.impl)
 
 proc getFloat*(event: Event, index: int): float =
   ## Get an argument as integer at a specific index
@@ -214,14 +214,14 @@ proc getFloat*(event: Event, index: int): float =
   ## :event: The event 
   ## :index: The argument position starting from 0
 
-  float bindings.getFloatAt(event.internalImpl, csize_t index)
+  float bindings.getFloatAt(event.impl, csize_t index)
 
 proc getFloat*(event: Event): float =
   ## Get the first argument as a float
   ## 
   ## :event: The event 
 
-  float bindings.getFloat(event.internalImpl)
+  float bindings.getFloat(event.impl)
 
 proc getString*(event: Event, index: int): string =
   ## Get an argument as string at a specific index
@@ -231,8 +231,8 @@ proc getString*(event: Event, index: int): string =
 
   let
     # cast[uint] returns the char* as its integer address
-    cptr = cast[uint](bindings.getStringAt(event.internalImpl, csize_t index))
-    size = uint bindings.getSizeAt(event.internalImpl, csize_t index)
+    cptr = cast[uint](bindings.getStringAt(event.impl, csize_t index))
+    size = uint bindings.getSizeAt(event.impl, csize_t index)
 
   result = newString(size)
 
@@ -246,8 +246,8 @@ proc getString*(event: Event): string =
 
   let
     # cast[uint] returns the char* as its integer address
-    cptr = cast[uint](bindings.getString(event.internalImpl))
-    size = uint bindings.getSize(event.internalImpl)
+    cptr = cast[uint](bindings.getString(event.impl))
+    size = uint bindings.getSize(event.impl)
 
   result = newString(size)
 
@@ -260,14 +260,14 @@ proc getBool*(event: Event, index: int): bool =
   ## :event: The event 
   ## :index: The argument position starting from 0
 
-  bool bindings.getBoolAt(event.internalImpl, csize_t index)
+  bool bindings.getBoolAt(event.impl, csize_t index)
 
 proc getBool*(event: Event): bool =
   ## Get the first argument as boolean
   ## 
   ## :event: The event 
 
-  bool bindings.getBool(event.internalImpl)
+  bool bindings.getBool(event.impl)
 
 proc getSize*(event: Event, index: int): int =
   ## Get the size in bytes of an argument at a specific index
@@ -275,14 +275,14 @@ proc getSize*(event: Event, index: int): int =
   ## :event: The event 
   ## :index: The argument position starting from 0
 
-  int bindings.getSizeAt(event.internalImpl, csize_t index)
+  int bindings.getSizeAt(event.impl, csize_t index)
 
 proc getSize*(event: Event): int =
   ## Get size in bytes of the first argument
   ## 
   ## :event: The event 
 
-  int bindings.getSize(event.internalImpl)
+  int bindings.getSize(event.impl)
 
 proc returnInt*(event: Event; integer: int) =
   ## Return the response to JavaScript as a integer.
@@ -290,7 +290,7 @@ proc returnInt*(event: Event; integer: int) =
   ## :event: The event to set the response for
   ## :integer: The int to return back to Javascript.
 
-  bindings.returnInt(event.internalImpl, clonglong integer)
+  bindings.returnInt(event.impl, clonglong integer)
 
 proc returnFloat*(event: Event; f: float) =
   ## Return the response to JavaScript as a float.
@@ -298,7 +298,7 @@ proc returnFloat*(event: Event; f: float) =
   ## :event: The event to set the response for
   ## :integer: The float to return back to Javascript.
 
-  bindings.returnFloat(event.internalImpl, cdouble f)
+  bindings.returnFloat(event.impl, cdouble f)
 
 proc returnString*(event: Event; str: string) =
   ## Return the response to JavaScript as a string.
@@ -306,7 +306,7 @@ proc returnString*(event: Event; str: string) =
   ## :event: The event to set the response for
   ## :str: The string to return back to Javascript.
 
-  bindings.returnString(event.internalImpl, cstring str)
+  bindings.returnString(event.impl, cstring str)
 
 proc returnBool*(event: Event; b: bool) =
   ## Return the response to JavaScript as a boolean.
@@ -314,7 +314,7 @@ proc returnBool*(event: Event; b: bool) =
   ## :event: The event to set the response for
   ## :b: The bool to return back to Javascript.
 
-  bindings.returnBool(event.internalImpl, b)
+  bindings.returnBool(event.impl, b)
 
 # -------- Window --------
 
