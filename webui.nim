@@ -59,9 +59,9 @@ proc encode*(str: string): string =
   ## :str: The string to encode.
 
   var cstr = bindings.encode(cstring str)
-  result = $cstr
+  defer: bindings.free(addr cstr)
 
-  bindings.free(addr cstr)
+  result = $cstr
 
 proc decode*(str: string): string = 
   ## Base64 decoding. Use this to safely decode received Base64 text from the UI.
@@ -70,9 +70,9 @@ proc decode*(str: string): string =
   ## :str: The string to decode.
 
   var cstr = bindings.decode(cstring str)
+  defer: bindings.free(addr cstr)
+
   result = $cstr
-  
-  bindings.free(addr cstr)
 
 proc setDefaultRootFolder*(path: string): bool {.discardable.} = 
   ## Set the default web-server root folder path for all windows.
