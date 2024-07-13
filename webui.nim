@@ -59,7 +59,7 @@ proc encode*(str: string): string =
   ## :str: The string to encode.
 
   var cstr = bindings.encode(cstring str)
-  defer: bindings.free(addr cstr)
+  defer: bindings.free(cstr)
 
   result = $cstr
 
@@ -70,7 +70,7 @@ proc decode*(str: string): string =
   ## :str: The string to decode.
 
   var cstr = bindings.decode(cstring str)
-  defer: bindings.free(addr cstr)
+  defer: bindings.free(cstr)
 
   result = $cstr
 
