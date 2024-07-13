@@ -134,7 +134,7 @@ proc setConfig*(options: openArray[bindings.WebuiConfig] or set[bindings.WebuiCo
   ## Control WebUI's behaviour via setting configuration options `options` to either
   ## `true` or `false`. It's better to this call at the beginning of your program.
   ## 
-  ## :option:s The desired options from the `WebuiConfig` enum
+  ## :options: The desired options from the `WebuiConfig` enum
   ## :status: The desired status of all of the options, `true` or `false`
   
   for option in options:
