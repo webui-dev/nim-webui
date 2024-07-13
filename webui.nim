@@ -144,6 +144,7 @@ proc setConfig*(options: openArray[bindings.WebuiConfig] or set[bindings.WebuiCo
 
 # --- Event ---
 
+# TODO why do these exist...?
 func impl*(event: Event): ptr bindings.Event = 
   ## Returns the internal implementation of `e`
 
@@ -154,23 +155,15 @@ func `impl=`*(event: Event, be: ptr bindings.Event) =
 
   event.internalImpl = be
 
-proc window*(event: Event): Window =
-  result = Window(int event.impl.window)
-
-proc eventType*(event: Event): bindings.WebuiEvent =
-  bindings.WebuiEvent(int event.impl.eventType)
-
-proc element*(event: Event): string =
-  $ event.impl.element
-
-proc eventNumber*(event: Event): int =
-  int event.impl.eventNumber
-
-proc bindId*(event: Event): int =
-  int event.impl.bindId
-
-proc clientId*(event: Event): int =
-  int event.impl.clientId
+# TODO add docs
+proc window*(event: Event): Window = Window(int event.impl.window)
+proc eventType*(event: Event): bindings.WebuiEvent = bindings.WebuiEvent(int event.impl.eventType)
+proc element*(event: Event): string = $event.impl.element
+proc eventNumber*(event: Event): int = int event.impl.eventNumber
+proc bindId*(event: Event): int = int event.impl.bindId
+proc clientId*(event: Event): int = int event.impl.clientId
+proc connectionId*(event: Event): int = int event.impl.connectionId
+proc cookies*(event: Event): string = $event.impl.cookies
 
 # --- 
 

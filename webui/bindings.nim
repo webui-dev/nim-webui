@@ -185,14 +185,22 @@ type
       ## more details.
       ## 
       ## Default: `false`
+    wcUseCookies
+      ## Allow multiple clients to connect to the same window. This is helpful
+      ## for web apps (non-desktop software). Please see the documentation for
+      ## more details.
+      ## 
+      ## Default: `false`
 
   Event* {.bycopy.} = object
-    window*: csize_t      ## The window object number
-    eventType*: csize_t   ## Event type
-    element*: cstring     ## HTML element ID
-    eventNumber*: csize_t ## Internal WebUI
-    bindId*: csize_t      ## Bind ID
-    clientId*: csize_t    ## Client unique ID
+    window*: csize_t          ## The window object number
+    eventType*: csize_t       ## Event type
+    element*: cstring         ## HTML element ID
+    eventNumber*: csize_t     ## Internal WebUI
+    bindId*: csize_t          ## Bind ID
+    clientId*: csize_t        ## Client's unique ID
+    connectionId*: csize_t    ## Client's connection ID
+    cookies*: cstring         ## Client's full cookies
 
 # aliases to reduce breaking changes
 const
@@ -256,7 +264,8 @@ proc showBrowser*(window: csize_t; content: cstring; browser: csize_t): bool {.w
   ##  Same as `show()`, but using a specific web browser.
 
 proc startServer*(window: csize_t; path: cstring): cstring {.webui, importc: "webui_start_server".}
-  ##  Start only the web server and return the URL. This is useful for web app.
+  ##  Same as `webui_show()`. But start only the web server and return the URL.
+  ##  No window will be shown.
 
 proc showWv*(window: csize_t; content: cstring): bool {.webui, importc: "webui_show_wv".}
   ##  Show a WebView window using embedded HTML, or a file. If the window is
