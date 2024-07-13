@@ -312,7 +312,8 @@ proc setDefaultRootFolder*(path: cstring): bool {.webui, importc: "webui_default
 
 proc setFileHandler*(window: csize_t; handler: proc (filename: cstring; length: ptr cint): pointer {.cdecl.}) {.webui,
     importc: "webui_set_file_handler".}
-  ##  Set a custom handler to serve files.
+  ##  Set a custom handler to serve files. This custom handler should return
+  ##  the full HTTP headers and body.
 
 proc isShown*(window: csize_t): bool {.webui, importc: "webui_is_shown".}
   ##  Check if the specified winFdow is still running.

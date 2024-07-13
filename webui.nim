@@ -757,7 +757,8 @@ proc fileHandlerImpl(filename: cstring, length: ptr cint): pointer {.cdecl.} =
   return mem
 
 proc `fileHandler=`*(window: Window; handler: proc (filename: string): string) =
-  ## Set a custom handler to serve files.
+  ## Set a custom handler to serve files. This custom handler should return the
+  ## full HTTP headers and body.
   ## 
   ## :window: The window to set the file handler.
   ## :runtime: The file handler callback/proc.
