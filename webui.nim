@@ -438,7 +438,10 @@ proc showWv*(window: Window; content: string): bool =
 {.pop.}
 
 proc startServer*(window: Window, path: string): string =
-  ## Start only the web server and return the URL. This is useful for web apps.
+  ## Same as `show()`_, but it only starts the web server and returns the URL.
+  ## This is useful for web apps.
+  ## 
+  ## No window will be shown.
   ## 
   ## :window: The window to start the web server for
   ## :path: The full path to the local root folder
