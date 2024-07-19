@@ -2,10 +2,6 @@ import webui
 import ./vfs
 
 proc main() =
-  defer:
-    # Free all memory resources (Optional)
-    clean()
-
   # Create new windows
   let window = newWindow()
 
@@ -22,5 +18,8 @@ proc main() =
 
   # Wait until all windows get closed
   wait()
+
+  # Free all memory resources (Optional)
+  clean()
 
 main()
