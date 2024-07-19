@@ -718,6 +718,17 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event)) =
   
   cbs[wid][bid] = `func`
 
+proc `bind`*(window: Window; element: string; `func`: proc ()) = 
+  window.bind(element, proc (e: Event) = `func`())
+proc `bind`*(window: Window; element: string; `func`: proc (): string) = 
+  window.bind(element, proc (e: Event) = e.returnString(`func`()))
+proc `bind`*(window: Window; element: string; `func`: proc (): int) = 
+  window.bind(element, proc (e: Event) = e.returnInt(`func`()))
+proc `bind`*(window: Window; element: string; `func`: proc (): float) = 
+  window.bind(element, proc (e: Event) = e.returnFloat(`func`()))
+proc `bind`*(window: Window; element: string; `func`: proc (): bool) = 
+  window.bind(element, proc (e: Event) = e.returnBool(`func`()))
+
 proc `bind`*(window: Window; element: string; `func`: proc (e: Event): string) =
   window.bind(
     element, 
