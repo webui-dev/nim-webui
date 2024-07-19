@@ -4,7 +4,7 @@ import std/asyncdispatch
 proc main {.async.} =
   var server = newAsyncHttpServer()
 
-  proc cb (req: Request) {.async.} =
+  proc cb(req: Request) {.async.} =
     # echo (req.reqMethod, req.url, req.headers)
     
     let headers = {"Content-type": "text/plain; charset=utf-8"}
