@@ -119,7 +119,7 @@ proc browserExist*(browser: bindings.WebuiBrowser): bool =
   ##
   ## Returns `true` if the specified browser is available.
 
-  bindings.browserExist(browser)
+  bindings.browserExist(browser.csize_t)
 
 proc setConfig*(option: bindings.WebuiConfig; status: bool) =
   ## Control WebUI's behaviour via setting configuration option `option` to either
@@ -480,7 +480,7 @@ proc `port=`*(window: Window, port: int) =
   ## :window: The window
   ## :port: The web-server network port WebUI should use
   
-  bindings.setPort(csize_t window, csize_t port)
+  discard bindings.setPort(csize_t window, csize_t port)
 
 proc setIcon*(window: Window; icon, mime: string) =
   ## Set the default embedded HTML favicon.
@@ -713,7 +713,7 @@ proc `bind`*(window: Window; element: string; `func`: proc (e: Event)) =
   ##           An empty element means `func` will be bound to all events.
   ## :func: The function to bind to `element`. 
 
-  let bid = int bindings.bind(csize_t window, cstring element, bindHandler)
+  let bid = int bindings.`bind`(csize_t window, cstring element, bindHandler)
   let wid = int bindings.interfaceGetWindowId(csize_t window)
   
   cbs[wid][bid] = `func`
