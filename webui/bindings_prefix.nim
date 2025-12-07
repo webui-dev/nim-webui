@@ -162,6 +162,8 @@ proc getLegacyConstantName(oldName: string): string =
     renamed = oldName
   result = renamed.snakeToCamel()
 
+template helper(body:untyped):untyped = body
+
 macro renameEnumFields(enumdef : untyped): untyped =
   if enumdef.kind != nnkTypeDef:
     raise newException(Exception, "generateDeprecatedEnumConst macro can only be used on enum type definitions")
@@ -170,7 +172,7 @@ macro renameEnumFields(enumdef : untyped): untyped =
   let enumTypeShortName = enumTypeName.toSeq.map(x => (if (x in {'A'..'Z'}): $x else: "")).join("").toLowerAscii()
 
   # generate enum defs
-  result = nnkTypeDef.newTree(
+  var renamedEnumDef = nnkTypeDef.newTree(
     nnkPostfix.newTree(
         newIdentNode("*"),
         newIdentNode(enumTypeName)
@@ -184,54 +186,93 @@ macro renameEnumFields(enumdef : untyped): untyped =
     if enumFieldNode.kind == nnkEmpty:
       continue
     elif enumFieldNode.kind == nnkEnumFieldDef:
-      result[2].add(
+      renamedEnumDef[2].add(
         nnkEnumFieldDef.newTree(
           newIdentNode(enumFieldNode[0].strVal.renameEnumFieldName(enumTypeShortName)),
           enumFieldNode[1]
         )
       )
     elif enumFieldNode.kind == nnkIdent:
-      result[2].add(
+      renamedEnumDef[2].add(
         newIdentNode(enumFieldNode.strVal.renameEnumFieldName(enumTypeShortName))
       )
     else:
       raise newException(Exception, "generateDeprecatedEnumConst macro can only be used on enum type definitions")
   
+  echo "\n\n" & "=".repeat(50)
   echo "[WebUI] Renaming Enum Definition:"
+  echo "# Original Enum Def:"
   echo "=".repeat(50)
   echo enumdef.repr
   echo "=".repeat(50)
-  echo result.repr
-  echo "_".repeat(50)
+  echo "# Renamed Enum Def:"
+  echo renamedEnumDef.repr
+  echo "=".repeat(50)
+  echo "# Generated procs to mimic legacy constants:"
+  
+  renamedEnumDef[0][1] = (enumTypeName & "Helper").newIdentNode()
 
+  var statements = nnkStmtList.newTree(
+    nnkTypeSection.newTree(
+      renamedEnumDef
+    )
+  )
 
-  # # generate legacy constants
-  # var constStmt = nnkStmtList.newTree(
-  #   nnkConstSection.newTree(
-  #   )
-  # )
-  # for enumFieldNode in enumdef[2]:
-  #   var constName, enumFieldName: string
-  #   if enumFieldNode.kind == nnkEmpty:
-  #     continue
-  #   elif enumFieldNode.kind == nnkEnumFieldDef:
-  #     constName = enumFieldNode[0].strVal.getLegacyConstantName()
-  #     enumFieldName = enumFieldNode[0].strVal.renameEnumFieldName(enumTypeShortName)
-  #   elif enumFieldNode.kind == nnkIdent:
-  #     constName = enumFieldNode.strVal.getLegacyConstantName()
-  #     enumFieldName = enumFieldNode.strVal.renameEnumFieldName(enumTypeShortName)
+  # add procs to mimic legacy constants
+  for enumFieldNode in enumdef[2]:
+    var constName, enumFieldName: string
+    if enumFieldNode.kind == nnkEmpty:
+      continue
+    elif enumFieldNode.kind == nnkEnumFieldDef:
+      constName = enumFieldNode[0].strVal.getLegacyConstantName()
+      enumFieldName = enumFieldNode[0].strVal.renameEnumFieldName(enumTypeShortName)
+    elif enumFieldNode.kind == nnkIdent:
+      constName = enumFieldNode.strVal.getLegacyConstantName()
+      enumFieldName = enumFieldNode.strVal.renameEnumFieldName(enumTypeShortName)
     
-  #   constStmt[0].add(
-  #     nnkConstDef.newTree(
-  #       nnkPostfix.newTree(
-  #         newIdentNode("*"),
-  #         newIdentNode(constName)
-  #       ),
-  #       newEmptyNode(),
-  #       nnkDotExpr.newTree(
-  #         newIdentNode(enumTypeName),
-  #         newIdentNode(enumFieldName)
-  #       )
-  #     )
-  #   )
+    statements.add(
+      nnkProcDef.newTree(
+        nnkPostfix.newTree(
+          newIdentNode("*"),
+          newIdentNode(constName)
+        ),
+        newEmptyNode(),
+        newEmptyNode(),
+        nnkFormalParams.newTree(
+          newIdentNode(enumTypeName & "Helper")
+        ),
+        nnkPragma.newTree(
+          newIdentNode("inline"),
+          newIdentNode("deprecated")
+        ),
+        newEmptyNode(),
+        nnkStmtList.newTree(
+          nnkDotExpr.newTree(
+            newIdentNode(enumTypeName & "Helper"),
+            newIdentNode(enumFieldName)
+          )
+          )
+        )
+      )
+    
+    echo statements[^1].repr
 
+  echo "*".repeat(50)
+
+  statements.add(
+    (enumTypeName & "Helper").newIdentNode()
+  )
+
+  result = nnkTypeDef.newTree(
+        nnkPostfix.newTree(
+            newIdentNode("*"),
+            newIdentNode(enumTypeName)
+        ),
+        newEmptyNode(),
+        nnkCall.newTree(
+            newIdentNode("helper"),
+            statements
+        )
+    )
+
+  # echo result
