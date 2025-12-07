@@ -172,12 +172,12 @@ macro renameEnumFields(enumdef : untyped): untyped =
   ## will be renamed to WebuiBrowser.wbNoBrowser. Note that "wb" is a short name for "WebuiBrowser", and 
   ## it's used to prefix the original enum field to avoid potential naming collisions.
   ## 
-  ## There is also a generated function to mimic the legacy NoBrowser constant
-  ## proc NoBrowser*(): WebuiBrowserHelper {.inline, deprecated.} = WebuiBrowserHelper.wbNoBrowser
+  ## There is also a generated `let` variable definition to mimic the legacy constant
+  ## `let NoBrowser* = WebuiBrowserHelper.wbNoBrowser`
   ## 
   ## ==================================================
   ## [WebUI] Renaming Enum Definition:
-  ## # Original Enum Def:
+  ## ## Original Enum Def:
   ## ==================================================
   ## WebuiBrowser* {..} = enum   ## -- Enums ---------------------------
   ##   NoBrowser = 0,            ## 0. No web browser
@@ -195,61 +195,33 @@ macro renameEnumFields(enumdef : untyped): untyped =
   ##   ChromiumBased,            ## 12. Any Chromium based browser
   ##   Webview                    ## 13. WebView (Non-web-browser)
   ## ==================================================
-  ## # Renamed Enum Def:
+  ## ## Renamed Enum Def:
   ## WebuiBrowser* = enum
   ##   wbNoBrowser = 0, wbAnyBrowser = 1, wbChrome, wbFirefox, wbEdge, wbSafari,
   ##   wbChromium, wbOpera, wbBrave, wbVivaldi, wbEpic, wbYandex, wbChromiumBased,
   ##   wbWebview
   ## ==================================================
-  ## # Generated procs to mimic legacy constants:
-  ## proc NoBrowser*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbNoBrowser
-
-  ## proc AnyBrowser*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbAnyBrowser
-
-  ## proc Chrome*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbChrome
-
-  ## proc Firefox*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbFirefox
-
-  ## proc Edge*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbEdge
-
-  ## proc Safari*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbSafari
-
-  ## proc Chromium*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbChromium
-
-  ## proc Opera*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbOpera
-
-  ## proc Brave*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbBrave
-
-  ## proc Vivaldi*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbVivaldi
-
-  ## proc Epic*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbEpic
-
-  ## proc Yandex*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbYandex
-
-  ## proc ChromiumBased*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbChromiumBased
-
-  ## proc Webview*(): WebuiBrowserHelper {.inline, deprecated.} =
-  ##   WebuiBrowserHelper.wbWebview
-
+  ## ## Generated procs to mimic legacy constants:
+  ## let NoBrowser* = WebuiBrowserHelper.wbNoBrowser
+  ## let AnyBrowser* = WebuiBrowserHelper.wbAnyBrowser
+  ## let Chrome* = WebuiBrowserHelper.wbChrome
+  ## let Firefox* = WebuiBrowserHelper.wbFirefox
+  ## let Edge* = WebuiBrowserHelper.wbEdge
+  ## let Safari* = WebuiBrowserHelper.wbSafari
+  ## let Chromium* = WebuiBrowserHelper.wbChromium
+  ## let Opera* = WebuiBrowserHelper.wbOpera
+  ## let Brave* = WebuiBrowserHelper.wbBrave
+  ## let Vivaldi* = WebuiBrowserHelper.wbVivaldi
+  ## let Epic* = WebuiBrowserHelper.wbEpic
+  ## let Yandex* = WebuiBrowserHelper.wbYandex
+  ## let ChromiumBased* = WebuiBrowserHelper.wbChromiumBased
+  ## let Webview* = WebuiBrowserHelper.wbWebview
   ## **************************************************
 
 
   ## ==================================================
   ## [WebUI] Renaming Enum Definition:
-  ## # Original Enum Def:
+  ## ## Original Enum Def:
   ## ==================================================
   ## WebuiRuntime* {..} = enum
   ##   None = 0,                 ## 0. Prevent WebUI from using any runtime for .js and .ts files
@@ -257,29 +229,21 @@ macro renameEnumFields(enumdef : untyped): untyped =
   ##   NodeJS,                   ## 2. Use Nodejs runtime for .js files
   ##   Bun                        ## 3. Use Bun runtime for .js and .ts files
   ## ==================================================
-  ## # Renamed Enum Def:
+  ## ## Renamed Enum Def:
   ## WebuiRuntime* = enum
   ##   wrNone = 0, wrDeno, wrNodeJS, wrBun
   ## ==================================================
-  ## # Generated procs to mimic legacy constants:
-  ## proc None*(): WebuiRuntimeHelper {.inline, deprecated.} =
-  ##   WebuiRuntimeHelper.wrNone
-
-  ## proc Deno*(): WebuiRuntimeHelper {.inline, deprecated.} =
-  ##   WebuiRuntimeHelper.wrDeno
-
-  ## proc NodeJS*(): WebuiRuntimeHelper {.inline, deprecated.} =
-  ##   WebuiRuntimeHelper.wrNodeJS
-
-  ## proc Bun*(): WebuiRuntimeHelper {.inline, deprecated.} =
-  ##   WebuiRuntimeHelper.wrBun
-
+  ## ## Generated procs to mimic legacy constants:
+  ## let None* = WebuiRuntimeHelper.wrNone
+  ## let Deno* = WebuiRuntimeHelper.wrDeno
+  ## let NodeJS* = WebuiRuntimeHelper.wrNodeJS
+  ## let Bun* = WebuiRuntimeHelper.wrBun
   ## **************************************************
 
 
   ## ==================================================
   ## [WebUI] Renaming Enum Definition:
-  ## # Original Enum Def:
+  ## ## Original Enum Def:
   ## ==================================================
   ## WebuiEvent* {..} = enum
   ##   WEBUI_EVENTS_DISCONNECTED = 0, ## 0. Window disconnection event
@@ -288,32 +252,22 @@ macro renameEnumFields(enumdef : untyped): untyped =
   ##   WEBUI_EVENTS_NAVIGATION,  ## 3. Window navigation event
   ##   WEBUI_EVENTS_CALLBACK      ## 4. Function call event
   ## ==================================================
-  ## # Renamed Enum Def:
+  ## ## Renamed Enum Def:
   ## WebuiEvent* = enum
   ##   weDisconnected = 0, weConnected, weMouseClick, weNavigation, weCallback
   ## ==================================================
-  ## # Generated procs to mimic legacy constants:
-  ## proc EventsDisconnected*(): WebuiEventHelper {.inline, deprecated.} =
-  ##   WebuiEventHelper.weDisconnected
-
-  ## proc EventsConnected*(): WebuiEventHelper {.inline, deprecated.} =
-  ##   WebuiEventHelper.weConnected
-
-  ## proc EventsMouseClick*(): WebuiEventHelper {.inline, deprecated.} =
-  ##   WebuiEventHelper.weMouseClick
-
-  ## proc EventsNavigation*(): WebuiEventHelper {.inline, deprecated.} =
-  ##   WebuiEventHelper.weNavigation
-
-  ## proc EventsCallback*(): WebuiEventHelper {.inline, deprecated.} =
-  ##   WebuiEventHelper.weCallback
-
+  ## ## Generated procs to mimic legacy constants:
+  ## let EventsDisconnected* = WebuiEventHelper.weDisconnected
+  ## let EventsConnected* = WebuiEventHelper.weConnected
+  ## let EventsMouseClick* = WebuiEventHelper.weMouseClick
+  ## let EventsNavigation* = WebuiEventHelper.weNavigation
+  ## let EventsCallback* = WebuiEventHelper.weCallback
   ## **************************************************
 
 
   ## ==================================================
   ## [WebUI] Renaming Enum Definition:
-  ## # Original Enum Def:
+  ## ## Original Enum Def:
   ## ==================================================
   ## WebuiConfig* {..} = enum
   ##   show_wait_connection = 0, ## Control if WebUI should block and process the UI events
@@ -344,30 +298,18 @@ macro renameEnumFields(enumdef : untyped): untyped =
   ##                 ## backend sets a response using `webui_return_x()`.
   ##   asynchronous_response
   ## ==================================================
-  ## # Renamed Enum Def:
+  ## ## Renamed Enum Def:
   ## WebuiConfig* = enum
   ##   wcWaitConnection = 0, wcEventBlocking, wcMonitor, wcClient, wcCookies,
   ##   wcResponse
   ## ==================================================
-  ## # Generated procs to mimic legacy constants:
-  ## proc ShowWaitConnection*(): WebuiConfigHelper {.inline, deprecated.} =
-  ##   WebuiConfigHelper.wcWaitConnection
-
-  ## proc UiEventBlocking*(): WebuiConfigHelper {.inline, deprecated.} =
-  ##   WebuiConfigHelper.wcEventBlocking
-
-  ## proc FolderMonitor*(): WebuiConfigHelper {.inline, deprecated.} =
-  ##   WebuiConfigHelper.wcMonitor
-
-  ## proc MultiClient*(): WebuiConfigHelper {.inline, deprecated.} =
-  ##   WebuiConfigHelper.wcClient
-
-  ## proc UseCookies*(): WebuiConfigHelper {.inline, deprecated.} =
-  ##   WebuiConfigHelper.wcCookies
-
-  ## proc AsynchronousResponse*(): WebuiConfigHelper {.inline, deprecated.} =
-  ##   WebuiConfigHelper.wcResponse
-
+  ## ## Generated procs to mimic legacy constants:
+  ## let ShowWaitConnection* = WebuiConfigHelper.wcWaitConnection
+  ## let UiEventBlocking* = WebuiConfigHelper.wcEventBlocking
+  ## let FolderMonitor* = WebuiConfigHelper.wcMonitor
+  ## let MultiClient* = WebuiConfigHelper.wcClient
+  ## let UseCookies* = WebuiConfigHelper.wcCookies
+  ## let AsynchronousResponse* = WebuiConfigHelper.wcResponse
   ## **************************************************
 
 
@@ -436,30 +378,45 @@ macro renameEnumFields(enumdef : untyped): untyped =
       constName = enumFieldNode.strVal.getLegacyConstantName()
       enumFieldName = enumFieldNode.strVal.renameEnumFieldName(enumTypeShortName)
     
+    # statements.add(
+    #   nnkProcDef.newTree(
+    #     nnkPostfix.newTree(
+    #       newIdentNode("*"),
+    #       newIdentNode(constName)
+    #     ),
+    #     newEmptyNode(),
+    #     newEmptyNode(),
+    #     nnkFormalParams.newTree(
+    #       newIdentNode(enumTypeName & "Helper")
+    #     ),
+    #     nnkPragma.newTree(
+    #       newIdentNode("inline"),
+    #       newIdentNode("deprecated")
+    #     ),
+    #     newEmptyNode(),
+    #     nnkStmtList.newTree(
+    #       nnkDotExpr.newTree(
+    #         newIdentNode(enumTypeName & "Helper"),
+    #         newIdentNode(enumFieldName)
+    #       )
+    #       )
+    #     )
+    #   )
     statements.add(
-      nnkProcDef.newTree(
-        nnkPostfix.newTree(
-          newIdentNode("*"),
-          newIdentNode(constName)
-        ),
-        newEmptyNode(),
-        newEmptyNode(),
-        nnkFormalParams.newTree(
-          newIdentNode(enumTypeName & "Helper")
-        ),
-        nnkPragma.newTree(
-          newIdentNode("inline"),
-          newIdentNode("deprecated")
-        ),
-        newEmptyNode(),
-        nnkStmtList.newTree(
+      nnkLetSection.newTree(
+        nnkIdentDefs.newTree(
+          nnkPostfix.newTree(
+            newIdentNode("*"),
+            newIdentNode(constName)
+          ),
+          newEmptyNode(),
           nnkDotExpr.newTree(
             newIdentNode(enumTypeName & "Helper"),
             newIdentNode(enumFieldName)
           )
-          )
         )
       )
+    )
     
     echo statements[^1].repr
 
