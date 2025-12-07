@@ -165,6 +165,212 @@ proc getLegacyConstantName(oldName: string): string =
 template helper(body:untyped):untyped = body
 
 macro renameEnumFields(enumdef : untyped): untyped =
+  ## renameEnumFields is a type pragma macro to change enum definition, so that it's compatible with 
+  ## the old versions.
+  ## 
+  ## The following results are output during compileTime. For example, WebuiBrowser.NoBrowser
+  ## will be renamed to WebuiBrowser.wbNoBrowser. Note that "wb" is a short name for "WebuiBrowser", and 
+  ## it's used to prefix the original enum field to avoid potential naming collisions.
+  ## 
+  ## There is also a generated function to mimic the legacy NoBrowser constant
+  ## proc NoBrowser*(): WebuiBrowserHelper {.inline, deprecated.} = WebuiBrowserHelper.wbNoBrowser
+  ## 
+  ## ==================================================
+  ## [WebUI] Renaming Enum Definition:
+  ## # Original Enum Def:
+  ## ==================================================
+  ## WebuiBrowser* {..} = enum   ## -- Enums ---------------------------
+  ##   NoBrowser = 0,            ## 0. No web browser
+  ##   AnyBrowser = 1,           ## 1. Default recommended web browser
+  ##   Chrome,                   ## 2. Google Chrome
+  ##   Firefox,                  ## 3. Mozilla Firefox
+  ##   Edge,                     ## 4. Microsoft Edge
+  ##   Safari,                   ## 5. Apple Safari
+  ##   Chromium,                 ## 6. The Chromium Project
+  ##   Opera,                    ## 7. Opera Browser
+  ##   Brave,                    ## 8. The Brave Browser
+  ##   Vivaldi,                  ## 9. The Vivaldi Browser
+  ##   Epic,                     ## 10. The Epic Browser
+  ##   Yandex,                   ## 11. The Yandex Browser
+  ##   ChromiumBased,            ## 12. Any Chromium based browser
+  ##   Webview                    ## 13. WebView (Non-web-browser)
+  ## ==================================================
+  ## # Renamed Enum Def:
+  ## WebuiBrowser* = enum
+  ##   wbNoBrowser = 0, wbAnyBrowser = 1, wbChrome, wbFirefox, wbEdge, wbSafari,
+  ##   wbChromium, wbOpera, wbBrave, wbVivaldi, wbEpic, wbYandex, wbChromiumBased,
+  ##   wbWebview
+  ## ==================================================
+  ## # Generated procs to mimic legacy constants:
+  ## proc NoBrowser*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbNoBrowser
+
+  ## proc AnyBrowser*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbAnyBrowser
+
+  ## proc Chrome*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbChrome
+
+  ## proc Firefox*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbFirefox
+
+  ## proc Edge*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbEdge
+
+  ## proc Safari*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbSafari
+
+  ## proc Chromium*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbChromium
+
+  ## proc Opera*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbOpera
+
+  ## proc Brave*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbBrave
+
+  ## proc Vivaldi*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbVivaldi
+
+  ## proc Epic*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbEpic
+
+  ## proc Yandex*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbYandex
+
+  ## proc ChromiumBased*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbChromiumBased
+
+  ## proc Webview*(): WebuiBrowserHelper {.inline, deprecated.} =
+  ##   WebuiBrowserHelper.wbWebview
+
+  ## **************************************************
+
+
+  ## ==================================================
+  ## [WebUI] Renaming Enum Definition:
+  ## # Original Enum Def:
+  ## ==================================================
+  ## WebuiRuntime* {..} = enum
+  ##   None = 0,                 ## 0. Prevent WebUI from using any runtime for .js and .ts files
+  ##   Deno,                     ## 1. Use Deno runtime for .js and .ts files
+  ##   NodeJS,                   ## 2. Use Nodejs runtime for .js files
+  ##   Bun                        ## 3. Use Bun runtime for .js and .ts files
+  ## ==================================================
+  ## # Renamed Enum Def:
+  ## WebuiRuntime* = enum
+  ##   wrNone = 0, wrDeno, wrNodeJS, wrBun
+  ## ==================================================
+  ## # Generated procs to mimic legacy constants:
+  ## proc None*(): WebuiRuntimeHelper {.inline, deprecated.} =
+  ##   WebuiRuntimeHelper.wrNone
+
+  ## proc Deno*(): WebuiRuntimeHelper {.inline, deprecated.} =
+  ##   WebuiRuntimeHelper.wrDeno
+
+  ## proc NodeJS*(): WebuiRuntimeHelper {.inline, deprecated.} =
+  ##   WebuiRuntimeHelper.wrNodeJS
+
+  ## proc Bun*(): WebuiRuntimeHelper {.inline, deprecated.} =
+  ##   WebuiRuntimeHelper.wrBun
+
+  ## **************************************************
+
+
+  ## ==================================================
+  ## [WebUI] Renaming Enum Definition:
+  ## # Original Enum Def:
+  ## ==================================================
+  ## WebuiEvent* {..} = enum
+  ##   WEBUI_EVENTS_DISCONNECTED = 0, ## 0. Window disconnection event
+  ##   WEBUI_EVENTS_CONNECTED,   ## 1. Window connection event
+  ##   WEBUI_EVENTS_MOUSE_CLICK, ## 2. Mouse click event
+  ##   WEBUI_EVENTS_NAVIGATION,  ## 3. Window navigation event
+  ##   WEBUI_EVENTS_CALLBACK      ## 4. Function call event
+  ## ==================================================
+  ## # Renamed Enum Def:
+  ## WebuiEvent* = enum
+  ##   weDisconnected = 0, weConnected, weMouseClick, weNavigation, weCallback
+  ## ==================================================
+  ## # Generated procs to mimic legacy constants:
+  ## proc EventsDisconnected*(): WebuiEventHelper {.inline, deprecated.} =
+  ##   WebuiEventHelper.weDisconnected
+
+  ## proc EventsConnected*(): WebuiEventHelper {.inline, deprecated.} =
+  ##   WebuiEventHelper.weConnected
+
+  ## proc EventsMouseClick*(): WebuiEventHelper {.inline, deprecated.} =
+  ##   WebuiEventHelper.weMouseClick
+
+  ## proc EventsNavigation*(): WebuiEventHelper {.inline, deprecated.} =
+  ##   WebuiEventHelper.weNavigation
+
+  ## proc EventsCallback*(): WebuiEventHelper {.inline, deprecated.} =
+  ##   WebuiEventHelper.weCallback
+
+  ## **************************************************
+
+
+  ## ==================================================
+  ## [WebUI] Renaming Enum Definition:
+  ## # Original Enum Def:
+  ## ==================================================
+  ## WebuiConfig* {..} = enum
+  ##   show_wait_connection = 0, ## Control if WebUI should block and process the UI events
+  ##                              ## one a time in a single thread `True`, or process every
+  ##                              ## event in a new non-blocking thread `False`. This updates
+  ##                              ## all windows. You can use `webui_set_event_blocking()` for
+  ##                              ## a specific single window update.
+  ##                              ## 
+  ##                              ## Default: False
+  ##   ui_event_blocking, ## Automatically refresh the window UI when any file in the
+  ##                       ## root folder gets changed.
+  ##                       ## 
+  ##                       ## Default: False
+  ##   folder_monitor, ## Allow multiple clients to connect to the same window,
+  ##                    ## This is helpful for web apps (non-desktop software),
+  ##                    ## Please see the documentation for more details.
+  ##                    ## 
+  ##                    ## Default: False
+  ##   multi_client, ## Allow or prevent WebUI from adding `webui_auth` cookies.
+  ##                  ## WebUI uses these cookies to identify clients and block
+  ##                  ## unauthorized access to the window content using a URL.
+  ##                  ## Please keep this option to `True` if you want only a single
+  ##                  ## client to access the window content.
+  ##                  ## 
+  ##                  ## Default: True
+  ##   use_cookies, ## If the backend uses asynchronous operations, set this
+  ##                 ## option to `True`. This will make webui wait until the
+  ##                 ## backend sets a response using `webui_return_x()`.
+  ##   asynchronous_response
+  ## ==================================================
+  ## # Renamed Enum Def:
+  ## WebuiConfig* = enum
+  ##   wcWaitConnection = 0, wcEventBlocking, wcMonitor, wcClient, wcCookies,
+  ##   wcResponse
+  ## ==================================================
+  ## # Generated procs to mimic legacy constants:
+  ## proc ShowWaitConnection*(): WebuiConfigHelper {.inline, deprecated.} =
+  ##   WebuiConfigHelper.wcWaitConnection
+
+  ## proc UiEventBlocking*(): WebuiConfigHelper {.inline, deprecated.} =
+  ##   WebuiConfigHelper.wcEventBlocking
+
+  ## proc FolderMonitor*(): WebuiConfigHelper {.inline, deprecated.} =
+  ##   WebuiConfigHelper.wcMonitor
+
+  ## proc MultiClient*(): WebuiConfigHelper {.inline, deprecated.} =
+  ##   WebuiConfigHelper.wcClient
+
+  ## proc UseCookies*(): WebuiConfigHelper {.inline, deprecated.} =
+  ##   WebuiConfigHelper.wcCookies
+
+  ## proc AsynchronousResponse*(): WebuiConfigHelper {.inline, deprecated.} =
+  ##   WebuiConfigHelper.wcResponse
+
+  ## **************************************************
+
+
   if enumdef.kind != nnkTypeDef:
     raise newException(Exception, "generateDeprecatedEnumConst macro can only be used on enum type definitions")
   
