@@ -5,7 +5,7 @@
 include ./bindings_prefix.nim
 
 const
-  WEBUI_VERSION* = "2.5.0-beta.4" ##
+  WEBUI_VERSION* = "2.5.0-beta.3" ##
                                ##   WebUI Library
                                ##   https://webui.me
                                ##   https://github.com/webui-dev/webui
@@ -144,11 +144,6 @@ type
     connection_id*: csize_t    ##  Client's connection ID
     cookies*: cstring
     ##  Client's full cookies
-
-  WebuiLoggerLevel* {.renameEnumFields.} = enum
-    WEBUI_LOGGER_LEVEL_DEBUG = 0, ##  0. All logs with all details
-    WEBUI_LOGGER_LEVEL_INFO,  ##  1. Only general logs
-    WEBUI_LOGGER_LEVEL_ERROR  ##  2. Only fatal error logs
 
 
 proc new_window*(): csize_t {.webui, importc: "webui_new_window".}
@@ -340,17 +335,6 @@ proc set_high_contrast*(window: csize_t; status: bool) {.
   ##
   ##  @example webui_set_high_contrast(myWindow, true);
   ##
-proc set_resizable*(window: csize_t; status: bool) {.
-    webui, importc: "webui_set_resizable".}
-  ##
-  ##  @brief Sets whether the window frame is resizable or fixed.
-  ##  Works only on WebView window.
-  ##
-  ##  @param window The window number
-  ##  @param status True or False
-  ##
-  ##  @example webui_set_resizable(myWindow, true);
-  ##
 proc is_high_contrast*(): bool {.webui, importc: "webui_is_high_contrast".}
   ##
   ##  @brief Get OS high contrast preference.
@@ -381,22 +365,6 @@ proc close*(window: csize_t) {.webui, importc: "webui_close".}
   ##  @param window The window number
   ##
   ##  @example webui_close(myWindow);
-  ##
-proc minimize*(window: csize_t) {.webui, importc: "webui_minimize".}
-  ##
-  ##  @brief Minimize a WebView window.
-  ##
-  ##  @param window The window number
-  ##
-  ##  @example webui_minimize(myWindow);
-  ##
-proc maximize*(window: csize_t) {.webui, importc: "webui_maximize".}
-  ##
-  ##  @brief Maximize a WebView window.
-  ##
-  ##  @param window The window number
-  ##
-  ##  @example webui_maximize(myWindow);
   ##
 proc close_client*(e: ptr Event) {.webui, importc: "webui_close_client".}
   ##
@@ -430,14 +398,6 @@ proc set_root_folder*(window: csize_t; path: cstring): bool {.
   ##
   ##  @example webui_set_root_folder(myWindow, "/home/Foo/Bar/");
   ##
-proc set_browser_folder*(path: cstring) {.webui, importc: "webui_set_browser_folder".}
-  ##
-  ##  @brief Set custom browser folder path.
-  ##
-  ##  @param path The browser folder path
-  ##
-  ##  @example webui_set_browser_folder("/home/Foo/Bar/");
-  ##
 proc set_default_root_folder*(path: cstring): bool {.
     webui, importc: "webui_set_default_root_folder".}
   ##
@@ -447,20 +407,6 @@ proc set_default_root_folder*(path: cstring): bool {.
   ##  @param path The local folder full path
   ##
   ##  @example webui_set_default_root_folder("/home/Foo/Bar/");
-  ##
-proc set_close_handler_wv*(window: csize_t;
-                                close_handler: proc (window: csize_t): bool {.webui.}) {.
-    webui, importc: "webui_set_close_handler_wv".}
-  ##
-  ##  @brief Set a callback to catch the close event of the WebView window.
-  ##  Must return `false` to prevent the close event, `true` otherwise.
-  ##
-  ##  @example
-  ##  bool myCloseEvent(size_t window) {
-  ##     // Prevent WebView window close event
-  ##     return false;
-  ##  }
-  ##  webui_set_close_handler(myWindow, myCloseEvent);
   ##
 proc set_file_handler*(window: csize_t; handler: proc (filename: cstring;
     length: ptr cint): pointer {.webui.}) {.webui, importc: "webui_set_file_handler".}
@@ -645,15 +591,6 @@ proc set_position*(window: csize_t; x: cuint; y: cuint) {.
   ##
   ##  @example webui_set_position(myWindow, 100, 100);
   ##
-proc set_center*(window: csize_t) {.webui, importc: "webui_set_center".}
-  ##
-  ##  @brief Centers the window on the screen. Works better with
-  ##  WebView. Call this function before `webui_show()` for better results.
-  ##
-  ##  @param window The window number
-  ##
-  ##  @example webui_set_center(myWindow);
-  ##
 proc set_profile*(window: csize_t; name: cstring; path: cstring) {.
     webui, importc: "webui_set_profile".}
   ##
@@ -758,7 +695,8 @@ proc delete_profile*(window: csize_t) {.webui, importc: "webui_delete_profile".}
 proc get_parent_process_id*(window: csize_t): csize_t {.
     webui, importc: "webui_get_parent_process_id".}
   ##
-  ##  @brief Get the parent process ID, which refers to the current backend application process.
+  ##  @brief Get the ID of the parent process (The web browser may re-create
+  ##  another new process).
   ##
   ##  @param window The window number
   ##
@@ -769,10 +707,7 @@ proc get_parent_process_id*(window: csize_t): csize_t {.
 proc get_child_process_id*(window: csize_t): csize_t {.
     webui, importc: "webui_get_child_process_id".}
   ##
-  ##  @brief Get the child process ID created by the parent, which refers to the web browser window.
-  ##
-  ##  Note: In WebView mode, this will return the parent process ID because the backend and the
-  ##  WebView window run in the same process.
+  ##  @brief Get the ID of the last child process.
   ##
   ##  @param window The window number
   ##
@@ -791,19 +726,6 @@ proc win32_get_hwnd*(window: csize_t): pointer {.
   ##  @return Returns the window `hwnd` as `void*`
   ##
   ##  @example HWND hwnd = webui_win32_get_hwnd(myWindow);
-  ##
-proc get_hwnd*(window: csize_t): pointer {.webui, importc: "webui_get_hwnd".}
-  ##
-  ##  @brief Get window `HWND`. More reliable with WebView
-  ##  than web browser window, as browser PIDs may change on launch.
-  ##
-  ##  @param window The window number
-  ##
-  ##  @return Returns the window `hwnd` in Win32, `GtkWindow` in Linux.
-  ##
-  ##  @example
-  ##  HWND hwnd = webui_get_hwnd(myWindow); // Win32 (Work with WebView and web browser)
-  ##  GtkWindow* window = webui_get_hwnd(myWindow); // Linux (Work with WebView only)
   ##
 proc get_port*(window: csize_t): csize_t {.webui, importc: "webui_get_port".}
   ##
@@ -837,17 +759,6 @@ proc get_free_port*(): csize_t {.webui, importc: "webui_get_free_port".}
   ##
   ##  @example size_t port = webui_get_free_port();
   ##
-proc set_logger*(`func`: proc (level: csize_t; log: cstring; user_data: pointer) {.webui.};
-                      user_data: pointer) {.webui, importc: "webui_set_logger".}
-  ##
-  ##  @brief Set a custom logger function.
-  ##
-  ##  @example
-  ##  void myLogger(size_t level, const char* log, void* user_data) {
-  ##    printf("myLogger (%d): %s", level, log);
-  ##  }
-  ##  webui_set_logger(myLogger, NULL);
-  ##
 proc set_config*(option: WebuiConfig; status: bool) {.
     webui, importc: "webui_set_config".}
   ##
@@ -870,26 +781,6 @@ proc set_event_blocking*(window: csize_t; status: bool) {.
   ##  @param status The blocking status `true` or `false`
   ##
   ##  @example webui_set_event_blocking(myWindow, true);
-  ##
-proc set_frameless*(window: csize_t; status: bool) {.
-    webui, importc: "webui_set_frameless".}
-  ##
-  ##  @brief Make a WebView window frameless.
-  ##
-  ##  @param window The window number
-  ##  @param status The frameless status `true` or `false`
-  ##
-  ##  @example webui_set_frameless(myWindow, true);
-  ##
-proc set_transparent*(window: csize_t; status: bool) {.
-    webui, importc: "webui_set_transparent".}
-  ##
-  ##  @brief Make a WebView window transparent.
-  ##
-  ##  @param window The window number
-  ##  @param status The transparency status `true` or `false`
-  ##
-  ##  @example webui_set_transparent(myWindow, true);
   ##
 proc get_mime_type*(file: cstring): cstring {.webui, importc: "webui_get_mime_type".}
   ##
@@ -1132,20 +1023,6 @@ proc return_bool*(e: ptr Event; b: bool) {.webui, importc: "webui_return_bool".}
   ##  @param n The boolean to be send to JavaScript
   ##
   ##  @example webui_return_bool(e, true);
-  ##
-proc get_last_error_number*(): csize_t {.
-    webui, importc: "webui_get_last_error_number".}
-  ##
-  ##  @brief Get the last WebUI error code.
-  ##
-  ##  @example int error_num = webui_get_last_error_number();
-  ##
-proc get_last_error_message*(): cstring {.
-    webui, importc: "webui_get_last_error_message".}
-  ##
-  ##  @brief Get the last WebUI error message.
-  ##
-  ##  @example const char* error_msg = webui_get_last_error_message();
   ##
 proc interface_bind*(window: csize_t; element: cstring; `func`: proc (
     a1: csize_t; a2: csize_t; a3: cstring; a4: csize_t; a5: csize_t) {.webui.}): csize_t {.
