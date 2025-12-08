@@ -76,12 +76,12 @@ proc main =
   # Public Window
   public_window.public = true # Make URL accessible from public networks
   public_window.bind("") do (e: Event): # Bind all events
-    if e.eventType == weConnected:
+    if e.eventType == WebuiEvent.weConnected:
       private_window.run("document.getElementById('Logs').value += 'New connection.\\n';")
-    elif e.eventType == weDisconnected:
+    elif e.eventType == WebuiEvent.weDisconnected:
       private_window.run("document.getElementById('Logs').value += 'Disconnected.\\n';")
 
-  public_window.show(publicHtml, wbNoBrowser) # Set public window HTML
+  public_window.show(publicHtml, WebuiBrowser.wbNoBrowser) # Set public window HTML
   let public_win_url = public_window.url # Get URL of public window
 
   # Main Private Window
