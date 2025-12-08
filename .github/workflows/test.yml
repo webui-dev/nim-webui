@@ -43,6 +43,11 @@ jobs:
       - name: Init submodules
         run: git submodule update --init
 
+      - name: Generate bindings
+        run: |
+          nimble install c2nim
+          nim scripts/generate_bindings.nims
+      
       - name: Compile examples
         run: |
           nim c examples/minimal.nim
@@ -54,4 +59,4 @@ jobs:
 
           nim c examples/serve_folder/serve_folder.nim
           nim c examples/qxexample/qxexample.nim
-          # nim c examples/text_editor/src/text_editor.nim
+          # nim c examples/text_editor/src/text_editor.nim # osfiles/dialog not available in macos
