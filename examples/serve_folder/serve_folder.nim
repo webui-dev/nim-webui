@@ -84,7 +84,7 @@ proc main =
   window2.bind("Exit", exitApp)
      
   # Make Deno as the `.ts` and `.js` interpreter
-  window.runtime = wrDeno
+  window.runtime = WebuiRuntime.wrDeno
 
   # Set root folder to current directory
   window.rootFolder = currentSourcePath().parentDir()
