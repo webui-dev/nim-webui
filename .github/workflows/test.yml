@@ -45,7 +45,7 @@ jobs:
 
       - name: Generate bindings
         run: |
-          nimble install c2nim
+          nimble install c2nim -y
           nim scripts/generate_bindings.nims
       
       - name: Compile examples
