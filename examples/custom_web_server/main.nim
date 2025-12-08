@@ -11,13 +11,13 @@ proc main =
     # there is an event
 
     case e.eventType
-    of weConnected:
+    of WebuiEvent.weConnected:
       echo "Connected"
-    of weDisconnected:
+    of WebuiEvent.weDisconnected:
       echo "Disconnected"
-    of weMouseClick:
+    of WebuiEvent.weMouseClick:
      echo "Click"
-    of weNavigation:
+    of WebuiEvent.weNavigation:
       let url = e.getString()
       echo "Starting navigation to: ", url
 
