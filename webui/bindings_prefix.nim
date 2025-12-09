@@ -1,12 +1,5 @@
 ## Nim bindings for [WebUI](https://github.com/webui-dev/webui)
 
-runnableExamples:
-
-  let window = newWindow() # Create a new Window
-  window.show("<html>Hello</html>") # Show the window with html content in any browser
-
-  wait() # Wait until the window gets closed
-
 import std/os
 
 const
@@ -347,16 +340,16 @@ macro renameEnumFields(enumdef : untyped): untyped =
     else:
       raise newException(Exception, "generateDeprecatedEnumConst macro can only be used on enum type definitions")
   
-  echo "\n\n" & "=".repeat(50)
-  echo "[WebUI] Renaming Enum Definition:"
-  echo "# Original Enum Def:"
-  echo "=".repeat(50)
-  echo enumdef.repr
-  echo "=".repeat(50)
-  echo "# Renamed Enum Def:"
-  echo renamedEnumDef.repr
-  echo "=".repeat(50)
-  echo "# Generated procs to mimic legacy constants:"
+  # echo "\n\n" & "=".repeat(50)
+  # echo "[WebUI] Renaming Enum Definition:"
+  # echo "# Original Enum Def:"
+  # echo "=".repeat(50)
+  # echo enumdef.repr
+  # echo "=".repeat(50)
+  # echo "# Renamed Enum Def:"
+  # echo renamedEnumDef.repr
+  # echo "=".repeat(50)
+  # echo "# Generated procs to mimic legacy constants:"
   
   renamedEnumDef[0][1] = (enumTypeName & "Helper").newIdentNode()
 
@@ -418,9 +411,9 @@ macro renameEnumFields(enumdef : untyped): untyped =
       )
     )
     
-    echo statements[^1].repr
+    # echo statements[^1].repr
 
-  echo "*".repeat(50)
+  # echo "*".repeat(50)
 
   statements.add(
     (enumTypeName & "Helper").newIdentNode()
