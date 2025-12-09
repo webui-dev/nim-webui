@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="/webui.js"></script>
+    <title>System Monitor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+        }
+        
+        .metric-title {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .metric-title i {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .cpu-progress { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
+        .ram-progress { background: linear-gradient(90deg, #00c9ff, #92fe9d); }
+        .disk-progress { background: linear-gradient(90deg, #8e2de2, #4a00e0); }
+        
+        .process-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        .process-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .process-name {
+            flex-grow: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .process-cpu, .process-mem {
+            width: 80px;
+            text-align: right;
+        }
+        
+        .network-info {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .network-stat {
+            padding: 10px;
+        }
+        
+        .network-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00c9ff;
+        }
+        
+        .refresh-btn {
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+        
+        .last-updated {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+        
+        /* Scrollbar styling */
+        .process-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .process-list::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        
+        .process-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        
+        .process-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h3>🖥️ System Monitor</h3>
+        </header>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>💻 CPU Usage</span>
+                </div>
+                <div class="metric-value" id="cpu-percent">0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill cpu-progress" id="cpu-progress" style="width: 0%"></div>
+                </div>
+                <div>Cores: <span id="cpu-cores">0</span></div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>🧠 RAM Usage</span>
+                </div>
+                <div class="metric-value" id="ram-percent">0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill ram-progress" id="ram-progress" style="width: 0%"></div>
+                </div>
+                <div>Used: <span id="ram-used">0</span> / <span id="ram-total">0</span> GB</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>💾 Disk Usage</span>
+                </div>
+                <div class="metric-value" id="disk-percent">0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill disk-progress" id="disk-progress" style="width: 0%"></div>
+                </div>
+                <div>Used: <span id="disk-used">0</span> / <span id="disk-total">0</span> GB</div>
+            </div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-title">
+                <span>🌐 Network</span>
+            </div>
+            <div class="network-info">
+                <div class="network-stat">
+                    <div>Download</div>
+                    <div class="network-value" id="net-down">0 KB/s</div>
+                </div>
+                <div class="network-stat">
+                    <div>Upload</div>
+                    <div class="network-value" id="net-up">0 KB/s</div>
+                </div>
+                <div class="network-stat">
+                    <div>Total Received</div>
+                    <div class="network-value" id="net-total-in">0 MB</div>
+                </div>
+                <div class="network-stat">
+                    <div>Total Sent</div>
+                    <div class="network-value" id="net-total-out">0 MB</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-title">
+                <span>🏃 Running Processes</span>
+            </div>
+            <div class="process-list" id="process-list">
+                <!-- Process list will be populated by JavaScript -->
+            </div>
+        </div>
+        <div class="last-updated">
+            Last updated: <span id="last-updated">Never</span>
+        </div>
+    </div>
+
+    <script>
+        // Function to refresh all system data
+        function refreshData() {
+            // Call Nim functions to get system information
+            webui.call('GetSystemInfo', '{"abc" : "bcd", "def" : 123}').then((response) => {
+                updateSystemInfo(JSON.parse(response));
+            });
+            webui.call('FunctionWithoutArgsOrOutput');
+        }
+        
+        // Update the UI with system information
+        function updateSystemInfo(data) {
+            // Update CPU info
+            document.getElementById('cpu-percent').textContent = data.cpu.percent + '%';
+            document.getElementById('cpu-progress').style.width = data.cpu.percent + '%';
+            document.getElementById('cpu-cores').textContent = data.cpu.cores;
+            
+            // Update RAM info
+            document.getElementById('ram-percent').textContent = data.ram.percent + '%';
+            document.getElementById('ram-progress').style.width = data.ram.percent + '%';
+            document.getElementById('ram-used').textContent = data.ram.used.toFixed(2);
+            document.getElementById('ram-total').textContent = data.ram.total.toFixed(2);
+            
+            // Update Disk info
+            document.getElementById('disk-percent').textContent = data.disk.percent + '%';
+            document.getElementById('disk-progress').style.width = data.disk.percent + '%';
+            document.getElementById('disk-used').textContent = data.disk.used.toFixed(2);
+            document.getElementById('disk-total').textContent = data.disk.total.toFixed(2);
+            
+            // Update Network info
+            document.getElementById('net-down').textContent = formatBytes(data.network.downloadSpeed) + '/s';
+            document.getElementById('net-up').textContent = formatBytes(data.network.uploadSpeed) + '/s';
+            document.getElementById('net-total-in').textContent = formatBytes(data.network.bytesRecv);
+            document.getElementById('net-total-out').textContent = formatBytes(data.network.bytesSent);
+            
+            // Update Process list
+            const processList = document.getElementById('process-list');
+            processList.innerHTML = '';
+            
+            data.processes.slice(0, 10).forEach(process => {
+                const processItem = document.createElement('div');
+                processItem.className = 'process-item';
+                processItem.innerHTML = `
+                    <span class="process-name" title="${process.name}">${process.name}</span>
+                    <span class="process-cpu">${process.cpu}%</span>
+                    <span class="process-mem">${process.memory}%</span>
+                `;
+                processList.appendChild(processItem);
+            });
+            
+            // Update last updated time
+            document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+        }
+        
+        // Helper function to format bytes
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Refresh data every 0.1 seconds
+        setInterval(refreshData, 100);
+        
+        // Initial data load
+        refreshData();
+    </script>
+</body>
+</html>

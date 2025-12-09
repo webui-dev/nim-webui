@@ -7,7 +7,15 @@
   See: https://neroist.github.io/webui-docs/
 ]##
 
+runnableExamples:
+
+  let window = newWindow() # Create a new Window
+  window.show("<html>Hello</html>") # Show the window with html content in any browser
+
+  wait() # Wait until the window gets closed
+
 from webui/bindings import nil
+import macros, sugar, strformat, json
 
 type
   Window* = distinct int
@@ -875,10 +883,172 @@ proc deleteProfile*(window: Window) =
 
   bindings.deleteProfile(csize_t window)
 
+macro webuiCb*(procDef: untyped) : untyped =
+  ## proc pragma to automatically create a WebUI callback wrapper function.
+  ## 
+  ## Supported argument types: primitives + Event:
+  ## ```
+  ##    int : int, int8, int16, int32, int64,
+  ## 
+  ##          uint, uint, uint8, uint16, uint32, uint64,
+  ## 
+  ##          cint8, cint16, cint32, cint64,
+  ## 
+  ##          cshort, cushort, cint, cuint, clong, culong
+  ## 
+  ##          csize_t, byte
+  ## 
+  ##    float : float, float32, float64, cfloat, cdouble
+  ## 
+  ##    string : string, cstring, JsonNode
+  ## 
+  ##    bool : bool
+  ## 
+  ##    Event
+  ## ```
+  ## Supported return types: primitives + void
+  ## 
+  runnableExamples:
+    import webui
+
+    proc getSystemInfo(some_argument : JsonNode): string {.webuiCb.} =
+      echo "Received argument: ", some_argument.pretty
+      return %*{"key1" : 123, "key2" : "value2"}
+    
+    proc one() {.webuiCb.} =
+      discard
+    
+    proc two(e1, e2 : Event) {.webuiCb.} =
+      discard
+    
+    when isMainModule:
+      let window = newWindow()
+      window.bindCb("getInfo", getSystemInfo)
+      let html = """
+        <!DOCTYPE html>
+        <html>  
+          <head>
+            <script src="/webui.js"></script>
+          </head>
+          <script>
+            function fetchSystemInfo() {
+                webui.call('getInfo', '{"a" : 1, "b" : "c"}').then(
+                (response) => {
+                    document.body.innerHTML = "<pre>" + response + "</pre>";
+                }
+              );
+            }
+            setInterval(fetchSystemInfo, 2000);
+          </script>
+        </html>
+      """
+      window.show(html)
+      wait()
+
+
+  result = nnkStmtList.newTree(
+    procDef
+  )
+  let cbWrapperFunc = (procDef[0].strVal & "WebuiCbWrapper").newIdentNode
+  let outputType = procDef[3][0]
+  let outputTypeStr = if outputType.kind == nnkEmpty: "void" else: outputType.strVal
+  let inputTypes = procDef[3][1 .. ^1]
+  let numInputTypes = inputTypes.len
+  var inputArgumentGetters = newSeq[tuple[index: int, argName: string, argType: string, getArgFunc: string]]()
+  var index = 0
+  for i in 0 ..< numInputTypes:
+    let argType = inputTypes[i][^2].strVal
+    var getArgFunc: string
+    if argType in ["int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "byte", "cshort", "cint", "clong", "csize_t", "cuint", "culong", "cushort"]:
+      getArgFunc = "getInt"
+    elif argType in ["float", "float32", "float64", "cdouble", "cfloat"]:
+      getArgFunc = "getFloat"
+    elif argType in ["string", "cstring", "JsonNode"]:
+      getArgFunc = "getString"
+    elif argType == "bool":
+      getArgFunc = "getBool"
+    elif argType == "Event":
+      getArgFunc = ""
+    else:
+      raise newException(ValueError, "WebUI callback error: Unsupported argument type '" & argType & "' in webuiCb macro.")
+    for argName in inputTypes[i][0 ..< ^2]:
+      inputArgumentGetters.add((index, argName.strVal, argType, getArgFunc))
+      index += 1
+  
+  var returnArgGetFunc: string
+  if outputType.kind == nnkEmpty:
+    returnArgGetFunc = ""
+  elif outputType.strVal in ["int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "byte", "cint", "clong", "csize_t"]:
+    returnArgGetFunc = "int"
+  elif outputType.strVal in ["float", "float32", "float64", "cdouble", "cfloat"]:
+    returnArgGetFunc = "float"
+  elif outputType.strVal in ["string", "cstring", "JsonNode"]:
+    returnArgGetFunc = "$"
+  elif outputType.strVal == "bool":
+    returnArgGetFunc = "bool"
+  else:
+    raise newException(ValueError, "WebUI callback error: Unsupported return type '" & outputTypeStr & "' in webuiCb macro.")
+  
+  var code = fmt"""
+proc {cbWrapperFunc.strVal}(e: Event): {outputTypeStr} =
+"""
+
+  for (index, argName, argType, getArgFunc) in inputArgumentGetters:
+    if getArgFunc != "":
+      code &= fmt"""  var {argName} : {argType}""" & "\n"
+  if inputArgumentGetters.len > 0:
+    code &= "  try:\n"
+    var anyParsing = false
+    for (index, argName, argType, getArgFunc) in inputArgumentGetters:
+      if getArgFunc != "":
+        if argType != "JsonNode":
+          code &= fmt"""    {argName} = e.{getArgFunc}({index}).{argType}""" & "\n"
+        else:
+          code &= fmt"""    {argName} = e.{getArgFunc}({index}).parseJson""" & "\n"
+        anyParsing = true
+    if not anyParsing:
+      code &= fmt"""    discard""" & "\n"
+    code &= fmt"""  except Exception as exception:""" & "\n"
+    code &= fmt"""    echo "[WebUI][Error]: when parsing arguments for {procDef[0].strVal}, got error: ", exception.msg """ & "\n"
+    code &= fmt"""    for i in 0 ..< e.getCount():""" & "\n"
+    code &= fmt"""      echo "  Event Argument[", i, "] from js: ", e.getString(i) """ & "\n"
+    code &= fmt"""    return""" & "\n\n"
+  
+  var originalCall = fmt"""{procDef[0].strVal}("""
+  for (index, argName, argType, getArgFunc) in inputArgumentGetters:
+    if argType != "Event":
+      originalCall &= fmt"""{argName} = {argName}, """
+    else:
+      originalCall &= fmt"""{argName} = e, """
+  if inputArgumentGetters.len > 0:
+    originalCall = originalCall[0 ..< ^2] & ")"
+  else:
+    originalCall &= ")"
+  
+  if returnArgGetFunc != "":
+    code &= fmt"""  result = {returnArgGetFunc}({originalCall})""" & "\n"
+  else:
+    code &= fmt"""  {originalCall}""" & "\n"
+
+  # echo code
+
+  result.add(parseStmt(code))
+  
+  # echo result.repr
+
+macro bindCb*(window: untyped, cbFuncName : untyped, cbFunc : typed) : untyped =
+  ## Macro to bind a webui callback function with automatic wrapper generation.
+  ## The function must be annotated with the `webuiCb` pragma.
+  ## 
+  let cbWrapperFunc = (cbFunc.strVal & "WebuiCbWrapper").newIdentNode
+  result = quote do:
+    `window`.bind(`cbFuncName`, (e: Event) => `cbWrapperFunc`(e))
+
 export 
   bindings.WebuiEvent, 
   bindings.WebuiBrowser, 
   bindings.WebuiRuntime, 
   bindings.WebuiConfig, 
   bindings.WEBUI_VERSION,
-  bindings.WEBUI_MAX_IDS
+  bindings.WEBUI_MAX_IDS,
+  json
