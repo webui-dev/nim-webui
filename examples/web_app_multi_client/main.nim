@@ -35,12 +35,12 @@ proc events(e: Event) =
   let connectionId = e.connectionId
 
   case e.eventType
-  of weConnected:  # New connection
+  of WebuiEvent.weConnected:  # New connection
     if users_count < (client_id + 1):  # +1 because it starts from 0
       users_count = client_id + 1
 
     inc tabCount
-  of weDisconnected:  # Disconnection
+  of WebuiEvent.weDisconnected:  # Disconnection
     if tab_count > 0:
       dec tab_count
   else:
@@ -73,7 +73,7 @@ proc events(e: Event) =
 
 proc main() =
   # Allow multi-user connection and cookies
-  setConfig({wcMultiClient, wcUseCookies}, true)
+  setConfig({WebuiConfig.wcMultiClient, WebuiConfig.wcUseCookies}, true)
 
   # Create new window
   let window = newWindow()

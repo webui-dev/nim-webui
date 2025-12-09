@@ -40,13 +40,13 @@ proc main =
     # there is an event
 
     case e.eventType:
-      of weConnected:
+      of WebuiEvent.weConnected:
         echo "Connected"
-      of weDisconnected:
+      of WebuiEvent.weDisconnected:
         echo "Disconnected"
-      of weMouseClick:
+      of WebuiEvent.weMouseClick:
         echo "Click"
-      of weNavigation:
+      of WebuiEvent.weNavigation:
         echo "Starting navigation to: ", e.getString()    
       else:
         discard
@@ -84,7 +84,7 @@ proc main =
   window2.bind("Exit", exitApp)
      
   # Make Deno as the `.ts` and `.js` interpreter
-  window.runtime = wrDeno
+  window.runtime = WebuiRuntime.wrDeno
 
   # Set root folder to current directory
   window.rootFolder = currentSourcePath().parentDir()
