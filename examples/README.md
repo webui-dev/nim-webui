@@ -16,3 +16,4 @@ Examples using the `webui` module in Nim, currently there are 10 examples:
 * [`serve_folder/`](./serve_folder/)
 * [`text_editor/`](./text_editor/)
 * [`qxexample/`](./qxexample/)
+* [`system_monitor`](./system_monitor/)
