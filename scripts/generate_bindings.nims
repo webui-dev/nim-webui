@@ -47,7 +47,7 @@ let code_prefix = """
     :author: neroist
     :WebUI Version: 2.5.0-Beta
 
-    See: https://neroist.github.io/webui-docs/
+    See Nim Docs: https://yesdrx.github.io/nim-webui/
 ]## 
 
 include ./bindings_prefix.nim
