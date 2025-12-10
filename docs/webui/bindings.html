@@ -107,6 +107,14 @@
   let EventsNavigation = WebuiEventHelper.weNavigation
   let EventsCallback = WebuiEventHelper.weCallback
   WebuiEventHelper">WebuiEvent</a></li>
+<li><a class="reference" href="#WebuiLoggerLevel" title="WebuiLoggerLevel = helper do:
+  type
+    WebuiLoggerLevelHelper = enum
+      wllLevelDebug = 0, wllLevelInfo, wllLevelError
+  let LoggerLevelDebug = WebuiLoggerLevelHelper.wllLevelDebug
+  let LoggerLevelInfo = WebuiLoggerLevelHelper.wllLevelInfo
+  let LoggerLevelError = WebuiLoggerLevelHelper.wllLevelError
+  WebuiLoggerLevelHelper">WebuiLoggerLevel</a></li>
 <li><a class="reference" href="#WebuiRuntime" title="WebuiRuntime = helper do:
   type
     WebuiRuntimeHelper = enum
@@ -128,7 +136,7 @@
 <li><a class="reference" href="#useWebuiStaticLib" title="useWebuiStaticLib = false">useWebuiStaticLib</a></li>
 <li><a class="reference" href="#WEBUI_MAX_ARG" title="WEBUI_MAX_ARG = 16">WEBUI_MAX_ARG</a></li>
 <li><a class="reference" href="#WEBUI_MAX_IDS" title="WEBUI_MAX_IDS = 256">WEBUI_MAX_IDS</a></li>
-<li><a class="reference" href="#WEBUI_VERSION" title="WEBUI_VERSION = &quot;2.5.0-beta.3&quot;">WEBUI_VERSION</a></li>
+<li><a class="reference" href="#WEBUI_VERSION" title="WEBUI_VERSION = &quot;2.5.0-beta.4&quot;">WEBUI_VERSION</a></li>
 
     </ul>
   </details>
@@ -221,12 +229,24 @@
   <li><a class="reference" href="#get_free_port" title="get_free_port(): csize_t">get_free_port(): csize_t</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">get_hwnd
+  <li><a class="reference" href="#get_hwnd%2Ccsize_t" title="get_hwnd(window: csize_t): pointer">get_hwnd(window: csize_t): pointer</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">get_int
   <li><a class="reference" href="#get_int%2Cptr.Event" title="get_int(e: ptr Event): clonglong">get_int(e: ptr Event): clonglong</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">get_int_at
   <li><a class="reference" href="#get_int_at%2Cptr.Event%2Ccsize_t" title="get_int_at(e: ptr Event; index: csize_t): clonglong">get_int_at(e: ptr Event; index: csize_t): clonglong</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">get_last_error_message
+  <li><a class="reference" href="#get_last_error_message" title="get_last_error_message(): cstring">get_last_error_message(): cstring</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">get_last_error_number
+  <li><a class="reference" href="#get_last_error_number" title="get_last_error_number(): csize_t">get_last_error_number(): csize_t</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">get_mime_type
@@ -351,8 +371,16 @@
   <li><a class="reference" href="#malloc%2Ccsize_t" title="malloc(size: csize_t): pointer">malloc(size: csize_t): pointer</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">maximize
+  <li><a class="reference" href="#maximize%2Ccsize_t" title="maximize(window: csize_t)">maximize(window: csize_t)</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">memcpy
   <li><a class="reference" href="#memcpy%2Cpointer%2Cpointer%2Ccsize_t" title="memcpy(dest: pointer; src: pointer; count: csize_t)">memcpy(dest: pointer; src: pointer; count: csize_t)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">minimize
+  <li><a class="reference" href="#minimize%2Ccsize_t" title="minimize(window: csize_t)">minimize(window: csize_t)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">navigate
@@ -419,6 +447,20 @@
   <li><a class="reference" href="#send_raw_client%2Cptr.Event%2Ccstring%2Cpointer%2Ccsize_t" title="send_raw_client(e: ptr Event; function: cstring; raw: pointer; size: csize_t)">send_raw_client(e: ptr Event; function: cstring; raw: pointer; size: csize_t)</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">set_browser_folder
+  <li><a class="reference" href="#set_browser_folder%2Ccstring" title="set_browser_folder(path: cstring)">set_browser_folder(path: cstring)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">set_center
+  <li><a class="reference" href="#set_center%2Ccsize_t" title="set_center(window: csize_t)">set_center(window: csize_t)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">set_close_handler_wv
+  <li><a class="reference" href="#set_close_handler_wv%2Ccsize_t%2Cproc%28csize_t%29" title="set_close_handler_wv(window: csize_t;
+                     close_handler: proc (window: csize_t): bool {.cdecl.})">set_close_handler_wv(window: csize_t;
+                     close_handler: proc (window: csize_t): bool {.cdecl.})</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">set_config
   <li><a class="reference" href="#set_config%2CWebuiConfigHelper%2Cbool" title="set_config(option: WebuiConfig; status: bool)">set_config(option: WebuiConfig; status: bool)</a></li>
 
@@ -451,6 +493,10 @@
     filename: cstring; length: ptr cint): pointer {.cdecl.})</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">set_frameless
+  <li><a class="reference" href="#set_frameless%2Ccsize_t%2Cbool" title="set_frameless(window: csize_t; status: bool)">set_frameless(window: csize_t; status: bool)</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">set_hide
   <li><a class="reference" href="#set_hide%2Ccsize_t%2Cbool" title="set_hide(window: csize_t; status: bool)">set_hide(window: csize_t; status: bool)</a></li>
 
@@ -465,6 +511,12 @@
 </ul>
 <ul class="simple nested-toc-section">set_kiosk
   <li><a class="reference" href="#set_kiosk%2Ccsize_t%2Cbool" title="set_kiosk(window: csize_t; status: bool)">set_kiosk(window: csize_t; status: bool)</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">set_logger
+  <li><a class="reference" href="#set_logger%2Cproc%28csize_t%2Ccstring%2Cpointer%29%2Cpointer" title="set_logger(func: proc (level: csize_t; log: cstring; user_data: pointer) {.cdecl.};
+           user_data: pointer)">set_logger(func: proc (level: csize_t; log: cstring; user_data: pointer) {.cdecl.};
+           user_data: pointer)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">set_minimum_size
@@ -491,6 +543,10 @@
   <li><a class="reference" href="#set_public%2Ccsize_t%2Cbool" title="set_public(window: csize_t; status: bool)">set_public(window: csize_t; status: bool)</a></li>
 
 </ul>
+<ul class="simple nested-toc-section">set_resizable
+  <li><a class="reference" href="#set_resizable%2Ccsize_t%2Cbool" title="set_resizable(window: csize_t; status: bool)">set_resizable(window: csize_t; status: bool)</a></li>
+
+</ul>
 <ul class="simple nested-toc-section">set_root_folder
   <li><a class="reference" href="#set_root_folder%2Ccsize_t%2Ccstring" title="set_root_folder(window: csize_t; path: cstring): bool">set_root_folder(window: csize_t; path: cstring): bool</a></li>
 
@@ -509,6 +565,10 @@
 </ul>
 <ul class="simple nested-toc-section">set_tls_certificate
   <li><a class="reference" href="#set_tls_certificate%2Ccstring%2Ccstring" title="set_tls_certificate(certificate_pem: cstring; private_key_pem: cstring): bool">set_tls_certificate(certificate_pem: cstring; private_key_pem: cstring): bool</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">set_transparent
+  <li><a class="reference" href="#set_transparent%2Ccsize_t%2Cbool" title="set_transparent(window: csize_t; status: bool)">set_transparent(window: csize_t; status: bool)</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">show
@@ -557,7 +617,7 @@
 <p>Nim wrapper for <a class="reference external" href="https://github.com/webui-dev/webui">WebUI</a></p>
 <table class="docinfo" frame="void" rules="none"><col class="docinfo-name" /><col class="docinfo-content" /><tbody valign="top"><tr><th class="docinfo-name">author:</th><td>neroist</td></tr>
 <tr><th class="docinfo-name">WebUI Version:</th><td>2.5.0-Beta</td></tr>
-</tbody></table><p>See: <a class="reference external" href="https://neroist.github.io/webui-docs/">https://neroist.github.io/webui-docs/</a> </p>
+</tbody></table><p>See Nim Docs: <a class="reference external" href="https://yesdrx.github.io/nim-webui/">https://yesdrx.github.io/nim-webui/</a> </p>
 Nim bindings for <a class="reference external" href="https://github.com/webui-dev/webui">WebUI</a>Dynamic Library Exports</p>
     <div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
@@ -650,6 +710,23 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 
   </dd>
 </div>
+<div id="WebuiLoggerLevel">
+  <dt><pre><a href="bindings.html#WebuiLoggerLevel"><span class="Identifier">WebuiLoggerLevel</span></a> <span class="Other">=</span> <span class="Identifier">helper</span> <span class="Keyword">do</span><span class="Other">:</span>
+  <span class="Keyword">type</span>
+    <span class="Identifier">WebuiLoggerLevelHelper</span> <span class="Other">=</span> <span class="Keyword">enum</span>
+      <span class="Identifier">wllLevelDebug</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="Identifier">wllLevelInfo</span><span class="Other">,</span> <span class="Identifier">wllLevelError</span>
+  <span class="Keyword">let</span> <span class="Identifier">LoggerLevelDebug</span> <span class="Other">=</span> <span class="Identifier">WebuiLoggerLevelHelper</span><span class="Other">.</span><span class="Identifier">wllLevelDebug</span>
+  <span class="Keyword">let</span> <span class="Identifier">LoggerLevelInfo</span> <span class="Other">=</span> <span class="Identifier">WebuiLoggerLevelHelper</span><span class="Other">.</span><span class="Identifier">wllLevelInfo</span>
+  <span class="Keyword">let</span> <span class="Identifier">LoggerLevelError</span> <span class="Other">=</span> <span class="Identifier">WebuiLoggerLevelHelper</span><span class="Other">.</span><span class="Identifier">wllLevelError</span>
+  <span class="Identifier">WebuiLoggerLevelHelper</span></pre></dt>
+  <dd>
+    
+    
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L156" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L156" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 <div id="WebuiRuntime">
   <dt><pre><a href="bindings.html#WebuiRuntime"><span class="Identifier">WebuiRuntime</span></a> <span class="Other">=</span> <span class="Identifier">helper</span> <span class="Keyword">do</span><span class="Other">:</span>
   <span class="Keyword">type</span>
@@ -715,7 +792,7 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
   </dd>
 </div>
 <div id="WEBUI_VERSION">
-  <dt><pre><a href="bindings.html#WEBUI_VERSION"><span class="Identifier">WEBUI_VERSION</span></a> <span class="Other">=</span> <span class="StringLit">&quot;2.5.0-beta.3&quot;</span></pre></dt>
+  <dt><pre><a href="bindings.html#WEBUI_VERSION"><span class="Identifier">WEBUI_VERSION</span></a> <span class="Other">=</span> <span class="StringLit">&quot;2.5.0-beta.4&quot;</span></pre></dt>
   <dd>
     
     WebUI Library <a class="reference external" href="https://webui.me">https://webui.me</a> <a class="reference external" href="https://github.com/webui-dev/webui">https://github.com/webui-dev/webui</a> Copyright (c) 2020-2025 Hassan Draga. Licensed under MIT License. All rights reserved. Canada. 
@@ -742,8 +819,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns a unique bind ID.</p>
 <p>@example webui_bind(myWindow, &quot;myFunction&quot;, myFunction); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L186" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L186" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L191" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L191" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -759,8 +836,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if the specified browser is available</p>
 <p>@example bool status = webui_browser_exist(Chrome); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L354" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L354" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L370" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L370" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -774,8 +851,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
     <p>@brief Free all memory resources. Should be called only at the end.</p>
 <p>@example webui_wait(); webui_clean(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L671" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L671" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L734" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L734" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -791,8 +868,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number</p>
 <p>@example webui_close(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L368" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L368" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L384" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L384" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -808,8 +885,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct</p>
 <p>@example webui_close_client(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L377" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L377" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L409" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L409" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -826,8 +903,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the base64 decoded string</p>
 <p>@example char* str = webui_decode(&quot;SGVsbG8=&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L496" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L496" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L550" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L550" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -842,8 +919,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
     <p>@brief Delete all local web-browser profiles folder. It should be called at the end.</p>
 <p>@example webui_wait(); webui_delete_all_profiles(); webui_clean(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L679" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L679" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L742" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L742" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -860,8 +937,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@example webui_wait(); webui_delete_profile(myWindow); webui_clean();</p>
 <p>@note This can break functionality of other windows if using the same web-browser. </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L689" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L689" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L752" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L752" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -877,8 +954,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number</p>
 <p>@example webui_destroy(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L385" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L385" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L417" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L417" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -895,8 +972,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the base64 encoded string</p>
 <p>@example char* base64 = webui_encode(&quot;Foo Bar&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L486" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L486" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L540" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L540" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -910,8 +987,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
     <p>@brief Close all open windows. <tt class="docutils literal"><span class="pre"><span class="Identifier">webui_wait</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> will return (Break).</p>
 <p>@example webui_exit(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L393" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L393" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L425" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L425" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -927,8 +1004,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param ptr The buffer to be freed</p>
 <p>@example webui_free(myBuffer); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L506" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L506" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L560" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L560" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -945,8 +1022,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns a web browser ID.</p>
 <p>@example size_t browserID = webui_get_best_browser(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L236" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L236" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L241" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L241" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -963,8 +1040,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as boolean</p>
 <p>@example bool myBool = webui_get_bool(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L967" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L967" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1076" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1076" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -981,8 +1058,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as boolean</p>
 <p>@example bool myBool = webui_get_bool_at(e, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L955" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L955" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1064" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1064" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -994,13 +1071,14 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_get_child_process_id&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <p>@brief Get the ID of the last child process.</p>
+    <p>@brief Get the child process ID created by the parent, which refers to the web browser window.</p>
+<p>Note: In WebView mode, this will return the parent process ID because the backend and the WebView window run in the same process.</p>
 <p>@param window The window number</p>
 <p>@return Returns the the child process id as integer</p>
 <p>@example size_t id = webui_get_child_process_id(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L715" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L715" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L777" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L777" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1019,8 +1097,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>webui_set_context(myWindow, &quot;myFunction&quot;, myData);</p>
 <p>void myFunction(webui_event_t* e) { void* myData = webui_get_context(e); } </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L219" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L219" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L224" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L224" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1037,8 +1115,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the arguments count.</p>
 <p>@example size_t count = webui_get_count(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L879" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L879" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L988" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L988" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1055,8 +1133,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as float</p>
 <p>@example double myNum = webui_get_float(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L923" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L923" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1032" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1032" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1073,8 +1151,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as float</p>
 <p>@example double myNum = webui_get_float_at(e, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L911" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L911" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1020" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1020" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1090,8 +1168,26 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns a free port</p>
 <p>@example size_t port = webui_get_free_port(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L762" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L762" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L840" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L840" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="get_hwnd-procs-all">
+  <div id="get_hwnd,csize_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#get_hwnd%2Ccsize_t"><span class="Identifier">get_hwnd</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">pointer</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_get_hwnd&quot;</span><span class="Other">,</span>
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Get window <tt class="docutils literal"><span class="pre"><span class="Identifier">HWND</span></span></tt>. More reliable with WebView than web browser window, as browser PIDs may change on launch.</p>
+<p>@param window The window number</p>
+<p>@return Returns the window <tt class="docutils literal"><span class="pre"><span class="Identifier">hwnd</span></span></tt> in Win32, <tt class="docutils literal"><span class="pre"><span class="Identifier">GtkWindow</span></span></tt> in Linux.</p>
+<p>@example HWND hwnd = webui_get_hwnd(myWindow); // Win32 (Work with WebView and web browser) GtkWindow* window = webui_get_hwnd(myWindow); // Linux (Work with WebView only) </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L803" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L803" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1108,8 +1204,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as integer</p>
 <p>@example long long int myNum = webui_get_int(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L901" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L901" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1010" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1010" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1126,8 +1222,41 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as integer</p>
 <p>@example long long int myNum = webui_get_int_at(e, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L889" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L889" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L998" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L998" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="get_last_error_message-procs-all">
+  <div id="get_last_error_message">
+  <dt><pre><span class="Keyword">proc</span> <a href="#get_last_error_message"><span class="Identifier">get_last_error_message</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span>
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_get_last_error_message&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Get the last WebUI error message.</p>
+<p>@example const char* error_msg = webui_get_last_error_message(); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1151" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1151" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="get_last_error_number-procs-all">
+  <div id="get_last_error_number">
+  <dt><pre><span class="Keyword">proc</span> <a href="#get_last_error_number"><span class="Identifier">get_last_error_number</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">csize_t</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span>
+                                        <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_get_last_error_number&quot;</span><span class="Other">,</span>
+                                        <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Get the last WebUI error code.</p>
+<p>@example int error_num = webui_get_last_error_number(); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1144" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1144" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1143,8 +1272,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the HTTP mime string</p>
 <p>@example const char* mime = webui_get_mime_type(&quot;foo.png&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L793" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L793" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L902" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L902" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1160,8 +1289,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the first available free window number. Starting from 1.</p>
 <p>@example size_t myWindowNumber = webui_get_new_window_id(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L177" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L177" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L182" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L182" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1173,13 +1302,13 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_get_parent_process_id&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    <p>@brief Get the ID of the parent process (The web browser may re-create another new process).</p>
+    <p>@brief Get the parent process ID, which refers to the current backend application process.</p>
 <p>@param window The window number</p>
 <p>@return Returns the the parent process id as integer</p>
 <p>@example size_t id = webui_get_parent_process_id(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L703" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L703" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L766" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L766" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1196,8 +1325,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the network port of the window</p>
 <p>@example size_t port = webui_get_port(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L738" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L738" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L816" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L816" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1214,8 +1343,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns size in bytes</p>
 <p>@example size_t argLen = webui_get_size(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L989" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L989" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1098" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1098" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1232,8 +1361,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns size in bytes</p>
 <p>@example size_t argLen = webui_get_size_at(e, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L977" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L977" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1086" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1086" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1250,8 +1379,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as string</p>
 <p>@example const char* myStr = webui_get_string(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L945" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L945" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1054" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1054" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1268,8 +1397,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as string</p>
 <p>@example const char* myStr = webui_get_string_at(e, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L933" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L933" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1042" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1042" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1286,8 +1415,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the full URL string</p>
 <p>@example const char* url = webui_get_url(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L625" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L625" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L688" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L688" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1306,8 +1435,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns unique bind ID</p>
 <p>@example size_t id = webui_interface_bind(myWindow, &quot;myID&quot;, myCallback); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1035" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1035" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1158" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1158" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1323,8 +1452,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param event_number The event number</p>
 <p>@example webui_close_client(e); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1168" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1168" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1291" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1291" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1342,8 +1471,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as boolean</p>
 <p>@example bool myBool = webui_interface_get_bool_at(myWindow, e-&gt;event_number, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1124" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1124" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1247" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1247" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1361,8 +1490,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as float</p>
 <p>@example double myFloat = webui_interface_get_int_at(myWindow, e-&gt;event_number, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1110" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1110" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1233" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1233" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1380,8 +1509,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as integer</p>
 <p>@example long long int myNum = webui_interface_get_int_at(myWindow, e-&gt;event_number, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1096" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1096" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1219" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1219" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1399,8 +1528,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns size in bytes</p>
 <p>@example size_t argLen = webui_interface_get_size_at(myWindow, e-&gt;event_number, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1138" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1138" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1261" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1261" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1418,8 +1547,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns argument as string</p>
 <p>@example const char* myStr = webui_interface_get_string_at(myWindow, e-&gt;event_number, 0); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1082" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1082" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1205" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1205" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1436,8 +1565,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the unique window ID as integer</p>
 <p>@example size_t id = webui_interface_get_window_id(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1071" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1071" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1194" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1194" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1453,8 +1582,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if app is running</p>
 <p>@example bool status = webui_interface_is_app_running(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1062" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1062" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1185" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1185" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1472,8 +1601,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param event_number The event number @param url Full HTTP URL</p>
 <p>@example webui_navigate_client(e, &quot;<a class="reference external" href="http://domain.com">http://domain.com</a>&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1193" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1193" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1316" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1316" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1490,8 +1619,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param event_number The event number @param script The JavaScript to be run</p>
 <p>@example webui_run_client(e, &quot;alert('Hello');&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1205" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1205" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1328" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1328" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1510,8 +1639,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if there is no execution error</p>
 <p>@example bool err = webui_script_client(e, &quot;return 4 + 6;&quot;, 0, myBuffer, myBufferSize); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1217" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1217" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1340" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1340" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1529,8 +1658,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param event_number The event number @param function The JavaScript function to receive raw data: <tt class="docutils literal"><span class="pre"><span class="Identifier">function</span> <span class="Identifier">myFunc</span><span class="Punctuation">(</span><span class="Identifier">myData</span><span class="Punctuation">)</span><span class="Punctuation">{</span><span class="Punctuation">}</span></span></tt> @param raw The raw data buffer @param size The raw data size in bytes</p>
 <p>@example webui_send_raw_client(e, &quot;myJavaScriptFunc&quot;, myBuffer, 64); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1178" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1178" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1301" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1301" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1547,8 +1676,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param event_number The event number @param response The response as string to be send to JavaScript</p>
 <p>@example webui_interface_set_response(myWindow, e-&gt;event_number, &quot;Response...&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1050" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1050" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1173" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1173" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1565,8 +1694,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param response The response buffer @param length The response size</p>
 <p>@example webui_interface_set_response_file_handler(myWindow, buffer, 1024); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L446" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L446" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L500" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L500" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1584,8 +1713,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if showing the window is successed.</p>
 <p>@example webui_show_client(e, &quot;&lt;html&gt;...&lt;/html&gt;&quot;); | webui_show_client(e, &quot;index.html&quot;); | webui_show_client(e, &quot;http://...&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1152" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1152" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1275" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1275" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1601,8 +1730,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if OS is using high contrast theme</p>
 <p>@example bool hc = webui_is_high_contrast(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L346" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L346" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L362" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L362" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1618,8 +1747,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number</p>
 <p>@example webui_is_shown(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L458" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L458" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L512" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L512" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1635,8 +1764,25 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param size The size of memory in bytes</p>
 <p>@example char* myBuffer = (char*)webui_malloc(1024); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L514" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L514" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L568" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L568" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="maximize-procs-all">
+  <div id="maximize,csize_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#maximize%2Ccsize_t"><span class="Identifier">maximize</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_maximize&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+                                 <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Maximize a WebView window.</p>
+<p>@param window The window number</p>
+<p>@example webui_maximize(myWindow); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L401" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L401" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1652,8 +1798,25 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param dest Destination memory pointer @param src Source memory pointer @param count Bytes to copy</p>
 <p>@example webui_memcpy(myBuffer, myData, 64); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L523" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L523" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L577" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L577" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="minimize-procs-all">
+  <div id="minimize,csize_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#minimize%2Ccsize_t"><span class="Identifier">minimize</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_minimize&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+                                 <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Minimize a WebView window.</p>
+<p>@param window The window number</p>
+<p>@example webui_minimize(myWindow); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L393" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L393" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1669,8 +1832,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param url Full HTTP URL</p>
 <p>@example webui_navigate(myWindow, &quot;<a class="reference external" href="http://domain.com">http://domain.com</a>&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L652" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L652" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L715" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L715" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1686,8 +1849,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct @param url Full HTTP URL</p>
 <p>@example webui_navigate_client(e, &quot;<a class="reference external" href="http://domain.com">http://domain.com</a>&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L661" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L661" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L724" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L724" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1704,8 +1867,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the window number.</p>
 <p>@example size_t myWindow = webui_new_window(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L157" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L157" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L162" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L162" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1722,8 +1885,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the same window number if success.</p>
 <p>@example size_t myWindow = webui_new_window_id(123); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L166" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L166" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L171" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L171" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1739,8 +1902,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param url The URL to open</p>
 <p>@example webui_open_url(&quot;<a class="reference external" href="https://webui.me">https://webui.me</a>&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L635" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L635" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L698" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L698" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1756,8 +1919,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct @param n The boolean to be send to JavaScript</p>
 <p>@example webui_return_bool(e, true); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1026" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1026" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1135" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1135" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1773,8 +1936,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct @param f The float number to be send to JavaScript</p>
 <p>@example webui_return_float(e, 123.456); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1008" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1008" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1117" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1117" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1790,8 +1953,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct @param n The integer to be send to JavaScript</p>
 <p>@example webui_return_int(e, 123); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L999" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L999" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1108" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1108" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1807,8 +1970,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct @param n The string to be send to JavaScript</p>
 <p>@example webui_return_string(e, &quot;Response...&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1017" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1017" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L1126" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L1126" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1825,8 +1988,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param script The JavaScript to be run</p>
 <p>@example webui_run(myWindow, &quot;alert('Hello');&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L817" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L817" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L926" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L926" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1842,8 +2005,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct @param script The JavaScript to be run</p>
 <p>@example webui_run_client(e, &quot;alert('Hello');&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L827" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L827" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L936" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L936" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1861,8 +2024,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if there is no execution error</p>
 <p>@example bool err = webui_script(myWindow, &quot;return 4 + 6;&quot;, 0, myBuffer, myBufferSize); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L836" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L836" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L945" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L945" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1880,8 +2043,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if there is no execution error</p>
 <p>@example bool err = webui_script_client(e, &quot;return 4 + 6;&quot;, 0, myBuffer, myBufferSize); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L852" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L852" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L961" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L961" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1897,8 +2060,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param function The JavaScript function to receive raw data: <tt class="docutils literal"><span class="pre"><span class="Identifier">function</span> <span class="Identifier">myFunc</span><span class="Punctuation">(</span><span class="Identifier">myData</span><span class="Punctuation">)</span><span class="Punctuation">{</span><span class="Punctuation">}</span></span></tt> @param raw The raw data buffer @param size The raw data size in bytes</p>
 <p>@example webui_send_raw(myWindow, &quot;myJavaScriptFunc&quot;, myBuffer, 64); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L534" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L534" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L588" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L588" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1915,8 +2078,60 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param e The event struct @param function The JavaScript function to receive raw data: <tt class="docutils literal"><span class="pre"><span class="Identifier">function</span> <span class="Identifier">myFunc</span><span class="Punctuation">(</span><span class="Identifier">myData</span><span class="Punctuation">)</span><span class="Punctuation">{</span><span class="Punctuation">}</span></span></tt> @param raw The raw data buffer @param size The raw data size in bytes</p>
 <p>@example webui_send_raw_client(e, &quot;myJavaScriptFunc&quot;, myBuffer, 64); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L547" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L547" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L601" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L601" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="set_browser_folder-procs-all">
+  <div id="set_browser_folder,cstring">
+  <dt><pre><span class="Keyword">proc</span> <a href="#set_browser_folder%2Ccstring"><span class="Identifier">set_browser_folder</span></a><span class="Other">(</span><span class="Identifier">path</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span>
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_set_browser_folder&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Set custom browser folder path.</p>
+<p>@param path The browser folder path</p>
+<p>@example webui_set_browser_folder(&quot;/home/Foo/Bar/&quot;); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L441" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L441" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="set_center-procs-all">
+  <div id="set_center,csize_t">
+  <dt><pre><span class="Keyword">proc</span> <a href="#set_center%2Ccsize_t"><span class="Identifier">set_center</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_set_center&quot;</span><span class="Other">,</span>
+                                   <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Centers the window on the screen. Works better with WebView. Call this function before <tt class="docutils literal"><span class="pre"><span class="Identifier">webui_show</span><span class="Punctuation">(</span><span class="Punctuation">)</span></span></tt> for better results.</p>
+<p>@param window The window number</p>
+<p>@example webui_set_center(myWindow); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L656" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L656" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="set_close_handler_wv-procs-all">
+  <div id="set_close_handler_wv,csize_t,proc(csize_t)">
+  <dt><pre><span class="Keyword">proc</span> <a href="#set_close_handler_wv%2Ccsize_t%2Cproc%28csize_t%29"><span class="Identifier">set_close_handler_wv</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span>
+                          <span class="Identifier">close_handler</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> {.<span class="Identifier">cdecl</span>.}<span class="Other">)</span> {.
+    <span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_set_close_handler_wv&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Set a callback to catch the close event of the WebView window. Must return <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt> to prevent the close event, <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> otherwise.</p>
+<p>@example bool myCloseEvent(size_t window) { // Prevent WebView window close event return false; } webui_set_close_handler(myWindow, myCloseEvent); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L459" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L459" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1932,8 +2147,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param option The desired option from <tt class="docutils literal"><span class="pre"><span class="Identifier">webui_config</span></span></tt> enum @param status The status of the option, <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt></p>
 <p>@example webui_set_config(show_wait_connection, false); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L770" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L770" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L859" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L859" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1951,8 +2166,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>webui_set_context(myWindow, &quot;myFunction&quot;, myData);</p>
 <p>void myFunction(webui_event_t* e) { void* myData = webui_get_context(e); } </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L200" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L200" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L205" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L205" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1968,8 +2183,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param params Command line parameters</p>
 <p>@example webui_set_custom_parameters(myWindow, &quot;--remote-debugging-port=9222&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L325" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L325" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L330" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L330" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -1985,8 +2200,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param path The local folder full path</p>
 <p>@example webui_set_default_root_folder(&quot;/home/Foo/Bar/&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L409" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L409" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L449" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L449" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2002,8 +2217,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param status The blocking status <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt></p>
 <p>@example webui_set_event_blocking(myWindow, true); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L780" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L780" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L869" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L869" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2020,8 +2235,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param handler The handler function: <tt class="docutils literal"><span class="pre"><span class="Identifier">void</span> <span class="Identifier">myHandler</span><span class="Punctuation">(</span><span class="Keyword">const</span> <span class="Identifier">char</span><span class="Operator">\*</span> <span class="Identifier">filename</span><span class="Punctuation">,</span> <span class="Identifier">int</span><span class="Operator">*</span> <span class="Identifier">length</span><span class="Punctuation">)</span></span></tt></p>
 <p>@example webui_set_file_handler(myWindow, myHandlerFunction); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L419" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L419" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L473" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L473" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2038,8 +2253,25 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param handler The handler function: <tt class="docutils literal"><span class="pre"><span class="Identifier">void</span> <span class="Identifier">myHandler</span><span class="Punctuation">(</span><span class="Identifier">size_t</span> <span class="Identifier">window</span><span class="Punctuation">,</span> <span class="Keyword">const</span> <span class="Identifier">char</span><span class="Operator">\*</span> <span class="Identifier">filename</span><span class="Punctuation">,</span> <span class="Identifier">int</span><span class="Operator">*</span> <span class="Identifier">length</span><span class="Punctuation">)</span></span></tt></p>
 <p>@example webui_set_file_handler_window(myWindow, myHandlerFunction); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L432" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L432" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L486" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L486" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="set_frameless-procs-all">
+  <div id="set_frameless,csize_t,bool">
+  <dt><pre><span class="Keyword">proc</span> <a href="#set_frameless%2Ccsize_t%2Cbool"><span class="Identifier">set_frameless</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span>
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_set_frameless&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Make a WebView window frameless.</p>
+<p>@param window The window number @param status The frameless status <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt></p>
+<p>@example webui_set_frameless(myWindow, true); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L882" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L882" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2055,8 +2287,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param status The status: True or False</p>
 <p>@example webui_set_hide(myWindow, True); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L560" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L560" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L614" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L614" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2072,8 +2304,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param status True or False</p>
 <p>@example webui_set_high_contrast(myWindow, true); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L335" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L335" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L340" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L340" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2089,8 +2321,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param icon The icon as string: <tt class="docutils literal"><span class="pre"><span class="Operator">&lt;</span><span class="Identifier">svg</span><span class="Operator">&gt;...&lt;/</span><span class="Identifier">svg</span><span class="Operator">&gt;</span></span></tt> @param icon_type The icon type: <tt class="docutils literal"><span class="pre"><span class="Identifier">image</span><span class="Operator">/</span><span class="Identifier">svg</span><span class="Operator">+</span><span class="Identifier">xml</span></span></tt></p>
 <p>@example webui_set_icon(myWindow, &quot;&lt;svg&gt;...&lt;/svg&gt;&quot;, &quot;image/svg+xml&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L475" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L475" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L529" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L529" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2106,8 +2338,25 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param status True or False</p>
 <p>@example webui_set_kiosk(myWindow, true); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L316" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L316" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L321" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L321" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="set_logger-procs-all">
+  <div id="set_logger,proc(csize_t,cstring,pointer),pointer">
+  <dt><pre><span class="Keyword">proc</span> <a href="#set_logger%2Cproc%28csize_t%2Ccstring%2Cpointer%29%2Cpointer"><span class="Identifier">set_logger</span></a><span class="Other">(</span><span class="Identifier">func</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">level</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">log</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">user_data</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.
+    <span class="Identifier">cdecl</span>.}<span class="Other">;</span> <span class="Identifier">user_data</span><span class="Other">:</span> <span class="Identifier">pointer</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_set_logger&quot;</span><span class="Other">,</span>
+                                   <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Set a custom logger function.</p>
+<p>@example void myLogger(size_t level, const char* log, void* user_data) { printf(&quot;myLogger (%d): %s&quot;, level, log); } webui_set_logger(myLogger, NULL); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L848" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L848" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2123,8 +2372,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param width The window width @param height The window height</p>
 <p>@example webui_set_minimum_size(myWindow, 800, 600); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L580" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L580" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L634" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L634" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2141,8 +2390,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if the port is free and usable by WebUI</p>
 <p>@example bool ret = webui_set_port(myWindow, 8080); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L749" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L749" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L827" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L827" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2158,8 +2407,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param x The window X @param y The window Y</p>
 <p>@example webui_set_position(myWindow, 100, 100); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L591" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L591" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L645" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L645" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2175,8 +2424,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param name The web browser profile name @param path The web browser profile full path</p>
 <p>@example webui_set_profile(myWindow, &quot;Bar&quot;, &quot;/Home/Foo/Bar&quot;); | webui_set_profile(myWindow, &quot;&quot;, &quot;&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L602" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L602" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L665" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L665" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2192,8 +2441,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param proxy_server The web browser proxy_server</p>
 <p>@example webui_set_proxy(myWindow, &quot;<a class="reference external" href="http://127.0.0.1:8888">http://127.0.0.1:8888</a>&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L615" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L615" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L678" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L678" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2209,8 +2458,25 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param status True or False</p>
 <p>@example webui_set_public(myWindow, true); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L643" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L643" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L706" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L706" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="set_resizable-procs-all">
+  <div id="set_resizable,csize_t,bool">
+  <dt><pre><span class="Keyword">proc</span> <a href="#set_resizable%2Ccsize_t%2Cbool"><span class="Identifier">set_resizable</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span>
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_set_resizable&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Sets whether the window frame is resizable or fixed. Works only on WebView window.</p>
+<p>@param window The window number @param status True or False</p>
+<p>@example webui_set_resizable(myWindow, true); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L351" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L351" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2226,8 +2492,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param path The local folder full path</p>
 <p>@example webui_set_root_folder(myWindow, &quot;/home/Foo/Bar/&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L399" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L399" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L431" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L431" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2243,8 +2509,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param runtime Deno | Bun | Nodejs | None</p>
 <p>@example webui_set_runtime(myWindow, Deno); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L869" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L869" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L978" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L978" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2260,8 +2526,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param window The window number @param width The window width @param height The window height</p>
 <p>@example webui_set_size(myWindow, 800, 600); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L569" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L569" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L623" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L623" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2277,8 +2543,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@param second The timeout in seconds</p>
 <p>@example webui_set_timeout(30); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L466" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L466" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L520" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L520" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2297,8 +2563,25 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if the certificate and the key are valid.</p>
 <p>@example bool ret = webui_set_tls_certificate(&quot;-----BEGIN CERTIFICATE-----n...&quot;, &quot;-----BEGIN PRIVATE KEY-----n...&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L801" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L801" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L910" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L910" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="set_transparent-procs-all">
+  <div id="set_transparent,csize_t,bool">
+  <dt><pre><span class="Keyword">proc</span> <a href="#set_transparent%2Ccsize_t%2Cbool"><span class="Identifier">set_transparent</span></a><span class="Other">(</span><span class="Identifier">window</span><span class="Other">:</span> <span class="Identifier">csize_t</span><span class="Other">;</span> <span class="Identifier">status</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span> {.<span class="Identifier">cdecl</span><span class="Other">,</span>
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webui_set_transparent&quot;</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    <p>@brief Make a WebView window transparent.</p>
+<p>@param window The window number @param status The transparency status <tt class="docutils literal"><span class="pre"><span class="Identifier">true</span></span></tt> or <tt class="docutils literal"><span class="pre"><span class="Identifier">false</span></span></tt></p>
+<p>@example webui_set_transparent(myWindow, true); </p>
+
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L892" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L892" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2315,8 +2598,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if showing the window is successed.</p>
 <p>@example webui_show(myWindow, &quot;&lt;html&gt;...&lt;/html&gt;&quot;); | webui_show(myWindow, &quot;index.html&quot;); | webui_show(myWindow, &quot;http://...&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L248" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L248" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L253" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L253" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2333,8 +2616,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if showing the window is successed.</p>
 <p>@example webui_show_browser(myWindow, &quot;&lt;html&gt;...&lt;/html&gt;&quot;, Chrome); | webui_show(myWindow, &quot;index.html&quot;, Firefox); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L275" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L275" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L280" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L280" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2351,8 +2634,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if showing the window is successed.</p>
 <p>@example webui_show_client(e, &quot;&lt;html&gt;...&lt;/html&gt;&quot;); | webui_show_client(e, &quot;index.html&quot;); | webui_show_client(e, &quot;http://...&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L261" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L261" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L266" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L266" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2369,8 +2652,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns True if showing the WebView window is successed.</p>
 <p>@example webui_show_wv(myWindow, &quot;&lt;html&gt;...&lt;/html&gt;&quot;); | webui_show_wv(myWindow, &quot;index.html&quot;); | webui_show_wv(myWindow, &quot;http://...&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L302" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L302" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L307" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L307" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2387,8 +2670,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the url of this window server.</p>
 <p>@example const char* url = webui_start_server(myWindow, &quot;/full/root/path&quot;); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L289" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L289" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L294" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L294" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2402,8 +2685,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
     <p>@brief Wait until all opened windows get closed.</p>
 <p>@example webui_wait(); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L362" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L362" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L378" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L378" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2420,8 +2703,8 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
 <p>@return Returns the window <tt class="docutils literal"><span class="pre"><span class="Identifier">hwnd</span></span></tt> as <tt class="docutils literal"><span class="pre"><span class="Identifier">void</span><span class="Operator">*</span></span></tt></p>
 <p>@example HWND hwnd = webui_win32_get_hwnd(myWindow); </p>
 
-    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L726" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L726" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/webui-dev/nim-webui/tree/main/webui/bindings.nim#L791" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/webui-dev/nim-webui/edit/main/webui/bindings.nim#L791" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -2437,7 +2720,7 @@ Nim bindings for <a class="reference external" href="https://github.com/webui-de
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-09 19:52:08 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-10 22:23:24 UTC</small>
       </div>
     </div>
   </div>

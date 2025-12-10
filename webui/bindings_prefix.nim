@@ -100,7 +100,7 @@ else:
   when defined(macos) or defined(macosx):
     {.passL: "-framework Cocoa -framework WebKit".}
     {.passC: "-I" & currentSourceDir / "webui/src/webview".}
-    
+
     {.compile: currentSourceDir / "webui/src/webview/wkwebview.m".}
   
   # fix for cpp
@@ -108,9 +108,12 @@ else:
     {.passL: "-static".}
 
   {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DUSE_WEBSOCKET".}
-
   {.compile: currentSourceDir / "webui/src/civetweb/civetweb.c".}
   {.compile: currentSourceDir / "webui/src/webui.c".}
+
+  when defined(windows):
+    {.compile: currentSourceDir / "webui/src/webview/win32_wv2.cpp".}
+    {.passL: "-lole32 -luuid".} # for win32_wv2
 
   {.pragma: webui, cdecl.}
 
@@ -340,7 +343,7 @@ macro renameEnumFields(enumdef : untyped): untyped =
     else:
       raise newException(Exception, "generateDeprecatedEnumConst macro can only be used on enum type definitions")
   
-  # echo "\n\n" & "=".repeat(50)
+  # echo "/n/n" & "=".repeat(50)
   # echo "[WebUI] Renaming Enum Definition:"
   # echo "# Original Enum Def:"
   # echo "=".repeat(50)
