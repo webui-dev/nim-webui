@@ -100,7 +100,7 @@ else:
   when defined(macos) or defined(macosx):
     {.passL: "-framework Cocoa -framework WebKit".}
     {.passC: "-I" & currentSourceDir / "webui/src/webview".}
-    
+
     {.compile: currentSourceDir / "webui/src/webview/wkwebview.m".}
   
   # fix for cpp
@@ -110,8 +110,10 @@ else:
   {.passC: "-DNDEBUG -DNO_CACHING -DNO_CGI -DUSE_WEBSOCKET".}
   {.compile: currentSourceDir / "webui/src/civetweb/civetweb.c".}
   {.compile: currentSourceDir / "webui/src/webui.c".}
-  {.compile: currentSourceDir / "webui/src/webview/win32_wv2.cpp".}
-  {.passL: "-lole32 -luuid".} # for win32_wv2
+
+  when defined(windows):
+    {.compile: currentSourceDir / "webui/src/webview/win32_wv2.cpp".}
+    {.passL: "-lole32 -luuid".} # for win32_wv2
 
   {.pragma: webui, cdecl.}
 
