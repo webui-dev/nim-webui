@@ -47,7 +47,7 @@ nimble install webui
 
 Online documentation can be found here:
   - <https://webui.me/docs/2.4.0/#/nim_api>
-  - <https://neroist.github.io/webui-docs/> (same thing but made in nimib)
+  - <https://yesdrx.github.io/nim-webui//> (docs in Nim format)
 
 I suggest to get started using some [examples](#examples) or WebUI's own [examples](https://github.com/webui-dev/webui/tree/main/examples) or [documentation](https://webui.me/docs/).
 
