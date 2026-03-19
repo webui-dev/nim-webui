@@ -327,6 +327,14 @@ proc set_kiosk*(window: csize_t; status: bool) {.webui, importc: "webui_set_kios
   ##
   ##  @example webui_set_kiosk(myWindow, true);
   ##
+proc focus*(window: csize_t) {.webui, importc: "webui_focus".}
+  ##
+  ##  @brief Bring a window to the front and focus it.
+  ##
+  ##  @param window The window number
+  ##
+  ##  @example webui_focus(myWindow);
+  ##
 proc set_custom_parameters*(window: csize_t; params: cstring) {.
     webui, importc: "webui_set_custom_parameters".}
   ##
@@ -380,6 +388,17 @@ proc wait*() {.webui, importc: "webui_wait".}
   ##  @brief Wait until all opened windows get closed.
   ##
   ##  @example webui_wait();
+  ##
+proc wait_async*(): bool {.webui, importc: "webui_wait_async".}
+  ##
+  ##  @brief Wait asynchronously until all opened windows get closed.
+  ##  Note: In WebView mode, you need to call this from the main thread.
+  ##
+  ##  @return Returns True if more windows are still opened, False otherwise.
+  ##
+  ##  @example while (webui_wait_async()) {
+  ##     // Your main thread code here
+  ##  }
   ##
 proc close*(window: csize_t) {.webui, importc: "webui_close".}
   ##

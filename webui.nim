@@ -45,6 +45,14 @@ proc wait*() =
 
   bindings.wait()
 
+proc waitAsync*(): bool =
+  ## Wait asynchronously until all opened windows get closed.
+  ## In WebView mode, call this from the main thread.
+  ##
+  ## Returns `true` if more windows are still open, `false` otherwise.
+
+  bindings.waitAsync()
+
 proc exit*() =
   ## Close all opened windows. `wait()` will break.
 
@@ -598,11 +606,18 @@ proc `pos=`*(window: Window; pos: tuple[x, y: int]) {.deprecated: "Use `setPos` 
 
   bindings.setPosition(csize_t window, cuint pos.x, cuint pos.y)
 
+proc focus*(window: Window) =
+  ## Bring a window to the front and focus it.
+  ##
+  ## :window: The window to focus.
+
+  bindings.focus(csize_t window)
+
 proc close*(window: Window) =
   ## Close a specific window only. The window object will still exist.
-  ## 
+  ##
   ## :window: The window to close.
-  
+
   bindings.close(csize_t window)
 
 proc closeClient*(event: Event) =
