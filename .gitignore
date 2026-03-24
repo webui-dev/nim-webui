@@ -11,3 +11,7 @@
 .vscode
 .vscode/*
 CLAUDE.md
+nimble.develop
+nimble.paths
+nimbledeps
+config.nims
